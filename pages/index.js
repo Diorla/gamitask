@@ -1,29 +1,32 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import { useEffect } from 'react'
-import { useUser } from '../context/userContext'
-import firebase from '../firebase/clientApp'
+import Head from "next/head";
+import Link from "next/link";
+import { useEffect } from "react";
+import styled from "styled-components";
+import { useUser } from "../context/userContext";
+import firebase from "../firebase/clientApp";
+import { FormattedMessage, FormattedNumber } from "react-intl";
 
+const Lnk = styled.a`
+  color: ${({ theme }) => theme.palette.link.color};
+`;
 export default function Home() {
-  // Our custom hook to get context values
-  const { loadingUser, user } = useUser()
+  const { loadingUser, user } = useUser();
 
-  const profile = { username: 'nextjs_user', message: 'Awesome!!' }
+  const profile = { username: "nextjs_user", message: "Awesome!!" };
 
   useEffect(() => {
     if (!loadingUser) {
-      // You know that the user is loaded: either logged in or out!
-      console.log(user)
+      console.log(user);
     }
-    // You also have your firebase app initialized
-    console.log(firebase)
-  }, [loadingUser, user])
+
+    console.log(firebase);
+  }, [loadingUser, user]);
 
   const createUser = async () => {
-    const db = firebase.firestore()
-    await db.collection('profile').doc(profile.username).set(profile)
-    alert('User created!!')
-  }
+    const db = firebase.firestore();
+    await db.collection("profile").doc(profile.username).set(profile);
+    alert("User created!!");
+  };
 
   return (
     <div className="container">
@@ -33,6 +36,17 @@ export default function Home() {
       </Head>
 
       <main>
+        <Lnk href="#">Hello</Lnk>
+        <p>
+          <FormattedMessage
+            id="myMessage"
+            defaultMessage="Today is {ts, date, ::yyyyMMdd}"
+            values={{ ts: Date.now() }}
+          />
+          <br />
+          <FormattedNumber value={19} style="currency" currency="EUR" />
+          <FormattedNumber value={19} id="money" />
+        </p>
         <h1 className="title">Next.js w/ Firebase Client-Side</h1>
         <p className="description">Fill in your credentials to get started</p>
 
@@ -196,5 +210,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
