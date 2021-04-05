@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { useUser } from "../context/userContext";
 import firebase from "../firebase/clientApp";
 import { FormattedMessage, FormattedNumber } from "react-intl";
+import { loginWithGoogle } from "../scripts/login";
+import createData from "../scripts/createData";
+import deleteData from "../scripts/deleteData";
 
 const Lnk = styled.a`
   color: ${({ theme }) => theme.palette.link.color};
@@ -12,22 +15,27 @@ const Lnk = styled.a`
 export default function Home() {
   const { loadingUser, user } = useUser();
 
-  const profile = { username: "nextjs_user", message: "Awesome!!" };
+  const profile = { username: "adedotster", message: "Peace" };
 
   useEffect(() => {
     if (!loadingUser) {
-      console.log(user);
+      console.log({ user });
     }
 
     console.log(firebase);
   }, [loadingUser, user]);
 
-  const createUser = async () => {
-    const db = firebase.firestore();
-    await db.collection("profile").doc(profile.username).set(profile);
-    alert("User created!!");
+  const create = () => {
+    createData("profile", "nextjs_user", profile)
+      .then((e) => console.log({ e }))
+      .catch((err) => console.log({ err }));
   };
 
+  const remove = () => {
+    deleteData("profile", "nextjs_user")
+      .then((e) => console.log({ e }))
+      .catch((err) => console.log({ err }));
+  };
   return (
     <div className="container">
       <Head>
@@ -37,6 +45,7 @@ export default function Home() {
 
       <main>
         <Lnk href="#">Hello</Lnk>
+        <button onClick={loginWithGoogle}>Login</button>
         <p>
           <FormattedMessage
             id="myMessage"
@@ -54,7 +63,8 @@ export default function Home() {
           Cloud Firestore Security Rules write permissions are required for
           adding users
         </p>
-        <button onClick={createUser}>Create 'nextjs_user'</button>
+        <button onClick={create}>Create 'nextjs_user'</button>
+        <button onClick={remove}>Delete 'nextjs_user'</button>
 
         <p className="description">
           Please press the link below after adding the user
