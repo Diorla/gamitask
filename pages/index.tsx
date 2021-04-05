@@ -45,7 +45,7 @@ export default function Home() {
 
       <main>
         <Lnk href="#">Hello</Lnk>
-        <button onClick={loginWithGoogle}>Login</button>
+        <button onClick={() => loginWithGoogle()}>Login</button>
         <p>
           <FormattedMessage
             id="myMessage"
@@ -54,7 +54,6 @@ export default function Home() {
           />
           <br />
           <FormattedNumber value={19} style="currency" currency="EUR" />
-          <FormattedNumber value={19} id="money" />
         </p>
         <h1 className="title">Next.js w/ Firebase Client-Side</h1>
         <p className="description">Fill in your credentials to get started</p>
