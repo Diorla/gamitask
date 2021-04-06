@@ -33,9 +33,9 @@ const palette: Palette = {
   },
   default: {
     main: white,
-    dark: black,
+    dark: gray,
     light: offwhite,
-    text: gray,
+    text: black,
   },
   link: {
     color: cornflowerblue,
