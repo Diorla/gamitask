@@ -1,9 +1,14 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
 import firebase from "../firebase/clientApp";
 import SignIn from "./SignIn";
+
+const Content = styled.div`
+  margin-top: 70px;
+`;
 
 const Control = ({ loadingUser, user, children }) => {
   if (loadingUser)
@@ -15,8 +20,8 @@ const Control = ({ loadingUser, user, children }) => {
   if (user)
     return (
       <div>
-        <Menu profileImage={user.photoURL} user={user} />
-        <div>{children}</div>
+        <Menu profileImage={user.photoURL} />
+        <Content>{children}</Content>
       </div>
     );
   return <SignIn />;

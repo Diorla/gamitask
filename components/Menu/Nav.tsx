@@ -7,4 +7,7 @@ export default styled.nav`
   color: ${({ theme }) => theme.palette.primary.text};
   height: 70px;
   align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;

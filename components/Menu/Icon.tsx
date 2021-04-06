@@ -21,7 +21,6 @@ const Icon = (icon: {
 const MenuIcon = Icon(TiPointOfInterest);
 const AddIcon = Icon(MdAdd);
 const PointIcon = Icon(MdTrendingUp);
-const HelpIcon = Icon(MdHelp);
 const NotificationIcon = Icon(MdNotifications);
 const UserIcon = Icon(MdAccountCircle);
 
@@ -29,7 +28,6 @@ export {
   MenuIcon,
   AddIcon,
   PointIcon,
-  HelpIcon,
   NotificationIcon,
   UserIcon,
   Icon as default,

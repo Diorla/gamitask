@@ -2,35 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import Nav from "./Nav";
 import {
-  UserIcon,
   MenuIcon,
   AddIcon,
   PointIcon,
-  HelpIcon,
   NotificationIcon,
 } from "./Icon";
-import Avatar from "./Avatar";
-import { PrimaryButton } from "../Button";
+import Dropdown from "./Dropdown";
 
-const Right = styled.div``;
+const Right = styled.div`
+  display: flex;
+`;
 
-export default function Menu({ profileImage, user }) {
-  const User = () =>
-    profileImage ? <Avatar src={profileImage} /> : <UserIcon />;
+export default function Menu({ profileImage }) {
   return (
     <Nav>
       <MenuIcon />
-      {user ? (
-        <Right>
-          <AddIcon />
-          <PointIcon />
-          <HelpIcon />
-          <NotificationIcon />
-          <User />
-        </Right>
-      ) : (
-        <PrimaryButton>Login</PrimaryButton>
-      )}
+      <Right>
+        <AddIcon />
+        <PointIcon />
+        <NotificationIcon />
+        <Dropdown profileImage={profileImage} />
+      </Right>
     </Nav>
   );
 }
