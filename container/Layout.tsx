@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
-import firebase from "../firebase/clientApp";
 import SignIn from "./SignIn";
 
 const Content = styled.div`
@@ -30,15 +29,6 @@ const Control = ({ loadingUser, user, children }) => {
 export default function Layout({ children }) {
   const { loadingUser, user } = useUser();
 
-  useEffect(() => {
-    if (!loadingUser) {
-      console.log({ user });
-    }
-
-    console.log(firebase);
-  }, [loadingUser, user]);
-
-  console.log({ user, loadingUser });
   return (
     <div className="container">
       <Head>
