@@ -15,7 +15,7 @@ const Control = ({ loadingUser, user, children }) => {
   if (user)
     return (
       <div>
-        <Menu profileImage={user.photoURL} />
+        <Menu profileImage={user.photoURL} user={user} />
         <div>{children}</div>
       </div>
     );
