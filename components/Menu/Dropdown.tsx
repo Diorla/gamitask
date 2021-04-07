@@ -6,6 +6,7 @@ import Avatar from "./Avatar";
 import DropdownItem from "./DropdownItem";
 import { UserIcon } from "./Icon";
 import { useClickAway } from "react-use";
+import Link from "next/link";
 
 const DropdownMenu = styled.div`
   position: fixed;
@@ -37,10 +38,18 @@ export default function Dropdown({ profileImage }) {
       <User onClick={() => setShowDropDownMenu(!showDropDownMenu)} />
       {showDropDownMenu && (
         <DropdownMenu>
-          <DropdownItem href="/">Profile</DropdownItem>
-          <DropdownItem href="/">Settings</DropdownItem>
-          <DropdownItem href="/">Help</DropdownItem>
-          <DropdownItem href="/">Stats</DropdownItem>
+          <Link href="/profile">
+            <DropdownItem>Profile</DropdownItem>
+          </Link>
+          <Link href="/settings">
+            <DropdownItem>Settings</DropdownItem>
+          </Link>
+          <Link href="/help">
+            <DropdownItem>Help</DropdownItem>
+          </Link>
+          <Link href="/stats">
+            <DropdownItem>Stats</DropdownItem>
+          </Link>
           <Divider />
           <DropdownItem onClick={logout}>Log out</DropdownItem>
         </DropdownMenu>
