@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
 import LayoutLoader from "./LayoutLoader";
-import NewUser from "./NewUser";
+import Welcome from "./Welcome";
 
 const Content = styled.div`
   margin-top: 70px;
@@ -24,7 +24,7 @@ const Control = ({ loadingUser, user, children }) => {
         <Content>{children}</Content>
       </div>
     );
-  return <NewUser />;
+  return <Welcome />;
 };
 
 export default function Layout({ children }) {

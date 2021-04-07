@@ -12,4 +12,8 @@ export default styled.button`
   &:focus {
     outline: none;
   }
+  &:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.8;
+  }
 `;
