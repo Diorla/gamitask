@@ -1,9 +1,10 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
-import SignIn from "./SignIn";
+import LayoutLoader from "./LayoutLoader";
+import NewUser from "./NewUser";
 
 const Content = styled.div`
   margin-top: 70px;
@@ -13,7 +14,7 @@ const Control = ({ loadingUser, user, children }) => {
   if (loadingUser)
     return (
       <div>
-        <div>Page is loading</div>
+        <LayoutLoader />
       </div>
     );
   if (user)
@@ -23,7 +24,7 @@ const Control = ({ loadingUser, user, children }) => {
         <Content>{children}</Content>
       </div>
     );
-  return <SignIn />;
+  return <NewUser />;
 };
 
 export default function Layout({ children }) {
