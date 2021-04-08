@@ -5,7 +5,9 @@ import Layout from "../container/Layout";
 export default function Home() {
   return (
     <Layout>
-      <AppContainer active="today">This is the content of today</AppContainer>
+      <AppContainer active="labels">
+        List of labels and their tasks
+      </AppContainer>
     </Layout>
   );
 }

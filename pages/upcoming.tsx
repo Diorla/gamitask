@@ -5,7 +5,9 @@ import Layout from "../container/Layout";
 export default function Home() {
   return (
     <Layout>
-      <AppContainer active="today">This is the content of today</AppContainer>
+      <AppContainer active="upcoming">
+        This is the content of upcoming
+      </AppContainer>
     </Layout>
   );
 }
