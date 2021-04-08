@@ -18,6 +18,34 @@ const cornflowerblue = "cornflowerblue";
 const blue = "cornflowerblue";
 const purple = "#673ab7";
 
+// TODO: create a valid function
+const darken = (a: string) => a;
+const lighten = (a: string) => a;
+
+const error = {
+  main: "#e83c3d",
+  dark: darken("#e83c3d"),
+  light: lighten("#e83c3d"),
+};
+
+const warning = {
+  main: "#ffac03",
+  dark: darken("#ffac03"),
+  light: lighten("#ffac03"),
+};
+
+const info = {
+  main: "#17b0f1",
+  dark: darken("#17b0f1"),
+  light: lighten("#17b0f1"),
+};
+
+const success = {
+  main: "#329b52",
+  dark: darken("#329b52"),
+  light: lighten("#329b52"),
+};
+
 const palette: Palette = {
   primary: {
     main: primaryColor,
@@ -44,6 +72,10 @@ const palette: Palette = {
     focus: blue,
     active: blue,
   },
+  error,
+  warning,
+  info,
+  success,
 };
 
 export default palette;
