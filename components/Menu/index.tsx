@@ -6,6 +6,11 @@ import Dropdown from "./Dropdown";
 import Link from "next/link";
 import CreateTask from "../../container/CreateTask";
 import Modal from "../Modal";
+import {
+  useTaskState,
+  useTaskDispatch,
+} from "../../container/CreateTask/context/Task";
+import { addTask } from "../../container/CreateTask/redux/actions";
 
 const Right = styled.div`
   display: flex;
@@ -16,7 +21,15 @@ const StyledLink = styled.a`
 `;
 
 export default function Menu({ profileImage }) {
-  const [addTaskVisible, setAddTaskVisible] = useState(false);
+  const { showModal } = useTaskState();
+  const taskDispatch = useTaskDispatch();
+
+  const toggleModal = (showModal: boolean) =>
+    taskDispatch(
+      addTask({
+        showModal,
+      })
+    );
   return (
     <Nav>
       <Link href="/">
@@ -25,7 +38,7 @@ export default function Menu({ profileImage }) {
         </StyledLink>
       </Link>
       <Right>
-        <AddIcon onClick={() => setAddTaskVisible(true)} />
+        <AddIcon onClick={() => toggleModal(true)} />
         <Link href="/points">
           <StyledLink>
             <PointIcon />
@@ -38,7 +51,7 @@ export default function Menu({ profileImage }) {
         </Link>
         <Dropdown profileImage={profileImage} />
       </Right>
-      <Modal visible={addTaskVisible} onClose={() => setAddTaskVisible(false)}>
+      <Modal visible={showModal} onClose={() => toggleModal(false)}>
         <CreateTask />
       </Modal>
     </Nav>

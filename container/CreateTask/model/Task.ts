@@ -15,4 +15,5 @@ export type Task = {
   priority?: number;
   difficulty?: number;
   project?: string;
+  showModal?: boolean;
 };

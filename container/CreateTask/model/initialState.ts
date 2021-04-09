@@ -17,4 +17,5 @@ export default {
   priority: 1,
   difficulty: 1,
   project: "Unsorted",
+  showModal: false,
 };
