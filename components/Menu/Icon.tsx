@@ -2,7 +2,6 @@ import { IconBaseProps } from "react-icons";
 import {
   MdAdd,
   MdTrendingUp,
-  MdHelp,
   MdNotifications,
   MdAccountCircle,
 } from "react-icons/md";

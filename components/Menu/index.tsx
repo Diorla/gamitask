@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Nav from "./Nav";
 import { MenuIcon, AddIcon, PointIcon, NotificationIcon } from "./Icon";
 import Dropdown from "./Dropdown";
 import Link from "next/link";
+import CreateTask from "../../container/CreateTask";
+import Modal from "../Modal";
 
 const Right = styled.div`
   display: flex;
@@ -14,6 +16,7 @@ const StyledLink = styled.a`
 `;
 
 export default function Menu({ profileImage }) {
+  const [addTaskVisible, setAddTaskVisible] = useState(false);
   return (
     <Nav>
       <Link href="/">
@@ -22,7 +25,7 @@ export default function Menu({ profileImage }) {
         </StyledLink>
       </Link>
       <Right>
-        <AddIcon />
+        <AddIcon onClick={() => setAddTaskVisible(true)} />
         <Link href="/points">
           <StyledLink>
             <PointIcon />
@@ -35,6 +38,9 @@ export default function Menu({ profileImage }) {
         </Link>
         <Dropdown profileImage={profileImage} />
       </Right>
+      <Modal visible={addTaskVisible} onClose={() => setAddTaskVisible(false)}>
+        <CreateTask />
+      </Modal>
     </Nav>
   );
 }
