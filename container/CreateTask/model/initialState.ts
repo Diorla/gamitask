@@ -16,4 +16,5 @@ export default {
   label: "",
   priority: 1,
   difficulty: 1,
+  project: "Unsorted",
 };

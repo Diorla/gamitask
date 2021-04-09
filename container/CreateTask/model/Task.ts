@@ -14,4 +14,5 @@ export type Task = {
   label?: string;
   priority?: number;
   difficulty?: number;
+  project?: string;
 };
