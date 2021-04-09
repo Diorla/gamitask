@@ -9,6 +9,7 @@ import breakpoints from "../theme/breakpoints";
 import elevation from "../theme/elevation";
 import priority from "../theme/priority";
 import lang from "../lang";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = {
   breakpoints,
@@ -24,14 +25,10 @@ export default function App({ Component, pageProps }) {
     setLocale(navigator.language);
   });
 
-  const translation = lang(locale)
+  const translation = lang(locale);
   return (
     <UserProvider>
-      <IntlProvider
-        messages={translation}
-        locale={locale}
-        defaultLocale="en"
-      >
+      <IntlProvider messages={translation} locale={locale} defaultLocale="en">
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
