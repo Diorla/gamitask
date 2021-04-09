@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
-import { useTaskState } from "./context/Task";
+import { useTaskDispatch, useTaskState } from "./context/Task";
 import { v4 } from "uuid";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import fetchData from "../../scripts/fetchData";
 import uniqueArray from "../../scripts/uniqueArray";
+import { addTask } from "./redux/actions";
+import initialState from "./model/initialState";
 
 export const Button = styled.button`
   font-size: 16px;
@@ -29,6 +31,7 @@ export default function TaskButton() {
   const { loadingUser, user } = useUser();
   const [labels, setLabels] = useState([]);
   const { name, label } = data;
+  const taskDispatch = useTaskDispatch();
 
   useEffect(() => {
     fetchData("user", `${user.uid}`)
@@ -64,6 +67,13 @@ export default function TaskButton() {
             toast.error(`${err}`);
           });
       })
+      .then(() => {
+        taskDispatch(
+          addTask({
+            ...initialState,
+          })
+        );
+      })
       .catch((err) => {
         toast.error(`${err}`);
       });
@@ -71,7 +81,6 @@ export default function TaskButton() {
   if (loadingUser) return null;
   return (
     <>
-      <ToastContainer position="bottom-center" />
       <Button disabled={!name} onClick={uploadTask}>
         Save
       </Button>

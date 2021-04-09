@@ -1,8 +1,10 @@
 import Head from "next/head";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
+import { TaskProvider } from "./CreateTask/context/Task";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 
@@ -31,15 +33,18 @@ export default function Layout({ children }) {
   const { loadingUser, user } = useUser();
 
   return (
-    <div className="container">
-      <Head>
-        <title>Next.js w/ Firebase Client-Side</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <TaskProvider>
+      <ToastContainer position="bottom-center" />
+      <div className="container">
+        <Head>
+          <title>Next.js w/ Firebase Client-Side</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <Control loadingUser={loadingUser} user={user}>
-        {children}
-      </Control>
-    </div>
+        <Control loadingUser={loadingUser} user={user}>
+          {children}
+        </Control>
+      </div>
+    </TaskProvider>
   );
 }

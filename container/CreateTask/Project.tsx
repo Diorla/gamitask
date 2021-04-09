@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
 import fetchData from "../../scripts/fetchData";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useTaskDispatch, useTaskState } from "./context/Task";
 import { addTask } from "./redux/actions";
 
@@ -51,12 +51,11 @@ export default function Project() {
       .then(() => setList([...list, newProject]))
       .then(() => setProject(newProject))
       .then(() => setNewProject(""))
-      .then(() => toast("Project created"))
+      .then(() => toast.info("Project created"))
       .catch((err) => console.log({ err }));
   };
   return (
     <div>
-      <ToastContainer />
       <Select>
         <label htmlFor="project">Select group:</label>
         <select

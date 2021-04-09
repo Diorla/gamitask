@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { TaskProvider } from "./context/Task";
 import Nav from "./Nav";
 import Routing from "./Routing";
 import TaskButton from "./TaskButton";
@@ -21,18 +20,16 @@ export default function CreateTask() {
   const [currentSection, setCurrentSection] = useState("");
 
   return (
-    <TaskProvider>
-      <Styled>
-        <TaskName />
-        <Controls>
-          <Nav
-            currentSection={currentSection}
-            setCurrentSection={setCurrentSection}
-          />
-          <TaskButton />
-        </Controls>
-        <div>{currentSection && <Routing route={currentSection} />}</div>
-      </Styled>
-    </TaskProvider>
+    <Styled>
+      <TaskName />
+      <Controls>
+        <Nav
+          currentSection={currentSection}
+          setCurrentSection={setCurrentSection}
+        />
+        <TaskButton />
+      </Controls>
+      <div>{currentSection && <Routing route={currentSection} />}</div>
+    </Styled>
   );
 }
