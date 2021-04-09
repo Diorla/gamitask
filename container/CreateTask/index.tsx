@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TaskProvider } from "./context/Task";
-import {
-  ReminderIcon,
-  DueDateIcon,
-  LabelIcon,
-  PriorityIcon,
-  DifficultyIcon,
-  ProjectIcon,
-} from "./Icon";
+import Nav from "./Nav";
 import Routing from "./Routing";
 import TaskButton from "./TaskButton";
 import TaskName from "./TaskName";
@@ -32,38 +25,10 @@ export default function CreateTask() {
       <Styled>
         <TaskName />
         <Controls>
-          <div>
-            <ReminderIcon
-              colour="red"
-              active={currentSection === "Reminder"}
-              onClick={() => setCurrentSection("Reminder")}
-            />
-            <DueDateIcon
-              colour="#87bc43"
-              active={currentSection === "DueDate"}
-              onClick={() => setCurrentSection("DueDate")}
-            />
-            <LabelIcon
-              colour="#ffac03"
-              active={currentSection === "Label"}
-              onClick={() => setCurrentSection("Label")}
-            />
-            <PriorityIcon
-              colour="#329b52"
-              active={currentSection === "Priority"}
-              onClick={() => setCurrentSection("Priority")}
-            />
-            <DifficultyIcon
-              colour="rgb(244, 67, 54)"
-              active={currentSection === "Difficulty"}
-              onClick={() => setCurrentSection("Difficulty")}
-            />
-            <ProjectIcon
-              colour="#7843bc"
-              active={currentSection === "Project"}
-              onClick={() => setCurrentSection("Project")}
-            />
-          </div>
+          <Nav
+            currentSection={currentSection}
+            setCurrentSection={setCurrentSection}
+          />
           <TaskButton />
         </Controls>
         <div>{currentSection && <Routing route={currentSection} />}</div>
