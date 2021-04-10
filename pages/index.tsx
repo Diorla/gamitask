@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
-import { useUser } from "../context/userContext";
-import watchData from "../scripts/watchData";
+import { useTaskList } from "../context/taskListContext";
+// import { useUser } from "../context/userContext";
+// import watchData from "../scripts/watchData";
 
 const TaskWrapper = styled.div`
   box-shadow: 0 0 2px silver;
@@ -18,13 +19,6 @@ const Corner = styled.div`
   padding: 2px;
 `;
 
-/**
- * Pl: play/pause icon
- * C: checkbox
- * D: difficulty
- * Pr: priority
- * A: has alarm/reminder
- */
 const TaskCard = ({ data }) => {
   return (
     <TaskWrapper>
@@ -41,19 +35,11 @@ const TaskCard = ({ data }) => {
 };
 
 export default function Home() {
-  const { loadingUser, user } = useUser();
-  const [list, setList] = useState([]);
-  useEffect(() => {
-    if (user)
-      watchData(`user/${user.uid}/tasks`, setList)
-        .then(() => console.log("done"))
-        .catch((err) => console.log({ err }));
-  }, [user]);
-  if (loadingUser) return null;
+  const taskList = useTaskList();
   return (
     <Layout>
       <AppContainer active="today">
-        {list.map((item, idx) => (
+        {taskList.map((item, idx) => (
           <TaskCard data={item} key={idx} />
         ))}
       </AppContainer>
