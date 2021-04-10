@@ -10,6 +10,8 @@ import elevation from "../theme/elevation";
 import priority from "../theme/priority";
 import lang from "../lang";
 import "react-toastify/dist/ReactToastify.css";
+import { TaskProvider } from "../context/taskContext";
+import { ToastContainer } from "react-toastify";
 
 const theme = {
   breakpoints,
@@ -30,7 +32,10 @@ export default function App({ Component, pageProps }) {
     <UserProvider>
       <IntlProvider messages={translation} locale={locale} defaultLocale="en">
         <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
+          <TaskProvider>
+            <ToastContainer position="bottom-center" />
+            <Component {...pageProps} />
+          </TaskProvider>
         </ThemeProvider>
       </IntlProvider>
     </UserProvider>

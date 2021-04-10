@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useTaskDispatch, useTaskState } from "./context/Task";
-import { addTask } from "./redux/actions";
+import { useTaskDispatch, useTaskState } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 
 const InputDiv = styled.div`
   width: 100%;

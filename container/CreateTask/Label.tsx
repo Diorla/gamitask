@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "../../components/Form/Input";
-import { useTaskDispatch, useTaskState } from "./context/Task";
-import { addTask } from "./redux/actions";
+import { useTaskDispatch, useTaskState } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 
 const trim = (str: string) => str.trim();
 

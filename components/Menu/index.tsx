@@ -6,11 +6,8 @@ import Dropdown from "./Dropdown";
 import Link from "next/link";
 import CreateTask from "../../container/CreateTask";
 import Modal from "../Modal";
-import {
-  useTaskState,
-  useTaskDispatch,
-} from "../../container/CreateTask/context/Task";
-import { addTask } from "../../container/CreateTask/redux/actions";
+import { useTaskState, useTaskDispatch } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 
 const Right = styled.div`
   display: flex;

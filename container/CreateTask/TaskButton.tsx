@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
-import { useTaskDispatch, useTaskState } from "./context/Task";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import fetchData from "../../scripts/fetchData";
 import uniqueArray from "../../scripts/uniqueArray";
-import { addTask } from "./redux/actions";
-import initialState from "./model/initialState";
+import { useTaskState, useTaskDispatch } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
+import initialState from "../../context/taskContext/initialState";
 
 export const Button = styled.button`
   font-size: 16px;

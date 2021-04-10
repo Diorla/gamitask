@@ -1,4 +1,4 @@
-import { Task } from "../model/Task";
+import TaskProps from "./TaskProps";
 
 export enum TaskActionTypes {
   CREATE_TASK = "CREATE_TASK",
@@ -8,21 +8,21 @@ export enum TaskActionTypes {
 
 export type TaskAction = {
   type: TaskActionTypes;
-  payload?: Task;
+  payload?: TaskProps;
 };
 
 /**
  * Create more actions to be more specific, like setDifficulty, setLabel, setReminder etc
  * Hence, I could update the model/Task to match each action
  */
-export const addTask = (task: Task) => {
+export const addTask = (task: TaskProps) => {
   return {
     type: TaskActionTypes.CREATE_TASK,
     payload: task,
   };
 };
 
-export const removeTask = (task: Task) => {
+export const removeTask = (task: TaskProps) => {
   return {
     type: TaskActionTypes.REMOVE_TASK
   };

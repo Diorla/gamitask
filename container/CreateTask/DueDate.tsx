@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { useTaskDispatch, useTaskState } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 import getDateTimeString from "../../scripts/getDateTimeString";
-import { useTaskDispatch, useTaskState } from "./context/Task";
-import { addTask } from "./redux/actions";
 
 const Styled = styled.div`
   display: flex;

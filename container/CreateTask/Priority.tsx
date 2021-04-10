@@ -1,8 +1,8 @@
 import React from "react";
 import { FaFlag } from "react-icons/fa";
 import styled from "styled-components";
-import { useTaskDispatch, useTaskState } from "./context/Task";
-import { addTask } from "./redux/actions";
+import { useTaskDispatch, useTaskState } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 import Row from "./Row";
 import Select from "./Select";
 

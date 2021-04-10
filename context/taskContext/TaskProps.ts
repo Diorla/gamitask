@@ -1,4 +1,4 @@
-export type Task = {
+export default interface Task {
   name?: string;
   reminder?: {
     type: string;

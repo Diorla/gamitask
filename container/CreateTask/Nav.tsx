@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTaskState } from "./context/Task";
+import { useTaskState } from "../../context/taskContext";
 import {
   ReminderIcon,
   DueDateIcon,

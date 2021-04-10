@@ -1,10 +1,10 @@
 import React, { useReducer } from "react";
-import initialState from "../model/initialState";
-import { Task } from "../model/Task";
-import { TaskAction } from "../redux/actions";
-import { taskReducer } from "../redux/reducer";
+import initialState from "./initialState";
+import TaskProps from "./TaskProps";
+import { TaskAction } from "./actions";
+import { taskReducer } from "./reducer";
 
-export const TaskState = React.createContext<Task | undefined>(undefined);
+export const TaskState = React.createContext<TaskProps | undefined>(undefined);
 
 export const TaskDispatch = React.createContext<
   React.Dispatch<TaskAction> | undefined
@@ -19,7 +19,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useTaskState = (): Task => {
+export const useTaskState = (): TaskProps => {
   const context = React.useContext(TaskState);
   if (undefined === context) {
     throw new Error("Please use within TaskListStateProvider");

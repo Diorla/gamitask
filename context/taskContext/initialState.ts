@@ -1,4 +1,4 @@
-import getDateTimeString from "../../../scripts/getDateTimeString";
+import getDateTimeString from "../../scripts/getDateTimeString";
 
 export default {
   name: "",

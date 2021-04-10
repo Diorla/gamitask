@@ -4,8 +4,8 @@ import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
 import fetchData from "../../scripts/fetchData";
 import { toast } from "react-toastify";
-import { useTaskDispatch, useTaskState } from "./context/Task";
-import { addTask } from "./redux/actions";
+import { useTaskDispatch, useTaskState } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 
 const Select = styled.div`
   margin-bottom: 4px;
