@@ -10,6 +10,7 @@
     "@types/uuid": "^8.3.0",
     "cron-time-generator": "^1.2.0",
     "cronstrue": "^1.111.0",
+    "date-fns": "^2.20.1",
     "firebase": "8.3.2",
     "firebase-admin": "9.6.0",
     "globby": "^11.0.3",
