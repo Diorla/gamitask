@@ -6,11 +6,10 @@ import Task from "../context/taskContext/TaskProps";
 import TaskCollection from "../container/TaskCollection";
 import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
-
 dayjs.extend(isToday);
 
 const filterToday = (item: Task) =>
-  item.dueDate && dayjs(item.dueDate).isToday();
+  item.dueDate && dayjs(item.dueDate).isToday() && !filterBeforeNow(item);
 
 const filterBeforeNow = (item: Task) =>
   item.dueDate && dayjs(item.dueDate).isBefore(new Date());

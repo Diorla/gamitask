@@ -21,7 +21,7 @@ const Corner = styled.div`
 `;
 
 const formatDateTime = (dueDate: string | number | Date, type: string) => {
-  const time = dueDate && dayjs(dueDate).format("HH:mm");
+  const time = dueDate && dayjs(dueDate).format("HH:mm A");
   const dateTime = dueDate && dayjs(dueDate).format("llll");
   const countdown = dueDate && dayjs().from(dayjs(dueDate), true);
 
