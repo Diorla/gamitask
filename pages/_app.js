@@ -3,6 +3,7 @@ import { IntlProvider } from "react-intl";
 import { useEffect, useState } from "react";
 import UserProvider from "../context/userContext";
 import TaskListProvider from "../context/taskListContext";
+import UserInfoProvider from "../context/userInfoContext";
 import "../styles/global.css";
 import palette from "../theme/palette";
 import transform from "../theme/transform";
@@ -34,10 +35,12 @@ export default function App({ Component, pageProps }) {
       <IntlProvider messages={translation} locale={locale} defaultLocale="en">
         <ThemeProvider theme={theme}>
           <TaskListProvider>
-            <TaskProvider>
-              <ToastContainer position="bottom-center" />
-              <Component {...pageProps} />
-            </TaskProvider>
+            <UserInfoProvider>
+              <TaskProvider>
+                <ToastContainer position="bottom-center" />
+                <Component {...pageProps} />
+              </TaskProvider>
+            </UserInfoProvider>
           </TaskListProvider>
         </ThemeProvider>
       </IntlProvider>

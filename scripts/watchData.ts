@@ -14,4 +14,16 @@ const watchData = async (collection: string, callback: (e: any[]) => void) => {
   });
 };
 
+export const watchDoc = async (
+  collection: string,
+  document: string,
+  callback: (arg0: firebase.firestore.DocumentData) => void
+) => {
+  const db = firebase.firestore();
+
+  const doc = db.collection(collection).doc(document);
+
+  doc.onSnapshot((doc) => callback(doc.data()));
+};
+
 export default watchData;

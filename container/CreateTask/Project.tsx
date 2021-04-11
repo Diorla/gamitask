@@ -6,6 +6,7 @@ import fetchData from "../../scripts/fetchData";
 import { toast } from "react-toastify";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
+import toTitleCase from "../../scripts/toTitleCase";
 
 const Select = styled.div`
   margin-bottom: 4px;
@@ -15,8 +16,6 @@ const Select = styled.div`
     padding: 4px;
   }
 `;
-
-const toUpperCase = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export default function Project() {
   const [list, setList] = useState([]);
@@ -73,7 +72,7 @@ export default function Project() {
       <div>
         <input
           value={newProject}
-          onChange={(e) => setNewProject(toUpperCase(e.target.value))}
+          onChange={(e) => setNewProject(toTitleCase(e.target.value))}
         />{" "}
         {newProject && !list.includes(newProject) && (
           <button onClick={() => addNewProject()}>create</button>
