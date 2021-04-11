@@ -8,6 +8,10 @@ import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
 dayjs.extend(isToday);
 
+/**
+ * ?//TODO: Update filter
+ * Create a more extensive filter that will consider repeat to determine if it's overdue
+ */
 const filterToday = (item: Task) =>
   item.dueDate && dayjs(item.dueDate).isToday() && !filterBeforeNow(item);
 
