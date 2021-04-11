@@ -33,7 +33,11 @@ export default function Layout({ children }) {
   return (
     <div className="container">
       <Head>
-        <title>Next.js w/ Firebase Client-Side</title>
+        <title>Gamitask</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Control loadingUser={loadingUser} user={user}>

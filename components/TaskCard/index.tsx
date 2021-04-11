@@ -1,5 +1,10 @@
-import { format, formatDistance } from "date-fns/fp";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import styled from "styled-components";
+
+dayjs.extend(relativeTime);
+dayjs.extend(localizedFormat);
 
 const TaskWrapper = styled.div`
   box-shadow: 0 0 2px silver;
@@ -16,9 +21,10 @@ const Corner = styled.div`
 `;
 
 const formatDateTime = (dueDate: string | number | Date, type: string) => {
-  const time = dueDate && format("HH:mm", new Date(dueDate));
-  const dateTime = dueDate && format("HH:mm, dd-mm-yyyy", new Date(dueDate));
-  const countdown = dueDate && formatDistance(new Date(), new Date(dueDate));
+  const time = dueDate && dayjs(dueDate).format("HH:mm");
+  const dateTime = dueDate && dayjs(dueDate).format("llll");
+  const countdown = dueDate && dayjs().from(dayjs(dueDate), true);
+
   if (type === "today") {
     return time;
   } else if (type === "overdue") {
