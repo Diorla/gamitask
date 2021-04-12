@@ -2,6 +2,8 @@ import Head from "next/head";
 import React from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
+import RunningTask from "../components/TaskCard/RunningTask";
+import { useCurrentTaskState } from "../context/currentTaskContext";
 import { useUser } from "../context/userContext";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
@@ -29,6 +31,7 @@ const Control = ({ loadingUser, user, children }) => {
 
 export default function Layout({ children }) {
   const { loadingUser, user } = useUser();
+  const { id } = useCurrentTaskState();
 
   return (
     <div className="container">
@@ -42,6 +45,7 @@ export default function Layout({ children }) {
       </Head>
       <Control loadingUser={loadingUser} user={user}>
         {children}
+        {id && <RunningTask />}
       </Control>
     </div>
   );

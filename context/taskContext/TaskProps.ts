@@ -1,4 +1,5 @@
 export default interface Task {
+  id?: string;
   name?: string;
   startTime?: string; // date & time
   event?: string; //"once" | "n-times" | "forever";
@@ -15,7 +16,7 @@ export default interface Task {
   difficulty?: number;
   project?: string;
   showModal?: boolean;
-  done?: []; // generated when checked
+  done?: string[]; // generated when checked, consist of dates
   countdowns?: { [key: string]: any }; // used to keep record of the countdown, updated when completed
   points?: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
 }

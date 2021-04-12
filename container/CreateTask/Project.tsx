@@ -19,7 +19,7 @@ const Select = styled.div`
 
 export default function Project() {
   const [list, setList] = useState([]);
-  const { loadingUser, user } = useUser();
+  const { user } = useUser();
   const [newProject, setNewProject] = useState("");
 
   const taskDispatch = useTaskDispatch();

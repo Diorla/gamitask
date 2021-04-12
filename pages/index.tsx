@@ -6,6 +6,7 @@ import Task from "../context/taskContext/TaskProps";
 import TaskCollection from "../container/TaskCollection";
 import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
+import { useCurrentTaskState } from "../context/currentTaskContext";
 dayjs.extend(isToday);
 
 /**
@@ -35,10 +36,18 @@ const filterBeforeNow = (item: Task) =>
 const sortSoonToLater = (prev: Task, next: Task) =>
   new Date(prev.startTime) > new Date(next.startTime) ? 1 : -1;
 
+const removeRunningTask = (item: Task, id: string) => item.id !== id;
 export default function Home() {
   const taskList = useTaskList();
-  const overdueTasks = taskList.filter(filterBeforeNow).sort(sortSoonToLater);
-  const todayTasks = taskList.filter(filterToday).sort(sortSoonToLater);
+  const { id } = useCurrentTaskState();
+  const overdueTasks = taskList
+    .filter(filterBeforeNow)
+    .filter((item) => removeRunningTask(item, id))
+    .sort(sortSoonToLater);
+  const todayTasks = taskList
+    .filter(filterToday)
+    .filter((item) => removeRunningTask(item, id))
+    .sort(sortSoonToLater);
   return (
     <Layout>
       <AppContainer active="today">

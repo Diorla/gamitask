@@ -101,7 +101,6 @@ export default function Yearly() {
     );
   };
 
-  console.log({ reminder });
   return (
     <div>
       <Input>

@@ -13,6 +13,7 @@ import priority from "../theme/priority";
 import lang from "../lang";
 import "react-toastify/dist/ReactToastify.css";
 import { TaskProvider } from "../context/taskContext";
+import { CurrentTaskProvider } from "../context/currentTaskContext";
 import { ToastContainer } from "react-toastify";
 
 const theme = {
@@ -37,8 +38,10 @@ export default function App({ Component, pageProps }) {
           <TaskListProvider>
             <UserInfoProvider>
               <TaskProvider>
-                <ToastContainer position="bottom-center" />
-                <Component {...pageProps} />
+                <CurrentTaskProvider>
+                  <ToastContainer position="bottom-center" />
+                  <Component {...pageProps} />
+                </CurrentTaskProvider>
               </TaskProvider>
             </UserInfoProvider>
           </TaskListProvider>

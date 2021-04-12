@@ -41,12 +41,27 @@ const InputNumber = styled.input`
 `;
 export default function DueDate() {
   const taskDispatch = useTaskDispatch();
-  const { startTime, event } = useTaskState();
+  const {
+    startTime,
+    event,
+    reminder,
+    reminder: { count },
+  } = useTaskState();
 
   const setStartDate = (n: string) =>
     taskDispatch(
       addTask({
         startTime: n,
+      })
+    );
+
+  const setCount = (count: number) =>
+    taskDispatch(
+      addTask({
+        reminder: {
+          ...reminder,
+          count,
+        },
       })
     );
 
@@ -59,7 +74,7 @@ export default function DueDate() {
   };
   const minDate = getDateTimeString(new Date());
   const errorLog = minDate > startTime ? "Please set a future date" : "";
-  
+
   return (
     <div>
       <Row>
@@ -89,6 +104,8 @@ export default function DueDate() {
             type="number"
             min={2}
             onFocus={() => setEvent("n-times")}
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
           />{" "}
           time(s)
         </label>
