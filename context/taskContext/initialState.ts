@@ -2,17 +2,15 @@ import getDateTimeString from "../../scripts/getDateTimeString";
 
 export default {
   name: "",
+  event: "once",
   reminder: {
     type: "daily",
     nth: false,
     count: 1,
-    startDate: getDateTimeString(new Date()),
-    time: "",
-    weekdays: [],
-    date: "",
+    days: [],
     months: [],
   },
-  dueDate: "",
+  startTime: getDateTimeString(new Date()),
   label: "",
   priority: 1,
   difficulty: 1,

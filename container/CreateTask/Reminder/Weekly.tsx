@@ -1,14 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
-
-const Input = styled.div`
-  margin-bottom: 4px;
-  & > input {
-    border: none;
-    border-bottom: 1px solid silver;
-    padding: 4px;
-  }
-`;
+import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
+import { addTask } from "../../../context/taskContext/actions";
 
 const NumberInput = styled.input`
   width: 50px;
@@ -46,34 +38,37 @@ const DayButton = styled.button<{ active: boolean }>`
 `;
 
 export default function Weekly() {
-  const [week, setWeek] = useState({
-    nth: false,
-    time: "",
-    count: 2,
-    weekdays: [],
-    startDate: new Date(), // use it calculate next reminder
-  });
-  const { count, weekdays, time, nth } = week;
+  const {
+    reminder,
+    reminder: { count, days, nth },
+  } = useTaskState();
+  const taskDispatch = useTaskDispatch();
+
+  const setWeek = (value: {
+    days?: string[];
+    nth?: boolean;
+    count?: number;
+  }) => {
+    taskDispatch(
+      addTask({
+        reminder: {
+          ...reminder,
+          ...value,
+        },
+      })
+    );
+  };
 
   return (
     <div>
-      <Input>
-        <label>Time:</label>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setWeek({ ...week, time: e.target.value })}
-        />
-      </Input>
       <div>
         {listOfDays.map((item, idx) => (
           <DayButton
             key={idx}
-            active={weekdays.includes(item)}
+            active={days.includes(item)}
             onClick={() =>
               setWeek({
-                ...week,
-                weekdays: addRemoveItemFromArray(item, weekdays),
+                days: addRemoveItemFromArray(item, days),
               })
             }
           >
@@ -86,7 +81,7 @@ export default function Weekly() {
           type="radio"
           name="week-type"
           checked={!nth}
-          onChange={() => setWeek({ ...week, nth: false })}
+          onChange={() => setWeek({ nth: false })}
         />{" "}
         <label>Every week</label>
       </div>
@@ -95,7 +90,7 @@ export default function Weekly() {
           type="radio"
           name="week-type"
           checked={nth}
-          onChange={() => setWeek({ ...week, nth: true, count: 2 })}
+          onChange={() => setWeek({ nth: true })}
         />{" "}
         <label>Every</label>{" "}
         <NumberInput
@@ -103,7 +98,7 @@ export default function Weekly() {
           min={2}
           disabled={!nth}
           value={count}
-          onChange={(e) => setWeek({ ...week, count: Number(e.target.value) })}
+          onChange={(e) => setWeek({ count: Number(e.target.value) })}
         />
         weeks
       </div>

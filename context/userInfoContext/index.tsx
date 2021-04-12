@@ -11,7 +11,6 @@ export default function UserInfoContextWrapper({ children }) {
   useEffect(() => {
     if (user && user.uid)
       watchDoc("user", user.uid, setUserInfo)
-        .then(() => console.log("done"))
         .catch((err) => console.log({ err }));
   }, [loadingUser]);
 

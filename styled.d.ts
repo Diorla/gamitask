@@ -1,5 +1,6 @@
 import "styled-components";
 
+// TODO: Use storyx theme and change colours to purple, chocolate and gold
 declare module "styled-components" {
   // device breakpoints
   export interface Breakpoints {

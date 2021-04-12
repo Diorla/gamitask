@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
+import { addTask } from "../../../context/taskContext/actions";
 
 const days = {
   JAN: 31,
@@ -78,35 +80,31 @@ const MonthButton = styled.button<{ active: boolean }>`
 `;
 
 export default function Yearly() {
-  const [year, setYear] = useState({
-    nth: false,
-    count: 2,
-    months: [],
-    time: "",
-    date: 1,
-    startDate: new Date(),
-  });
-  const { nth, count, months, time, date } = year;
+  const {
+    reminder,
+    reminder: { count, months, nth },
+  } = useTaskState();
+  const taskDispatch = useTaskDispatch();
 
+  const setYear = (value: {
+    months?: string[];
+    nth?: boolean;
+    count?: number;
+  }) => {
+    taskDispatch(
+      addTask({
+        reminder: {
+          ...reminder,
+          ...value,
+        },
+      })
+    );
+  };
+
+  console.log({ reminder });
   return (
     <div>
       <Input>
-        <label>Time:</label>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setYear({ ...year, time: e.target.value })}
-        />
-      </Input>
-      <Input>
-        <label>Date:</label>
-        <input
-          type="number"
-          min={1}
-          max={getMaxDate(months)}
-          value={date}
-          onChange={(e) => setYear({ ...year, date: Number(e.target.value) })}
-        />
         <div>
           {monthList.map((item, idx) => (
             <MonthButton
@@ -114,7 +112,6 @@ export default function Yearly() {
               active={months.includes(item)}
               onClick={() =>
                 setYear({
-                  ...year,
                   months: addRemoveItemFromArray(item, months),
                 })
               }
@@ -129,7 +126,7 @@ export default function Yearly() {
           type="radio"
           name="year-type"
           checked={!nth}
-          onChange={() => setYear({ ...year, nth: false })}
+          onChange={() => setYear({ nth: false })}
         />{" "}
         <label>Every year</label>
       </div>
@@ -138,7 +135,7 @@ export default function Yearly() {
           type="radio"
           name="year-type"
           checked={nth}
-          onChange={() => setYear({ ...year, nth: true, count: 2 })}
+          onChange={() => setYear({ nth: true })}
         />{" "}
         <label>Every</label>{" "}
         <NumberInput
@@ -146,7 +143,7 @@ export default function Yearly() {
           min={2}
           disabled={!nth}
           value={count}
-          onChange={(e) => setYear({ ...year, count: Number(e.target.value) })}
+          onChange={(e) => setYear({ count: Number(e.target.value) })}
         />
         years
       </div>

@@ -25,9 +25,10 @@ export default function Reminder() {
         },
       })
     );
-  const { type = "daily" } = reminder;
+  const { type } = reminder;
   return (
     <div>
+      <hr />
       <Select>
         <label htmlFor="period">Select group:</label>
         <select

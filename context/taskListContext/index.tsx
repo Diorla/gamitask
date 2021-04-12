@@ -12,7 +12,6 @@ export default function TaskListContextWrapper({ children }) {
   useEffect(() => {
     if (user && user.uid)
       watchData(`user/${user.uid}/tasks`, setTaskList)
-        .then(() => console.log("done"))
         .catch((err) => console.log({ err }));
   }, [loadingUser]);
 

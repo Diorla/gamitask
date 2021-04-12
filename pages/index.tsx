@@ -27,13 +27,13 @@ dayjs.extend(isToday);
  *
  */
 const filterToday = (item: Task) =>
-  item.dueDate && dayjs(item.dueDate).isToday() && !filterBeforeNow(item);
+  item.startTime && dayjs(item.startTime).isToday() && !filterBeforeNow(item);
 
 const filterBeforeNow = (item: Task) =>
-  item.dueDate && dayjs(item.dueDate).isBefore(new Date());
+  item.startTime && dayjs(item.startTime).isBefore(new Date());
 
 const sortSoonToLater = (prev: Task, next: Task) =>
-  new Date(prev.dueDate) > new Date(next.dueDate) ? 1 : -1;
+  new Date(prev.startTime) > new Date(next.startTime) ? 1 : -1;
 
 export default function Home() {
   const taskList = useTaskList();

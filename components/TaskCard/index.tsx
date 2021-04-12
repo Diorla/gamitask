@@ -20,10 +20,10 @@ const Corner = styled.div`
   padding: 2px;
 `;
 
-const formatDateTime = (dueDate: string | number | Date, type: string) => {
-  const time = dueDate && dayjs(dueDate).format("HH:mm A");
-  const dateTime = dueDate && dayjs(dueDate).format("llll");
-  const countdown = dueDate && dayjs().from(dayjs(dueDate), true);
+const formatDateTime = (startTime: string | number | Date, type: string) => {
+  const time = startTime && dayjs(startTime).format("HH:mm A");
+  const dateTime = startTime && dayjs(startTime).format("llll");
+  const countdown = startTime && dayjs().from(dayjs(startTime), true);
 
   if (type === "today") {
     return time;
@@ -34,7 +34,7 @@ const formatDateTime = (dueDate: string | number | Date, type: string) => {
 };
 
 const TaskCard = ({ data, type }) => {
-  const time = formatDateTime(data.dueDate, type);
+  const time = formatDateTime(data.startTime, type);
   return (
     <TaskWrapper>
       <TaskChild>

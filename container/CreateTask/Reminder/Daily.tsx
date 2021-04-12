@@ -48,19 +48,11 @@ export default function Daily() {
       })
     );
 
-  const { count, time, nth } = reminder;
+  const { count, nth } = reminder;
   const errorLog = setError(count, 2, 6);
 
   return (
     <div>
-      <Input>
-        <label>Time:</label>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setReminder({ time: e.target.value })}
-        />
-      </Input>
       <div>
         <input
           type="radio"

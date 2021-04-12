@@ -9,7 +9,6 @@ import toTitleCase from "../scripts/toTitleCase";
 const unlabelled = "egj9b39bn2217352b06a6178c0e95f431f30ej5ra";
 
 const getLabelCollection = (taskList: any[]) => {
-  console.log(taskList.length);
   const tempCollection = {
     [unlabelled]: [],
   };

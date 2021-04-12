@@ -23,12 +23,12 @@ export default function createDateCollection(list: any[]) {
   };
   try {
     list.forEach((item: any) => {
-      const year = dayjs(item.dueDate).year();
-      const quarter = dayjs(item.dueDate).quarter();
-      const month = dayjs(item.dueDate).month();
-      const week = dayjs(item.dueDate).week();
+      const year = dayjs(item.startTime).year();
+      const quarter = dayjs(item.startTime).quarter();
+      const month = dayjs(item.startTime).month();
+      const week = dayjs(item.startTime).week();
 
-      if (dayjs(item.dueDate).isTomorrow()) {
+      if (dayjs(item.startTime).isTomorrow()) {
         tempCollection["tomorrow"].push(item);
       } else if (week === dayjs(new Date()).week()) {
         tempCollection["week"].push(item);

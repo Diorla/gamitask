@@ -16,8 +16,7 @@ const Icon = (icon: {
   color: ${({ colour, active }) => (active ? colour : "silver")};
 `;
 
-export const ReminderIcon = Icon(GiAlarmClock);
-export const DueDateIcon = Icon(FaCalendarAlt);
+export const ReminderIcon = Icon(FaCalendarAlt);
 export const LabelIcon = Icon(MdLabel);
 export const PriorityIcon = Icon(FaFlag);
 export const RepeatIcon = Icon(MdRepeat);

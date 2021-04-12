@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useTaskState } from "../../context/taskContext";
 import {
   ReminderIcon,
-  DueDateIcon,
   LabelIcon,
   PriorityIcon,
   DifficultyIcon,
@@ -38,24 +37,14 @@ export default function Nav({ currentSection, setCurrentSection }) {
     label,
     priority,
     project,
-    dueDate,
-    reminder,
+    startTime
   } = useTaskState();
 
   return (
     <Wrapper>
       <ReminderIcon
-        colour="red"
-        active={!!reminder.time}
-        onClick={() => {
-          currentSection === "Reminder"
-            ? setCurrentSection("")
-            : setCurrentSection("Reminder");
-        }}
-      />
-      <DueDateIcon
         colour="#87bc43"
-        active={!!dueDate}
+        active={!!startTime}
         onClick={() => {
           currentSection === "DueDate"
             ? setCurrentSection("")

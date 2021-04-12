@@ -8,10 +8,10 @@ import createDateCollection from "../scripts/createDateCollection";
 import dayjs from "dayjs";
 
 const filterAfterToday = (item: Task) =>
-  item.dueDate && dayjs(item.dueDate).isAfter(new Date(), "day");
+  item.startTime && dayjs(item.startTime).isAfter(new Date(), "day");
 
 const sortSoonToLater = (prev: Task, next: Task) =>
-  new Date(prev.dueDate) > new Date(next.dueDate) ? 1 : -1;
+  new Date(prev.startTime) > new Date(next.startTime) ? 1 : -1;
 
 export default function Upcoming() {
   const taskList = useTaskList();

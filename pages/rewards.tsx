@@ -2,6 +2,10 @@ import React from "react";
 import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 
+/**
+ * ?//TODO: Add reward modal
+ * @returns sfs
+ */
 export default function Home() {
   return (
     <Layout>
