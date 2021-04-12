@@ -9,7 +9,7 @@ import DifficultyDD from "./DifficultyDD";
 import PriorityDD from "./PriorityDD";
 
 const Wrapper = styled.div`
-  margin-top: 70px;
+  margin-top: 50px;
   display: flex;
 `;
 

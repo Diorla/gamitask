@@ -9,7 +9,7 @@ import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 
 const Content = styled.div`
-  margin-top: 70px;
+  margin-top: 50px;
 `;
 
 const Control = ({ loadingUser, user, children }) => {

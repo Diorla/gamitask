@@ -14,7 +14,7 @@ import { useUserInfo } from "../../context/userInfoContext";
 
 const StyledDiv = styled.div`
   position: fixed;
-  top: 70px;
+  top: 50px;
   width: 100%;
   background: ${({ theme }) => theme.palette.primary.dark};
   color: white;
