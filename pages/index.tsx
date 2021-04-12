@@ -14,19 +14,6 @@ dayjs.extend(isToday);
  * Create a more extensive filter that will consider repeat to determine if it's overdue
  */
 
-/**
- * ?//TODO: Countdown
- * Whenever a countdown is created, there will be a firebase store with the following information
- * - task id
- * - start time
- * It will be at the user info currentTask = {taskId: id1234, startTime: new Date()}
- * So even if the user closes the tab an reopens, it will continue the countdown.
- * And whenever page reloads, it will check for any running task, calculate the time and
- * continue the countdown.
- * Of course, whenever the user stops the countdown, it will clear the task id and start time.
- * And it will record it.
- *
- */
 const filterToday = (item: Task) =>
   item.startTime && dayjs(item.startTime).isToday() && !filterBeforeNow(item);
 
@@ -48,6 +35,7 @@ export default function Home() {
     .filter(filterToday)
     .filter((item) => removeRunningTask(item, id))
     .sort(sortSoonToLater);
+
   return (
     <Layout>
       <AppContainer active="today">

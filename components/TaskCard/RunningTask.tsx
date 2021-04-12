@@ -28,19 +28,27 @@ const StyledDiv = styled.div`
 
 export default function RunningTask() {
   const [count, setCount] = useState(0);
-  const { name, startTime, priority, difficulty } = useCurrentTaskState();
+  const { name, startTime, priority, difficulty, id, countdowns } = useCurrentTaskState();
   const { user } = useUser();
   const { points: pt } = useUserInfo();
   const taskDispatch = useCurrentTaskDispatch();
 
   const closeTask = () => {
-    let points = (Date.now() - startTime) * priority * difficulty;
+    const timeDiff = Date.now() - startTime;
+    let points = timeDiff * priority * difficulty;
     points /= 18482.52;
     points += pt;
     points = Math.floor(points);
-
+    const now = "t" + Date.now()
     createData("user", user.uid, {
       points,
+    }).then(()=> {
+      createData("user", `${user.uid}/tasks/${id}`, {
+        countdowns: {
+          ...countdowns,
+          [now]: timeDiff
+        }
+      })
     })
       .then(() => taskDispatch(endTask()))
       .catch((err) => console.log({ err }));

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
+import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
 
 const NumberInput = styled.input`
   width: 50px;
@@ -12,14 +13,6 @@ const NumberInput = styled.input`
     border: 1px solid red;
   }
 `;
-
-function addRemoveItemFromArray<type>(item: type, arr: type[]) {
-  if (arr.includes(item)) {
-    const idx = arr.indexOf(item);
-    return [...arr.slice(0, idx), ...arr.slice(idx + 1)];
-  }
-  return [...arr, item];
-}
 
 const listOfDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 

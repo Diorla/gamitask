@@ -1,7 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
+import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
 
 const days = {
   JAN: 31,
@@ -17,6 +17,7 @@ const days = {
   NOV: 30,
   DEC: 31,
 };
+
 const Input = styled.div`
   margin-bottom: 4px;
   display: flex;
@@ -39,14 +40,6 @@ const NumberInput = styled.input`
   }
 `;
 
-function addRemoveItemFromArray<type>(item: type, arr: type[]) {
-  if (arr.includes(item)) {
-    const idx = arr.indexOf(item);
-    return [...arr.slice(0, idx), ...arr.slice(idx + 1)];
-  }
-  return [...arr, item];
-}
-
 const monthList = [
   "JAN",
   "FEB",
@@ -61,9 +54,6 @@ const monthList = [
   "NOV",
   "DEC",
 ];
-
-const getMaxDate = (list: string[]) =>
-  list.length ? Math.min(...list.map((item: string) => days[item])) : 31;
 
 const MonthButton = styled.button<{ active: boolean }>`
   background-color: ${({ active, theme }) =>

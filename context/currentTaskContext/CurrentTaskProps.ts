@@ -4,4 +4,5 @@ export default interface Task {
   startTime: number;
   priority: number;
   difficulty: number;
+  countdowns: { [key: string]: any };
 }

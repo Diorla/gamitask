@@ -4,4 +4,5 @@ export default {
   startTime: Date.now(),
   priority: 1,
   difficulty: 1,
+  countdowns: {},
 };
