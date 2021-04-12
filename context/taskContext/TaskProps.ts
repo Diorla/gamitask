@@ -16,7 +16,7 @@ export default interface Task {
   difficulty?: number;
   project?: string;
   showModal?: boolean;
-  done?: string[]; // generated when checked, consist of dates
+  done?: number[]; // generated when checked, consist of dates
   countdowns?: { [key: string]: any }; // used to keep record of the countdown, updated when completed
   points?: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
 }
