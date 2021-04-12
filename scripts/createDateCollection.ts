@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import { toast } from "react-toastify";
 dayjs.extend(quarterOfYear);
 dayjs.extend(weekOfYear);
 dayjs.extend(isTomorrow);
@@ -46,8 +47,8 @@ export default function createDateCollection(list: any[]) {
         tempCollection["further"].push(item);
       }
     });
-  } catch (error) {
-    console.log({ error });
+  } catch (err) {
+    toast.error(err);
   }
   return tempCollection;
 }

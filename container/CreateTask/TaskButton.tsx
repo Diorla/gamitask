@@ -50,7 +50,7 @@ export default function TaskButton() {
           labels && setLabels(labels);
         }
       })
-      .catch((err) => console.log({ err }));
+      .catch((err) => toast.error(err));
   }, []);
 
   const uploadTask = () => {

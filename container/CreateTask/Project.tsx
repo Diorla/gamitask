@@ -40,7 +40,7 @@ export default function Project() {
           setList(projects);
         }
       })
-      .catch((err) => console.log({ err }));
+      .catch((err) => toast.error(err));
   }, []);
 
   const addNewProject = () => {
@@ -51,7 +51,7 @@ export default function Project() {
       .then(() => setProject(newProject))
       .then(() => setNewProject(""))
       .then(() => toast.info("Project created"))
-      .catch((err) => console.log({ err }));
+      .catch((err) => toast.error(err));
   };
   return (
     <div>

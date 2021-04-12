@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import fetchData from "../scripts/fetchData";
 
 export default function About() {
@@ -12,7 +13,7 @@ export default function About() {
       .then((res: { username: string; message: string }) =>
         setProfile({ ...res, isLoading: false })
       )
-      .catch((err) => console.log({ err }));
+      .catch((err) => toast.error(err));
   }, []);
   if (profile.isLoading) return <div>Loading</div>;
   return (

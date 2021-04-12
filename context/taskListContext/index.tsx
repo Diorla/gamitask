@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import { toast } from "react-toastify";
 import watchData from "../../scripts/watchData";
 import TaskProps from "../taskContext/TaskProps";
 import { useUser } from "../userContext";
@@ -11,8 +12,9 @@ export default function TaskListContextWrapper({ children }) {
 
   useEffect(() => {
     if (user && user.uid)
-      watchData(`user/${user.uid}/tasks`, setTaskList)
-        .catch((err) => console.log({ err }));
+      watchData(`user/${user.uid}/tasks`, setTaskList).catch((err) =>
+        toast.error(err)
+      );
   }, [loadingUser]);
 
   return (

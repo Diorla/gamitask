@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import { toast } from "react-toastify";
 import { watchDoc } from "../../scripts/watchData";
 import { useUser } from "../userContext";
 
@@ -10,8 +11,7 @@ export default function UserInfoContextWrapper({ children }) {
 
   useEffect(() => {
     if (user && user.uid)
-      watchDoc("user", user.uid, setUserInfo)
-        .catch((err) => console.log({ err }));
+      watchDoc("user", user.uid, setUserInfo).catch((err) => toast.error(err));
   }, [loadingUser]);
 
   return (

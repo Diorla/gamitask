@@ -11,6 +11,7 @@ import { endTask } from "../../context/currentTaskContext/actions";
 import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
 import { useUserInfo } from "../../context/userInfoContext";
+import { toast } from "react-toastify";
 
 const StyledDiv = styled.div`
   position: fixed;
@@ -51,7 +52,7 @@ export default function RunningTask() {
       })
     })
       .then(() => taskDispatch(endTask()))
-      .catch((err) => console.log({ err }));
+      .catch((err) => toast.error(err));
   };
   useInterval(() => {
     setCount(Date.now() - startTime);
