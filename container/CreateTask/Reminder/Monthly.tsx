@@ -16,11 +16,11 @@ const NumberInput = styled.input`
 export default function Monthly() {
   const {
     reminder,
-    reminder: { count, nth },
+    reminder: { frequency, nth },
   } = useTaskState();
   const taskDispatch = useTaskDispatch();
 
-  const setMonth = (value: { nth?: boolean; count?: number }) => {
+  const setMonth = (value: { nth?: boolean; frequency?: number }) => {
     taskDispatch(
       addTask({
         reminder: {
@@ -54,8 +54,8 @@ export default function Monthly() {
           type="number"
           min={2}
           disabled={!nth}
-          value={count}
-          onChange={(e) => setMonth({ count: Number(e.target.value) })}
+          value={frequency}
+          onChange={(e) => setMonth({ frequency: Number(e.target.value) })}
         />
         months
       </div>

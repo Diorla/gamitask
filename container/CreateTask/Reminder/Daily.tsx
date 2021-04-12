@@ -48,8 +48,8 @@ export default function Daily() {
       })
     );
 
-  const { count, nth } = reminder;
-  const errorLog = setError(count, 2, 6);
+  const { nth, frequency } = reminder;
+  const errorLog = setError(frequency, 2, 6);
 
   return (
     <div>
@@ -75,10 +75,10 @@ export default function Daily() {
           min={2}
           max={6}
           disabled={!nth}
-          value={count}
+          value={frequency}
           onChange={(e) =>
             setReminder({
-              count: putNumberInRange(Number(e.target.value), 2, 6),
+              frequency: putNumberInRange(Number(e.target.value), 2, 6),
             })
           }
         />

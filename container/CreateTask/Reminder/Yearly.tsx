@@ -82,14 +82,14 @@ const MonthButton = styled.button<{ active: boolean }>`
 export default function Yearly() {
   const {
     reminder,
-    reminder: { count, months, nth },
+    reminder: { frequency, months, nth },
   } = useTaskState();
   const taskDispatch = useTaskDispatch();
 
   const setYear = (value: {
     months?: string[];
     nth?: boolean;
-    count?: number;
+    frequency?: number;
   }) => {
     taskDispatch(
       addTask({
@@ -142,8 +142,8 @@ export default function Yearly() {
           type="number"
           min={2}
           disabled={!nth}
-          value={count}
-          onChange={(e) => setYear({ count: Number(e.target.value) })}
+          value={frequency}
+          onChange={(e) => setYear({ frequency: Number(e.target.value) })}
         />
         years
       </div>

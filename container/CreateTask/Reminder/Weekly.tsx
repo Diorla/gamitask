@@ -40,14 +40,14 @@ const DayButton = styled.button<{ active: boolean }>`
 export default function Weekly() {
   const {
     reminder,
-    reminder: { count, days, nth },
+    reminder: { frequency, days, nth },
   } = useTaskState();
   const taskDispatch = useTaskDispatch();
 
   const setWeek = (value: {
     days?: string[];
     nth?: boolean;
-    count?: number;
+    frequency?: number;
   }) => {
     taskDispatch(
       addTask({
@@ -97,8 +97,8 @@ export default function Weekly() {
           type="number"
           min={2}
           disabled={!nth}
-          value={count}
-          onChange={(e) => setWeek({ count: Number(e.target.value) })}
+          value={frequency}
+          onChange={(e) => setWeek({ frequency: Number(e.target.value) })}
         />
         weeks
       </div>

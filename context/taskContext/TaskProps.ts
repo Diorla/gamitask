@@ -3,6 +3,7 @@ export default interface Task {
   startTime?: string; // date & time
   event?: string; //"once" | "n-times" | "forever";
   reminder?: {
+    frequency: number; // every n days/weeks/months/years
     count: number; // used for n-times, to indicate how many times
     type: string; // daily, weekly, monthly, yearly
     nth: boolean; // e.g. true: everyday, false: every n day
@@ -14,4 +15,7 @@ export default interface Task {
   difficulty?: number;
   project?: string;
   showModal?: boolean;
+  done?: []; // generated when checked
+  countdowns?: { [key: string]: any }; // used to keep record of the countdown, updated when completed
+  points?: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
 }
