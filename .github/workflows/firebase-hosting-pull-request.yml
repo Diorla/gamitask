@@ -9,15 +9,11 @@ jobs:
   runs-on: ubuntu-latest
   steps:
     - name: Checkout Repo
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
     - name: Install Dependencies
       run: npm install
     - name: Export
       run: npm run export
-  build_and_preview:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
