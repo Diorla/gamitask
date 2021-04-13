@@ -1,20 +1,24 @@
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCurrentTaskDispatch } from "../../context/currentTaskContext";
 import { startTask } from "../../context/currentTaskContext/actions";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
+import notifyUser from "../../scripts/notifyUser";
 import formatDateTime from "./formatDateTime";
 import PlayStop from "./PlayStop";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
+import schedule from "node-schedule";
 
 const TodayTask = ({ data, type }) => {
   const time = formatDateTime(data.startTime, type);
   const taskDispatch = useCurrentTaskDispatch();
   const { user } = useUser();
 
-  const { id, name, priority, difficulty, countdowns, done } = data;
+  const { id, name, priority, difficulty, countdowns, done, startTime } = data;
+
+  console.log({ startTime });
   const beginTask = () => {
     taskDispatch(
       startTask({
@@ -34,6 +38,14 @@ const TodayTask = ({ data, type }) => {
       done: addRemoveItemFromArray(dateId, done),
     });
   };
+
+  useEffect(() => {
+    // TODO: Implement schedule, like 20 minutes before due date.
+    const date = new Date(startTime);
+    schedule.scheduleJob(date, function () {
+      notifyUser(`${name}`);
+    });
+  }, []);
 
   return (
     <TaskWrapper>

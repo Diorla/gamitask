@@ -40,20 +40,22 @@ const NumberInput = styled.input`
   }
 `;
 
-const monthList = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
+const monthInYears = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "July",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
+
+const monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 const MonthButton = styled.button<{ active: boolean }>`
   background-color: ${({ active, theme }) =>
@@ -77,7 +79,7 @@ export default function Yearly() {
   const taskDispatch = useTaskDispatch();
 
   const setYear = (value: {
-    months?: string[];
+    months?: number[];
     nth?: boolean;
     frequency?: number;
   }) => {
@@ -105,7 +107,7 @@ export default function Yearly() {
                 })
               }
             >
-              {item}
+              {monthInYears[item]}
             </MonthButton>
           ))}
         </div>

@@ -8,8 +8,8 @@ export default interface Task {
     count: number; // used for n-times, to indicate how many times
     type: string; // daily, weekly, monthly, yearly
     nth: boolean; // e.g. true: everyday, false: every n day
-    days: string[]; // if it's weekly, the days in the week
-    months: string[]; // if it's year, the months
+    days: number[]; // if it's weekly, the days in the week
+    months: number[]; // if it's year, the months
   };
   label?: string;
   priority?: number;

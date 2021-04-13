@@ -13,8 +13,8 @@ const NumberInput = styled.input`
     border: 1px solid red;
   }
 `;
-
-const listOfDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const listOfDays = [0, 1, 2, 3, 4, 5, 6];
 
 const DayButton = styled.button<{ active: boolean }>`
   background-color: ${({ active, theme }) =>
@@ -38,7 +38,7 @@ export default function Weekly() {
   const taskDispatch = useTaskDispatch();
 
   const setWeek = (value: {
-    days?: string[];
+    days?: number[];
     nth?: boolean;
     frequency?: number;
   }) => {
@@ -65,7 +65,7 @@ export default function Weekly() {
               })
             }
           >
-            {item}
+            {weekdays[item]}
           </DayButton>
         ))}
       </div>
