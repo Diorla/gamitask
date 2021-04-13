@@ -1,4 +1,4 @@
-import getDateTimeString from "../../scripts/getDateTimeString";
+
 
 export default {
   name: "",
@@ -11,7 +11,7 @@ export default {
     days: [],
     months: [],
   },
-  startTime: getDateTimeString(new Date()),
+  startTime: "",
   label: "",
   priority: 1,
   difficulty: 1,

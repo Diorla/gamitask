@@ -4,6 +4,7 @@ import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import getDateTimeString from "../../scripts/getDateTimeString";
 import Reminder from "./Reminder";
+import { extractTime, updateTime, extractDate, updateDate } from "./timeFn";
 
 const Row = styled.div`
   display: flex;
@@ -19,20 +20,6 @@ const Row = styled.div`
     color: ${({ theme }) => theme.palette.error.main};
   }
 `;
-
-const extractDate = (dt) => dt.split("T")[0];
-const extractTime = (dt) => dt.split("T")[1];
-
-const updateDate = (init, next) => {
-  const dtArr = init.split("T");
-  dtArr[0] = next;
-  return dtArr.join("T");
-};
-const updateTime = (init, next) => {
-  const dtArr = init.split("T");
-  dtArr[1] = next;
-  return dtArr.join("T");
-};
 
 const InputNumber = styled.input`
   border: none;
@@ -72,8 +59,6 @@ export default function DueDate() {
       })
     );
   };
-  const minDate = getDateTimeString(new Date());
-  const errorLog = minDate > startTime ? "Please set a future date" : "";
 
   return (
     <div>
@@ -124,7 +109,6 @@ export default function DueDate() {
           onChange={(e) => setStartDate(updateDate(startTime, e.target.value))}
         />
       )}
-      {event === "once" && <span style={{ color: "red" }}>{errorLog}</span>}
       {event !== "once" && <Reminder />}
     </div>
   );

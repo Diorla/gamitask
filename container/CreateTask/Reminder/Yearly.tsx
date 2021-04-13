@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
+import { extractDate, updateDate } from "../timeFn";
 
+// TODO: Add date selection
 const days = {
   JAN: 31,
   FEB: 29,
@@ -73,6 +75,7 @@ const MonthButton = styled.button<{ active: boolean }>`
 
 export default function Yearly() {
   const {
+    startTime,
     reminder,
     reminder: { frequency, months, nth },
   } = useTaskState();
@@ -93,8 +96,20 @@ export default function Yearly() {
     );
   };
 
+  const setStartDate = (n: string) =>
+    taskDispatch(
+      addTask({
+        startTime: n,
+      })
+    );
+
   return (
     <div>
+      <input
+        type="date"
+        value={extractDate(startTime)}
+        onChange={(e) => setStartDate(updateDate(startTime, e.target.value))}
+      />
       <Input>
         <div>
           {monthList.map((item, idx) => (

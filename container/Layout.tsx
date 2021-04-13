@@ -34,7 +34,7 @@ export default function Layout({ children }) {
   const { id } = useCurrentTaskState();
 
   return (
-    <div className="container">
+    <div>
       <Head>
         <title>Gamitask</title>
         <meta
