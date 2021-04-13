@@ -87,7 +87,7 @@ export default function Rewards() {
   return (
     <Layout>
       <AppContainer active="rewards">
-        <h2>Total points: {points}</h2>
+        <h2>Points: {points}</h2>
         <Add onClick={() => setIsAddVisible(!isAddVisible)}>
           <MdAddBox /> Add
         </Add>
