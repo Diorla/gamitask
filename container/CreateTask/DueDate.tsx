@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import getDateTimeString from "../../scripts/getDateTimeString";
 import Reminder from "./Reminder";
 import { extractTime, updateTime, extractDate, updateDate } from "./timeFn";
 
@@ -63,10 +62,12 @@ export default function DueDate() {
   return (
     <div>
       <Row>
+        <label htmlFor="datetime">Start:</label>
         <input
-          type="time"
-          value={extractTime(startTime)}
-          onChange={(e) => setStartDate(updateTime(startTime, e.target.value))}
+          id="datetime"
+          type="datetime-local"
+          value={startTime}
+          onChange={(e) => setStartDate(e.target.value)}
         />
       </Row>
       <h4>Repeat</h4>

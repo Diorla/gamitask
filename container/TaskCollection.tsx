@@ -15,8 +15,8 @@ export default function TaskCollection({ data, type, title }) {
     return (
       <div>
         <Title onClick={() => setExpanded(!expanded)}>
-          {title}
           {expanded ? <MdExpandLess /> : <MdExpandMore />}
+          {title}
         </Title>
         {expanded && (
           <div>

@@ -18,7 +18,6 @@ const TodayTask = ({ data, type }) => {
 
   const { id, name, priority, difficulty, countdowns, done, startTime } = data;
 
-  console.log({ startTime });
   const beginTask = () => {
     taskDispatch(
       startTask({

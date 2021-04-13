@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
-import { extractDate, updateDate } from "../timeFn";
 
-// TODO: Add date selection
 const NumberInput = styled.input`
   width: 50px;
   border: none;
@@ -17,7 +15,6 @@ const NumberInput = styled.input`
 
 export default function Monthly() {
   const {
-    startTime,
     reminder,
     reminder: { frequency, nth },
   } = useTaskState();
@@ -34,20 +31,8 @@ export default function Monthly() {
     );
   };
 
-  const setStartDate = (n: string) =>
-    taskDispatch(
-      addTask({
-        startTime: n,
-      })
-    );
-
   return (
     <div>
-      <input
-        type="date"
-        value={extractDate(startTime)}
-        onChange={(e) => setStartDate(updateDate(startTime, e.target.value))}
-      />
       <div>
         <input
           type="radio"
