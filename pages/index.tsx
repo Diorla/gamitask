@@ -8,17 +8,18 @@ import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import { useUserInfo } from "../context/userInfoContext";
+import getTimeMs from "../scripts/getTimeMs";
 dayjs.extend(isToday);
 
+// TODO: Fix page error on refreshing
 const sortSoonToLater = (prev: Task, next: Task) =>
-  new Date(prev.startTime) > new Date(next.startTime) ? 1 : -1;
+  getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
 export default function Home() {
   const taskList = useTaskList();
-  const {
-    runningTask: { id },
-  } = useUserInfo();
+  const { runningTask } = useUserInfo();
 
+  const id = runningTask && runningTask.id;
   const { completed, overdue, today } = filter(
     taskList.sort(sortSoonToLater),
     id

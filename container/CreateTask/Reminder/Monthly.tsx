@@ -1,64 +1,32 @@
-import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 
-const NumberInput = styled.input`
-  width: 50px;
-  border: none;
-  border-bottom: 1px solid silver;
-  text-align: center;
-  padding-left: 8px;
-  &:invalid {
-    border: 1px solid red;
-  }
-`;
-
+const arr = new Array(31);
+arr.fill("");
 export default function Monthly() {
-  const {
-    reminder,
-    reminder: { frequency, nth },
-  } = useTaskState();
+  const { dateInMonth } = useTaskState();
   const taskDispatch = useTaskDispatch();
 
-  const setMonth = (value: { nth?: boolean; frequency?: number }) => {
+  const setMonth = (dateInMonth: number) => {
     taskDispatch(
       addTask({
-        reminder: {
-          ...reminder,
-          ...value,
-        },
+        dateInMonth,
       })
     );
   };
 
   return (
     <div>
-      <div>
-        <input
-          type="radio"
-          name="month-type"
-          checked={!nth}
-          onChange={() => setMonth({ nth: false })}
-        />{" "}
-        <label>Every month</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          name="month-type"
-          checked={nth}
-          onChange={() => setMonth({ nth: true })}
-        />{" "}
-        <label>Every</label>{" "}
-        <NumberInput
-          type="number"
-          min={2}
-          disabled={!nth}
-          value={frequency}
-          onChange={(e) => setMonth({ frequency: Number(e.target.value) })}
-        />
-        months
-      </div>
+      <label htmlFor="date">Date: </label>
+      <select
+        onChange={(e) => setMonth(Number(e.target.value))}
+        value={dateInMonth}
+        id="date"
+      >
+        {arr.map((_item, idx) => (
+          <option value={idx + 1}>{idx + 1}</option>
+        ))}
+      </select>
     </div>
   );
 }

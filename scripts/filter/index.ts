@@ -1,69 +1,103 @@
+import dayjs from "dayjs";
 import Task from "../../context/taskContext/TaskProps";
+import filterDaily from "./filterDaily";
 import filterDoneOnce from "./filterDoneOnce";
-import filterEvent from "./filterEvent";
-import filterForever from "./filterForever";
-import filterNTimes from "./filterNTimes";
+import filterMonthly from "./filterMonthly";
+import filterWeekly from "./filterWeekly";
+import filterYearly from "./filterYearly";
 
+const assignToCollection = (
+  value: any,
+  item: any,
+  archive: any[],
+  upcoming: any[],
+  today: any[],
+  overdue: any[]
+) => {
+  switch (value) {
+    case "archive":
+      archive.push(item);
+      break;
+
+    case "upcoming":
+      upcoming.push(item);
+      break;
+
+    case "today":
+      today.push(item);
+      break;
+
+    case "overdue":
+      overdue.push(item);
+      break;
+
+    default:
+      break;
+  }
+};
 export default function filterToday(taskList: Task[], runningId: string) {
   let running: Task;
-  const rest = [];
   const archive = [];
   const upcoming = [];
   const today = [];
   const overdue = [];
   const completed = [];
 
-  // First remove running task
+  const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
   taskList.forEach((item) => {
-    if (item.id === runningId) running = item;
-    else rest.push(item);
+    if (item.done.includes(dateId)) completed.push(item);
+    else if (item.id === runningId) running = item;
+    else {
+      if (item.repeat) {
+        if (item.reminder.type === "daily") {
+          assignToCollection(
+            filterDaily(item),
+            item,
+            archive,
+            upcoming,
+            today,
+            overdue
+          );
+        } else if (item.reminder.type === "weekly") {
+          assignToCollection(
+            filterWeekly(item),
+            item,
+            archive,
+            upcoming,
+            today,
+            overdue
+          );
+        } else if (item.reminder.type === "monthly") {
+          assignToCollection(
+            filterMonthly(item),
+            item,
+            archive,
+            upcoming,
+            today,
+            overdue
+          );
+        } else {
+          assignToCollection(
+            filterYearly(item),
+            item,
+            archive,
+            upcoming,
+            today,
+            overdue
+          );
+        }
+      } else {
+        assignToCollection(
+          filterDoneOnce(item),
+          item,
+          archive,
+          upcoming,
+          today,
+          overdue
+        );
+      }
+    }
   });
-
-  //Break them into three categories
-  const { once, nTimes, forever } = filterEvent(rest);
-
-  // Breakdown one time event
-  const {
-    onceArchived,
-    onceCompleted,
-    onceUpcoming,
-    onceToday,
-    onceOverdue,
-  } = filterDoneOnce(once);
-
-  archive.push(...onceArchived);
-  upcoming.push(...onceUpcoming);
-  today.push(...onceToday);
-  overdue.push(...onceOverdue);
-  completed.push(...onceCompleted);
-
-  // Breakdown n times event
-  const {
-    nTimesArchived,
-    nTimesCompleted,
-    nTimesUpcoming,
-    nTimesToday,
-    nTimesOverdue,
-  } = filterNTimes(nTimes);
-
-  archive.push(...nTimesArchived);
-  upcoming.push(...nTimesUpcoming);
-  today.push(...nTimesToday);
-  overdue.push(...nTimesOverdue);
-  completed.push(...nTimesCompleted);
-
-  // Breakdown forever event
-  const {
-    foreverCompleted,
-    foreverUpcoming,
-    foreverToday,
-    foreverOverdue,
-  } = filterForever(forever);
-
-  archive.push(...foreverCompleted);
-  upcoming.push(...foreverUpcoming);
-  today.push(...foreverToday);
-  overdue.push(...foreverOverdue);
 
   return {
     archive,

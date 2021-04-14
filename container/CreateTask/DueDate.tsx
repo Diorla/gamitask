@@ -20,41 +20,30 @@ const Row = styled.div`
   }
 `;
 
-const InputNumber = styled.input`
-  border: none;
-  border-bottom: 1px solid silver;
-  width: 40px;
-`;
 export default function DueDate() {
   const taskDispatch = useTaskDispatch();
-  const {
-    startTime,
-    event,
-    reminder,
-    reminder: { count },
-  } = useTaskState();
+  const { repeat, date, time } = useTaskState();
 
-  const setStartDate = (n: string) =>
+  const setEvent = (repeat: boolean) => {
     taskDispatch(
       addTask({
-        startTime: n,
+        repeat,
       })
     );
+  };
 
-  const setCount = (count: number) =>
+  const setDate = (date: string) => {
     taskDispatch(
       addTask({
-        reminder: {
-          ...reminder,
-          count,
-        },
+        date,
       })
     );
+  };
 
-  const setEvent = (n: "once" | "n-times" | "forever") => {
+  const setTime = (time: string) => {
     taskDispatch(
       addTask({
-        event: n,
+        time,
       })
     );
   };
@@ -62,55 +51,42 @@ export default function DueDate() {
   return (
     <div>
       <Row>
-        <label htmlFor="datetime">Start:</label>
-        <input
-          id="datetime"
-          type="datetime-local"
-          value={startTime}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-      </Row>
-      <h4>Repeat</h4>
-      <Row>
         <input
           id="never"
           type="radio"
-          checked={event === "once"}
-          onClick={() => setEvent("once")}
+          checked={!repeat}
+          onChange={() => setEvent(!repeat)}
         />{" "}
         <label htmlFor="never">Once</label>
         <input
-          id="n-times"
+          id="repeat"
           type="radio"
-          checked={event === "n-times"}
-          onClick={() => setEvent("n-times")}
+          checked={repeat}
+          onChange={() => setEvent(!repeat)}
         />{" "}
-        <label htmlFor="n-times">
-          <InputNumber
-            type="number"
-            min={2}
-            onFocus={() => setEvent("n-times")}
-            value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
-          />{" "}
-          time(s)
-        </label>
-        <input
-          id="forever"
-          type="radio"
-          checked={event === "forever"}
-          onClick={() => setEvent("forever")}
-        />{" "}
-        <label htmlFor="forever">Forever</label>
+        <label htmlFor="repeat">Repeat</label>
       </Row>
-      {event === "once" && (
+      <div>
+        <label htmlFor="time">Time: </label>
         <input
-          type="date"
-          value={extractDate(startTime)}
-          onChange={(e) => setStartDate(updateDate(startTime, e.target.value))}
+          type="time"
+          id="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
         />
+      </div>
+      {!repeat && (
+        <>
+          <label htmlFor="date">Date: </label>
+          <input
+            type="date"
+            id="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </>
       )}
-      {event !== "once" && <Reminder />}
+      {repeat && <Reminder />}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import TaskCollection from "../container/TaskCollection";
 // import createDateCollection from "../scripts/createDateCollection";
 // import dayjs from "dayjs";
 import filter from "../scripts/filter";
+import getTimeMs from "../scripts/getTimeMs";
 //! TODO: Filter upcoming into different segments
 /**
  * Break upcoming into tomorrow, next week etc as commented out
@@ -15,7 +16,7 @@ import filter from "../scripts/filter";
 //   item.startTime && dayjs(item.startTime).isAfter(new Date(), "day");
 
 const sortSoonToLater = (prev: Task, next: Task) =>
-  new Date(prev.startTime) > new Date(next.startTime) ? 1 : -1;
+  getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
 export default function Upcoming() {
   const taskList = useTaskList();

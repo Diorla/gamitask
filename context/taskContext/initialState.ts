@@ -1,17 +1,14 @@
-
-
 export default {
   name: "",
-  event: "once",
+  repeat: false,
+  date: "",
+  time: "",
+  dateInMonth: 1,
   reminder: {
-    frequency: 1,
     type: "daily",
-    nth: false,
-    count: 1,
     days: [],
     months: [],
   },
-  startTime: "",
   label: "",
   priority: 1,
   difficulty: 1,

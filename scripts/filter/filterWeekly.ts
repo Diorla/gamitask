@@ -1,24 +1,24 @@
 import dayjs from "dayjs";
 import TaskProps from "../../context/taskContext/TaskProps";
+import isBeforeNow from "./isBeforeNow";
 
 export default function filterWeekly(item: TaskProps) {
   const {
-    startTime,
-    reminder: { nth, frequency },
+    time,
+    reminder: { days },
   } = item;
-  const taskDate = new Date(startTime);
-  const currentDate = new Date();
-  if (nth) {
-    const weekDifference = dayjs(currentDate).diff(taskDate, "week");
-    if (!(weekDifference % frequency)) {
-      if (
-        dayjs().get("hour") < new Date().getHours() &&
-        dayjs().get("minute") < new Date().getMinutes()
-      )
-        return "overdue";
-      return "today";
-    }
-    return "upcoming";
+
+  const [hh, mm] = time.split(":");
+
+  const currentDay = new Date().getDay();
+  if (days.includes(currentDay)) {
+    const date = new Date(
+      dayjs().set("hour", Number(hh)).set("minute", Number(mm)).valueOf()
+    );
+
+    if (isBeforeNow(date)) return "overdue";
+    return "today";
   }
-  return "overdue";
+
+  return "upcoming";
 }

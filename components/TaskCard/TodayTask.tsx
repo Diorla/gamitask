@@ -3,18 +3,16 @@ import React, { useEffect } from "react";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
-import notifyUser from "../../scripts/notifyUser";
-import formatDateTime from "./formatDateTime";
+// import notifyUser from "../../scripts/notifyUser";
 import PlayStop from "./PlayStop";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
 import schedule from "node-schedule";
 import { toast } from "react-toastify";
 
-const TodayTask = ({ data, type }) => {
-  const time = formatDateTime(data.startTime, type);
+const TodayTask = ({ data }) => {
   const { user } = useUser();
 
-  const { id, name, priority, difficulty, countdowns, done, startTime } = data;
+  const { id, name, priority, difficulty, countdowns, done, time } = data;
 
   const beginTask = () => {
     const startTime = Date.now();
@@ -39,10 +37,10 @@ const TodayTask = ({ data, type }) => {
 
   useEffect(() => {
     // TODO: Implement schedule, like 20 minutes before due date.
-    const date = new Date(startTime);
-    schedule.scheduleJob(date, function () {
-      notifyUser(`${name}`);
-    });
+    // const date = new Date(startTime);
+    // schedule.scheduleJob(date, function () {
+    //   notifyUser(`${name}`);
+    // });
   }, []);
 
   return (

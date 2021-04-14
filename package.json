@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "firebase deploy",
+    "deploy": "next build && next export && firebase deploy",
     "deploy:alpha": "firebase hosting:channel:deploy alpha",
     "deploy:beta": "firebase hosting:channel:deploy beta"
   },

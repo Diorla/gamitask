@@ -1,13 +1,12 @@
 export default interface Task {
   id?: string;
   name?: string;
-  startTime?: string; // date & time
-  event?: string; //"once" | "n-times" | "forever";
+  repeat?: boolean; // once or regularly
+  date?: string;
+  time?: string;
+  dateInMonth?: number;
   reminder?: {
-    frequency: number; // every n days/weeks/months/years
-    count: number; // used for n-times, to indicate how many times
     type: string; // daily, weekly, monthly, yearly
-    nth: boolean; // e.g. true: everyday, false: every n day
     days: number[]; // if it's weekly, the days in the week
     months: number[]; // if it's year, the months
   };

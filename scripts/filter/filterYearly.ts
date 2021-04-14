@@ -1,24 +1,24 @@
 import dayjs from "dayjs";
 import TaskProps from "../../context/taskContext/TaskProps";
+import isBeforeNow from "./isBeforeNow";
 
 export default function filterYearly(item: TaskProps) {
   const {
-    startTime,
-    reminder: { nth, frequency },
+    time,
+    reminder: { months },
   } = item;
-  const taskDate = new Date(startTime);
-  const currentDate = new Date();
-  if (nth) {
-    const yearDifference = dayjs(currentDate).diff(taskDate, "year");
-    if (!(yearDifference % frequency)) {
-      if (
-        dayjs().get("hour") < new Date().getHours() &&
-        dayjs().get("minute") < new Date().getMinutes()
-      )
-        return "overdue";
-      return "today";
-    }
-    return "upcoming";
+
+  const [hh, mm] = time.split(":");
+
+  const currentMonth = new Date().getMonth();
+  if (months.includes(currentMonth)) {
+    const date = new Date(
+      dayjs().set("hour", Number(hh)).set("minute", Number(mm)).valueOf()
+    );
+
+    if (isBeforeNow(date)) return "overdue";
+    return "today";
   }
-  return "overdue";
+
+  return "upcoming";
 }

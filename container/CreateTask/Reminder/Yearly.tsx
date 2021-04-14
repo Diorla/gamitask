@@ -1,22 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
 
-const days = {
-  JAN: 31,
-  FEB: 29,
-  MAR: 31,
-  APR: 30,
-  MAY: 31,
-  JUN: 30,
-  JUL: 31,
-  AUG: 31,
-  SEP: 30,
-  OCT: 31,
-  NOV: 30,
-  DEC: 31,
-};
+const daysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const Input = styled.div`
   margin-bottom: 4px;
@@ -26,17 +14,6 @@ const Input = styled.div`
     border: none;
     border-bottom: 1px solid silver;
     padding: 4px;
-  }
-`;
-
-const NumberInput = styled.input`
-  width: 50px;
-  border: none;
-  border-bottom: 1px solid silver;
-  text-align: center;
-  padding-left: 8px;
-  &:invalid {
-    border: 1px solid red;
   }
 `;
 
@@ -73,71 +50,70 @@ const MonthButton = styled.button<{ active: boolean }>`
 
 export default function Yearly() {
   const {
+    dateInMonth,
     reminder,
-    reminder: { frequency, months, nth },
+    reminder: { months },
   } = useTaskState();
   const taskDispatch = useTaskDispatch();
+  const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));
 
-  const setYear = (value: {
-    months?: number[];
-    nth?: boolean;
-    frequency?: number;
-  }) => {
+  const setYear = (months: number[]) => {
+    console.log({ months });
+    let maxDate = 29;
+    let currentDate = dateInMonth;
+    months.forEach((item: number) => {
+      if (daysCount[item] > maxDate) maxDate = daysCount[item];
+    });
+    if (maxDate < currentDate) {
+      currentDate = maxDate;
+    }
+    setDateSelector(new Array(maxDate).fill(""));
     taskDispatch(
       addTask({
+        dateInMonth: currentDate,
         reminder: {
           ...reminder,
-          ...value,
+          months,
         },
+      })
+    );
+  };
+
+  const setMonth = (dateInMonth: number) => {
+    taskDispatch(
+      addTask({
+        dateInMonth,
       })
     );
   };
 
   return (
     <div>
+      <div>
+        <label htmlFor="date">Date: </label>
+        <select
+          onChange={(e) => setMonth(Number(e.target.value))}
+          value={dateInMonth}
+          id="date"
+        >
+          {dateSelector.map((_item, idx) => (
+            <option value={idx + 1}>{idx + 1}</option>
+          ))}
+        </select>
+      </div>
       <Input>
         <div>
           {monthList.map((item, idx) => (
             <MonthButton
               key={idx}
               active={months.includes(item)}
-              onClick={() =>
-                setYear({
-                  months: addRemoveItemFromArray(item, months),
-                })
-              }
+              onClick={() => setYear(addRemoveItemFromArray(item, months))}
             >
               {monthInYears[item]}
             </MonthButton>
           ))}
         </div>
       </Input>
-      <div>
-        <input
-          type="radio"
-          name="year-type"
-          checked={!nth}
-          onChange={() => setYear({ nth: false })}
-        />{" "}
-        <label>Every year</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          name="year-type"
-          checked={nth}
-          onChange={() => setYear({ nth: true })}
-        />{" "}
-        <label>Every</label>{" "}
-        <NumberInput
-          type="number"
-          min={2}
-          disabled={!nth}
-          value={frequency}
-          onChange={(e) => setYear({ frequency: Number(e.target.value) })}
-        />
-        years
-      </div>
     </div>
   );
 }
