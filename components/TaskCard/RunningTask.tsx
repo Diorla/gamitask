@@ -3,11 +3,6 @@ import styled from "styled-components";
 import CountDown from "./CountDown";
 import PlayStop from "./PlayStop";
 import { useInterval } from "react-use";
-import {
-  useCurrentTaskDispatch,
-  useCurrentTaskState,
-} from "../../context/currentTaskContext";
-import { endTask } from "../../context/currentTaskContext/actions";
 import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
 import { useUserInfo } from "../../context/userInfoContext";
@@ -29,29 +24,33 @@ const StyledDiv = styled.div`
 
 export default function RunningTask() {
   const [count, setCount] = useState(0);
-  const { name, startTime, priority, difficulty, id, countdowns } = useCurrentTaskState();
+  
   const { user } = useUser();
-  const { points: pt } = useUserInfo();
-  const taskDispatch = useCurrentTaskDispatch();
+  const {
+    points: pt,
+    runningTask: { name, startTime, priority, difficulty, id, countdowns },
+  } = useUserInfo();
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;
+    console.log({ timeDiff });
     let points = timeDiff * priority * difficulty;
     points /= 18482.52;
     points += pt;
     points = Math.floor(points);
-    const now = "t" + Date.now()
+    const now = "t" + Date.now();
     createData("user", user.uid, {
       points,
-    }).then(()=> {
-      createData("user", `${user.uid}/tasks/${id}`, {
-        countdowns: {
-          ...countdowns,
-          [now]: timeDiff
-        }
-      })
+      runningTask: {},
     })
-      .then(() => taskDispatch(endTask()))
+      .then(() => {
+        createData("user", `${user.uid}/tasks/${id}`, {
+          countdowns: {
+            ...countdowns,
+            [now]: timeDiff,
+          },
+        });
+      })
       .catch((err) => toast.error(err));
   };
   useInterval(() => {

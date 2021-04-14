@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import RunningTask from "../components/TaskCard/RunningTask";
-import { useCurrentTaskState } from "../context/currentTaskContext";
 import { useUser } from "../context/userContext";
+import { useUserInfo } from "../context/userInfoContext";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 
@@ -31,7 +31,8 @@ const Control = ({ loadingUser, user, children }) => {
 
 export default function Layout({ children }) {
   const { loadingUser, user } = useUser();
-  const { id } = useCurrentTaskState();
+  const { runningTask } = useUserInfo();
+  const { id } = runningTask || {};
 
   return (
     <div>

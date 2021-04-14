@@ -11,7 +11,6 @@ import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
 
 // TODO: use batch write for all complex update instead of chaining
-// TODO: use useEffect to clean up all watch mode
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
   justify-content: space-between;

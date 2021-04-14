@@ -1,7 +1,5 @@
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
-import { useCurrentTaskDispatch } from "../../context/currentTaskContext";
-import { startTask } from "../../context/currentTaskContext/actions";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
@@ -10,32 +8,33 @@ import formatDateTime from "./formatDateTime";
 import PlayStop from "./PlayStop";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
 import schedule from "node-schedule";
+import { toast } from "react-toastify";
 
 const TodayTask = ({ data, type }) => {
   const time = formatDateTime(data.startTime, type);
-  const taskDispatch = useCurrentTaskDispatch();
   const { user } = useUser();
 
   const { id, name, priority, difficulty, countdowns, done, startTime } = data;
 
   const beginTask = () => {
-    taskDispatch(
-      startTask({
+    const startTime = Date.now();
+    createData("user", user.uid, {
+      runningTask: {
         id,
         name,
         priority,
         difficulty,
-        startTime: Date.now(),
+        startTime,
         countdowns,
-      })
-    );
+      },
+    }).catch((err) => toast.error(err));
   };
 
   const checkDone = () => {
     const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
     createData("user", `${user.uid}/tasks/${id}`, {
       done: addRemoveItemFromArray(dateId, done),
-    });
+    }).catch((err) => toast.error(err));
   };
 
   useEffect(() => {

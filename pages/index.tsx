@@ -6,9 +6,8 @@ import Task from "../context/taskContext/TaskProps";
 import TaskCollection from "../container/TaskCollection";
 import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
-import { useCurrentTaskState } from "../context/currentTaskContext";
-import filterToday from "../scripts/filterToday";
 import filter from "../scripts/filter";
+import { useUserInfo } from "../context/userInfoContext";
 dayjs.extend(isToday);
 
 const sortSoonToLater = (prev: Task, next: Task) =>
@@ -16,8 +15,10 @@ const sortSoonToLater = (prev: Task, next: Task) =>
 
 export default function Home() {
   const taskList = useTaskList();
-  const { id } = useCurrentTaskState();
-  
+  const {
+    runningTask: { id },
+  } = useUserInfo();
+
   const { completed, overdue, today } = filter(
     taskList.sort(sortSoonToLater),
     id
