@@ -1,22 +1,85 @@
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import Task from "../../context/taskContext/TaskProps";
+import isToday from "../../scripts/filter/isToday";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import getTimeMs from "../../scripts/getTimeMs";
+dayjs.extend(LocalizedFormat);
 
-dayjs.extend(relativeTime);
-dayjs.extend(localizedFormat);
+const daysList = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
-export default function formatDateTime(
-  startTime: string | number | Date,
-  type: string
-) {
-  const time = startTime && dayjs(startTime).format("HH:mm A");
-  const dateTime = startTime && dayjs(startTime).format("llll");
-  const countdown = startTime && dayjs().from(dayjs(startTime), true);
+const formatWeeks = (weekdays: any[]) => {
+  const length = weekdays.length;
+  weekdays = weekdays.sort((prev: number, next: number) => prev - next);
+  if (length === 1) return daysList[weekdays[0]];
+  let dayString = "";
+  weekdays.map((item: string | number, idx: number) => {
+    if (idx == weekdays.length - 1)
+      return (dayString += ` and ${daysList[item]}`);
+    else if (idx === 0) dayString = daysList[item];
+    else dayString += `, ${daysList[item]}`;
+  });
+  return dayString;
+};
 
-  if (type === "today") {
-    return time;
-  } else if (type === "overdue") {
-    return `${countdown} ago`;
+const convertNumberToPosition = (n: number) => {
+  if (n === 1) return "1st";
+  if (n === 2) return "2nd";
+  if (n === 3) return "3rd";
+  return `${n}th`;
+};
+const monthList = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const formatMonths = (weekdays: any[]) => {
+  const length = weekdays.length;
+  weekdays = weekdays.sort((prev: number, next: number) => prev - next);
+  if (length === 1) return monthList[weekdays[0]];
+  let dayString = "";
+  weekdays.map((item: string | number, idx: number) => {
+    if (idx == weekdays.length - 1)
+      return (dayString += ` and ${monthList[item]}`);
+    else if (idx === 0) dayString = monthList[item];
+    else dayString += `, ${monthList[item]}`;
+  });
+  return dayString;
+};
+
+export default function formatDateTime(item: Task) {
+  let {
+    repeat,
+    time,
+    date,
+    dateInMonth,
+    reminder: { type, days, months },
+  } = item;
+
+  const formattedTime = dayjs(new Date(getTimeMs(time))).format("LT"); //LT
+  if (repeat) {
+    if (type === "daily") return `${formattedTime} everyday`;
+    if (type === "weekly") return `${formattedTime} every ${formatWeeks(days)}`;
+    if (type === "monthly")
+      return `${formattedTime}, ${convertNumberToPosition(
+        dateInMonth
+      )} of every month`;
+    if (type === "yearly")
+      return `${formattedTime}, ${convertNumberToPosition(
+        dateInMonth
+      )} of ${formatMonths(months)}`;
   }
-  return dateTime;
+
+  return isToday(date)
+    ? formattedTime
+    : dayjs(new Date(`${date}T${time}`)).format("llll");
 }

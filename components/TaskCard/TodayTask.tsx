@@ -6,13 +6,14 @@ import createData from "../../scripts/createData";
 // import notifyUser from "../../scripts/notifyUser";
 import PlayStop from "./PlayStop";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
-import schedule from "node-schedule";
+// import schedule from "node-schedule";
 import { toast } from "react-toastify";
+import formatDateTime from "./formatDateTime";
 
 const TodayTask = ({ data }) => {
   const { user } = useUser();
-
-  const { id, name, priority, difficulty, countdowns, done, time } = data;
+  const time = formatDateTime(data);
+  const { id, name, priority, difficulty, countdowns, done } = data;
 
   const beginTask = () => {
     const startTime = Date.now();

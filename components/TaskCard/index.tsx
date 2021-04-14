@@ -9,10 +9,9 @@ import DoneTask from "./DoneTask";
  * This also means taskCard will have editable state, similar to createTask
  */
 const TaskCard = ({ data, type }) => {
-  if (type === "today" || type === "overdue")
-    return <TodayTask data={data} type={type} />;
-  else if (type === "completed") return <DoneTask data={data} type={type} />;
-  return <FutureTask data={data} type={type} />;
+  if (type === "today" || type === "overdue") return <TodayTask data={data} />;
+  else if (type === "completed") return <DoneTask data={data} />;
+  return <FutureTask data={data} />;
 };
 
 export default TaskCard;

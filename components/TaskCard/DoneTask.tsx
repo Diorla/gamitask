@@ -6,8 +6,8 @@ import createData from "../../scripts/createData";
 import formatDateTime from "./formatDateTime";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
 
-const DoneTask = ({ data, type }) => {
-  const time = formatDateTime(data.startTime, type);
+const DoneTask = ({ data }) => {
+  const time = formatDateTime(data);
   const { user } = useUser();
 
   const { id, done } = data;

@@ -11,6 +11,8 @@ import getTimeMs from "../scripts/getTimeMs";
 //! TODO: Filter upcoming into different segments
 /**
  * Break upcoming into tomorrow, next week etc as commented out
+ * First, I have to discover the next due date
+ * And then determine which sector the next due date belongs to
  */
 // const filterAfterToday = (item: Task) =>
 //   item.startTime && dayjs(item.startTime).isAfter(new Date(), "day");

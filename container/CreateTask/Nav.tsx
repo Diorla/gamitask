@@ -31,20 +31,20 @@ const ProjectWrapper = styled.div`
   align-items: center;
   height: 16px;
 `;
+
+// ?TODO: update Reminder.active
+/**
+ * Use some validation to see if the reminder is valid
+ * And then return boolean
+ */
 export default function Nav({ currentSection, setCurrentSection }) {
-  const {
-    difficulty,
-    label,
-    priority,
-    project,
-    startTime
-  } = useTaskState();
+  const { difficulty, label, priority, project, time } = useTaskState();
 
   return (
     <Wrapper>
       <ReminderIcon
         colour="#87bc43"
-        active={!!startTime}
+        active={!!time}
         onClick={() => {
           currentSection === "DueDate"
             ? setCurrentSection("")

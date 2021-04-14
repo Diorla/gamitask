@@ -1,10 +1,9 @@
 import React from "react";
-import { MdRepeat } from "react-icons/md";
 import formatDateTime from "./formatDateTime";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
 
-const FutureTask = ({ data, type }) => {
-  const time = formatDateTime(data.startTime, type);
+const FutureTask = ({ data }) => {
+  const time = formatDateTime(data);
   return (
     <TaskWrapper>
       <TaskChild>
@@ -15,7 +14,6 @@ const FutureTask = ({ data, type }) => {
         <Corner>{data.label}</Corner>
         <Corner>
           {time}
-          {data.event !== "once" && <MdRepeat />}
         </Corner>
       </TaskChild>
     </TaskWrapper>
