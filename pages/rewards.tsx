@@ -11,6 +11,20 @@ import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
 
 // TODO: use batch write for all complex update instead of chaining
+// TODO: Keep log of rewards
+/**
+ * So whenever a user clicks rewards, we keep the records
+ * So I can create some sort of feedback, like number of times today
+ */
+
+// TODO: Set default value for minutes
+/**
+ * The default value for 1 hour of fun(coding, playing game etc) is 500
+ * So whenever a user is creating reward, they have two options
+ * 1. Create a time based, and the points will be determined automatically
+ * 2. Create a reward, and define the points by yourself
+ * Note, default value could be changed inside 
+ */
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -62,7 +76,7 @@ export default function Rewards() {
           createData("user", user.uid, {
             points: points - cost,
           });
-          toast(`${name} done`);
+          toast.info(`${name} done`);
         })
         .catch((err) => toast.error(err));
   };
