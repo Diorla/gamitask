@@ -9,16 +9,30 @@ import DifficultyDD from "./DifficultyDD";
 import PriorityDD from "./PriorityDD";
 
 const Wrapper = styled.div`
-  margin-top: 50px;
   display: flex;
 `;
 
 const Seperator = styled.div<{ size?: number }>`
-  margin-top: ${({ size = 50 }) => size}px;
+  margin-top: ${({ size = 70 }) => size}px;
 `;
 
 const Content = styled.div`
   flex: 1;
+  position: absolute;
+  width: calc(100% - 240px);
+  left: 240px;
+  height: calc(100vh - 50px);
+  top: 50px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 2px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: silver;
+    border: 2px solid silver;
+  }
 `;
 
 export default function AppContainer({
