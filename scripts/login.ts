@@ -1,17 +1,20 @@
 import { toast } from "react-toastify";
 import firebase from "../firebase/clientApp";
 
-export function loginWithGoogle(callback?: (arg0: void) => void) {
+export function loginWithGoogle(callback?: {
+  (): void;
+  (arg0: firebase.auth.UserCredential): void;
+}) {
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope("profile");
   provider.addScope("email");
   firebase
     .auth()
-    .signInWithRedirect(provider)
+    .signInWithPopup(provider)
     .then((res) => {
       if (callback) callback(res);
     })
-    .catch((err) => toast.error(err));
+    .catch((err) => toast.error(err.message));
 }
 
 // export function loginWithFacebook(callback?: (arg0: void) => void) {
@@ -24,7 +27,7 @@ export function loginWithGoogle(callback?: (arg0: void) => void) {
 //     .then((res) => {
 //       if (callback) callback(res);
 //     })
-//     .catch((err) => toast.error(err));
+//     .catch((err) => toast.error(err.message));
 // }
 
 export interface loginWithEmailProps {
@@ -42,7 +45,7 @@ export function loginWithEmail(
     .then((res) => {
       if (callback) callback(res);
     })
-    .catch((err) => toast.error(err));
+    .catch((err) => toast.error(err.message));
 }
 
 export function signUpWithEmail(
@@ -55,5 +58,5 @@ export function signUpWithEmail(
     .then((res) => {
       if (callback) callback(res);
     })
-    .catch((err) => toast.error(err));
+    .catch((err) => toast.error(err.message));
 }
