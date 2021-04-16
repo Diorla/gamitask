@@ -41,7 +41,7 @@ const CTA = styled.div`
 `;
 
 export default function SignIn() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [isNew, setIsNew] = useState(true);
 
   const openNewUser = () => {
