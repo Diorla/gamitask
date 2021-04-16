@@ -20,8 +20,8 @@ export default function TaskCollection({ data, type, title }) {
         </Title>
         {expanded && (
           <div>
-            {data.map((item: any, idx: React.Key) => (
-              <TaskCard data={item} key={idx} type={type} />
+            {data.map((item: any) => (
+              <TaskCard data={item} key={item.id} type={type} />
             ))}
           </div>
         )}
