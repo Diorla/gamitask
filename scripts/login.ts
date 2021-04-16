@@ -14,7 +14,10 @@ export function loginWithGoogle(callback?: {
     .then((res) => {
       if (callback) callback(res);
     })
-    .catch((err) => toast.error(err.message));
+    .catch((err) => {
+      console.log({ err });
+      toast.error(err.message);
+    });
 }
 
 // export function loginWithFacebook(callback?: (arg0: void) => void) {
