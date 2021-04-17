@@ -34,7 +34,6 @@ export default function UserContextComp({ children }) {
               },
             };
 
-            console.log({ userData });
             setUser(userData);
           }).catch((err) => toast.error(err));
         } else setUser(userInfo);

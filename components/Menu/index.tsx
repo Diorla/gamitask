@@ -18,7 +18,6 @@ const StyledLink = styled.a`
 `;
 
 export default function Menu({ profileImage }) {
-  console.log({ profileImage });
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
 

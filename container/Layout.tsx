@@ -8,7 +8,6 @@ import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";
 
 const Control = ({ loadingUser, uid, children, profileImage }) => {
-  console.log({ profileImage });
   if (loadingUser)
     return (
       <div>
@@ -30,7 +29,6 @@ export default function Layout({ children }) {
   const { runningTask } = user;
   const { id } = runningTask || {};
 
-  console.log({ user });
   return (
     <div>
       <Head>

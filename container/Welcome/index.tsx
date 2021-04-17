@@ -76,7 +76,7 @@ export default function SignIn() {
           </div>
         </CTA>
       </LandingPage>
-      <Modal visible={visible} width={320} onClose={() => setVisible(false)}>
+      <Modal visible={visible} onClose={() => setVisible(false)}>
         <SignInForm
           onClose={() => setVisible(false)}
           isNew={isNew}
