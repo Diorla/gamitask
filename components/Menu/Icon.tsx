@@ -15,6 +15,7 @@ const Icon = (icon: {
   font-size: 3.2rem;
   cursor: pointer;
   margin: 0.4rem;
+  color: ${({ theme }) => theme.palette.default.main};
 `;
 
 const MenuIcon = Icon(TiPointOfInterest);

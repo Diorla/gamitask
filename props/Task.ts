@@ -76,4 +76,5 @@ export default interface Task {
    * Similar to countdowns, it keeps record of each points earned using "t" + Date.now() as key while value is the points accrued.
    */
   points: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
+  showModal?: boolean;
 }

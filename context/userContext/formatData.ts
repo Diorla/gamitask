@@ -13,7 +13,7 @@ export default function formatData(
       DOB: Date.now(),
       gender: "prefer not to say",
       last_updated: Date.now(),
-      profileImg: "",
+      profileImage: "",
     },
     theme = {
       primary: "",

@@ -18,12 +18,14 @@ const StyledLink = styled.a`
 `;
 
 export default function Menu({ profileImage }) {
-  const { showModal } = useTaskState();
+  console.log({ profileImage });
+  const task = useTaskState();
   const taskDispatch = useTaskDispatch();
 
   const toggleModal = (showModal: boolean) =>
     taskDispatch(
       addTask({
+        ...task,
         showModal,
       })
     );
@@ -48,7 +50,7 @@ export default function Menu({ profileImage }) {
         </Link>
         <Dropdown profileImage={profileImage} />
       </Right>
-      <Modal visible={showModal} onClose={() => toggleModal(false)}>
+      <Modal visible={task.showModal} onClose={() => toggleModal(false)}>
         <CreateTask />
       </Modal>
     </Nav>

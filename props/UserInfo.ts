@@ -8,7 +8,7 @@ export default interface UserInfo {
     gender: "male" | "female" | "non binary" | "prefer not to say";
     last_name: string;
     last_updated: number;
-    profileImg: string;
+    profileImage: string;
   };
   theme: {
     primary: string;

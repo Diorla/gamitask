@@ -21,7 +21,7 @@ export default function UserContextComp({ children }) {
 
             const {
               profile,
-              profile: { profileImg = user.photoURL }
+              profile: { profileImage },
             } = formattedData;
 
             const userData = {
@@ -30,12 +30,12 @@ export default function UserContextComp({ children }) {
               email: user.email,
               profile: {
                 ...profile,
-                profileImg,
+                profileImage: profileImage || user.photoURL,
               },
             };
 
+            console.log({ userData });
             setUser(userData);
-
           }).catch((err) => toast.error(err));
         } else setUser(userInfo);
       } catch (error) {

@@ -7,17 +7,18 @@ import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";
 
-const Control = ({ loadingUser, user, children }) => {
+const Control = ({ loadingUser, uid, children, profileImage }) => {
+  console.log({ profileImage });
   if (loadingUser)
     return (
       <div>
         <LayoutLoader />
       </div>
     );
-  if (user)
+  if (uid)
     return (
       <div style={{ fontSize: "1.6rem" }}>
-        <Menu profileImage={user.photoURL} />
+        <Menu profileImage={profileImage} />
         <div>{children}</div>
       </div>
     );
@@ -29,6 +30,7 @@ export default function Layout({ children }) {
   const { runningTask } = user;
   const { id } = runningTask || {};
 
+  console.log({ user });
   return (
     <div>
       <Head>
@@ -40,7 +42,11 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper>
-        <Control loadingUser={loadingUser} user={user}>
+        <Control
+          loadingUser={loadingUser}
+          uid={user.uid}
+          profileImage={user.profile.profileImage}
+        >
           {children}
           {id && <RunningTask />}
         </Control>
