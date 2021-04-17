@@ -11,7 +11,6 @@ export default function TaskListContextWrapper({ children }) {
   const { user } = useUser();
 
   useEffect(() => {
-    console.log({ user: user.uid });
     if (user && user.uid)
       watchData(`user/${user.uid}/tasks`, setTaskList).catch((err) =>
         toast.error(err)

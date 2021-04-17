@@ -1,26 +1,36 @@
 import { Palette } from "styled-components";
+import { darken, lighten } from "../scripts/color-functions";
 
-const primaryColor = "#7843bc";
-const primaryLight = "#ab71ef";
-const primaryDark = "#46158b";
-const primaryText = "#ffffff";
-const secondaryColor = "#87bc43";
-const secondaryLight = "#baef73";
-const secondaryDark = "#568c0c";
-const secondaryText = "#000000";
+// royal purple
+const primary = {
+  main: "#7851a9",
+  dark: darken("#7851a9"),
+  light: lighten("#7851a9"),
+};
+
+// chocolate
+const secondary = {
+  main: "#7B3F00",
+  dark: darken("#7B3F00"),
+  light: lighten("#7B3F00"),
+};
+
+// gold, other variances:
+// #fafad2 #eee8aa #daa520
+const tertiary = {
+  main: "#ffd700",
+  dark: darken("#ffd700"),
+  light: lighten("#ffd700"),
+};
 
 const white = "#ffffff";
-const black = "#000000";
+const black = "#111111";
 const offwhite = "#dddddd";
 const gray = "#333333";
 
 const cornflowerblue = "cornflowerblue";
 const blue = "cornflowerblue";
 const purple = "#673ab7";
-
-// TODO: create a valid function
-const darken = (a: string) => a;
-const lighten = (a: string) => a;
 
 const error = {
   main: "#e83c3d",
@@ -47,18 +57,9 @@ const success = {
 };
 
 const palette: Palette = {
-  primary: {
-    main: primaryColor,
-    light: primaryLight,
-    dark: primaryDark,
-    text: primaryText,
-  },
-  secondary: {
-    main: secondaryColor,
-    light: secondaryLight,
-    dark: secondaryDark,
-    text: secondaryText,
-  },
+  primary,
+  secondary,
+  tertiary,
   default: {
     main: white,
     dark: gray,

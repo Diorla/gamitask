@@ -5,6 +5,7 @@ import RunningTask from "../components/TaskCard/RunningTask";
 import { useUser } from "../context/userContext";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
+import Wrapper from "./Wrapper";
 
 const Control = ({ loadingUser, user, children }) => {
   if (loadingUser)
@@ -38,10 +39,12 @@ export default function Layout({ children }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Control loadingUser={loadingUser} user={user}>
-        {children}
-        {id && <RunningTask />}
-      </Control>
+      <Wrapper>
+        <Control loadingUser={loadingUser} user={user}>
+          {children}
+          {id && <RunningTask />}
+        </Control>
+      </Wrapper>
     </div>
   );
 }

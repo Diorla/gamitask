@@ -1,14 +1,13 @@
 import "styled-components";
 
-// TODO: Use storyx theme and change colours to purple, chocolate and gold
 declare module "styled-components" {
   // device breakpoints
   export interface Breakpoints {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
   }
 
   // shadow
@@ -41,13 +40,16 @@ declare module "styled-components" {
       main: string;
       dark: string;
       light: string;
-      text: string;
     };
     secondary: {
       main: string;
       dark: string;
       light: string;
-      text: string;
+    };
+    tertiary: {
+      main: string;
+      dark: string;
+      light: string;
     };
     default: {
       main: string;
@@ -86,10 +88,25 @@ declare module "styled-components" {
 
   // animation
   export interface Transform {
-    /**
-     * ?//TODO: Expand transition to quick, medium and slow
-     */
-    transition: string;
-    animation: string;
+    duration: {
+      shortest: string;
+      short: string;
+      standard: string;
+      long: string;
+      longest: string;
+    };
+  }
+
+  export interface Elevation {
+    1: string;
+    2: string;
+    3: string;
+    4: string;
+    5: string;
+    6: string;
+    7: string;
+    8: string;
+    9: string;
+    10: string;
   }
 }

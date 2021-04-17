@@ -39,7 +39,6 @@ export default function RunningTask() {
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;
-    console.log({ timeDiff });
     let points = timeDiff * priority * difficulty;
     points /= 18482.52;
     points += pt;

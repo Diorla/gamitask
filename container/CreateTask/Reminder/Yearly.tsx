@@ -58,7 +58,6 @@ export default function Yearly() {
   const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));
 
   const setYear = (months: number[]) => {
-    console.log({ months });
     let maxDate = 29;
     let currentDate = dateInMonth;
     months.forEach((item: number) => {

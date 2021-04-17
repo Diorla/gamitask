@@ -1,8 +1,13 @@
 import { Transform } from "styled-components";
 
 const transform: Transform = {
-  transition: "0.2s linear",
-  animation: "2s ease 0.2s 1 forwards",
+  duration: {
+    shortest: "175ms",
+    short: "220ms",
+    standard: "250ms",
+    long: "280ms",
+    longest: "325ms",
+  },
 };
 
 export default transform;
