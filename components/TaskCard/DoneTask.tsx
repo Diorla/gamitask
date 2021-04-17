@@ -3,6 +3,7 @@ import React from "react";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
+import Checkbox from "./Checkbox";
 import formatDateTime from "./formatDateTime";
 import { TaskWrapper, TaskChild, Corner } from "./Styled";
 
@@ -23,7 +24,7 @@ const DoneTask = ({ data }) => {
     <TaskWrapper>
       <TaskChild>
         <Corner>
-          <input type="checkbox" onChange={checkDone} checked/> {data.name}
+          <Checkbox onChange={checkDone} checked /> {data.name}
         </Corner>
         <Corner>{data.project !== "Unsorted" && data.project}</Corner>
       </TaskChild>

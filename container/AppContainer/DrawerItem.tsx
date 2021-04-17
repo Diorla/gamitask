@@ -17,7 +17,8 @@ const Styled = styled.a<DrawerItemProps>`
   display: flex;
   padding: 0.8rem;
   cursor: pointer;
-  transition: 0.2s linear;
+  transition: ${({ theme }) => theme.transform.duration.standard} linear;
+  align-items: center;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }

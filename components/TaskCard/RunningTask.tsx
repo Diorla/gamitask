@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
   background: ${({ theme }) => theme.palette.primary.dark};
   color: white;
   display: flex;
-  width: 28rem;
+  width: 24rem;
   justify-content: space-around;
   height: 4.8rem;
   align-items: center;

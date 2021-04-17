@@ -9,6 +9,7 @@ import { TaskWrapper, TaskChild, Corner } from "./Styled";
 // import schedule from "node-schedule";
 import { toast } from "react-toastify";
 import formatDateTime from "./formatDateTime";
+import Checkbox from "./Checkbox";
 
 const TodayTask = ({ data }) => {
   const { user } = useUser();
@@ -46,6 +47,7 @@ const TodayTask = ({ data }) => {
     // schedule.scheduleJob(date, function () {
     //   notifyUser(`${name}`);
     // });
+    // TODO: Fix alignment issue
   }, []);
 
   return (
@@ -53,7 +55,7 @@ const TodayTask = ({ data }) => {
       <TaskChild>
         <Corner>
           <PlayStop running={false} toggleRunning={beginTask} />
-          <input type="checkbox" onChange={checkDone} /> {data.name}
+          <Checkbox onChange={checkDone} checked={false} /> {data.name}
         </Corner>
         <Corner>{data.project !== "Unsorted" && data.project}</Corner>
       </TaskChild>
