@@ -13,6 +13,7 @@ import Checkbox from "./Checkbox";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
+import deleteData from "../../scripts/deleteData";
 
 const TodayTask = ({ data }) => {
   const { user } = useUser();
@@ -53,6 +54,12 @@ const TodayTask = ({ data }) => {
     }).catch((err) => toast.error(err));
   };
 
+  const deleteTask = () => {
+    deleteData("user", `${user.uid}/tasks/${data.id}`)
+      .then(() => toast.success(`${data.name} deleted`))
+      .catch((err) => toast.error(err.message));
+  };
+  
   useEffect(() => {
     // TODO: Implement schedule, like 20 minutes before due date.
     // const date = new Date(startTime);
@@ -73,7 +80,7 @@ const TodayTask = ({ data }) => {
       <TaskChild>
         <RevealOnHover>
           <MdEdit onClick={editTask} />
-          <MdDelete />
+          <MdDelete onClick={deleteTask} />
         </RevealOnHover>
         {data.labels}
         <Corner>{time}</Corner>

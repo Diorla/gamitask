@@ -8,6 +8,7 @@ import CreateTask from "../../container/CreateTask";
 import Modal from "../Modal";
 import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
+import initialState from "../../context/taskContext/initialState";
 
 const Right = styled.div`
   display: flex;
@@ -21,11 +22,19 @@ export default function Menu({ profileImage }) {
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
 
-  const toggleModal = (showModal: boolean) =>
+  const openModal = () =>
     taskDispatch(
       addTask({
         ...task,
-        showModal,
+        showModal: true,
+      })
+    );
+
+  const closeModal = () =>
+    taskDispatch(
+      addTask({
+        ...initialState,
+        showModal: false,
       })
     );
   return (
@@ -36,7 +45,7 @@ export default function Menu({ profileImage }) {
         </StyledLink>
       </Link>
       <Right>
-        <AddIcon onClick={() => toggleModal(true)} />
+        <AddIcon onClick={openModal} />
         <Link href="/points">
           <StyledLink>
             <PointIcon />
@@ -49,7 +58,7 @@ export default function Menu({ profileImage }) {
         </Link>
         <Dropdown profileImage={profileImage} />
       </Right>
-      <Modal visible={task.showModal} onClose={() => toggleModal(false)}>
+      <Modal visible={task.showModal} onClose={closeModal}>
         <CreateTask />
       </Modal>
     </Nav>

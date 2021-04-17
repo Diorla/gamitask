@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import Task from "../../context/taskContext/TaskProps";
 import isToday from "../../scripts/filter/isToday";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import getTimeMs from "../../scripts/getTimeMs";
+import Task from "../../props/Task";
 dayjs.extend(LocalizedFormat);
 
 const daysList = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -61,8 +61,7 @@ export default function formatDateTime(item: Task) {
     repeat,
     time,
     date,
-    dateInMonth,
-    reminder: { type, days, months },
+    reminder: { type, days, months, dateInMonth },
   } = item;
 
   const formattedTime = dayjs(new Date(getTimeMs(time))).format("LT"); //LT

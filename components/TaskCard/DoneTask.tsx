@@ -1,11 +1,13 @@
 import dayjs from "dayjs";
 import React from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
 import { useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
+import deleteData from "../../scripts/deleteData";
 import Checkbox from "./Checkbox";
 import formatDateTime from "./formatDateTime";
 import { TaskWrapper, TaskChild, Corner, RevealOnHover } from "./Styled";
@@ -33,6 +35,11 @@ const DoneTask = ({ data }) => {
     });
   };
 
+  const deleteTask = () => {
+    deleteData("user", `${user.uid}/tasks/${data.id}`)
+      .then(() => toast.success(`${data.name} deleted`))
+      .catch((err) => toast.error(err.message));
+  };
   return (
     <TaskWrapper>
       <TaskChild>
@@ -44,7 +51,7 @@ const DoneTask = ({ data }) => {
       <TaskChild>
         <RevealOnHover>
           <MdEdit onClick={editTask} />
-          <MdDelete />
+          <MdDelete onClick={deleteTask} />
         </RevealOnHover>
         {data.labels}
         <Corner>{time}</Corner>
