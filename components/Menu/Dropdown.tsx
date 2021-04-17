@@ -13,11 +13,11 @@ const DropdownMenu = styled.div`
   display: flex;
   flex-direction: column;
   background: silver;
-  right: 2px;
-  min-width: 60px;
-  box-shadow: 0 0 2px black;
+  right: 0.2rem;
+  min-width: 6rem;
+  box-shadow: 0 0 0.2rem black;
   background: white;
-  border-radius: 4px;
+  border-radius: 0.4rem;
 `;
 
 export default function Dropdown({ profileImage }) {

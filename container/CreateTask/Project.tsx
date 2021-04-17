@@ -9,11 +9,11 @@ import { addTask } from "../../context/taskContext/actions";
 import toTitleCase from "../../scripts/toTitleCase";
 
 const Select = styled.div`
-  margin-bottom: 4px;
+  margin-bottom: 0.4rem;
   & > select {
     border: none;
-    border-bottom: 1px solid silver;
-    padding: 4px;
+    border-bottom: 0.1rem solid silver;
+    padding: 0.4rem;
   }
 `;
 

@@ -12,9 +12,9 @@ const Icon = (icon: {
   (props: IconBaseProps): JSX.Element;
   (props: IconBaseProps): JSX.Element;
 }) => styled(icon)`
-  font-size: 32px;
+  font-size: 3.2rem;
   cursor: pointer;
-  margin: 4px;
+  margin: 0.4rem;
 `;
 
 const MenuIcon = Icon(TiPointOfInterest);

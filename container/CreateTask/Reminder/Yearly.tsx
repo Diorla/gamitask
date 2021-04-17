@@ -7,13 +7,13 @@ import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
 const daysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const Input = styled.div`
-  margin-bottom: 4px;
+  margin-bottom: 0.4rem;
   display: flex;
   align-items: center;
   & > input {
     border: none;
-    border-bottom: 1px solid silver;
-    padding: 4px;
+    border-bottom: 0.1rem solid silver;
+    padding: 0.4rem;
   }
 `;
 
@@ -39,9 +39,9 @@ const MonthButton = styled.button<{ active: boolean }>`
     active ? theme.palette.secondary.main : "silver"};
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin: 2px;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.2rem;
   display: inline-flex;
   justify-content: space-around;
   align-items: center;

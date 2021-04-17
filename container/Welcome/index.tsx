@@ -8,6 +8,7 @@ import SignInForm from "./SignInForm";
 
 const Wrapper = styled.div`
   min-height: 100vh;
+  font-size: 1.6rem;
 `;
 
 const LandingPage = styled.div`
@@ -19,23 +20,23 @@ const LandingPage = styled.div`
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 0.8rem;
 `;
 
 const CTA = styled.div`
   background-image: url(welcome/control.svg);
-  height: 320px;
-  background-size: 150px;
+  height: 32rem;
+  background-size: 15rem;
   background-repeat: no-repeat;
   background-position: center;
-  padding: 16px;
+  padding: 1.6rem;
   & > h1 {
     font-family: cursive;
     color: ${({ theme }) => theme.palette.primary.dark};
   }
   & > div {
-    width: 300px;
-    font-size: 18px;
+    width: 30rem;
+    font-size: 1.8rem;
     text-shadow: 0 0 ${({ theme }) => theme.palette.secondary.main};
   }
 `;

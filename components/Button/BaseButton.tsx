@@ -4,7 +4,7 @@ export default styled.button`
   background: ${({ theme }) => theme.palette.default.light};
   color: ${({ theme }) => theme.palette.default.text};
   border: none;
-  padding: 4px 8px;
+  padding: 0.4rem 0.8rem;
   cursor: pointer;
   &:active {
     background: ${({ theme }) => theme.palette.default.light}1a;

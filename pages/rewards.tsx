@@ -20,17 +20,17 @@ import watchData from "../scripts/watchData";
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
   justify-content: space-between;
-  padding: 4px;
+  padding: 0.4rem;
   align-items: center;
-  box-shadow: 0 0 2px silver;
-  margin: 4px;
+  box-shadow: 0 0 0.2rem silver;
+  margin: 0.4rem;
   background: ${({ disabled }) => (disabled ? "silver" : "white")};
   & > div {
     display: flex;
     align-items: center;
   }
   & svg {
-    margin-left: 20px;
+    margin-left: 2rem;
     color: beige;
     background: ${({ theme }) => theme.palette.primary.dark};
     border-radius: 50%;
@@ -42,8 +42,8 @@ const Add = styled.div`
   display: flex;
   align-items: center;
   & svg {
-    margin-right: 4px;
-    font-size: 32px;
+    margin-right: 0.4rem;
+    font-size: 3.2rem;
   }
 `;
 export default function Rewards() {

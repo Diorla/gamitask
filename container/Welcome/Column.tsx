@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   & > * {
-    margin-bottom: 8px;
+    margin-bottom: 0.8rem;
   }
 `;
 
@@ -13,7 +13,7 @@ export const Header = styled.h1`
 
 export const Action = styled.div`
   display: flex;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   & > * {
     flex: 1;
   }

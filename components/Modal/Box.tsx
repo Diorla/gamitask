@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 const StyledBox = styled.div<{ width?: number }>`
   background: white;
-  width: ${({ width }) => (width ? width + "px" : "80%")};
-  min-width: 300px;
-  min-height: 100px;
-  border-radius: 4px;
-  padding: 2px;
+  width: ${({ width }) => (width ? width + "rem" : "80%")};
+  min-width: 30rem;
+  min-height: 10rem;
+  border-radius: 0.4rem;
+  padding: 0.2rem;
 `;
 export default function Box({
   children,

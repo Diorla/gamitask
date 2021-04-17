@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 const ProjectWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 16px;
+  height: 1.6rem;
 `;
 
 // ?TODO: update Reminder.active

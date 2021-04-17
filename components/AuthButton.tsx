@@ -9,16 +9,16 @@ export interface AuthButtonProps {
 const StyledButton = styled.button`
   display: flex;
   border: none;
-  padding: 8px;
-  min-width: 180px;
+  padding: 0.8rem;
+  min-width: 18rem;
   width: 80%;
   margin: auto;
-  border-radius: 16px;
+  border-radius: 1.6rem;
   justify-content: flex-start;
   outline: none;
-  font-size: 16px;
+  font-size: 1.6rem;
   cursor: pointer;
-  border: 2px solid;
+  border: 0.2rem solid;
   background: ${({ theme }) => theme.palette.default.color};
   font-weight: bold;
   transition: 0.4s linear;

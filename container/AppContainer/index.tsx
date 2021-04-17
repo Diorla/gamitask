@@ -13,25 +13,25 @@ const Wrapper = styled.div`
 `;
 
 const Seperator = styled.div<{ size?: number }>`
-  margin-top: ${({ size = 70 }) => size}px;
+  margin-top: ${({ size = 7 }) => size}rem;
 `;
 
 const Content = styled.div`
   flex: 1;
   position: absolute;
-  width: calc(100% - 240px);
-  left: 240px;
-  height: calc(100vh - 50px);
-  top: 50px;
+  width: calc(100% - 24rem);
+  left: 24rem;
+  height: calc(100vh - 5rem);
+  top: 5rem;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 2px;
+    width: 0.2rem;
     background-color: #f5f5f5;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: silver;
-    border: 2px solid silver;
+    border: 0.2rem solid silver;
   }
 `;
 
@@ -86,7 +86,7 @@ export default function AppContainer({
         >
           Rewards
         </DrawerItem>
-        <Seperator size={20} />
+        <Seperator size={2} />
         <DifficultyDD active={active} />
         <PriorityDD active={active} />
       </Drawer>

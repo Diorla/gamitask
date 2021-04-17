@@ -11,7 +11,7 @@ import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 
 export const Button = styled.button`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-family: monospace;
   border: none;
   background: purple;

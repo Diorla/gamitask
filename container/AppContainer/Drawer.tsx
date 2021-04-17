@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Drawer = styled.div`
-  width: 240px;
-  min-height: calc(100vh - 50px);
+  width: 24rem;
+  min-height: calc(100vh - 5rem);
   background-color: ${({ theme }) => theme.palette.default.light}66;
   user-select: none;
 
@@ -12,13 +12,13 @@ const Drawer = styled.div`
   top: 0;
 
   &::-webkit-scrollbar {
-    width: 2px;
+    width: 0.2rem;
     background-color: #f5f5f5;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: silver;
-    border: 2px solid silver;
+    border: 0.2rem solid silver;
   }
 `;
 

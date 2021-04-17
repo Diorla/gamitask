@@ -16,7 +16,7 @@ const Control = ({ loadingUser, user, children }) => {
     );
   if (user)
     return (
-      <div>
+      <div style={{ fontSize: "1.6rem" }}>
         <Menu profileImage={user.photoURL} />
         <div>{children}</div>
       </div>

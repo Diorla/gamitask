@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const TaskWrapper = styled.div`
-  box-shadow: 0 0 2px silver;
-  margin: 4px;
+  box-shadow: 0 0 0.2rem silver;
+  margin: 0.4rem;
 `;
 
 export const TaskChild = styled.div`
@@ -12,7 +12,7 @@ export const TaskChild = styled.div`
 `;
 
 export const Corner = styled.div`
-  padding: 2px;
+  padding: 0.2rem;
   display: flex;
   align-items: center;
 `;

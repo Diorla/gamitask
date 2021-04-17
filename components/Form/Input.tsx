@@ -6,26 +6,26 @@ export interface InputProps {
 }
 
 const StyledInput = styled.input<InputProps>`
-  border: 1px solid ${({ theme }) => theme.palette.default.light};
+  border: 0.1rem solid ${({ theme }) => theme.palette.default.light};
   outline: none;
   background: transparent;
   color: ${({ theme }) => theme.palette.default.dark};
-  font-size: 16px;
-  padding: 6px 8px;
-  border-radius: 16px;
+  font-size: 1.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 1.6rem;
   &::placeholder {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
   &:focus {
-    box-shadow: 0 0 2px;
+    box-shadow: 0 0 0.2rem;
   }
   &:invalid {
-    box-shadow: 0 0 2px crimson;
+    box-shadow: 0 0 0.2rem crimson;
   }
 `;
 
 const StyledLabel = styled.label`
-  font-size: 14px;
+  font-size: 1.4rem;
 `;
 
 const Wrapper = styled.div`

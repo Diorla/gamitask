@@ -3,17 +3,16 @@ import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import Reminder from "./Reminder";
-import { extractTime, updateTime, extractDate, updateDate } from "./timeFn";
 
 const Row = styled.div`
   display: flex;
   align-items: center;
   & > input {
-    border: 1px solid silver;
-    margin-right: 4px;
+    border: 0.1rem solid silver;
+    margin-right: 0.4rem;
   }
   & > label {
-    margin-right: 12px;
+    margin-right: 1.2rem;
   }
   & > div {
     color: ${({ theme }) => theme.palette.error.main};

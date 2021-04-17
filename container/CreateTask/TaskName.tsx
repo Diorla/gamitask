@@ -6,12 +6,12 @@ const InputDiv = styled.div`
   width: 100%;
   display: flex;
   align-items: stretch;
-  height: 40px;
-  margin-bottom: 4px;
+  height: 4rem;
+  margin-bottom: 0.4rem;
   & > input {
     flex: 1;
     border: none;
-    border-bottom: 1px solid silver;
+    border-bottom: 0.1rem solid silver;
     outline: none;
   }
 `;

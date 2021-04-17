@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export default styled.img`
-  height: 32px;
-  width: 32px;
+  height: 3.2rem;
+  width: 3.2rem;
   border-radius: 50%;
   cursor: pointer;
-  margin: 4px;
+  margin: 0.4rem;
 `;

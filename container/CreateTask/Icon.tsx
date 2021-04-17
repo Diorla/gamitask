@@ -10,9 +10,9 @@ const Icon = (icon: {
   (props: IconBaseProps): JSX.Element;
   (props: IconBaseProps): JSX.Element;
 }) => styled(icon)<{ colour: string; active: boolean }>`
-  font-size: 16px;
+  font-size: 1.6rem;
   cursor: pointer;
-  margin: 4px;
+  margin: 0.4rem;
   color: ${({ colour, active }) => (active ? colour : "silver")};
 `;
 

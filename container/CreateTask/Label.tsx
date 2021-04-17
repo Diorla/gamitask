@@ -8,12 +8,12 @@ const trim = (str: string) => str.trim();
 const removeEmpty = (str: string) => !!str;
 const Badge = styled.span`
   display: inline-block;
-  margin: 2px;
+  margin: 0.2rem;
   background: ${({ theme }) => theme.palette.primary.main};
   color: ${({ theme }) => theme.palette.primary.text};
-  padding: 2px;
-  font-size: 14px;
-  border-radius: 4px;
+  padding: 0.2rem;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
 `;
 export default function Label() {
   const taskDispatch = useTaskDispatch();

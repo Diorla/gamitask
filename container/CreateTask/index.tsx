@@ -12,7 +12,7 @@ const Styled = styled.div`
 const Controls = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 4px;
+  padding: 0.4rem;
   align-items: center;
 `;
 

@@ -11,9 +11,9 @@ const DayButton = styled.button<{ active: boolean }>`
     active ? theme.palette.secondary.main : "silver"};
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin: 2px;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.2rem;
   display: inline-flex;
   justify-content: space-around;
   align-items: center;

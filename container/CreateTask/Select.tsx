@@ -7,11 +7,11 @@ export default styled.div<{ active: boolean }>`
     active ? "#0000001a" : theme.palette.secondary.main + "1a"};
   cursor: pointer;
   justify-content: center;
-  padding: 6px;
+  padding: 0.6rem;
   &:hover {
     background: ${({ theme }) => theme.palette.secondary.main + "33"};
   }
   & > svg {
-    margin-right: 2px;
+    margin-right: 0.2rem;
   }
 `;

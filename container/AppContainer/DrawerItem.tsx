@@ -15,7 +15,7 @@ const Styled = styled.a<DrawerItemProps>`
   background-color: ${({ active }) =>
     active ? "rgba(0, 0, 0, 0.2)" : "transparent"};
   display: flex;
-  padding: 8px;
+  padding: 0.8rem;
   cursor: pointer;
   transition: 0.2s linear;
   &:hover {
@@ -24,7 +24,7 @@ const Styled = styled.a<DrawerItemProps>`
   & > svg {
     color: ${({ iconColor, theme }) =>
       iconColor && theme.palette[iconColor].main};
-    margin-right: 8px;
+    margin-right: 0.8rem;
   }
 `;
 

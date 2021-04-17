@@ -18,7 +18,7 @@ const Header = styled.div`
 const Dropdown = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 16px;
+  margin: 0 1.6rem;
 `;
 
 export default function Accordion({ data, active }) {

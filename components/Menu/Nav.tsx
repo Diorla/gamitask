@@ -5,7 +5,7 @@ export default styled.nav`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.palette.primary.main};
   color: ${({ theme }) => theme.palette.primary.text};
-  height: 50px;
+  height: 5rem;
   align-items: center;
   position: fixed;
   top: 0;

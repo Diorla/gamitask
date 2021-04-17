@@ -16,16 +16,16 @@ import { toast } from "react-toastify";
  */
 const StyledDiv = styled.div`
   position: fixed;
-  top: 50px;
+  top: 5rem;
   width: 100%;
   background: ${({ theme }) => theme.palette.primary.dark};
   color: white;
   display: flex;
-  width: 280px;
+  width: 28rem;
   justify-content: space-around;
-  height: 48px;
+  height: 4.8rem;
   align-items: center;
-  font-size: 21px;
+  font-size: 2.1rem;
 `;
 
 export default function RunningTask() {
