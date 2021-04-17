@@ -1,4 +1,4 @@
-import Task from "../../context/taskContext/TaskProps";
+import Task from "../../props/Task";
 import isBeforeNow from "./isBeforeNow";
 import isToday from "./isToday";
 

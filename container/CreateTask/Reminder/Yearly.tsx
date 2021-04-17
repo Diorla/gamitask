@@ -49,11 +49,11 @@ const MonthButton = styled.button<{ active: boolean }>`
 `;
 
 export default function Yearly() {
+  const task = useTaskState();
   const {
-    dateInMonth,
     reminder,
-    reminder: { months },
-  } = useTaskState();
+    reminder: { months, dateInMonth },
+  } = task;
   const taskDispatch = useTaskDispatch();
   const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));
 
@@ -70,10 +70,11 @@ export default function Yearly() {
     setDateSelector(new Array(maxDate).fill(""));
     taskDispatch(
       addTask({
-        dateInMonth: currentDate,
+        ...task,
         reminder: {
           ...reminder,
           months,
+          dateInMonth: currentDate,
         },
       })
     );
@@ -82,7 +83,11 @@ export default function Yearly() {
   const setMonth = (dateInMonth: number) => {
     taskDispatch(
       addTask({
-        dateInMonth,
+        ...task,
+        reminder: {
+          ...reminder,
+          dateInMonth,
+        },
       })
     );
   };

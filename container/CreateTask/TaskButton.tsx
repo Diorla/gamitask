@@ -39,7 +39,7 @@ export default function TaskButton() {
   const data = useTaskState();
   const { loadingUser, user } = useUser();
   const [labels, setLabels] = useState([]);
-  const { name, label } = data;
+  const { name, labels: dataLabels } = data;
   const taskDispatch = useTaskDispatch();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function TaskButton() {
   const uploadTask = () => {
     // TODO: id = data.id || v4(), this will be useful in editing tasks
     const id = v4();
-    const labelList = label
+    const labelList = dataLabels
       .split(",")
       .map(trim)
       .filter(removeEmpty)

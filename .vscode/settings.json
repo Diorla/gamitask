@@ -1,6 +1,8 @@
 {
   "cSpell.ignoreWords": [
     "dropup",
-    "toastify"
+    "globby",
+    "toastify",
+    "unsubscriber"
   ]
 }

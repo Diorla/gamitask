@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
-import watchData from "../../scripts/watchData";
-import TaskProps from "../taskContext/TaskProps";
+import watchData from "../../scripts/watchData";import TaskProps from "../../props/Task";
 import { useUser } from "../userContext";
 
 export const TaskListContext = createContext<TaskProps[]>([]);

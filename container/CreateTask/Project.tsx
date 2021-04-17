@@ -23,11 +23,12 @@ export default function Project() {
   const [newProject, setNewProject] = useState("");
 
   const taskDispatch = useTaskDispatch();
-  const { project } = useTaskState();
+  const task = useTaskState();
 
   const setProject = (project: string) =>
     taskDispatch(
       addTask({
+        ...task,
         project,
       })
     );
@@ -59,7 +60,7 @@ export default function Project() {
         <label htmlFor="project">Select group:</label>
         <select
           name="project"
-          value={project}
+          value={task.project}
           onChange={(e) => setProject(e.target.value)}
         >
           {list.map((item, idx) => (

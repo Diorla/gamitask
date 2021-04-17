@@ -1,5 +1,5 @@
 import initialState from "./initialState";
-import TaskProps from "./TaskProps";
+import TaskProps from "../../props/Task";
 import { TaskAction, TaskActionTypes } from "./actions";
 
 export const taskReducer = (state: TaskProps, action: TaskAction) => {

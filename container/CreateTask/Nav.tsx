@@ -38,7 +38,7 @@ const ProjectWrapper = styled.div`
  * And then return boolean
  */
 export default function Nav({ currentSection, setCurrentSection }) {
-  const { difficulty, label, priority, project, time } = useTaskState();
+  const { difficulty, labels, priority, project, time } = useTaskState();
 
   return (
     <Wrapper>
@@ -53,7 +53,7 @@ export default function Nav({ currentSection, setCurrentSection }) {
       />
       <LabelIcon
         colour="#ffac03"
-        active={!!label}
+        active={!!labels}
         onClick={() => {
           currentSection === "Label"
             ? setCurrentSection("")

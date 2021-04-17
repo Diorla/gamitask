@@ -17,27 +17,28 @@ const Badge = styled.span`
 `;
 export default function Label() {
   const taskDispatch = useTaskDispatch();
-  const { label } = useTaskState();
+  const task = useTaskState();
 
   const setLabel = (n: string) =>
     taskDispatch(
       addTask({
-        label: n,
+        ...task,
+        labels: n,
       })
     );
 
   return (
     <div>
       <Input
-        value={label}
+        value={task.labels}
         onChange={(e: { target: { value: any } }) =>
           setLabel(e.target.value.toLowerCase())
         }
         placeholder="abc, def, ghi"
       />
       <div>
-        {label &&
-          label
+        {task.labels &&
+          task.labels
             .split(",")
             .map(trim)
             .filter(removeEmpty)

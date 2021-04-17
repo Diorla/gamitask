@@ -16,6 +16,10 @@ const TodayTask = ({ data }) => {
   const { id, name, priority, difficulty, countdowns, done } = data;
 
   const beginTask = () => {
+    // TODO: Insert checks here for running task
+    /**
+     * So that I can save the current running task
+     */
     const startTime = Date.now();
     createData("user", user.uid, {
       runningTask: {

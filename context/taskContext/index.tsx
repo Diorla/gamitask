@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import initialState from "./initialState";
-import TaskProps from "./TaskProps";
+import TaskProps from "../../props/Task";
 import { TaskAction } from "./actions";
 import { taskReducer } from "./reducer";
 

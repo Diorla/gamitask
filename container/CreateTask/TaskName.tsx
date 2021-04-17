@@ -18,17 +18,18 @@ const InputDiv = styled.div`
 
 export default function Name() {
   const taskDispatch = useTaskDispatch();
-  const { name } = useTaskState();
+  const task = useTaskState();
 
   const setName = (name: string) =>
     taskDispatch(
       addTask({
+        ...task,
         name,
       })
     );
   return (
     <InputDiv>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <input value={task.name} onChange={(e) => setName(e.target.value)} />
     </InputDiv>
   );
 }

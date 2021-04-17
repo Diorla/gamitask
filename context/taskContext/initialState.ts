@@ -1,20 +1,24 @@
-export default {
+import TaskProps from "../../props/Task";
+
+const initialState: TaskProps = {
+  id: "",
   name: "",
   repeat: false,
   date: "",
   time: "",
-  dateInMonth: 1,
   reminder: {
+    dateInMonth: 1,
     type: "daily",
     days: [],
     months: [],
   },
-  label: "",
+  labels: "",
   priority: 1,
   difficulty: 1,
   project: "Unsorted",
-  showModal: false,
   done: [],
   countdowns: {},
   points: {},
 };
+
+export default initialState;

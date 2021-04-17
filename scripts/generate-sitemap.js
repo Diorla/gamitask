@@ -19,7 +19,7 @@ const generateSitemap = async () => {
       // Remove the word index from route
       const route = path === "/index" ? "" : path;
       // Build url portion of sitemap.xml
-      return `<url><loc>https://gamitask.web.app${route}</loc></url>`;
+      return `<url><loc>https://gamitask.vercel.app${route}</loc></url>`;
     })
     .join("");
 

@@ -22,11 +22,12 @@ const Row = styled.div`
 
 export default function DueDate() {
   const taskDispatch = useTaskDispatch();
-  const { repeat, date, time } = useTaskState();
-
+  const task = useTaskState();
+  const { repeat, date, time } = task;
   const setEvent = (repeat: boolean) => {
     taskDispatch(
       addTask({
+        ...task,
         repeat,
       })
     );
@@ -35,6 +36,7 @@ export default function DueDate() {
   const setDate = (date: string) => {
     taskDispatch(
       addTask({
+        ...task,
         date,
       })
     );
@@ -43,6 +45,7 @@ export default function DueDate() {
   const setTime = (time: string) => {
     taskDispatch(
       addTask({
+        ...task,
         time,
       })
     );

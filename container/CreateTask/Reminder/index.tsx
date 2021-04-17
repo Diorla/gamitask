@@ -14,11 +14,12 @@ const Select = styled.div`
 
 export default function Reminder() {
   const taskDispatch = useTaskDispatch();
-  const { reminder } = useTaskState();
-
+  const task = useTaskState();
+  const { reminder } = task;
   const setReminder = (type: string) =>
     taskDispatch(
       addTask({
+        ...task,
         reminder: {
           ...reminder,
           type,

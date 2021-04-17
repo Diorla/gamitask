@@ -8,6 +8,13 @@ import { useUser } from "../../context/userContext";
 import { useUserInfo } from "../../context/userInfoContext";
 import { toast } from "react-toastify";
 
+// TODO: Multiple task running
+/**
+ * Well, only one task can run
+ * But if one task is running, and you click another one, it should close the current running one
+ * And update the points.
+ * This can be done by comparing the id, i.e. if(runningTask.id) update point first before starting a new task.
+ */
 const StyledDiv = styled.div`
   position: fixed;
   top: 50px;

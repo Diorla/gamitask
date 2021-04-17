@@ -21,18 +21,20 @@ const DayButton = styled.button<{ active: boolean }>`
 `;
 
 export default function Weekly() {
+  const task = useTaskState();
   const {
     reminder,
     reminder: { days },
-  } = useTaskState();
+  } = task;
   const taskDispatch = useTaskDispatch();
 
-  const setWeek = (value: { days?: number[] }) => {
+  const setWeek = (days: number[]) => {
     taskDispatch(
       addTask({
+        ...task,
         reminder: {
           ...reminder,
-          ...value,
+          days,
         },
       })
     );
@@ -44,11 +46,7 @@ export default function Weekly() {
         <DayButton
           key={idx}
           active={days.includes(item)}
-          onClick={() =>
-            setWeek({
-              days: addRemoveItemFromArray(item, days),
-            })
-          }
+          onClick={() => setWeek(addRemoveItemFromArray(item, days))}
         >
           {weekdays[item]}
         </DayButton>

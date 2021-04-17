@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import TaskProps from "../../context/taskContext/TaskProps";
+import Task from "../../props/Task";
 import isBeforeNow from "./isBeforeNow";
 
-export default function filterWeekly(item: TaskProps) {
+export default function filterWeekly(item: Task) {
   const {
     time,
     reminder: { days },

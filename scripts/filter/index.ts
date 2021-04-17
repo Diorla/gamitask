@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import Task from "../../context/taskContext/TaskProps";
+import Task from "../../props/Task";
 import filterDaily from "./filterDaily";
 import filterDoneOnce from "./filterDoneOnce";
 import filterMonthly from "./filterMonthly";

@@ -4,13 +4,21 @@ import { addTask } from "../../../context/taskContext/actions";
 const arr = new Array(31);
 arr.fill("");
 export default function Monthly() {
-  const { dateInMonth } = useTaskState();
+  const task = useTaskState();
+  const {
+    reminder,
+    reminder: { dateInMonth },
+  } = task;
   const taskDispatch = useTaskDispatch();
 
   const setMonth = (dateInMonth: number) => {
     taskDispatch(
       addTask({
-        dateInMonth,
+        ...task,
+        reminder: {
+          ...reminder,
+          dateInMonth,
+        },
       })
     );
   };

@@ -11,15 +11,16 @@ import Select from "./Select";
 
 export default function Difficulty() {
   const taskDispatch = useTaskDispatch();
-  const { difficulty } = useTaskState();
-
+  const task = useTaskState();
+  const { difficulty } = task;
   const setDifficulty = (n: 1 | 2 | 3) =>
     taskDispatch(
       addTask({
+        ...task,
         difficulty: n,
       })
     );
-    
+
   return (
     <Row>
       <Select active={difficulty === 1} onClick={() => setDifficulty(1)}>

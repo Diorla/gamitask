@@ -1,9 +1,12 @@
 import dayjs from "dayjs";
-import TaskProps from "../../context/taskContext/TaskProps";
+import Task from "../../props/Task";
 import isBeforeNow from "./isBeforeNow";
 
-export default function filterMonthly(item: TaskProps) {
-  const { time, dateInMonth } = item;
+export default function filterMonthly(item: Task) {
+  const {
+    time,
+    reminder: { dateInMonth },
+  } = item;
 
   const [hh, mm] = time.split(":");
 
