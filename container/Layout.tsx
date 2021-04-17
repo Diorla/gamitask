@@ -3,10 +3,8 @@ import React from "react";
 import Menu from "../components/Menu";
 import RunningTask from "../components/TaskCard/RunningTask";
 import { useUser } from "../context/userContext";
-import { useUserInfo } from "../context/userInfoContext";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
-
 
 const Control = ({ loadingUser, user, children }) => {
   if (loadingUser)
@@ -27,7 +25,7 @@ const Control = ({ loadingUser, user, children }) => {
 
 export default function Layout({ children }) {
   const { loadingUser, user } = useUser();
-  const { runningTask } = useUserInfo();
+  const { runningTask } = user;
   const { id } = runningTask || {};
 
   return (

@@ -3,7 +3,6 @@ import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
-import { useUserInfo } from "../context/userInfoContext";
 
 const getLabelCollection = (taskList: any[]) => {
   const tempCollection = {};
@@ -16,7 +15,6 @@ const getLabelCollection = (taskList: any[]) => {
 };
 
 export default function Projects() {
-  const userInfo = useUserInfo();
   const taskList = useTaskList();
   const projectCollection = getLabelCollection(taskList);
 

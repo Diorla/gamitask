@@ -6,7 +6,6 @@ import { v4 } from "uuid";
 import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
-import { useUserInfo } from "../context/userInfoContext";
 import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
 
@@ -16,7 +15,7 @@ import watchData from "../scripts/watchData";
  * So whenever a user is creating reward, they have two options
  * 1. Create a time based, and the points will be determined automatically
  * 2. Create a reward, and define the points by yourself
- * Note, default value could be changed inside 
+ * Note, default value could be changed inside
  */
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
@@ -52,7 +51,7 @@ export default function Rewards() {
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [value, setValue] = useState({ name: "", cost: 0 });
   const { user } = useUser();
-  const { points } = useUserInfo();
+  const { points } = user;
   useEffect(() => {
     user &&
       watchData(`user/${user.uid}/rewards`, (e) => {

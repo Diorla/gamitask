@@ -2,13 +2,13 @@ import React from "react";
 import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useTaskList } from "../context/taskListContext";
-import Task from "../context/taskContext/TaskProps";
 import TaskCollection from "../container/TaskCollection";
 import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
 import filter from "../scripts/filter";
-import { useUserInfo } from "../context/userInfoContext";
 import getTimeMs from "../scripts/getTimeMs";
+import Task from "../props/Task";
+import { useUser } from "../context/userContext";
 dayjs.extend(isToday);
 // TODO: When new user is created, set default values
 /**
@@ -26,12 +26,12 @@ const sortSoonToLater = (prev: Task, next: Task) =>
  * This is important for tasks that are not timed
  * It is also useful for tasks that are more like don't do, e.g. don't smoke
  * Priority and difficulty will still be important
- * @returns 
+ * @returns
  */
 export default function Home() {
   const taskList = useTaskList();
-  const { runningTask } = useUserInfo();
-
+  const { user } = useUser();
+  const { runningTask } = user;
   const id = runningTask && runningTask.id;
   const { completed, overdue, today } = filter(
     taskList.sort(sortSoonToLater),

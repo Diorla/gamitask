@@ -5,7 +5,6 @@ import PlayStop from "./PlayStop";
 import { useInterval } from "react-use";
 import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
-import { useUserInfo } from "../../context/userInfoContext";
 import { toast } from "react-toastify";
 
 // TODO: Multiple task running
@@ -31,12 +30,12 @@ const StyledDiv = styled.div`
 
 export default function RunningTask() {
   const [count, setCount] = useState(0);
-  
+
   const { user } = useUser();
   const {
     points: pt,
     runningTask: { name, startTime, priority, difficulty, id, countdowns },
-  } = useUserInfo();
+  } = user;
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;

@@ -1,6 +1,7 @@
 import Task from "./Task";
-
 export default interface UserInfo {
+  uid: string;
+  email: string;
   profile: {
     DOB: number;
     first_name: string;
@@ -19,5 +20,5 @@ export default interface UserInfo {
   projects: string[];
   points_per_minute: number;
   runningTask: Task | {};
-  newUser: true;
+  created: number;
 }

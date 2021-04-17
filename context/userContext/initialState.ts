@@ -1,6 +1,8 @@
 import UserInfo from "../../props/UserInfo";
 
-const initialState: UserInfo = {
+const user: UserInfo = {
+  uid: "",
+  email: "",
   profile: {
     last_name: "",
     first_name: "",
@@ -19,7 +21,12 @@ const initialState: UserInfo = {
   projects: [],
   points_per_minute: 500,
   runningTask: {},
-  newUser: true,
+  created: Date.now(),
+};
+
+const initialState = {
+  user,
+  loadingUser: true,
 };
 
 export default initialState;
