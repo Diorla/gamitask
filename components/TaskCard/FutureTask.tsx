@@ -1,9 +1,22 @@
 import React from "react";
+import { MdEdit, MdDelete } from "react-icons/md";
+import { useTaskDispatch } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 import formatDateTime from "./formatDateTime";
-import { TaskWrapper, TaskChild, Corner } from "./Styled";
+import { TaskWrapper, TaskChild, Corner, RevealOnHover } from "./Styled";
 
 const FutureTask = ({ data }) => {
   const time = formatDateTime(data);
+  const taskDispatch = useTaskDispatch();
+
+  const editTask = () => {
+    taskDispatch(
+      addTask({
+        ...data,
+        showModal: true,
+      })
+    );
+  };
   return (
     <TaskWrapper>
       <TaskChild>
@@ -11,10 +24,12 @@ const FutureTask = ({ data }) => {
         <Corner>{data.project !== "Unsorted" && data.project}</Corner>
       </TaskChild>
       <TaskChild>
-        <Corner>{data.label}</Corner>
-        <Corner>
-          {time}
-        </Corner>
+        <RevealOnHover>
+          <MdEdit onClick={editTask} />
+          <MdDelete />
+        </RevealOnHover>
+        {data.labels}
+        <Corner>{time}</Corner>
       </TaskChild>
     </TaskWrapper>
   );

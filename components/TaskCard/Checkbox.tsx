@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Styled = styled.div`
   width: 20px;
   position: relative;
-  margin: 20px auto;
+  margin-right: 4px;
 
   & label {
     width: 20px;

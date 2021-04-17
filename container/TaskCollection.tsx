@@ -11,7 +11,7 @@ const Title = styled.h3`
 
 export default function TaskCollection({ data, type, title }) {
   const [expanded, setExpanded] = useState(true);
-  if (data.length)
+  if (data && data.length)
     return (
       <div>
         <Title onClick={() => setExpanded(!expanded)}>

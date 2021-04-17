@@ -1,15 +1,28 @@
 import dayjs from "dayjs";
 import React from "react";
+import { MdEdit, MdDelete } from "react-icons/md";
+import { useTaskDispatch } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
 import Checkbox from "./Checkbox";
 import formatDateTime from "./formatDateTime";
-import { TaskWrapper, TaskChild, Corner } from "./Styled";
+import { TaskWrapper, TaskChild, Corner, RevealOnHover } from "./Styled";
 
 const DoneTask = ({ data }) => {
   const time = formatDateTime(data);
   const { user } = useUser();
+  const taskDispatch = useTaskDispatch();
+
+  const editTask = () => {
+    taskDispatch(
+      addTask({
+        ...data,
+        showModal: true,
+      })
+    );
+  };
 
   const { id, done } = data;
 
@@ -29,7 +42,11 @@ const DoneTask = ({ data }) => {
         <Corner>{data.project !== "Unsorted" && data.project}</Corner>
       </TaskChild>
       <TaskChild>
-        <Corner>{data.label}</Corner>
+        <RevealOnHover>
+          <MdEdit onClick={editTask} />
+          <MdDelete />
+        </RevealOnHover>
+        {data.labels}
         <Corner>{time}</Corner>
       </TaskChild>
     </TaskWrapper>

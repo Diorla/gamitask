@@ -5,17 +5,29 @@ import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
 // import notifyUser from "../../scripts/notifyUser";
 import PlayStop from "./PlayStop";
-import { TaskWrapper, TaskChild, Corner } from "./Styled";
+import { TaskWrapper, TaskChild, Corner, RevealOnHover } from "./Styled";
 // import schedule from "node-schedule";
 import { toast } from "react-toastify";
 import formatDateTime from "./formatDateTime";
 import Checkbox from "./Checkbox";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { useTaskDispatch } from "../../context/taskContext";
+import { addTask } from "../../context/taskContext/actions";
 
 const TodayTask = ({ data }) => {
   const { user } = useUser();
   const time = formatDateTime(data);
   const { id, name, priority, difficulty, countdowns, done } = data;
+  const taskDispatch = useTaskDispatch();
 
+  const editTask = () => {
+    taskDispatch(
+      addTask({
+        ...data,
+        showModal: true,
+      })
+    );
+  };
   const beginTask = () => {
     // TODO: Insert checks here for running task
     /**
@@ -47,7 +59,6 @@ const TodayTask = ({ data }) => {
     // schedule.scheduleJob(date, function () {
     //   notifyUser(`${name}`);
     // });
-    // TODO: Fix alignment issue
   }, []);
 
   return (
@@ -60,7 +71,11 @@ const TodayTask = ({ data }) => {
         <Corner>{data.project !== "Unsorted" && data.project}</Corner>
       </TaskChild>
       <TaskChild>
-        <Corner>{data.label}</Corner>
+        <RevealOnHover>
+          <MdEdit onClick={editTask} />
+          <MdDelete />
+        </RevealOnHover>
+        {data.labels}
         <Corner>{time}</Corner>
       </TaskChild>
     </TaskWrapper>
