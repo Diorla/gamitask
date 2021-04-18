@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+// TODO: Support for smaller devices
+/**
+ * Drawer will be hidden and reveal on click
+ * I will also change the icon on top to menu/hamburger in small devices
+ * This is to tell use to toggle drawer.
+ */
 const Drawer = styled.div`
   width: 24rem;
   min-height: calc(100vh - 5rem);

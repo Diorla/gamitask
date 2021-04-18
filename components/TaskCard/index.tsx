@@ -17,6 +17,10 @@ import deleteData from "../../scripts/deleteData";
 import Modal from "../Modal";
 import TaskDetails from "./TaskDetails";
 
+// TODO: Format labels
+/**
+ * For example, the following: "abc, def, ghi,   ,  " should return "abc, def, ghi"
+ */
 const TaskCard = ({ data, type }) => {
   const { user } = useUser();
   const time = formatDateTime(data);

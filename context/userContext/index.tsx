@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import firebase from "../../firebase/clientApp";
+import UserInfo from "../../props/UserInfo";
 import { watchDoc } from "../../scripts/watchData";
 import formatData from "./formatData";
 import initialState from "./initialState";
@@ -53,4 +54,4 @@ export default function UserContextComp({ children }) {
   );
 }
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext<{user: UserInfo, loadingUser: boolean}>(UserContext);
