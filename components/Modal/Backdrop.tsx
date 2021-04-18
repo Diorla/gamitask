@@ -12,6 +12,12 @@ const StyledBackdrop = styled.div`
   z-index: 1;
   left: 0;
 `;
-export default function Backdrop({ children, onClick }) {
+export default function Backdrop({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick: (e: React.SyntheticEvent) => void;
+}) {
   return <StyledBackdrop onClick={onClick}>{children}</StyledBackdrop>;
 }

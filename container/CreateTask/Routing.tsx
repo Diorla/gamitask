@@ -5,7 +5,7 @@ import Label from "./Label";
 import Priority from "./Priority";
 import Project from "./Project";
 
-export default function Routing({ route }) {
+export default function Routing({ route }: { route: string }) {
   if (route === "DueDate") return <DueDate />;
   if (route === "Label") return <Label />;
   if (route === "Priority") return <Priority />;

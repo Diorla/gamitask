@@ -5,7 +5,7 @@ import isBeforeNow from "./isBeforeNow";
 export default function filterWeekly(item: Task) {
   const {
     time,
-    reminder: { days },
+    reminder: { days = [] },
   } = item;
 
   const [hh, mm] = time.split(":");

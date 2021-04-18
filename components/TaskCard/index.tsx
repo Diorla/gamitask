@@ -16,12 +16,13 @@ import { addTask } from "../../context/taskContext/actions";
 import deleteData from "../../scripts/deleteData";
 import Modal from "../Modal";
 import TaskDetails from "./TaskDetails";
+import Task from "../../props/Task";
 
 // TODO: Format labels
 /**
  * For example, the following: "abc, def, ghi,   ,  " should return "abc, def, ghi"
  */
-const TaskCard = ({ data, type }) => {
+const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
   const time = formatDateTime(data);
   const { id, name, priority, difficulty, countdowns, done } = data;

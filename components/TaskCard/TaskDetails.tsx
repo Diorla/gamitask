@@ -19,7 +19,7 @@ const Flag = styled(FaFlag)<{ index: number }>`
   color: ${({ theme, index }) => theme.palette[colourScale[index]].main};
 `;
 
-const Difficulty = ({ index }) => {
+const Difficulty = ({ index }: { index: number }) => {
   if (index === 1) return <FcLowPriority />;
   if (index === 2) return <FcMediumPriority />;
   if (index === 2) return <FcHighPriority />;

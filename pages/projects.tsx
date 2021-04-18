@@ -3,9 +3,14 @@ import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
+import Task from "../props/Task";
+
+export interface CollectionProps {
+  [key: string]: Task[];
+}
 
 const getLabelCollection = (taskList: any[]) => {
-  const tempCollection = {};
+  const tempCollection: CollectionProps = {};
   taskList.map((item) => {
     const projectName = item.project;
     if (tempCollection[projectName]) tempCollection[projectName].push(item);

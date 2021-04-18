@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import dayjs from "dayjs";
 import Task from "../../props/Task";
 import filterDaily from "./filterDaily";
@@ -83,11 +83,11 @@ const assignToCollection = (
  */
 export default function filterToday(taskList: Task[], runningId: string) {
   let running: Task;
-  const archive = [];
-  const upcoming = [];
-  const today = [];
-  const overdue = [];
-  const completed = [];
+  const archive: Task[] = [];
+  const upcoming: Task[] = [];
+  const today: Task[] = [];
+  const overdue: Task[] = [];
+  const completed: Task[] = [];
 
   const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
   taskList.forEach((item) => {
@@ -150,7 +150,6 @@ export default function filterToday(taskList: Task[], runningId: string) {
     upcoming,
     today,
     overdue,
-    running,
     completed,
   };
 }

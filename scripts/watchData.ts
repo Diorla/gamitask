@@ -6,7 +6,7 @@ const watchData = async (collection: string, callback: (e: any[]) => void) => {
   const collectionRef = db.collection(collection);
 
   collectionRef.onSnapshot((querySnapshot) => {
-    const tempArray = [];
+    const tempArray: any[] = [];
     querySnapshot.forEach((doc: any) => {
       tempArray.push(doc.data());
     });
@@ -17,7 +17,10 @@ const watchData = async (collection: string, callback: (e: any[]) => void) => {
 export const watchDoc = async (
   collection: string,
   document: string,
-  callback: (arg0: firebase.firestore.DocumentData) => void
+  callback: {
+    (data: any): void;
+    (arg0: firebase.firestore.DocumentData | undefined): void;
+  }
 ) => {
   const db = firebase.firestore();
 

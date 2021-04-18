@@ -11,7 +11,7 @@ const formatMsToCountDown = (ms: number) => {
   return `${hh}:${mm}:${ss}`;
 };
 
-export default function CountDown({ time }) {
+export default function CountDown({ time }: { time: number }) {
   return time ? (
     <span>{formatMsToCountDown(time)}</span>
   ) : (

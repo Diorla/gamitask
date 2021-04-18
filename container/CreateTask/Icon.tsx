@@ -1,6 +1,5 @@
 import { IconBaseProps } from "react-icons";
 import { FaCalendarAlt, FaFlag } from "react-icons/fa";
-import { GiAlarmClock } from "react-icons/gi";
 import { IoMdArrowDropupCircle } from "react-icons/io";
 import { MdLabel, MdRepeat } from "react-icons/md";
 import { VscProject } from "react-icons/vsc";

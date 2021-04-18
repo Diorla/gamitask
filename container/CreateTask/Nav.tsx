@@ -9,19 +9,9 @@ import {
   ProjectIcon,
 } from "./Icon";
 
-const priorityColours = {
-  1: "#329b52",
-  2: "#17b0f1",
-  3: "#7843bc",
-  4: "#ffac03",
-  5: "#e83c3d",
-};
+const priorityColours = ["#329b52", "#17b0f1", "#7843bc", "#ffac03", "#e83c3d"];
 
-const difficultyColours = {
-  1: "rgb(76, 175, 80)",
-  2: "#ffac03",
-  3: "#e83c3d",
-};
+const difficultyColours = ["rgb(76, 175, 80)", "#ffac03", "#e83c3d"];
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -37,7 +27,13 @@ const ProjectWrapper = styled.div`
  * Use some validation to see if the reminder is valid
  * And then return boolean
  */
-export default function Nav({ currentSection, setCurrentSection }) {
+export default function Nav({
+  currentSection,
+  setCurrentSection,
+}: {
+  currentSection: string;
+  setCurrentSection: (e: string) => void;
+}) {
   const { difficulty, labels, priority, project, time } = useTaskState();
 
   return (

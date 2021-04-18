@@ -6,8 +6,12 @@ import { useUser } from "../userContext";
 
 export const TaskListContext = createContext<TaskProps[]>([]);
 
-export default function TaskListContextWrapper({ children }) {
-  const [taskList, setTaskList] = useState([]);
+export default function TaskListContextWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [taskList, setTaskList] = useState([] as TaskProps[]);
   const { user } = useUser();
 
   useEffect(() => {

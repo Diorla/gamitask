@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdChevronRight, MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
+import Task from "../../props/Task";
 import DrawerItem from "./DrawerItem";
 
 const Styled = styled.div`
@@ -20,8 +21,20 @@ const Dropdown = styled.div`
   flex-direction: column;
   margin: 0 1.6rem;
 `;
-
-export default function Accordion({ data, active }) {
+export interface AccordionProps {
+  header: string;
+  base: string;
+  path: string[];
+  title: string[];
+  icons: React.ReactNode[];
+}
+export default function Accordion({
+  data,
+  active,
+}: {
+  data: AccordionProps;
+  active: string;
+}) {
   const { header, base, path, title, icons } = data;
   const [dropdownVisible, setDropdownVisible] = useState(path.includes(active));
   return (
@@ -34,7 +47,7 @@ export default function Accordion({ data, active }) {
       </DrawerItem>
       {dropdownVisible && (
         <Dropdown>
-          {path.map((item: string, idx: React.Key) => (
+          {path.map((item: string, idx: number) => (
             <DrawerItem
               key={idx}
               href={`${base}/${item}`}

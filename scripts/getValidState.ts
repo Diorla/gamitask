@@ -6,7 +6,7 @@ export default function getValidState(data: Task) {
     time,
     name,
     date,
-    reminder: { type, dateInMonth, days, months },
+    reminder: { type, dateInMonth, days = [], months = [] },
   } = data;
   if (!name) return { message: "Please provide a name", isValid: false };
   if (!time) return { message: "Please provide a time", isValid: false };
