@@ -53,17 +53,19 @@ export default function Checkbox({
   checked: boolean;
   onChange: any;
 }) {
+  const id = "s" + Math.floor(Math.random() * 1000000000000);
   return (
     <Styled className="exclude">
       <input
         type="checkbox"
         value="None"
-        id="chb"
+        id={id}
         name="check"
         checked={checked}
         onChange={onChange}
+        className="exclude"
       />
-      <label htmlFor="chb" className="exclude"></label>
+      <label htmlFor={id} className="exclude"></label>
     </Styled>
   );
 }
