@@ -5,6 +5,46 @@ import filterDoneOnce from "./filterDoneOnce";
 import filterMonthly from "./filterMonthly";
 import filterWeekly from "./filterWeekly";
 import filterYearly from "./filterYearly";
+/**
+ * It is easiest to check if a task is running, simply by checking id, so that is tested first
+ * Once
+ *  Before Today
+ *    Done => archived
+ *    Not done => overdue
+ *  Today
+ *    Done => completed
+ *    Before now => overdue
+ *    After now => today
+ *  After Today => upcoming
+ * Repeated
+ *  Daily
+ *    Done Today => completed
+ *    Before now => overdue
+ *    After now => upcoming
+ *  Weekly
+ *    Weekday includes today
+ *      Done today => completed
+ *      Not done today
+ *        Before now => overdue
+ *        After now => today
+ *    Weekday does not include today => upcoming
+ *  Monthly
+ *    date is today
+ *      Done today => completed
+ *      Not done
+ *        Before now => overdue
+ *        After now => today
+ *    Not today => upcoming
+ *  Yearly
+ *    month includes this month
+ *      date includes today
+ *        Done today => completed
+ *        Not done
+ *          Before now => overdue
+ *          After now => today
+ *      date does not include today => upcoming
+ *    month does not include this month => upcoming
+ */
 
 const assignToCollection = (
   value: any,

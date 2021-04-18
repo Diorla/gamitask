@@ -40,6 +40,7 @@ export default function App({ Component, pageProps }) {
               <ToastContainer
                 position="bottom-center"
                 style={{ fontSize: "1.6rem" }}
+                autoClose={3000}
               />
             </TaskProvider>
           </TaskListProvider>

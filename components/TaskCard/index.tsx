@@ -9,7 +9,7 @@ import DoneTask from "./DoneTask";
  */
 const TaskCard = ({ data, type }) => {
   if (type === "today" || type === "overdue") return <TodayTask data={data} />;
-  else if (type === "completed") return <DoneTask data={data} />;
+  if (type === "completed") return <DoneTask data={data} />;
   return <FutureTask data={data} />;
 };
 

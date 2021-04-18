@@ -15,10 +15,13 @@ dayjs.extend(isToday);
  * This includes user info
  * setting projects and labels array
  */
-// TODO: Fix page error on refreshing
 const sortSoonToLater = (prev: Task, next: Task) =>
   getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
+// BUG: Checkbox/done not working
+/**
+ * completed, overdue and today is not segregrating appropriately
+ */
 // TODO: When user check a task as done, do additional test
 /**
  * In case user has not run the task (untimed task)
