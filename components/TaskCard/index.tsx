@@ -83,9 +83,11 @@ const TaskCard = ({ data, type }) => {
         </Modal>
       )}
       <TaskWrapper
-        onClick={() => {
-          setShowFullDetails(true);
-          console.log("hello there");
+        onClick={(e) => {
+          const { className = "" } = e.target as HTMLDivElement;
+          try {
+            if (!className.includes("exclude")) setShowFullDetails(true);
+          } catch (error) {}
         }}
       >
         <TaskChild>
@@ -101,8 +103,8 @@ const TaskCard = ({ data, type }) => {
         </TaskChild>
         <TaskChild>
           <RevealOnHover>
-            <MdEdit onClick={editTask} />
-            <MdDelete onClick={deleteTask} />
+            <MdEdit onClick={editTask} className="exclude" />
+            <MdDelete onClick={deleteTask} className="exclude" />
           </RevealOnHover>
           {data.labels}
           <Corner>{time}</Corner>

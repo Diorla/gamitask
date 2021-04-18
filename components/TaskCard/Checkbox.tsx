@@ -54,7 +54,7 @@ export default function Checkbox({
   onChange: any;
 }) {
   return (
-    <Styled>
+    <Styled className="exclude">
       <input
         type="checkbox"
         value="None"
@@ -63,7 +63,7 @@ export default function Checkbox({
         checked={checked}
         onChange={onChange}
       />
-      <label htmlFor="chb"></label>
+      <label htmlFor="chb" className="exclude"></label>
     </Styled>
   );
 }

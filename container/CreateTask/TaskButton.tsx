@@ -64,7 +64,6 @@ export default function TaskButton() {
     })
       .then(() => {
         const id = data.id || v4();
-        console.log({ id }); //
         createData("user", `${user.uid}/tasks/${id}`, {
           ...data,
           id,
