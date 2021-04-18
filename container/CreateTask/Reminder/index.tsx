@@ -26,7 +26,7 @@ export default function Reminder() {
         },
       })
     );
-  const { type } = reminder;
+  const { type = "daily" } = reminder;
   return (
     <div>
       <hr />
