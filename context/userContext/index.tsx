@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import firebase from "../../firebase/clientApp";
 import UserInfo from "../../props/UserInfo";
@@ -28,7 +21,7 @@ export default function UserContextComp({
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
       try {
         if (user) {
-          watchDoc("user", user.uid, (data) => {
+          watchDoc("user", user.uid, (data = {}) => {
             const formattedData = formatData(data);
 
             const {
