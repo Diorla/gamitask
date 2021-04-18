@@ -45,7 +45,7 @@ export default function AppContainer({
   return (
     <Wrapper>
       <Drawer>
-        <Seperator />
+        <Seperator size={10}/>
         <DrawerItem
           href="/"
           active={active === "today"}

@@ -36,8 +36,12 @@ export default function App({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <TaskListProvider>
             <TaskProvider>
-              <ToastContainer position="bottom-center" />
               <Component {...pageProps} />
+              <ToastContainer
+                position="bottom-center"
+                style={{ fontSize: "1.6rem" }}
+                autoClose={3000}
+              />
             </TaskProvider>
           </TaskListProvider>
         </ThemeProvider>

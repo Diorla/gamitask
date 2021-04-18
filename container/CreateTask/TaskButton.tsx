@@ -54,8 +54,6 @@ export default function TaskButton() {
   }, []);
 
   const uploadTask = () => {
-    // TODO: id = data.id || v4(), this will be useful in editing tasks
-    const id = v4();
     const labelList = dataLabels
       .split(",")
       .map(trim)
@@ -66,12 +64,15 @@ export default function TaskButton() {
       labels: uniqueArray([...labels, ...labelList]),
     })
       .then(() => {
+        const id = data.id || v4();
+        console.log({ id });
         createData("user", `${user.uid}/tasks/${id}`, {
-          id,
           ...data,
+          id,
         })
           .then(() => {
-            toast.success("Task created");
+            if (data.id) toast.success("Task updated");
+            else toast.success("Task created");
           })
           .catch((err) => {
             toast.error(`${err}`);

@@ -19,6 +19,7 @@ const initialState: TaskProps = {
   done: [],
   countdowns: {},
   points: {},
+  showModal: false,
 };
 
 export default initialState;

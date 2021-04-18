@@ -2,12 +2,12 @@ import React from "react";
 import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useTaskList } from "../context/taskListContext";
-import Task from "../context/taskContext/TaskProps";
 import TaskCollection from "../container/TaskCollection";
 // import createDateCollection from "../scripts/createDateCollection";
 // import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import getTimeMs from "../scripts/getTimeMs";
+import Task from "../props/Task";
 //! TODO: Filter upcoming into different segments
 /**
  * Break upcoming into tomorrow, next week etc as commented out
