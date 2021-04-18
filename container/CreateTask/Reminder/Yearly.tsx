@@ -52,7 +52,7 @@ export default function Yearly() {
   const task = useTaskState();
   const {
     reminder,
-    reminder: { months, dateInMonth },
+    reminder: { months = [], dateInMonth = 1 },
   } = task;
   const taskDispatch = useTaskDispatch();
   const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));

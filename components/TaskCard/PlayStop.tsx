@@ -24,10 +24,16 @@ const Stop = styled(MdStop)`
   }
 `;
 
-export default function PlayPause({ running, toggleRunning }) {
+export default function PlayPause({
+  running,
+  toggleRunning,
+}: {
+  running: boolean;
+  toggleRunning: () => void;
+}) {
   return running ? (
-    <Stop onClick={toggleRunning} />
+    <Stop onClick={toggleRunning} className="exclude" />
   ) : (
-    <Play onClick={toggleRunning} />
+    <Play onClick={toggleRunning} className="exclude" />
   );
 }

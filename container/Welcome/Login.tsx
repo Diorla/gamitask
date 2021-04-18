@@ -4,7 +4,6 @@ import Input from "../../components/Form/Input";
 import { loginWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
 
-
 const Login = ({ onClose }: { onClose: () => void }) => {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -22,7 +21,7 @@ const Login = ({ onClose }: { onClose: () => void }) => {
     <Column>
       <Input
         placeholder="Email"
-        onChange={(e) =>
+        onChange={(e: any) =>
           setCredentials({
             ...credentials,
             email: e.target.value,
@@ -32,7 +31,7 @@ const Login = ({ onClose }: { onClose: () => void }) => {
       <Input
         placeholder="password"
         type="password"
-        onChange={(e) =>
+        onChange={(e: any) =>
           setCredentials({
             ...credentials,
             password: e.target.value,

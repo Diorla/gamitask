@@ -18,7 +18,7 @@ const StyledLink = styled.a`
   color: white;
 `;
 
-export default function Menu({ profileImage }) {
+export default function Menu({ profileImage }: { profileImage: string }) {
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
 
@@ -60,7 +60,7 @@ export default function Menu({ profileImage }) {
           <Dropdown profileImage={profileImage} />
         </Right>
       </Nav>
-      <Modal visible={task.showModal} onClose={closeModal}>
+      <Modal visible={Boolean(task.showModal)} onClose={closeModal}>
         <CreateTask />
       </Modal>
     </>

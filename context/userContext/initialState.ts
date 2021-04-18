@@ -20,7 +20,14 @@ const user: UserInfo = {
   labels: [],
   projects: [],
   points_per_minute: 500,
-  runningTask: {},
+  runningTask: {
+    name: "",
+    startTime: 0,
+    priority: 1,
+    difficulty: 1,
+    id: "",
+    countdowns: {},
+  },
   created: Date.now(),
 };
 

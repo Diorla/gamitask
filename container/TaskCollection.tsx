@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import styled from "styled-components";
 import TaskCard from "../components/TaskCard";
+import Task from "../props/Task";
 
 const Title = styled.h3`
   display: flex;
@@ -9,7 +10,15 @@ const Title = styled.h3`
   cursor: pointer;
 `;
 
-export default function TaskCollection({ data, type, title }) {
+export default function TaskCollection({
+  data,
+  type,
+  title,
+}: {
+  data: Task[];
+  type: string;
+  title: string;
+}) {
   const [expanded, setExpanded] = useState(true);
   if (data && data.length)
     return (

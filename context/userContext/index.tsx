@@ -1,13 +1,25 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { toast } from "react-toastify";
 import firebase from "../../firebase/clientApp";
+import UserInfo from "../../props/UserInfo";
 import { watchDoc } from "../../scripts/watchData";
 import formatData from "./formatData";
 import initialState from "./initialState";
 
-export const UserContext = createContext(null);
+export const UserContext = createContext(initialState);
 
-export default function UserContextComp({ children }) {
+export default function UserContextComp({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { user: userInfo } = initialState;
   const [user, setUser] = useState(userInfo);
   const [loadingUser, setLoadingUser] = useState(true);
@@ -34,7 +46,7 @@ export default function UserContextComp({ children }) {
               },
             };
 
-            setUser(userData);
+            setUser(formatData(userData));
           }).catch((err) => toast.error(err));
         } else setUser(userInfo);
       } catch (error) {
@@ -47,10 +59,14 @@ export default function UserContextComp({ children }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
+    <UserContext.Provider value={{ user, loadingUser }}>
       {children}
     </UserContext.Provider>
   );
 }
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () =>
+  useContext<{
+    user: UserInfo;
+    loadingUser: boolean;
+  }>(UserContext);

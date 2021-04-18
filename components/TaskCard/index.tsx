@@ -16,8 +16,13 @@ import { addTask } from "../../context/taskContext/actions";
 import deleteData from "../../scripts/deleteData";
 import Modal from "../Modal";
 import TaskDetails from "./TaskDetails";
+import Task from "../../props/Task";
 
-const TaskCard = ({ data, type }) => {
+// TODO: Format labels
+/**
+ * For example, the following: "abc, def, ghi,   ,  " should return "abc, def, ghi"
+ */
+const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
   const time = formatDateTime(data);
   const { id, name, priority, difficulty, countdowns, done } = data;
@@ -83,9 +88,11 @@ const TaskCard = ({ data, type }) => {
         </Modal>
       )}
       <TaskWrapper
-        onClick={() => {
-          setShowFullDetails(true);
-          console.log("hello there");
+        onClick={(e) => {
+          const { className = "" } = e.target as HTMLDivElement;
+          try {
+            if (!className.includes("exclude")) setShowFullDetails(true);
+          } catch (error) {}
         }}
       >
         <TaskChild>
@@ -101,8 +108,8 @@ const TaskCard = ({ data, type }) => {
         </TaskChild>
         <TaskChild>
           <RevealOnHover>
-            <MdEdit onClick={editTask} />
-            <MdDelete onClick={deleteTask} />
+            <MdEdit onClick={editTask} className="exclude" />
+            <MdDelete onClick={deleteTask} className="exclude" />
           </RevealOnHover>
           {data.labels}
           <Corner>{time}</Corner>

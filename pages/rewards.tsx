@@ -47,19 +47,29 @@ const Add = styled.div`
   }
 `;
 export default function Rewards() {
-  const [rewards, setRewards] = useState([]);
+  const [rewards, setRewards] = useState([] as any[]);
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [value, setValue] = useState({ name: "", cost: 0 });
   const { user } = useUser();
   const { points } = user;
   useEffect(() => {
     user &&
-      watchData(`user/${user.uid}/rewards`, (e) => {
-        setRewards(e);
-      }).catch((err) => toast.error(err));
+      watchData(`user/${user.uid}/rewards`, (e) => setRewards(e)).catch((err) =>
+        toast.error(err)
+      );
   }, [user]);
 
-  const useReward = ({ id, done, cost, name }) => {
+  const useReward = ({
+    id,
+    done,
+    cost,
+    name,
+  }: {
+    id: string;
+    done: number[];
+    cost: number;
+    name: number;
+  }) => {
     if (points > cost)
       createData("user", `${user.uid}/rewards/${id}`, {
         done: [...done, Date.now()],

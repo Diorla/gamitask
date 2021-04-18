@@ -5,7 +5,7 @@ import isBeforeNow from "./isBeforeNow";
 export default function filterYearly(item: Task) {
   const {
     time,
-    reminder: { months },
+    reminder: { months = [] },
   } = item;
 
   const [hh, mm] = time.split(":");

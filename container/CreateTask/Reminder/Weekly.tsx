@@ -24,7 +24,7 @@ export default function Weekly() {
   const task = useTaskState();
   const {
     reminder,
-    reminder: { days },
+    reminder: { days = [] },
   } = task;
   const taskDispatch = useTaskDispatch();
 

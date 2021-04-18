@@ -19,7 +19,7 @@ const Flag = styled(FaFlag)<{ index: number }>`
   color: ${({ theme, index }) => theme.palette[colourScale[index]].main};
 `;
 
-const Difficulty = ({ index }) => {
+const Difficulty = ({ index }: { index: number }) => {
   if (index === 1) return <FcLowPriority />;
   if (index === 2) return <FcMediumPriority />;
   if (index === 2) return <FcHighPriority />;
@@ -79,7 +79,6 @@ export default function TaskDetails({ data }: { data: Task }) {
   const latestList = Object.keys(data.countdowns)
     .map(convertKeyToNumber)
     .sort((prev, next) => next - prev);
-  console.log({ latestList });
   const { priority, difficulty, labels = "" } = data;
   return (
     <Styled>

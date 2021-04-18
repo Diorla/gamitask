@@ -20,8 +20,8 @@ const DropdownMenu = styled.div`
   border-radius: 0.4rem;
 `;
 
-export default function Dropdown({ profileImage }) {
-  const User = ({ onClick }) =>
+export default function Dropdown({ profileImage }: { profileImage: string }) {
+  const User = ({ onClick }: { onClick: () => void }) =>
     profileImage ? (
       <Avatar src={profileImage} onClick={onClick} />
     ) : (

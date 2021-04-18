@@ -19,6 +19,13 @@ export default interface UserInfo {
   labels: string[];
   projects: string[];
   points_per_minute: number;
-  runningTask: Task | {};
+  runningTask: {
+    name: string;
+    startTime: number;
+    priority: number;
+    difficulty: number;
+    id: string;
+    countdowns: { [key: string]: any };
+  };
   created: number;
 }

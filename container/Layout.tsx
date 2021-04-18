@@ -7,7 +7,17 @@ import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";
 
-const Control = ({ loadingUser, uid, children, profileImage }) => {
+const Control = ({
+  loadingUser,
+  uid,
+  children,
+  profileImage,
+}: {
+  loadingUser: boolean;
+  uid: string;
+  children: React.ReactNode;
+  profileImage: string;
+}) => {
   if (loadingUser)
     return (
       <div>
@@ -24,7 +34,7 @@ const Control = ({ loadingUser, uid, children, profileImage }) => {
   return <Welcome />;
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const { loadingUser, user } = useUser();
   const { runningTask } = user;
   const { id } = runningTask || {};

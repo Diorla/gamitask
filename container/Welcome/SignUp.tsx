@@ -21,7 +21,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
     <Column>
       <Input
         placeholder="Email"
-        onChange={(e) =>
+        onChange={(e: { target: { value: any; }; }) =>
           setCredentials({
             ...credentials,
             email: e.target.value,
@@ -31,7 +31,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
       <Input
         placeholder="Password"
         type="password"
-        onChange={(e) =>
+        onChange={(e: { target: { value: any; }; }) =>
           setCredentials({
             ...credentials,
             password: e.target.value,
@@ -41,7 +41,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
       <Input
         placeholder="Repeat password"
         type="password"
-        onChange={(e) =>
+        onChange={(e: { target: { value: any; }; }) =>
           setCredentials({
             ...credentials,
             repassword: e.target.value,

@@ -14,7 +14,7 @@ export default function Priority() {
 
   return (
     <Layout>
-      <AppContainer active={path}>
+      <AppContainer active={path || ""}>
         {filteredList.map((item, idx) => (
           <TaskCard data={item} key={idx} type="upcoming" />
         ))}
