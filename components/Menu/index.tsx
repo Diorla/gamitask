@@ -38,29 +38,31 @@ export default function Menu({ profileImage }) {
       })
     );
   return (
-    <Nav>
-      <Link href="/">
-        <StyledLink>
-          <MenuIcon />
-        </StyledLink>
-      </Link>
-      <Right>
-        <AddIcon onClick={openModal} />
-        <Link href="/points">
+    <>
+      <Nav>
+        <Link href="/">
           <StyledLink>
-            <PointIcon />
+            <MenuIcon />
           </StyledLink>
         </Link>
-        <Link href="/notifications">
-          <StyledLink>
-            <NotificationIcon />
-          </StyledLink>
-        </Link>
-        <Dropdown profileImage={profileImage} />
-      </Right>
+        <Right>
+          <AddIcon onClick={openModal} />
+          <Link href="/points">
+            <StyledLink>
+              <PointIcon />
+            </StyledLink>
+          </Link>
+          <Link href="/notifications">
+            <StyledLink>
+              <NotificationIcon />
+            </StyledLink>
+          </Link>
+          <Dropdown profileImage={profileImage} />
+        </Right>
+      </Nav>
       <Modal visible={task.showModal} onClose={closeModal}>
         <CreateTask />
       </Modal>
-    </Nav>
+    </>
   );
 }

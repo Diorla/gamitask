@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import dayjs from "dayjs";
 import Task from "../../props/Task";
 import filterDaily from "./filterDaily";
@@ -75,6 +76,11 @@ const assignToCollection = (
       break;
   }
 };
+// TODO: Make this list global via useContext
+/**
+ * This will make it easier to filter, and it will update global state immediately
+ * And will effect change appropriately
+ */
 export default function filterToday(taskList: Task[], runningId: string) {
   let running: Task;
   const archive = [];
