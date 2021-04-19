@@ -19,33 +19,29 @@ export default function UserContextComp({
 
   useEffect(() => {
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
-      try {
-        if (user) {
-          watchDoc("user", user.uid, (data = {}) => {
-            const formattedData = formatData(data);
+      if (user) {
+        watchDoc("user", user.uid, (data = {}) => {
+          const formattedData = formatData(data);
 
-            const {
-              profile,
-              profile: { profileImage },
-            } = formattedData;
+          const {
+            profile,
+            profile: { profileImage },
+          } = formattedData;
 
-            const userData = {
-              ...formattedData,
-              uid: user.uid,
-              email: user.email,
-              profile: {
-                ...profile,
-                profileImage: profileImage || user.photoURL,
-              },
-            };
-
-            setUser(formatData(userData));
-          }).catch((err) => toast.error(err));
-        } else setUser(userInfo);
-      } catch (error) {
-      } finally {
-        setLoadingUser(false);
-      }
+          const userData = {
+            ...formattedData,
+            uid: user.uid,
+            email: user.email,
+            profile: {
+              ...profile,
+              profileImage: profileImage || user.photoURL,
+            },
+          };
+          Promise.resolve(true)
+            .then(() => setUser(formatData(userData)))
+            .then(() => setLoadingUser(false));
+        }).catch((err) => toast.error(err));
+      } else setUser(userInfo);
     });
 
     return () => unsubscriber();
