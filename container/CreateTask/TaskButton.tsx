@@ -66,6 +66,7 @@ export default function TaskButton() {
         const id = data.id || v4();
         createData("user", `${user.uid}/tasks/${id}`, {
           ...data,
+          modified: Date.now(),
           id,
         });
       })

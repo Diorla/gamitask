@@ -18,10 +18,6 @@ dayjs.extend(isToday);
 const sortSoonToLater = (prev: Task, next: Task) =>
   getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
-// BUG: Checkbox/done not working
-/**
- * completed, overdue and today is not segregrating appropriately
- */
 // TODO: When user check a task as done, do additional test
 /**
  * In case user has not run the task (untimed task)
@@ -34,12 +30,7 @@ const sortSoonToLater = (prev: Task, next: Task) =>
 export default function Home() {
   const taskList = useTaskList();
   const { user } = useUser();
-  const { runningTask } = user;
-  const id = runningTask && runningTask.id;
-  const { completed, overdue, today } = filter(
-    taskList.sort(sortSoonToLater),
-    id
-  );
+  const { completed, overdue, today } = filter(taskList.sort(sortSoonToLater));
 
   return (
     <Layout>

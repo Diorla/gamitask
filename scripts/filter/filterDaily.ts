@@ -1,15 +1,21 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
-import isBeforeNow from "./isBeforeNow";
+import filterTypes from "./filterTypes";
 
-export default function filterDaily(item: Task) {
-  const { time } = item;
+export default function filterDaily(task: Task): filterTypes {
+  const { time, done } = task;
+  const beginningOfToday = dayjs(new Date())
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .valueOf();
   const [hh, mm] = time.split(":");
-
-  const date = new Date(
-    dayjs().set("hour", Number(hh)).set("minute", Number(mm)).valueOf()
-  );
-
-  if (isBeforeNow(date)) return "overdue";
-  return "today";
+  const taskTime = dayjs(new Date())
+    .hour(Number(hh))
+    .minute(Number(mm))
+    .second(0)
+    .valueOf();
+  if (done.includes(beginningOfToday)) return "completed";
+  if (taskTime <= Date.now()) return "overdue";
+  return "upcoming";
 }

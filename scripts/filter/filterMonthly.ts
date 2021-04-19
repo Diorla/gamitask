@@ -1,24 +1,49 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
-import isBeforeNow from "./isBeforeNow";
+import filterTypes from "./filterTypes";
 
-export default function filterMonthly(item: Task) {
+export default function filterMonthly(task: Task): filterTypes {
   const {
     time,
-    reminder: { dateInMonth },
-  } = item;
-
+    done,
+    modified,
+    reminder: { dateInMonth = 1 },
+  } = task;
+  const todayDate = new Date().getDate();
+  const beginningOfToday = dayjs(new Date())
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .valueOf();
   const [hh, mm] = time.split(":");
-
-  const currentDate = new Date().getDate();
-  if (currentDate === dateInMonth) {
-    const date = new Date(
-      dayjs().set("hour", Number(hh)).set("minute", Number(mm)).valueOf()
-    );
-
-    if (isBeforeNow(date)) return "overdue";
+  const taskTime = dayjs(new Date())
+    .hour(Number(hh))
+    .minute(Number(mm))
+    .second(0)
+    .valueOf();
+  if (todayDate === dateInMonth) {
+    if (done.includes(beginningOfToday)) return "completed";
+    else if (taskTime > Date.now()) return "overdue";
     return "today";
+  } else {
+    // not new
+    if (done.length) {
+      const lastMonthValueDone = dayjs()
+        .subtract(1, "month")
+        .date(dateInMonth)
+        .hour(0)
+        .minute(0)
+        .second(0)
+        .valueOf();
+      if (done.includes(lastMonthValueDone)) return "upcoming";
+    } else {
+      const lastMonth = dayjs()
+        .subtract(1, "month")
+        .date(dateInMonth)
+        .valueOf();
+      const modifiedMonth = dayjs(modified).valueOf();
+      if (modifiedMonth > lastMonth) return "upcoming";
+    }
   }
-
-  return "upcoming";
+  return "overdue";
 }
