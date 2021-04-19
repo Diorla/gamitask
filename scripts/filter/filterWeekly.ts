@@ -3,14 +3,13 @@ import Task from "../../props/Task";
 import dayDifference from "./dayDifference";
 import filterTypes from "./filterTypes";
 
-// TODO: Another variable to add is "last_modified"
 /**
  * For example, if I created it today, it shouldn't go back in time to see anything
- * @param day
- * @param dayList
+ * @param day - the value of current day
+ * @param dayList - the list of days
  * @returns
  */
-function getNearestLastDay(day: number, dayList: number[]) {
+export function getNearestLastDay(day: number, dayList: number[]) {
   let nearestDay = 0;
   const minDay = Math.min(...dayList);
   // if it's sunday (0), then the nearest last day will be saturday, (7)
