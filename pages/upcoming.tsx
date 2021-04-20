@@ -22,7 +22,7 @@ const sortSoonToLater = (prev: Task, next: Task) =>
 
 export default function Upcoming() {
   const taskList = useTaskList();
-  const { upcoming } = filter(taskList.sort(sortSoonToLater), "");
+  const { upcoming } = filter(taskList.sort(sortSoonToLater));
   // const futureTasks = taskList.filter(filterAfterToday).sort(sortSoonToLater);
   // const {
   //   tomorrow,
