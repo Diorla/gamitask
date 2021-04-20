@@ -77,4 +77,8 @@ export default interface Task {
    */
   points: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
   showModal?: boolean;
+  /**
+   * Indicate created date, and any date that an input is made
+   */
+  modified: number;
 }

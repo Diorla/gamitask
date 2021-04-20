@@ -20,6 +20,7 @@ const initialState: TaskProps = {
   countdowns: {},
   points: {},
   showModal: false,
+  modified: Date.now(),
 };
 
 export default initialState;
