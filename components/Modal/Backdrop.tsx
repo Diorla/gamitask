@@ -9,7 +9,7 @@ const StyledBackdrop = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  z-index: 1;
+  z-index: ${({ theme }) => theme.priority.modal};
   left: 0;
 `;
 export default function Backdrop({

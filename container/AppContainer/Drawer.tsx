@@ -5,7 +5,7 @@ const Drawer = styled.div<{ reveal: boolean }>`
   min-height: calc(100vh - 5rem);
   background-color: ${({ theme }) => theme.palette.default.light};
   user-select: none;
-  z-index: 1;
+  z-index: ${({ theme }) => theme.priority.low};
   position: absolute;
   height: 100vh;
   overflow-y: scroll;
