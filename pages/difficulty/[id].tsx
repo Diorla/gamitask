@@ -24,12 +24,10 @@ export default function Difficulty() {
   if (path === "high")
     filteredList = taskList.filter((item) => item.difficulty === 3);
   return (
-    <Layout>
-      <AppContainer active={path || ""}>
-        {filteredList.map((item, idx) => (
-          <TaskCard data={item} key={idx} type="upcoming" />
-        ))}
-      </AppContainer>
+    <Layout activePath={path || ""}>
+      {filteredList.map((item, idx) => (
+        <TaskCard data={item} key={idx} type="upcoming" />
+      ))}
     </Layout>
   );
 }

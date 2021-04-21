@@ -3,7 +3,6 @@ import { MdAddBox, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { v4 } from "uuid";
-import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
@@ -100,40 +99,38 @@ export default function Rewards() {
       });
   };
   return (
-    <Layout>
-      <AppContainer active="rewards">
-        <h2>Points: {points}</h2>
-        <Add onClick={() => setIsAddVisible(!isAddVisible)}>
-          <MdAddBox /> Add
-        </Add>
-        {isAddVisible && (
-          <div>
-            <input
-              onChange={(e) => setValue({ ...value, name: e.target.value })}
-              placeholder="Name"
-            />
-            <input
-              onChange={(e) =>
-                setValue({ ...value, cost: Number(e.target.value) })
-              }
-              placeholder="Cost"
-              type="number"
-            />
-            <button onClick={createNewReward}>Create</button>
-          </div>
-        )}
-        {rewards
-          .sort((prev, next) => (prev.cost < next.cost ? -1 : 1))
-          .map((item, idx) => (
-            <Wrapper key={idx} disabled={points < item.cost}>
-              <h4>{item.name}</h4>
-              <div>
-                {item.cost}
-                <MdCheck onClick={() => useReward(item)} />
-              </div>
-            </Wrapper>
-          ))}
-      </AppContainer>
+    <Layout activePath="rewards">
+      <h2>Points: {points}</h2>
+      <Add onClick={() => setIsAddVisible(!isAddVisible)}>
+        <MdAddBox /> Add
+      </Add>
+      {isAddVisible && (
+        <div>
+          <input
+            onChange={(e) => setValue({ ...value, name: e.target.value })}
+            placeholder="Name"
+          />
+          <input
+            onChange={(e) =>
+              setValue({ ...value, cost: Number(e.target.value) })
+            }
+            placeholder="Cost"
+            type="number"
+          />
+          <button onClick={createNewReward}>Create</button>
+        </div>
+      )}
+      {rewards
+        .sort((prev, next) => (prev.cost < next.cost ? -1 : 1))
+        .map((item, idx) => (
+          <Wrapper key={idx} disabled={points < item.cost}>
+            <h4>{item.name}</h4>
+            <div>
+              {item.cost}
+              <MdCheck onClick={() => useReward(item)} />
+            </div>
+          </Wrapper>
+        ))}
     </Layout>
   );
 }

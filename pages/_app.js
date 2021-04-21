@@ -14,7 +14,10 @@ import lang from "../lang";
 import "react-toastify/dist/ReactToastify.css";
 import { TaskProvider } from "../context/taskContext";
 import { ToastContainer } from "react-toastify";
-
+// TODO: Sort data fetched by id
+/**
+ * This is to ensure that the position of the data generated doesn't change in between screens like opening drawers
+ */
 const theme = {
   breakpoints,
   elevation,

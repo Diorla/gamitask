@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Nav from "./Nav";
 import { MenuIcon, AddIcon, PointIcon, NotificationIcon } from "./Icon";
@@ -18,7 +18,13 @@ const StyledLink = styled.a`
   color: white;
 `;
 
-export default function Menu({ profileImage }: { profileImage: string }) {
+export default function Menu({
+  profileImage,
+  onClick,
+}: {
+  profileImage: string;
+  onClick: () => void;
+}) {
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
 
@@ -40,11 +46,9 @@ export default function Menu({ profileImage }: { profileImage: string }) {
   return (
     <>
       <Nav>
-        <Link href="/">
-          <StyledLink>
-            <MenuIcon />
-          </StyledLink>
-        </Link>
+        <StyledLink>
+          <MenuIcon onClick={onClick} />
+        </StyledLink>
         <Right>
           <AddIcon onClick={openModal} />
           <Link href="/points">

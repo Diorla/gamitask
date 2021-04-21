@@ -13,12 +13,10 @@ export default function Priority() {
   let filteredList = taskList.filter((item) => item.priority === Number(path));
 
   return (
-    <Layout>
-      <AppContainer active={path || ""}>
-        {filteredList.map((item, idx) => (
-          <TaskCard data={item} key={idx} type="upcoming" />
-        ))}
-      </AppContainer>
+    <Layout activePath={path || ""}>
+      {filteredList.map((item, idx) => (
+        <TaskCard data={item} key={idx} type="upcoming" />
+      ))}
     </Layout>
   );
 }

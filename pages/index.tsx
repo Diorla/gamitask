@@ -1,5 +1,4 @@
 import React from "react";
-import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useTaskList } from "../context/taskListContext";
 import TaskCollection from "../container/TaskCollection";
@@ -8,7 +7,6 @@ import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import getTimeMs from "../scripts/getTimeMs";
 import Task from "../props/Task";
-import { useUser } from "../context/userContext";
 dayjs.extend(isToday);
 // TODO: When new user is created, set default values
 /**
@@ -29,16 +27,13 @@ const sortSoonToLater = (prev: Task, next: Task) =>
  */
 export default function Home() {
   const taskList = useTaskList();
-  const { user } = useUser();
   const { completed, overdue, today } = filter(taskList.sort(sortSoonToLater));
 
   return (
-    <Layout>
-      <AppContainer active="today">
-        <TaskCollection data={completed} title="Completed" type="completed" />
-        <TaskCollection data={overdue} title="Overdue" type="overdue" />
-        <TaskCollection data={today} title="Today" type="today" />
-      </AppContainer>
+    <Layout activePath="today">
+      <TaskCollection data={completed} title="Completed" type="completed" />
+      <TaskCollection data={overdue} title="Overdue" type="overdue" />
+      <TaskCollection data={today} title="Today" type="today" />
     </Layout>
   );
 }

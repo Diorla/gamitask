@@ -30,13 +30,13 @@ export interface AccordionProps {
 }
 export default function Accordion({
   data,
-  active,
+  activePath,
 }: {
   data: AccordionProps;
-  active: string;
+  activePath: string;
 }) {
   const { header, base, path, title, icons } = data;
-  const [dropdownVisible, setDropdownVisible] = useState(path.includes(active));
+  const [dropdownVisible, setDropdownVisible] = useState(path.includes(activePath));
   return (
     <Styled>
       <DrawerItem onClick={() => setDropdownVisible(!dropdownVisible)}>
@@ -52,7 +52,7 @@ export default function Accordion({
               key={idx}
               href={`${base}/${item}`}
               icon={icons && icons[idx]}
-              active={active === item}
+              active={activePath === item}
             >
               {title[idx]}
             </DrawerItem>

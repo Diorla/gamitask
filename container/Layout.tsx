@@ -1,40 +1,77 @@
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import Menu from "../components/Menu";
 import RunningTask from "../components/TaskCard/RunningTask";
 import { useUser } from "../context/userContext";
+import Drawer from "./AppContainer";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";
+
+const Content = styled.div<{ showDrawer: boolean }>`
+  flex: 1;
+  position: absolute;
+  left: 24rem;
+  height: calc(100vh - 5rem);
+  top: 5rem;
+  overflow-y: scroll;
+  width: calc(100% - 24rem);
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: silver;
+    border: 0.2rem solid silver;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm + "px"}) {
+      width: 100%;
+      left: 0;
+    }
+  }
+`;
 
 const Control = ({
   loadingUser,
   uid,
   children,
   profileImage,
+  activePath,
 }: {
   loadingUser: boolean;
   uid: string;
   children: React.ReactNode;
   profileImage: string;
+  activePath: string;
 }) => {
-  if (loadingUser)
-    return (
-      <div>
-        <LayoutLoader />
-      </div>
-    );
+  const [showDrawer, setShowDrawer] = useState(false);
+
+  if (loadingUser) return <LayoutLoader />;
   if (uid)
     return (
       <div style={{ fontSize: "1.6rem" }}>
-        <Menu profileImage={profileImage} />
-        <div>{children}</div>
+        <Menu
+          profileImage={profileImage}
+          onClick={() => setShowDrawer(!showDrawer)}
+        />
+        <Drawer showDrawer={showDrawer} activePath={activePath} />
+        <Content showDrawer={showDrawer} onClick={() => setShowDrawer(false)}>
+          {children}
+        </Content>
       </div>
     );
   return <Welcome />;
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+  activePath,
+}: {
+  children: React.ReactNode;
+  activePath: string;
+}) {
   const { loadingUser, user } = useUser();
   const { runningTask } = user;
   const { id } = runningTask || {};
@@ -52,6 +89,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Wrapper>
         <Control
           loadingUser={loadingUser}
+          activePath={activePath}
           uid={user.uid}
           profileImage={user.profile.profileImage}
         >

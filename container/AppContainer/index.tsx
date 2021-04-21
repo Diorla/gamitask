@@ -8,89 +8,67 @@ import { VscProject } from "react-icons/vsc";
 import DifficultyDD from "./DifficultyDD";
 import PriorityDD from "./PriorityDD";
 
-const Wrapper = styled.div`
-  display: flex;
-`;
-
+/**
+ * TODO: Usememo
+ * Memoised some values especially when it comes to useContext to speed up things
+ */
 const Seperator = styled.div<{ size?: number }>`
   margin-top: ${({ size = 7 }) => size}rem;
 `;
 
-const Content = styled.div`
-  flex: 1;
-  position: absolute;
-  width: calc(100% - 24rem);
-  left: 24rem;
-  height: calc(100vh - 5rem);
-  top: 5rem;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 0.2rem;
-    background-color: #f5f5f5;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: silver;
-    border: 0.2rem solid silver;
-  }
-`;
-
 export default function AppContainer({
-  children,
-  active,
+  activePath,
+  showDrawer,
 }: {
-  children: React.ReactNode;
-  active: string;
+  activePath: string;
+  showDrawer: boolean;
 }) {
   return (
-    <Wrapper>
-      <Drawer>
-        <Seperator size={10}/>
-        <DrawerItem
-          href="/"
-          active={active === "today"}
-          icon={<MdToday />}
-          iconColor="info"
-        >
-          Today
-        </DrawerItem>
-        <DrawerItem
-          href="/upcoming"
-          icon={<FaCalendarAlt />}
-          iconColor="secondary"
-          active={active === "upcoming"}
-        >
-          Upcoming
-        </DrawerItem>
-        <DrawerItem
-          href="/labels"
-          icon={<MdLabel />}
-          iconColor="warning"
-          active={active === "labels"}
-        >
-          Labels
-        </DrawerItem>
-        <DrawerItem
-          href="/projects"
-          icon={<VscProject />}
-          iconColor="primary"
-          active={active === "projects"}
-        >
-          Projects
-        </DrawerItem>
-        <DrawerItem
-          href="/rewards"
-          icon={<FaGift />}
-          iconColor="success"
-          active={active === "rewards"}
-        >
-          Rewards
-        </DrawerItem>
-        <Seperator size={2} />
-        <DifficultyDD active={active} />
-        <PriorityDD active={active} />
-      </Drawer>
-      <Content>{children}</Content>
-    </Wrapper>
+    <Drawer reveal={showDrawer}>
+      <Seperator size={10} />
+      <DrawerItem
+        href="/"
+        active={activePath === "today"}
+        icon={<MdToday />}
+        iconColor="info"
+      >
+        Today
+      </DrawerItem>
+      <DrawerItem
+        href="/upcoming"
+        icon={<FaCalendarAlt />}
+        iconColor="secondary"
+        active={activePath === "upcoming"}
+      >
+        Upcoming
+      </DrawerItem>
+      <DrawerItem
+        href="/labels"
+        icon={<MdLabel />}
+        iconColor="warning"
+        active={activePath === "labels"}
+      >
+        Labels
+      </DrawerItem>
+      <DrawerItem
+        href="/projects"
+        icon={<VscProject />}
+        iconColor="primary"
+        active={activePath === "projects"}
+      >
+        Projects
+      </DrawerItem>
+      <DrawerItem
+        href="/rewards"
+        icon={<FaGift />}
+        iconColor="success"
+        active={activePath === "rewards"}
+      >
+        Rewards
+      </DrawerItem>
+      <Seperator size={2} />
+      <DifficultyDD activePath={activePath} />
+      <PriorityDD activePath={activePath} />
+    </Drawer>
   );
 }

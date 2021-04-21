@@ -4,8 +4,8 @@ import {
   MdTrendingUp,
   MdNotifications,
   MdAccountCircle,
+  MdMenu,
 } from "react-icons/md";
-import { TiPointOfInterest } from "react-icons/ti";
 import styled from "styled-components";
 
 const Icon = (icon: {
@@ -18,7 +18,7 @@ const Icon = (icon: {
   color: ${({ theme }) => theme.palette.default.main};
 `;
 
-const MenuIcon = Icon(TiPointOfInterest);
+const MenuIcon = Icon(MdMenu);
 const AddIcon = Icon(MdAdd);
 const PointIcon = Icon(MdTrendingUp);
 const NotificationIcon = Icon(MdNotifications);

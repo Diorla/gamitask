@@ -1,5 +1,4 @@
 import React from "react";
-import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import { useTaskList } from "../context/taskListContext";
 import TaskCollection from "../container/TaskCollection";
@@ -35,10 +34,9 @@ export default function Upcoming() {
   //   further,
   // } = createDateCollection(futureTasks);
   return (
-    <Layout>
-      <AppContainer active="upcoming">
-        <TaskCollection data={upcoming} title="Upcoming" type="upcoming" />
-        {/* {tomorrow.length ? (
+    <Layout activePath="upcoming">
+      <TaskCollection data={upcoming} title="Upcoming" type="upcoming" />
+      {/* {tomorrow.length ? (
           <TaskCollection data={tomorrow} title="Tomorrow" type="upcoming" />
         ): null}
         {week.length ? (
@@ -62,7 +60,6 @@ export default function Upcoming() {
         {further.length ? (
           <TaskCollection data={further} title="Furthermore" type="upcoming" />
         ): null} */}
-      </AppContainer>
     </Layout>
   );
 }

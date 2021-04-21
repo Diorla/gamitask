@@ -1,5 +1,4 @@
 import React from "react";
-import AppContainer from "../container/AppContainer";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
@@ -39,25 +38,23 @@ export default function Labels() {
   const labelCollection = getLabelCollection(taskList);
 
   return (
-    <Layout>
-      <AppContainer active="labels">
-        {Object.keys(labelCollection).map((item, idx) => {
-          if (item !== unlabelled)
-            return (
-              <TaskCollection
-                key={idx}
-                data={labelCollection[item]}
-                title={toTitleCase(item)}
-                type="upcoming"
-              />
-            );
-        })}
-        <TaskCollection
-          data={labelCollection[unlabelled]}
-          title="Unlabelled"
-          type="upcoming"
-        />
-      </AppContainer>
+    <Layout activePath="labels">
+      {Object.keys(labelCollection).map((item, idx) => {
+        if (item !== unlabelled)
+          return (
+            <TaskCollection
+              key={idx}
+              data={labelCollection[item]}
+              title={toTitleCase(item)}
+              type="upcoming"
+            />
+          );
+      })}
+      <TaskCollection
+        data={labelCollection[unlabelled]}
+        title="Unlabelled"
+        type="upcoming"
+      />
     </Layout>
   );
 }

@@ -20,6 +20,6 @@ const data = {
   ],
 };
 
-export default function DifficultyDropdown({ active }: { active: string }) {
-  return <Accordion data={data} active={active} />;
+export default function DifficultyDropdown({ activePath }: { activePath: string }) {
+  return <Accordion data={data} activePath={activePath} />;
 }
