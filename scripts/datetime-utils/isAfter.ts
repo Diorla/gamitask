@@ -1,7 +1,5 @@
 import dayjs from "dayjs";
-import IsSameOrAfter from "dayjs/plugin/IsSameOrAfter";
 import DateType from "./DateType";
-dayjs.extend(IsSameOrAfter);
 
 /**
  * Determines if the first date comes at a later time
@@ -12,5 +10,5 @@ dayjs.extend(IsSameOrAfter);
  * @example isAfter(new Date(), new Date(), "year") // false
  */
 export default function isAfter(next: Date, current: Date, type?: DateType) {
-  return dayjs(next).isSameOrAfter(dayjs(current), (type = "millisecond"));
+  return dayjs(next).isAfter(dayjs(current), type);
 }

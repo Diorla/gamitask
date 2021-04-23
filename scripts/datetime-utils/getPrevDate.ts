@@ -9,7 +9,7 @@ import DateType from "./DateType";
  * @returns returns the date in milliseconds
  * @example getNextDate(new Date("Wed Jun 21 2021 10:11:20 GMT+0100"), 1, "month") // 1621588280000 => Fri May 21 2021 10:11:20 GMT+0100 (British Summer Time)
  */
-export default function getNextDate(
+export default function getPrevDate(
   value: number,
   type: DateType,
   date = new Date()

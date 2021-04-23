@@ -20,24 +20,15 @@ export default function getNearestDateAfter(
 ) {
   let current;
   switch (type) {
-    case "hour":
-      current = dayjs(date).hour();
-      if (value >= current) return dayjs(date).hour(value);
-      return dayjs(date).add(1, "hour").hour(value);
-
     case "day":
       current = dayjs(date).day();
-      if (value >= current) return dayjs(date).day(value);
-      return dayjs(date).add(1, "day").day(value);
+      if (value > current) return dayjs(date).day(value).valueOf();
+      return dayjs(date).add(1, "week").day(value).valueOf();
 
-    case "week":
-      current = dayjs(date).week();
-      if (value >= current) return dayjs(date).week(value);
-      return dayjs(date).add(1, "week").week(value);
+    // Month
     default:
-      // month
       current = dayjs(date).month();
-      if (value >= current) return dayjs(date).month(value);
-      return dayjs(date).add(1, "month").month(value);
+      if (value > current) return dayjs(date).month(value).valueOf();
+      return dayjs(date).add(1, "year").month(value).valueOf();
   }
 }

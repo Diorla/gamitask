@@ -31,6 +31,7 @@ const formatDate = (value: number, dateType: DateType, isFuture: boolean) => {
     if (dateType === "millisecond")
       return `In ${value} ${pluralise("millisecond", value)}`;
   } else {
+    value = Math.abs(value);
     if (dateType === "year") {
       if (value === 1) return "Last year";
       return `${value} ${pluralise("year", value)} ago`;
