@@ -1,33 +1,23 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
+import { getDayBegin, isBefore } from "../datetime-utils";
 import filterTypes from "./filterTypes";
+import isToday from "dayjs/plugin/isToday";
+dayjs.extend(isToday);
 
 export default function filterOnce(task: Task): filterTypes {
   const { time, done, date } = task;
   const dateTime = `${date}T${time}`;
-  const beginningOfToday = dayjs(new Date())
-    .hour(0)
-    .minute(0)
-    .second(0)
-    .valueOf();
-  const endOfToday = dayjs(new Date())
-    .add(1, "day")
-    .hour(0)
-    .minute(0)
-    .second(0)
-    .valueOf();
-  const isBeforeToday = dayjs(dateTime).isBefore(beginningOfToday);
+  const todayBegin = getDayBegin(new Date());
+  const isBeforeToday = isBefore(new Date(dateTime), new Date(todayBegin));
   const isToday = dayjs(dateTime).isToday();
   if (isBeforeToday) {
-    // Since it's no repeat, it will only happen once
-    // Also, it may be done on that day, or much later.
     if (done.length) return "archived";
+    return "overdue";
   } else if (isToday) {
-    if (done.includes(beginningOfToday)) return "completed";
-    // before now, whether it is today or last year
-    else if (Date.now() <= dayjs(dateTime).valueOf()) return "overdue";
-    // before the end of today (of course, after now)
-    else if (Date.now() <= endOfToday) return "today";
+    if (done.includes(todayBegin)) return "completed";
+    if (isBefore(new Date(dateTime), new Date())) return "overdue";
+    return "today";
   }
   return "upcoming";
 }
