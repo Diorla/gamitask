@@ -8,14 +8,6 @@ import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
 
-// TODO: Set default value for minutes
-/**
- * The default value for 1 hour of fun(coding, playing game etc) is 500
- * So whenever a user is creating reward, they have two options
- * 1. Create a time based, and the points will be determined automatically
- * 2. Create a reward, and define the points by yourself
- * Note, default value could be changed inside
- */
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
   justify-content: space-between;

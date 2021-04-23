@@ -1,16 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
 import TaskCard from "../../components/TaskCard";
-import AppContainer from "../../container/AppContainer";
 import Layout from "../../container/Layout";
 import { useTaskList } from "../../context/taskListContext";
 import Task from "../../props/Task";
 
-/**
- * ?//TODO: Add error page to path
- * for example, if someone deliberately typed difficulty/not-so-hard, I should have a
- * response like "Not fair, we only have three levels of difficulty"
- */
 export default function Difficulty() {
   const router = useRouter();
   const taskList = useTaskList();

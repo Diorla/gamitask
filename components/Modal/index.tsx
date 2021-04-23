@@ -2,9 +2,6 @@ import React from "react";
 import Backdrop from "./Backdrop";
 import Box from "./Box";
 
-/**
- * ?//TODO: Add modal animation
- */
 export default function Modal({
   visible,
   children,

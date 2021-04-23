@@ -18,10 +18,6 @@ import Modal from "../Modal";
 import TaskDetails from "./TaskDetails";
 import Task from "../../props/Task";
 
-// TODO: Format labels
-/**
- * For example, the following: "abc, def, ghi,   ,  " should return "abc, def, ghi"
- */
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
   const time = formatDateTime(data);
@@ -65,7 +61,6 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   };
 
   useEffect(() => {
-    // TODO: Implement schedule, like 20 minutes before due date.
     // const date = new Date(startTime);
     // const job = schedule.scheduleJob(date, function () {
     //   notifyUser(`${name}`);
