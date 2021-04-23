@@ -10,7 +10,9 @@ import {
   isBefore,
   isBetween,
   isTheSameMoment,
+  getDayBegin,
 } from ".";
+import getDayEnd from "./getDayEnd";
 
 describe("time function utilities", () => {
   test("get dateDifference", () => {
@@ -121,16 +123,16 @@ describe("time function utilities", () => {
     const date5 = new Date("2021-05-18T14:23");
     const date6 = new Date("2022-04-18T14:23");
 
-    expect(isAfter(date2, date1, "minute")).toBeTruthy();
-    expect(isAfter(date3, date2, "hour")).toBeTruthy();
-    expect(isAfter(date4, date3, "date")).toBeTruthy();
-    expect(isAfter(date5, date4, "month")).toBeTruthy();
-    expect(isAfter(date6, date5, "year")).toBeTruthy();
+    expect(isBefore(date1, date2, "minute")).toBeTruthy();
+    expect(isBefore(date2, date3, "hour")).toBeTruthy();
+    expect(isBefore(date3, date4, "date")).toBeTruthy();
+    expect(isBefore(date4, date5, "month")).toBeTruthy();
+    expect(isBefore(date5, date6, "year")).toBeTruthy();
 
-    expect(isAfter(date2, date1, "hour")).toBeFalsy();
-    expect(isAfter(date3, date2, "date")).toBeFalsy();
-    expect(isAfter(date4, date3, "month")).toBeFalsy();
-    expect(isAfter(date5, date4, "year")).toBeFalsy();
+    expect(isBefore(date1, date2, "hour")).toBeFalsy();
+    expect(isBefore(date2, date3, "date")).toBeFalsy();
+    expect(isBefore(date3, date4, "month")).toBeFalsy();
+    expect(isBefore(date4, date5, "year")).toBeFalsy();
   });
 
   test("should check if a date is between two other dates", () => {
@@ -158,5 +160,31 @@ describe("time function utilities", () => {
     expect(isTheSameMoment(date4, date5, "year")).toBeTruthy();
     expect(isTheSameMoment(date5, date6, "year")).toBeFalsy();
     expect(isTheSameMoment(date6, date1, "hour")).toBeFalsy();
+  });
+
+  test("should get the day beginning", () => {
+    const dayBegin = getDayBegin(new Date("2021-04-23T17:53:54.574Z"));
+    const date = new Date(dayBegin);
+
+    expect(date.getHours()).toBe(0);
+    expect(date.getMinutes()).toBe(0);
+    expect(date.getMilliseconds()).toBe(0);
+    // Shouldn't change date, month & year
+    expect(date.getDate()).toBe(23);
+    expect(date.getMonth()).toBe(3);
+    expect(date.getFullYear()).toBe(2021);
+  });
+
+  test("should get the day end", () => {
+    const dayBegin = getDayEnd(new Date("2022-08-25T17:53:54.574Z"));
+    const date = new Date(dayBegin);
+
+    expect(date.getHours()).toBe(23);
+    expect(date.getMinutes()).toBe(59);
+    expect(date.getMilliseconds()).toBe(999);
+    // Shouldn't change date, month & year
+    expect(date.getDate()).toBe(25);
+    expect(date.getMonth()).toBe(7);
+    expect(date.getFullYear()).toBe(2022);
   });
 });

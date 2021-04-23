@@ -8,6 +8,8 @@ import isAfter from "./isAfter";
 import isBefore from "./isBefore";
 import isBetween from "./isBetween";
 import isTheSameMoment from "./isTheSameMoment";
+import getDayBegin from "./getDayBegin";
+import getDayEnd from "./getDayEnd";
 
 export {
   getDateDifference,
@@ -20,4 +22,6 @@ export {
   isBefore,
   isBetween,
   isTheSameMoment,
+  getDayBegin,
+  getDayEnd,
 };

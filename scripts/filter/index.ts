@@ -15,7 +15,6 @@ export default function Filter(taskList: Task[]) {
 
   taskList.forEach((task) => {
     const {
-      id,
       repeat,
       reminder: { type },
     } = task;
