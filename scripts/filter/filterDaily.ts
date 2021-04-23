@@ -1,21 +1,12 @@
-import dayjs from "dayjs";
 import Task from "../../props/Task";
+import { getDateFromTime, getDayBegin, isAfter } from "../datetime-utils";
 import filterTypes from "./filterTypes";
 
 export default function filterDaily(task: Task): filterTypes {
   const { time, done } = task;
-  const beginningOfToday = dayjs(new Date())
-    .hour(0)
-    .minute(0)
-    .second(0)
-    .valueOf();
-  const [hh, mm] = time.split(":");
-  const taskTime = dayjs(new Date())
-    .hour(Number(hh))
-    .minute(Number(mm))
-    .second(0)
-    .valueOf();
-  if (done.includes(beginningOfToday)) return "completed";
-  if (taskTime <= Date.now()) return "overdue";
-  return "upcoming";
+  const todayBegin = getDayBegin(new Date());
+  const taskDateTime = getDateFromTime(time);
+  if (done.includes(todayBegin)) return "completed";
+  if (isAfter(new Date(), new Date(taskDateTime))) return "overdue";
+  return "today";
 }
