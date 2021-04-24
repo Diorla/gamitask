@@ -6,6 +6,18 @@ import filterOnce from "./filterOnce";
 import filterWeekly from "./filterWeekly";
 import filterYearly from "./filterYearly";
 
+/** For repetitive event
+ * if it's due today
+ *  done => completed
+ *  not done
+ *    time before now => overdue
+ *    time after now => today
+ * due before today
+ *  done between last due and before today => upcoming
+ *  done today => completed
+ *  not done => overdue
+ * else => upcoming
+ */
 export default function Filter(taskList: Task[]) {
   const archived: Task[] = [];
   const overdue: Task[] = [];

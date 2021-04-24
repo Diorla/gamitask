@@ -14,6 +14,7 @@ import {
 } from ".";
 import getDayDifference from "./getDayDifference";
 import getDayEnd from "./getDayEnd";
+import getMonthDifference from "./getMonthDifference";
 import lastDueDayOrMonth from "./lastDueDayOrMonth";
 
 describe("time function utilities", () => {
@@ -203,5 +204,12 @@ describe("time function utilities", () => {
     expect(lastDueDayOrMonth(3, [2, 4])).toBe(2);
     expect(lastDueDayOrMonth(4, [2, 4])).toBe(2);
     expect(lastDueDayOrMonth(6, [2, 4])).toBe(4);
+  });
+
+  test("should return difference in months", () => {
+    expect(getMonthDifference(0, 0)).toBe(12);
+    expect(getMonthDifference(0, 1)).toBe(1);
+    expect(getMonthDifference(1, 3)).toBe(2);
+    expect(getMonthDifference(3, 1)).toBe(10);
   });
 });
