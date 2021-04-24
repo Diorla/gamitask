@@ -85,7 +85,7 @@ describe("Testing filtering one time event", () => {
     priority: 1,
     reminder: {},
     difficulty: 2,
-    done: [123456789],
+    done: [],
     project: "",
     countdowns: {},
     points: {},
