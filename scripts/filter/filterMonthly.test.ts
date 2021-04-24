@@ -19,7 +19,7 @@ MockDate.set("2021-09-21T09:00"); // Tue Sep 21st, 9 o'clock
 // completed today
 const completedTodayTask: Task = {
   time: "12:00",
-  reminder: { months: [0, 3, 8], dateInMonth: 21 }, // Jan, Mar, Sept
+  reminder: { dateInMonth: 21 }, // Jan, Mar, Sept
   done: [new Date("2021-09-21T08:00").valueOf()], // done today (Sep 21st)
   date: "",
   id: "1234",
@@ -37,7 +37,7 @@ const completedTodayTask: Task = {
 // today but overdue
 const overdueTodayTask: Task = {
   time: "06:00",
-  reminder: { months: [0, 3, 8], dateInMonth: 21 }, // Jan, Mar, Sept
+  reminder: { dateInMonth: 21 }, // Jan, Mar, Sept
   done: [], // not done yet
   date: "",
   id: "1234",
@@ -55,7 +55,7 @@ const overdueTodayTask: Task = {
 // today
 const todayTask: Task = {
   time: "12:00",
-  reminder: { months: [0, 3, 8], dateInMonth: 21 }, // Jan, Mar, Sept
+  reminder: { dateInMonth: 21 }, // Jan, Mar, Sept
   done: [],
   date: "",
   id: "1234",
@@ -73,8 +73,8 @@ const todayTask: Task = {
 // future
 const upcomingTask: Task = {
   time: "12:00",
-  reminder: { months: [0, 3, 9], dateInMonth: 21 }, // Jan, Mar, Sept
-  done: [new Date("2021-09-21T08:00").valueOf()], // done today (Sep 21st)
+  reminder: { dateInMonth: 23 },
+  done: [new Date("2021-08-27T08:00").valueOf()], // done today (Sep 21st)
   date: "",
   id: "1234",
   name: "upcomingTask",
@@ -91,7 +91,7 @@ const upcomingTask: Task = {
 // overdue before today
 const overdueB4Task: Task = {
   time: "12:00",
-  reminder: { months: [0, 6, 9], dateInMonth: 21 }, // Jan, Jul, Oct
+  reminder: { dateInMonth: 25 },
   done: [],
   date: "",
   id: "1234",
@@ -109,7 +109,7 @@ const overdueB4Task: Task = {
 // it was completed today, but overdue before today
 const completedTodayB4Task: Task = {
   time: "12:00",
-  reminder: { months: [0, 3, 7], dateInMonth: 21 }, // Jan, Mar, Aug
+  reminder: { dateInMonth: 25 },
   done: [new Date("2021-09-21T08:00").valueOf()], // done today (Sep 21st)
   date: "",
   id: "1234",
