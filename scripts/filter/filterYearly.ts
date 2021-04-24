@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
 import filterTypes from "./filterTypes";
-import { getNearestLastDay } from "./filterWeekly";
+import lastDueDayOrMonth from "../datetime-utils/lastDueDayOrMonth";
 
 export default function filterYearly(task: Task): filterTypes {
   const {
@@ -26,7 +26,7 @@ export default function filterYearly(task: Task): filterTypes {
     if (taskTime > Date.now()) return "overdue";
     return "today";
   } else {
-    const nearestMonth = getNearestLastDay(new Date().getMonth(), months);
+    const nearestMonth = lastDueDayOrMonth(new Date().getMonth(), months);
     const nearestMonthValue = dayjs()
       .month(nearestMonth)
       .date(dateInMonth)

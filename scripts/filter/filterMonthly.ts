@@ -1,49 +1,47 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
+import { getDateFromTime, getPrevDate, isBetween } from "../datetime-utils";
+import getMonthDifference from "../datetime-utils/getMonthDifference";
+import lastDueDayOrMonth from "../datetime-utils/lastDueDayOrMonth";
 import filterTypes from "./filterTypes";
+import isToday from "./isToday";
 
 export default function filterMonthly(task: Task): filterTypes {
   const {
+    name,
     time,
     done,
-    modified,
-    reminder: { dateInMonth = 1 },
+    modified = 1556118795757,
+    reminder: { dateInMonth = 1, months = [] },
   } = task;
-  const todayDate = new Date().getDate();
-  const beginningOfToday = dayjs(new Date())
-    .hour(0)
-    .minute(0)
-    .second(0)
-    .valueOf();
-  const [hh, mm] = time.split(":");
-  const taskTime = dayjs(new Date())
-    .hour(Number(hh))
-    .minute(Number(mm))
-    .second(0)
-    .valueOf();
-  if (todayDate === dateInMonth) {
-    if (done.includes(beginningOfToday)) return "completed";
-    else if (taskTime > Date.now()) return "overdue";
-    return "today";
-  } else {
-    // not new
-    if (done.length) {
-      const lastMonthValueDone = dayjs()
-        .subtract(1, "month")
-        .date(dateInMonth)
-        .hour(0)
-        .minute(0)
-        .second(0)
-        .valueOf();
-      if (done.includes(lastMonthValueDone)) return "upcoming";
-    } else {
-      const lastMonth = dayjs()
-        .subtract(1, "month")
-        .date(dateInMonth)
-        .valueOf();
-      const modifiedMonth = dayjs(modified).valueOf();
-      if (modifiedMonth > lastMonth) return "upcoming";
+  const now = new Date();
+  const todayDate = now.getDate();
+  const todayMonth = now.getMonth();
+  const lastDone = done[done.length - 1];
+  const dateTimeTask = getDateFromTime(time);
+  if (months?.includes(todayMonth) && todayDate === dateInMonth) {
+    if (lastDone) {
+      if (isToday(new Date(lastDone))) return "completed";
     }
+    if (dateTimeTask < now.valueOf()) return "overdue";
+    return "today";
   }
-  return "overdue";
+  const lastDueMonth = lastDueDayOrMonth(todayMonth, months);
+  const monthDifference = getMonthDifference(lastDueMonth, todayMonth);
+  const presetDate = dayjs(dateTimeTask).date(dateInMonth).valueOf();
+  const lastDueDate = getPrevDate(
+    monthDifference,
+    "month",
+    new Date(presetDate)
+  );
+  if (modified < lastDueDate) {
+    if (lastDone && lastDueDate <= lastDone && lastDone < now.valueOf()) {
+      if (isToday(lastDone)) return "completed";
+      return "upcoming";
+    }
+    if (lastDone && isBetween(new Date(lastDueDate), new Date(lastDone), now))
+      return "completed";
+    return "overdue";
+  }
+  return "upcoming";
 }
