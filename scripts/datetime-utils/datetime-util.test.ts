@@ -12,7 +12,9 @@ import {
   isTheSameMoment,
   getDayBegin,
 } from ".";
+import getDayDifference from "./getDayDifference";
 import getDayEnd from "./getDayEnd";
+import lastDueDayOrMonth from "./lastDueDayOrMonth";
 
 describe("time function utilities", () => {
   test("get dateDifference", () => {
@@ -186,5 +188,20 @@ describe("time function utilities", () => {
     expect(date.getDate()).toBe(25);
     expect(date.getMonth()).toBe(7);
     expect(date.getFullYear()).toBe(2022);
+  });
+
+  test("should return difference in days", () => {
+    expect(getDayDifference(0, 0)).toBe(7);
+    expect(getDayDifference(0, 1)).toBe(1);
+    expect(getDayDifference(1, 3)).toBe(2);
+    expect(getDayDifference(3, 1)).toBe(5);
+  });
+
+  test("should return last due date", () => {
+    expect(lastDueDayOrMonth(0, [2, 4])).toBe(4);
+    expect(lastDueDayOrMonth(2, [2, 4])).toBe(4);
+    expect(lastDueDayOrMonth(3, [2, 4])).toBe(2);
+    expect(lastDueDayOrMonth(4, [2, 4])).toBe(2);
+    expect(lastDueDayOrMonth(6, [2, 4])).toBe(4);
   });
 });
