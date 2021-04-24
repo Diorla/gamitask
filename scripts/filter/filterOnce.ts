@@ -15,8 +15,10 @@ export default function filterOnce(task: Task): filterTypes {
     if (done.length) return "archived";
     return "overdue";
   } else if (isToday) {
-    if (done.includes(todayBegin)) return "completed";
-    if (isBefore(new Date(dateTime), new Date())) return "overdue";
+    const taskIsDoneToday = dayjs(new Date(done[done.length - 1])).isToday();
+    const taskTimeIsB4Now = isBefore(new Date(dateTime), new Date());
+    if (taskIsDoneToday) return "completed";
+    if (taskTimeIsB4Now) return "overdue";
     return "today";
   }
   return "upcoming";
