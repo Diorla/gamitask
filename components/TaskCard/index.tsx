@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
 // import notifyUser from "../../scripts/notifyUser";
 import PlayStop from "./PlayStop";
-import { TaskWrapper, TaskChild, Corner, RevealOnHover } from "./Styled";
 // import schedule from "node-schedule";
 import { toast } from "react-toastify";
 import formatDateTime from "./formatDateTime";
@@ -15,113 +14,23 @@ import { useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import deleteData from "../../scripts/deleteData";
 import Modal from "../Modal";
-import TaskDetails from "./TaskDetails";
 import Task from "../../props/Task";
-import styled from "styled-components";
-import { FaFlag } from "react-icons/fa";
 import {
-  FcLowPriority,
-  FcMediumPriority,
-  FcHighPriority,
-} from "react-icons/fc";
-import { IoMdStats } from "react-icons/io";
-import Link from "next/link";
+  Button,
+  Controls,
+  Difficulty,
+  Expanded,
+  Flag,
+  Label,
+  ModalChild,
+  PriorityDifficulty,
+  ProjectName,
+  Row,
+  Wrapper,
+} from "./Styled";
+// import { IoMdStats } from "react-icons/io";
+// import Link from "next/link";
 
-const Wrapper = styled.div`
-  margin-bottom: 1.2rem;
-  border-bottom: 0.1rem solid silver;
-`;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem;
-`;
-
-const Controls = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ProjectName = styled.div`
-  font-size: 1.2rem;
-`;
-
-const Button = styled.button<{ variant: string }>`
-  border: 0.1rem solid silver;
-  cursor: pointer;
-  margin: 0.2rem;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem;
-  & > svg {
-    color: ${({ theme, variant }) => theme.palette[variant].dark};
-    margin-right: 0.4rem;
-  }
-  &:hover {
-    border: 0.1rem solid #949090;
-    background: silver;
-  }
-`;
-
-const Expanded = styled.div``;
-
-const Label = styled.div`
-  font-style: italic;
-`;
-
-const colourScale = ["success", "info", "primary", "warning", "error"];
-
-const Flag = styled(FaFlag)<{ index: number }>`
-  color: ${({ theme, index }) => theme.palette[colourScale[index - 1]].main};
-`;
-
-const PriorityDifficulty = styled.div`
-  & > svg {
-    margin: 0.4rem;
-  }
-`;
-
-const Difficulty = ({ index }: { index: number }) => {
-  if (index === 1) return <FcLowPriority />;
-  if (index === 2) return <FcMediumPriority />;
-  if (index === 3) return <FcHighPriority />;
-  return null;
-};
-
-const ModalChild = styled.div`
-  padding: 0.4rem;
-  & span {
-    text-decoration: underline;
-  }
-  & > h2 {
-    text-align: center;
-  }
-  & div {
-    font-weight: 500;
-  }
-  & button {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0.4rem;
-    color: white;
-    border: none;
-    padding: 0.4rem;
-  }
-  & .control {
-    text-align: right;
-  }
-  & button:first-child {
-    background-color: ${({ theme }) => theme.palette.error.dark};
-  }
-  & button:last-child {
-    background-color: ${({ theme }) => theme.palette.success.dark};
-  }
-  & button:hover {
-    opacity: 0.9;
-  }
-`;
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
   const time = formatDateTime(data);
@@ -223,7 +132,10 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
           {isCompleted && <Checkbox onChange={checkDone} checked />}
           <div>{name}</div>
         </Controls>
-        <ProjectName>{project}</ProjectName>
+        <PriorityDifficulty>
+          {difficulty && <Difficulty index={difficulty} />}
+          {priority && <Flag index={priority} />}
+        </PriorityDifficulty>
       </Row>
       {showFullDetails && (
         <Expanded>
@@ -271,10 +183,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
                 </Button>
               </Link> */}
             </div>
-            <PriorityDifficulty>
-              {priority && <Flag index={priority} />}
-              {difficulty && <Difficulty index={difficulty} />}
-            </PriorityDifficulty>
+            <ProjectName>{project}</ProjectName>
           </Row>
           {labels && (
             <Row>

@@ -21,6 +21,7 @@ const initialState: TaskProps = {
   points: {},
   showModal: false,
   modified: Date.now(),
+  archive: false,
 };
 
 export default initialState;
