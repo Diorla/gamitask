@@ -33,6 +33,7 @@ import {
 
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
+  const { runningTask, points: pt } = user;
   const time = formatDateTime(data);
   const {
     id,
@@ -48,6 +49,38 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const closeTask = () => {
+    const {
+      name,
+      id,
+      startTime,
+      priority,
+      difficulty,
+      countdowns,
+    } = runningTask;
+    const timeDiff = Date.now() - startTime;
+    let points = timeDiff * priority * difficulty;
+    points /= 18482.52;
+    points += pt;
+    points = Math.floor(points);
+    const now = "t" + Date.now();
+
+    createData("user", user.uid, {
+      points,
+      runningTask: {},
+    })
+      .then(() => {
+        createData("user", `${user.uid}/tasks/${id}`, {
+          countdowns: {
+            ...countdowns,
+            [now]: timeDiff,
+          },
+        });
+      })
+      .then(() => toast.info(`${name} ended`))
+      .catch((err) => toast.error(err));
+  };
 
   const editTask = () => {
     taskDispatch(
@@ -65,6 +98,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   };
 
   const beginTask = () => {
+    if (runningTask.id) closeTask();
     const startTime = Date.now();
     createData("user", user.uid, {
       runningTask: {
