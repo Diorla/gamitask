@@ -9,7 +9,7 @@ import {
   ProjectIcon,
 } from "./Icon";
 
-const priorityColours = ["#329b52", "#17b0f1", "#7843bc", "#ffac03", "#e83c3d"];
+const priorityColours = ["#00796b", "#689f38", "#ffeb3b", "#ff9800", "#e83c3d"];
 
 const difficultyColours = ["rgb(76, 175, 80)", "#ffac03", "#e83c3d"];
 const Wrapper = styled.div`
@@ -57,7 +57,7 @@ export default function Nav({
         }}
       />
       <PriorityIcon
-        colour={priorityColours[priority]}
+        colour={priorityColours[priority - 1]}
         active={!!priority}
         onClick={() => {
           currentSection === "Priority"
@@ -66,7 +66,7 @@ export default function Nav({
         }}
       />
       <DifficultyIcon
-        colour={difficultyColours[difficulty]}
+        colour={difficultyColours[difficulty - 1]}
         active={!!difficulty}
         onClick={() => {
           currentSection === "Difficulty"
