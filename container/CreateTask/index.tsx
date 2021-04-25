@@ -27,9 +27,9 @@ export default function CreateTask() {
           currentSection={currentSection}
           setCurrentSection={setCurrentSection}
         />
-        <TaskButton />
       </Controls>
       <div>{currentSection && <Routing route={currentSection} />}</div>
+      <TaskButton />
     </Styled>
   );
 }

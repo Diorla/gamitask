@@ -11,18 +11,22 @@ import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
 
-export const Button = styled.button`
+export const Button = styled.button<{ variant: string }>`
   font-size: 1.6rem;
   font-family: monospace;
   border: none;
-  background: purple;
+  background: ${({ theme, variant }) => theme.palette[variant].dark};
   color: white;
   cursor: pointer;
+  margin: 0.4rem;
   &:disabled {
     opacity: 0.6;
   }
 `;
 
+const Wrapper = styled.div`
+  text-align: right;
+`;
 const trim = (str: string) => str.trim();
 
 const removeEmpty = (str: string) => !!str;
@@ -31,7 +35,7 @@ export default function TaskButton() {
   const data = useTaskState();
   const { loadingUser, user } = useUser();
   const [labels, setLabels] = useState([]);
-  const { name, labels: dataLabels } = data;
+  const { labels: dataLabels } = data;
   const taskDispatch = useTaskDispatch();
 
   useEffect(() => {
@@ -85,10 +89,22 @@ export default function TaskButton() {
         toast.error(`${err}`);
       });
   };
+
+  const closeTask = () =>
+    taskDispatch(
+      addTask({
+        ...initialState,
+      })
+    );
   if (loadingUser) return null;
   return (
-    <>
-      <Button onClick={uploadTask}>Save</Button>
-    </>
+    <Wrapper>
+      <Button onClick={uploadTask} variant="success">
+        Save
+      </Button>
+      <Button onClick={closeTask} variant="error">
+        Close
+      </Button>
+    </Wrapper>
   );
 }

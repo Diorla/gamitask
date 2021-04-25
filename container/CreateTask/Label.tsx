@@ -43,10 +43,8 @@ export default function Label() {
     );
 
   const addTolabel = (label: string) => {
-    console.log("task.labels :>> ", task.labels);
     if (task.labels.includes(label)) return 0;
     const full = `${label}, ${task.labels}`;
-    console.log("full :>> ", full);
     setLabel(full);
   };
   return (

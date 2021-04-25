@@ -74,16 +74,14 @@ export default function Nav({
             : setCurrentSection("Difficulty");
         }}
       />
-      <ProjectWrapper>
-        <ProjectIcon
-          colour="#7843bc"
-          active={project !== "Unsorted"}
-          onClick={() => {
-            currentSection === "Project"
-              ? setCurrentSection("")
-              : setCurrentSection("Project");
-          }}
-        />
+      <ProjectWrapper
+        onClick={() => {
+          currentSection === "Project"
+            ? setCurrentSection("")
+            : setCurrentSection("Project");
+        }}
+      >
+        <ProjectIcon colour="#7843bc" active={project !== "Unsorted"} />
         {project !== "Unsorted" && project}
       </ProjectWrapper>
     </Wrapper>

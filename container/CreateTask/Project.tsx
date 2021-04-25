@@ -8,6 +8,12 @@ import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import toTitleCase from "../../scripts/toTitleCase";
 
+const Input = styled.input`
+  border: 0.1rem solid silver;
+  padding: 0.4rem;
+  width: 24rem;
+`;
+
 const Select = styled.div`
   margin-bottom: 0.4rem;
   & > select {
@@ -71,9 +77,12 @@ export default function Project() {
         </select>
       </Select>
       <div>
-        <input
+        <Input
           value={newProject}
-          onChange={(e) => setNewProject(toTitleCase(e.target.value))}
+          placeholder="Create new project"
+          onChange={(e: { target: { value: string } }) =>
+            setNewProject(toTitleCase(e.target.value))
+          }
         />{" "}
         {newProject && !list.includes(newProject) && (
           <button onClick={() => addNewProject()}>create</button>
