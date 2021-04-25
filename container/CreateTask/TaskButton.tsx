@@ -70,6 +70,11 @@ export default function TaskButton() {
         const id = data.id || v4();
         createData("user", `${user.uid}/tasks/${id}`, {
           ...data,
+          labels: data.labels
+            .split(",")
+            .map((item) => item.trim())
+            .filter((item) => item)
+            .join(", "),
           modified: Date.now(),
           id,
         });

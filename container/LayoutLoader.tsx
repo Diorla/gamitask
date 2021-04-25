@@ -18,6 +18,7 @@ export default function LayoutLoader() {
         viewBox="0 0 380 20"
         backgroundColor={primary.dark}
         foregroundColor={primary.light}
+        height="5rem"
       >
         <rect x="0" y="0" width="1000" height="70" />
       </ContentLoader>
