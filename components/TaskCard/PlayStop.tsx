@@ -3,9 +3,10 @@ import { MdPlayArrow, MdStop } from "react-icons/md";
 import styled from "styled-components";
 
 const Play = styled(MdPlayArrow)`
-  border: 1px solid black;
+  margin-top: 0.2rem;
+  margin-right: 0.8rem;
+  border: 0.1rem solid black;
   border-radius: 50%;
-  margin: 4px;
   cursor: pointer;
   transition: ${({ theme }) => theme.transform.duration.short} linear;
   &:hover {
@@ -14,9 +15,8 @@ const Play = styled(MdPlayArrow)`
 `;
 
 const Stop = styled(MdStop)`
-  border: 1px solid white;
+  border: 0.1rem solid white;
   border-radius: 50%;
-  margin: 4px;
   cursor: pointer;
   transition: ${({ theme }) => theme.transform.duration.short} linear;
   &:hover {

@@ -28,9 +28,20 @@ export default function Filter(taskList: Task[]) {
   taskList.forEach((task) => {
     const {
       repeat,
+      archive,
       reminder: { type },
     } = task;
-    if (!repeat) {
+    if (archive)
+      assignToGroup(
+        "archived",
+        task,
+        archived,
+        overdue,
+        completed,
+        today,
+        upcoming
+      );
+    else if (!repeat) {
       const category = filterOnce(task);
       assignToGroup(
         category,

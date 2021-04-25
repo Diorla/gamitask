@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 const Styled = styled.div`
-  width: 20px;
+  width: 2rem;
   position: relative;
-  margin-right: 4px;
-
+  margin-right: 0.4rem;
   & label {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -19,16 +18,16 @@ const Styled = styled.div`
       #dfe5d7 40%,
       #b3bead 100%
     );
-    border-radius: 4px;
+    border-radius: 0.4rem;
   }
   & label:after {
     content: "";
-    width: 9px;
-    height: 5px;
+    width: 0.9rem;
+    height: 0.5rem;
     position: absolute;
-    top: 4px;
-    left: 4px;
-    border: 3px solid #333;
+    top: 0.4rem;
+    left: 0.4rem;
+    border: 0.3rem solid #333;
     border-top: none;
     border-right: none;
     background: transparent;

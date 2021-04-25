@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Drawer from "./Drawer";
 import DrawerItem from "./DrawerItem";
-import { MdLabel, MdToday } from "react-icons/md";
+import { MdArchive, MdLabel, MdToday } from "react-icons/md";
 import React from "react";
 import { FaCalendarAlt, FaGift } from "react-icons/fa";
 import { VscProject } from "react-icons/vsc";
@@ -65,6 +65,14 @@ export default function AppContainer({
         active={activePath === "rewards"}
       >
         Rewards
+      </DrawerItem>
+      <DrawerItem
+        href="/archive"
+        icon={<MdArchive />}
+        iconColor="error"
+        active={activePath === "archive"}
+      >
+        Archive
       </DrawerItem>
       <Seperator size={2} />
       <DifficultyDD activePath={activePath} />

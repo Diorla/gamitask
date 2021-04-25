@@ -35,7 +35,9 @@ const getLabelCollection = (taskList: any[]) => {
 
 export default function Labels() {
   const taskList = useTaskList();
-  const labelCollection = getLabelCollection(taskList);
+  const labelCollection = getLabelCollection(
+    taskList.filter((item) => !item.archive)
+  );
 
   return (
     <Layout activePath="labels">

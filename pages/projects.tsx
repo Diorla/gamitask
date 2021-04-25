@@ -20,7 +20,9 @@ const getLabelCollection = (taskList: any[]) => {
 
 export default function Projects() {
   const taskList = useTaskList();
-  const projectCollection = getLabelCollection(taskList);
+  const projectCollection = getLabelCollection(
+    taskList.filter((item) => !item.archive)
+  );
 
   return (
     <Layout activePath="projects">
