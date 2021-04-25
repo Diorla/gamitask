@@ -60,16 +60,6 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       .catch((err) => toast.error(err.message));
   };
 
-  useEffect(() => {
-    // const date = new Date(startTime);
-    // const job = schedule.scheduleJob(date, function () {
-    //   notifyUser(`${name}`);
-    // });
-    return () => {
-      // job.cancel();
-    };
-  }, []);
-
   const isCurrent = type === "today" || type === "overdue";
   const isCompleted = type === "completed";
   return (

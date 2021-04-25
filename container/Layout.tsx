@@ -13,10 +13,11 @@ const Content = styled.div<{ showDrawer: boolean }>`
   flex: 1;
   position: absolute;
   left: 24rem;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 7rem);
   top: 5rem;
   overflow-y: scroll;
-  width: calc(100% - 24rem);
+  width: calc(100% - 26rem);
+  padding: 1rem;
   &::-webkit-scrollbar {
     width: 0.2rem;
     background-color: #f5f5f5;
@@ -27,7 +28,7 @@ const Content = styled.div<{ showDrawer: boolean }>`
     border: 0.2rem solid silver;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm + "px"}) {
-      width: 100%;
+      width: calc(100% - 2rem);
       left: 0;
     }
   }
