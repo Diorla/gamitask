@@ -40,12 +40,14 @@ const Control = ({
   children,
   profileImage,
   activePath,
+  id,
 }: {
   loadingUser: boolean;
   uid: string;
   children: React.ReactNode;
   profileImage: string;
   activePath: string;
+  id: string;
 }) => {
   const [showDrawer, setShowDrawer] = useState(false);
 
@@ -59,6 +61,7 @@ const Control = ({
         />
         <Drawer showDrawer={showDrawer} activePath={activePath} />
         <Content showDrawer={showDrawer} onClick={() => setShowDrawer(false)}>
+          {id && <RunningTask />}
           {children}
         </Content>
       </div>
@@ -93,9 +96,9 @@ export default function Layout({
           activePath={activePath}
           uid={user.uid}
           profileImage={user.profile.profileImage}
+          id={id}
         >
           {children}
-          {id && <RunningTask />}
         </Control>
       </Wrapper>
     </div>

@@ -8,19 +8,19 @@ import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
 
 const StyledDiv = styled.div`
-  position: fixed;
   top: 5rem;
-  width: 100%;
-  background: ${({ theme }) => theme.palette.primary.dark};
+  background: ${({ theme }) => theme.palette.tertiary.dark};
   color: white;
   display: flex;
-  width: 24rem;
   justify-content: space-around;
   height: 4.8rem;
   align-items: center;
   font-size: 2.1rem;
+  right: 0;
 `;
 
+const truncateText = (str: string, length: number) =>
+  str.length <= length ? str : str.slice(0, length) + "...";
 export default function RunningTask() {
   const [count, setCount] = useState(0);
 
@@ -54,12 +54,12 @@ export default function RunningTask() {
   useInterval(() => {
     setCount(Date.now() - startTime);
   }, 1000);
-
+  
   return (
     <StyledDiv>
       <PlayStop running={true} toggleRunning={closeTask} />
       <CountDown time={count} />
-      {name}
+      {truncateText(name, 16)}
     </StyledDiv>
   );
 }

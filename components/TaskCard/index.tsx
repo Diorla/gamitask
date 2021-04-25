@@ -127,7 +127,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
         }}
       >
         <Controls className="exclude">
-          <PlayStop running={false} toggleRunning={beginTask} />
+          {!archive && <PlayStop running={false} toggleRunning={beginTask} />}
           {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
           {isCompleted && <Checkbox onChange={checkDone} checked />}
           <div>{name}</div>
