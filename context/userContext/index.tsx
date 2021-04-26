@@ -41,7 +41,10 @@ export default function UserContextComp({
             .then(() => setUser(formatData(userData)))
             .then(() => setLoadingUser(false));
         }).catch((err) => toast.error(err));
-      } else setUser(userInfo);
+      } else {
+        setUser(userInfo);
+        setLoadingUser(false);
+      }
     });
 
     return () => unsubscriber();
