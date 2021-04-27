@@ -18,7 +18,7 @@ export default interface UserInfo {
   points: number;
   labels: string[];
   projects: string[];
-  points_per_minute: number;
+  points_per_hour: number;
   runningTask: {
     name: string;
     startTime: number;

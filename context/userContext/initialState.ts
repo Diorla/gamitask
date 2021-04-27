@@ -19,7 +19,7 @@ const user: UserInfo = {
   points: 0,
   labels: [],
   projects: [],
-  points_per_minute: 500,
+  points_per_hour: 500,
   runningTask: {
     name: "",
     startTime: 0,

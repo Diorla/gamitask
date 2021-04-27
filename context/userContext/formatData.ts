@@ -23,7 +23,7 @@ export default function formatData(
     points = 0,
     labels = [],
     projects = [],
-    points_per_minute = 500,
+    points_per_hour = 500,
     runningTask = {},
     created = Date.now(),
   } = data;
@@ -35,7 +35,7 @@ export default function formatData(
     points,
     labels,
     projects,
-    points_per_minute,
+    points_per_hour,
     runningTask,
     created,
   };

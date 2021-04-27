@@ -7,6 +7,22 @@ import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
+import RewardProps from "../props/Reward";
+import CreateReward from "../container/CreateReward";
+import toMS from "../scripts/toMS";
+import transation from "../scripts/transation";
+import firebase from "firebase";
+import batchWrite from "../scripts/batchWrite";
+import RewardCard from "../components/RewardCard";
+
+const initialState: RewardProps = {
+  name: "",
+  time: toMS(1, "second"),
+  type: "point",
+  task: [],
+  point: 1,
+  done: [],
+};
 
 const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
@@ -38,11 +54,11 @@ const Add = styled.div`
   }
 `;
 export default function Rewards() {
-  const [rewards, setRewards] = useState([] as any[]);
+  const [rewards, setRewards] = useState<RewardProps[]>([]);
   const [isAddVisible, setIsAddVisible] = useState(false);
-  const [value, setValue] = useState({ name: "", cost: 0 });
+  const [value, setValue] = useState<RewardProps>(initialState);
   const { user } = useUser();
-  const { points } = user;
+  const { points, points_per_hour } = user;
   useEffect(() => {
     user &&
       watchData(`user/${user.uid}/rewards`, (e) => setRewards(e)).catch((err) =>
@@ -50,46 +66,98 @@ export default function Rewards() {
       );
   }, [user]);
 
-  const useReward = ({
-    id,
-    done,
-    cost,
-    name,
-  }: {
-    id: string;
-    done: number[];
-    cost: number;
-    name: number;
-  }) => {
-    if (points > cost)
-      createData("user", `${user.uid}/rewards/${id}`, {
-        done: [...done, Date.now()],
-      })
-        .then(() => {
-          createData("user", user.uid, {
-            points: points - cost,
-          });
-          toast.info(`${name} done`);
-        })
-        .catch((err) => toast.error(err));
+  const consumeReward = (taskInfo: RewardProps) => {
+    if (taskInfo.type === "timed") consumeTimeReward(taskInfo);
+    if (taskInfo.type === "task") consumeTaskReward(taskInfo);
+    if (taskInfo.type === "point") consumePointReward(taskInfo);
+  };
+  const consumeTimeReward = (taskInfo: RewardProps) => {
+    const { time, name } = taskInfo;
+    const timeToPoints = (time * points_per_hour) / toMS(1, "hour");
+    createData("user", user.uid, {
+      points: points - timeToPoints,
+    })
+      .then(() => toast.info(`${name} done`))
+      .catch((err) => toast.error(err.messsage));
+  };
+  const consumeTaskReward = (taskInfo: RewardProps) => {
+    const { name, id } = taskInfo;
+    createData("user", `${user.uid}/rewards/${id}`, {
+      checklist: [],
+    })
+      .then(() => toast.info(`${name} done`))
+      .catch((err) => toast.error(err.messsage));
+  };
+  const consumePointReward = (taskInfo: RewardProps) => {
+    const { name, point } = taskInfo;
+    createData("user", user.uid, {
+      points: points - point,
+    })
+      .then(() => toast.info(`${name} done`))
+      .catch((err) => toast.error(err.messsage));
   };
 
   const createNewReward = () => {
+    if (value.type === "task") createTaskReward();
+    else createOtherReward();
+  };
+
+  const createOtherReward = () => {
     const id = v4();
     createData("user", `${user.uid}/rewards/${id}`, {
       id,
-      done: [],
       ...value,
     })
       .then(() => {
-        setValue({ name: "", cost: 0 });
+        setValue(initialState);
         setIsAddVisible(false);
         toast.success("New reward created");
       })
-      .catch((err) => {
-        toast.error(err);
-      });
+      .catch((err) => toast.error(err.message));
   };
+
+  const createTaskReward = () => {
+    const id = v4();
+    const projectRefList: {
+      projectRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+      rewardList: any[];
+    }[] = [];
+
+    transation((db, t) => {
+      value.task.forEach(async (element) => {
+        const projectRef = db
+          .collection("user")
+          .doc(`${user.uid}/tasks/${element.value}`);
+        const projectDoc = await t.get(projectRef);
+        const data = projectDoc?.data();
+        const rewardList = data?.rewards || [];
+        projectRefList.push({ projectRef, rewardList });
+      });
+    })
+      .then(() => {
+        batchWrite((db, batch) => {
+          const rewardRef = db
+            .collection("user")
+            .doc(`${user.uid}/rewards/${id}`);
+          projectRefList.forEach((element) => {
+            const { projectRef, rewardList } = element;
+            batch.set(
+              projectRef,
+              { rewards: [...rewardList, id] },
+              { merge: true }
+            );
+          });
+          batch.set(rewardRef, { ...value, id }, { merge: true });
+        });
+      })
+      .then(() => {
+        setValue(initialState);
+        setIsAddVisible(false);
+        toast.success("New reward created");
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
   return (
     <Layout activePath="rewards">
       <h2>Points: {points}</h2>
@@ -97,32 +165,32 @@ export default function Rewards() {
         <MdAddBox /> Add
       </Add>
       {isAddVisible && (
-        <div>
-          <input
-            onChange={(e) => setValue({ ...value, name: e.target.value })}
-            placeholder="Name"
+        <>
+          <CreateReward
+            name={value.name}
+            onChangeName={(e) => setValue({ ...value, name: e.target.value })}
+            type={value.type}
+            onChangeType={(e) => setValue({ ...value, type: e.target.value })}
+            point={value.point}
+            onChangePoint={(e) => setValue({ ...value, point: e.target.value })}
+            time={value.time}
+            onChangeTime={(ev) => setValue({ ...value, time: ev })}
+            task={value.task}
+            onChangeTask={(e) => setValue({ ...value, task: e })}
           />
-          <input
-            onChange={(e) =>
-              setValue({ ...value, cost: Number(e.target.value) })
-            }
-            placeholder="Cost"
-            type="number"
-          />
-          <button onClick={createNewReward}>Create</button>
-        </div>
+          <button onClick={createNewReward}>Create Reward</button>
+        </>
       )}
-      {rewards
-        .sort((prev, next) => (prev.cost < next.cost ? -1 : 1))
-        .map((item, idx) => (
-          <Wrapper key={idx} disabled={points < item.cost}>
-            <h4>{item.name}</h4>
-            <div>
-              {item.cost}
-              <MdCheck onClick={() => useReward(item)} />
-            </div>
-          </Wrapper>
-        ))}
+
+      {rewards.map((item, idx) => (
+        <RewardCard
+          point={points}
+          perHour={points_per_hour}
+          rewardInfo={item}
+          key={idx}
+          onCheck={() => consumeReward(item)}
+        />
+      ))}
     </Layout>
   );
 }

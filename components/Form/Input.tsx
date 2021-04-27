@@ -1,18 +1,27 @@
 import styled from "styled-components";
 
 export interface InputProps {
-  label?: string;
+  variant?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "error"
+    | "warning"
+    | "success"
+    | "info";
+  label: string;
   [props: string]: any;
 }
 
 const StyledInput = styled.input<InputProps>`
-  border: 0.1rem solid ${({ theme }) => theme.palette.default.light};
+  border: 0.1rem solid
+    ${({ theme, variant }) =>
+      variant ? theme.palette[variant].color : theme.palette.default.offwhite};
   outline: none;
   background: transparent;
-  color: ${({ theme }) => theme.palette.default.dark};
   font-size: 1.6rem;
   padding: 0.6rem 0.8rem;
-  border-radius: 1.6rem;
+  border-radius: 0.6rem;
   &::placeholder {
     font-size: 1.4rem;
   }
@@ -20,7 +29,7 @@ const StyledInput = styled.input<InputProps>`
     box-shadow: 0 0 0.2rem;
   }
   &:invalid {
-    box-shadow: 0 0 0.2rem crimson;
+    box-shadow: 0 0 0.4rem ${({ theme }) => theme.palette.error.color};
   }
 `;
 
@@ -33,13 +42,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const arr = [10, 20, 30, 40, 50, 60];
+const { 2: val } = arr;
+val; // 30
 const Input = ({ label, variant, ...props }: InputProps) => {
-  // ~~ = Math.floor, only for positive values
   const randomId = "s" + ~~(1000000000 * Math.random());
   return (
     <Wrapper>
-      {label && <StyledLabel htmlFor={randomId}>{label}</StyledLabel>}
-      <StyledInput variant={variant} id={label && randomId} {...props} />
+      <StyledLabel htmlFor={randomId}>{label}</StyledLabel>
+      <StyledInput variant={variant} id={randomId} {...props} />
     </Wrapper>
   );
 };
