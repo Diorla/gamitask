@@ -9,7 +9,7 @@ export interface InputProps {
     | "warning"
     | "success"
     | "info";
-  label: string;
+  label?: string;
   [props: string]: any;
 }
 
@@ -42,9 +42,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const arr = [10, 20, 30, 40, 50, 60];
-const { 2: val } = arr;
-val; // 30
 const Input = ({ label, variant, ...props }: InputProps) => {
   const randomId = "s" + ~~(1000000000 * Math.random());
   return (
