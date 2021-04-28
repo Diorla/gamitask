@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdAddBox, MdCheck } from "react-icons/md";
+import { MdAddBox } from "react-icons/md";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { v4 } from "uuid";
@@ -17,10 +17,10 @@ import RewardCard from "../components/RewardCard";
 
 const initialState: RewardProps = {
   name: "",
-  time: toMS(1, "second"),
+  time: toMS(0, "second"),
   type: "point",
   task: [],
-  point: 1,
+  point: 0,
   done: [],
 };
 
@@ -98,8 +98,24 @@ export default function Rewards() {
   };
 
   const createNewReward = () => {
-    if (value.type === "task") createTaskReward();
-    else createOtherReward();
+    if (!value.name) {
+      toast.warn("Please provide a name");
+      return 0;
+    }
+    if (value.type === "task") {
+      if (value.task.length) createTaskReward();
+      else toast.warn("Please add task to the list");
+    } else {
+      if (value.type === "timed" && value.time === 0) {
+        toast.warn("Please set a time");
+        return 0;
+      }
+      if (value.type === "point" && value.point === 0) {
+        toast.warn("Please provide points");
+        return 0;
+      }
+      createOtherReward();
+    }
   };
 
   const createOtherReward = () => {
@@ -107,6 +123,9 @@ export default function Rewards() {
     createData("user", `${user.uid}/rewards/${id}`, {
       id,
       ...value,
+      task: [],
+      points: value.type === "point" ? value.point : 0,
+      time: value.type === "timed" ? value.time : 0,
     })
       .then(() => {
         setValue(initialState);
@@ -147,7 +166,11 @@ export default function Rewards() {
               { merge: true }
             );
           });
-          batch.set(rewardRef, { ...value, id }, { merge: true });
+          batch.set(
+            rewardRef,
+            { ...value, id, time: 0, points: 0 },
+            { merge: true }
+          );
         });
       })
       .then(() => {
@@ -184,6 +207,7 @@ export default function Rewards() {
 
       {rewards.map((item, idx) => (
         <RewardCard
+          {...item}
           point={points}
           perHour={points_per_hour}
           rewardInfo={item}
