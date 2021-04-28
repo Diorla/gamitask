@@ -18,6 +18,7 @@ const StyledDiv = styled.div`
   right: 0;
   position: sticky;
   top: 0;
+  z-index: 2;
 `;
 
 const truncateText = (str: string, length: number) =>
