@@ -37,124 +37,165 @@ export default function EditableReward({
   }, []);
 
   const updateTask = () => {
+    if (!value.name) {
+      toast.warn("Please provide a name");
+      return 0;
+    }
+    if (value.type === "point" && value.point < 1) {
+      toast.warn("Please provide points");
+      return 0;
+    }
+    if (value.type === "timed" && value.time < 1) {
+      toast.warn("Please provide time");
+      return 0;
+    }
+    if (value.type === "task" && value.task.length < 1) {
+      toast.warn("Please provide task");
+      return 0;
+    }
+    // The reward type was task
     if (initialValues.type === "task") {
+      // No change in type of reward
       if (value.type === "task") {
+        // No change in tasks, just change in name
         if (JSON.stringify(initialValues.task) === JSON.stringify(value.task)) {
           createData("user", `${user.uid}/rewards/${value.id}`, value)
             .then(() => toggleEdit())
             .then(() => toast.info("Reward updated"))
             .catch(() => toast.error("Error updating reward"));
         } else {
+          // update rewards.tasks and tasks.rewards
           createTaskRewardFromTask();
         }
       } else {
+        // now, the type of reward is changed(no longer task)
         createOtherRewardFromTask();
       }
-    } else {
+    }
+    // Previous reward type is not a task
+    else {
+      // newer reward is a task
       if (value.type === "task") {
-        createTaskRewardFromOther(); // it will be like creating a new tasked reward
+        // it will be like creating a new tasked reward
+        createTaskRewardFromOther();
       } else {
+        // basically the same
         createOtherRewardFromOther();
       }
     }
   };
 
   const createTaskRewardFromTask = () => {
+    // task that have rewards removed
     const taskToRemove: {
       taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       taskList: any;
     }[] = [];
+    // task that will have rewards added
     const taskToAdd: {
       taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       taskList: any;
     }[] = [];
-
-    initialValues.task.forEach((TaskId) => {
-      if (!value.task.includes(TaskId)) {
-        transation(async (db, t) => {
+    transation((db, t) => {
+      // all initial tasks
+      initialValues.task.forEach(async (task) => {
+        // task is not in the current reward
+        if (!value.task.includes(task)) {
           const taskRef = db
             .collection("user")
-            .doc(`${user.uid}/tasks/${TaskId}`);
+            .doc(`${user.uid}/tasks/${task.value}`);
           const taskDoc = await t.get(taskRef);
           const data = taskDoc?.data();
           const taskList = data?.task || [];
           taskToRemove.push({ taskRef, taskList });
-        });
-      }
-    });
-    value.task.forEach((TaskId) => {
-      if (!initialValues.task.includes(TaskId)) {
-        transation(async (db, t) => {
+        }
+      });
+      value.task.forEach(async (task) => {
+        // task not in previous reward
+        if (!initialValues.task.includes(task)) {
           const taskRef = db
             .collection("user")
-            .doc(`${user.uid}/tasks/${TaskId}`);
+            .doc(`${user.uid}/tasks/${task.value}`);
           const taskDoc = await t.get(taskRef);
           const data = taskDoc?.data();
           const taskList = data?.task || [];
           taskToAdd.push({ taskRef, taskList });
-        });
-      }
-    });
-    batchWrite((db, batch) => {
-      taskToRemove.forEach((element) => {
-        batch.update(element.taskRef, {
-          rewards: removeItemFromArray(value.id, element.taskList),
-        });
+        }
       });
-      taskToAdd.forEach((element) => {
-        batch.update(element.taskRef, {
-          rewards: [...element.taskList, value.id],
-        });
-      });
-      const rewardRef = db
-        .collection("user")
-        .doc(`${user.uid}/rewards/${value.id}`);
-      batch.update(rewardRef, value);
     })
+      .then(() => {
+        batchWrite((db, batch) => {
+          // remove reward from task
+          taskToRemove.forEach((element) => {
+            batch.update(element.taskRef, {
+              rewards: removeItemFromArray(value.id, element.taskList),
+            });
+          });
+
+          // add reward to task
+          taskToAdd.forEach((element) => {
+            batch.update(element.taskRef, {
+              rewards: [...element.taskList, value.id],
+            });
+          });
+
+          // update reward itself
+          const rewardRef = db
+            .collection("user")
+            .doc(`${user.uid}/rewards/${value.id}`);
+          batch.update(rewardRef, value);
+        });
+      })
       .then(() => toggleEdit())
       .then(() => toast.info("Reward updated"))
       .catch(() => toast.error("Error updating reward"));
   };
 
   const createOtherRewardFromTask = () => {
-    const listOfTask: {
+    const oldTaskList: {
       taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       rewardList: any;
     }[] = [];
-    initialValues.task.forEach((TaskId) => {
-      transation(async (db, t) => {
+
+    // get list of tasks
+    transation((db, t) => {
+      initialValues.task.forEach(async (task) => {
         const taskRef = db
           .collection("user")
-          .doc(`${user.uid}/tasks/${TaskId}`);
+          .doc(`${user.uid}/tasks/${task.value}`);
         const taskDoc = await t.get(taskRef);
         const data = taskDoc?.data();
-        const rewardList = data?.task || [];
-        listOfTask.push({ taskRef, rewardList });
+        const rewardList = data?.rewards || [];
+        oldTaskList.push({ taskRef, rewardList });
       });
-
-      batchWrite((db, batch) => {
-        listOfTask.forEach((element) => {
-          batch.update(element.taskRef, {
-            rewards: removeItemFromArray(value.id, element.rewardList),
+    })
+      .then(() => {
+        batchWrite((db, batch) => {
+          // remove reward from all the tasks
+          oldTaskList.forEach((element) => {
+            batch.update(element.taskRef, {
+              rewards: removeItemFromArray(value.id, element.rewardList),
+            });
+          });
+          // Now save it to reward
+          const rewardRef = db
+            .collection("user")
+            .doc(`${user.uid}/rewards/${value.id}`);
+          batch.update(rewardRef, {
+            ...value,
+            task: [],
+            point: value.type === "point" ? value.point : 0,
+            time: value.type === "timed" ? value.time : 0,
           });
         });
-        const rewardRef = db
-          .collection("user")
-          .doc(`${user.uid}/rewards/${value.id}`);
-        batch.update(rewardRef, {
-          ...value,
-          task: [],
-          point: value.type === "point" ? value.point : 0,
-          time: value.type === "timed" ? value.time : 0,
-        });
       })
-        .then(() => toggleEdit())
-        .then(() => toast.info("Reward updated"))
-        .catch(() => toast.error("Error updating reward"));
-    });
+      .then(() => toggleEdit())
+      .then(() => toast.info("Reward updated"))
+      .catch(() => toast.error("Error updating reward"));
   };
 
   const createOtherRewardFromOther = () => {
+    // just update the task
     createData("user", `${user.uid}/rewards/${value.id}`, {
       ...value,
       task: [],
@@ -170,20 +211,21 @@ export default function EditableReward({
   };
 
   const createTaskRewardFromOther = () => {
-    const projectRefList: {
-      projectRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+    const taskRefList: {
+      taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       rewardList: any[];
     }[] = [];
 
+    // get list of task to update
     transation((db, t) => {
       value.task.forEach(async (element) => {
-        const projectRef = db
+        const taskRef = db
           .collection("user")
           .doc(`${user.uid}/tasks/${element.value}`);
-        const projectDoc = await t.get(projectRef);
-        const data = projectDoc?.data();
+        const taskDoc = await t.get(taskRef);
+        const data = taskDoc?.data();
         const rewardList = data?.rewards || [];
-        projectRefList.push({ projectRef, rewardList });
+        taskRefList.push({ taskRef, rewardList });
       });
     })
       .then(() => {
@@ -191,14 +233,16 @@ export default function EditableReward({
           const rewardRef = db
             .collection("user")
             .doc(`${user.uid}/rewards/${value.id}`);
-          projectRefList.forEach((element) => {
-            const { projectRef, rewardList } = element;
+          // update all the task
+          taskRefList.forEach((element) => {
+            const { taskRef, rewardList } = element;
             batch.set(
-              projectRef,
+              taskRef,
               { rewards: [...rewardList, value.id] },
               { merge: true }
             );
           });
+          // update the reward
           batch.set(
             rewardRef,
             { ...value, time: 0, point: 0 },

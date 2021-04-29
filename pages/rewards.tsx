@@ -137,20 +137,21 @@ export default function Rewards() {
 
   const createTaskReward = () => {
     const id = v4();
-    const projectRefList: {
-      projectRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+    const taskRefList: {
+      taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       rewardList: any[];
     }[] = [];
 
+    // get all the task
     transation((db, t) => {
-      value.task.forEach(async (element) => {
-        const projectRef = db
+      value.task.forEach(async (taskItem) => {
+        const taskRef = db
           .collection("user")
-          .doc(`${user.uid}/tasks/${element.value}`);
-        const projectDoc = await t.get(projectRef);
-        const data = projectDoc?.data();
+          .doc(`${user.uid}/tasks/${taskItem.value}`);
+        const taskDoc = await t.get(taskRef);
+        const data = taskDoc?.data();
         const rewardList = data?.rewards || [];
-        projectRefList.push({ projectRef, rewardList });
+        taskRefList.push({ taskRef, rewardList });
       });
     })
       .then(() => {
@@ -158,14 +159,16 @@ export default function Rewards() {
           const rewardRef = db
             .collection("user")
             .doc(`${user.uid}/rewards/${id}`);
-          projectRefList.forEach((element) => {
-            const { projectRef, rewardList } = element;
+          // add reward to tasks
+          taskRefList.forEach((element) => {
+            const { taskRef, rewardList } = element;
             batch.set(
-              projectRef,
+              taskRef,
               { rewards: [...rewardList, id] },
               { merge: true }
             );
           });
+          // create new reward
           batch.set(
             rewardRef,
             { ...value, id, time: 0, point: 0 },
@@ -207,11 +210,10 @@ export default function Rewards() {
 
       {rewards.map((item, idx) => (
         <RewardCard
-          {...item}
           point={points}
           perHour={points_per_hour}
           rewardInfo={item}
-          key={idx}
+          key={item.id}
           onCheck={() => consumeReward(item)}
         />
       ))}
