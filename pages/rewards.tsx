@@ -124,7 +124,7 @@ export default function Rewards() {
       id,
       ...value,
       task: [],
-      points: value.type === "point" ? value.point : 0,
+      point: value.type === "point" ? value.point : 0,
       time: value.type === "timed" ? value.time : 0,
     })
       .then(() => {
@@ -168,7 +168,7 @@ export default function Rewards() {
           });
           batch.set(
             rewardRef,
-            { ...value, id, time: 0, points: 0 },
+            { ...value, id, time: 0, point: 0 },
             { merge: true }
           );
         });

@@ -10,18 +10,26 @@ const TimeReward = ({
   point,
   perHour,
   onCheck,
+  toggleEdit,
 }: {
   rewardInfo: RewardProps;
   point: number;
   perHour: number;
   onCheck: () => void;
+  toggleEdit: () => void;
 }) => {
   const { name, time, done = [] } = rewardInfo;
   const { hh, mm, ss } = formatMsToCountDown(time);
   const timeToPoints = (time * perHour) / toMS(1, "hour");
   const disabled = timeToPoints >= point;
   return (
-    <Card title={name} done={done} onCheck={onCheck} disabled={disabled}>
+    <Card
+      toggleEdit={toggleEdit}
+      title={name}
+      done={done}
+      onCheck={onCheck}
+      disabled={disabled}
+    >
       <Time>
         <span>{("0" + hh).slice(-2)}</span>
         <span>hh</span>

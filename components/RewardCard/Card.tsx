@@ -17,12 +17,14 @@ export default function Card({
   done,
   onCheck,
   children,
+  toggleEdit,
 }: {
   disabled: boolean;
   title: string;
   done: number[];
   onCheck: () => void;
   children: React.ReactNode;
+  toggleEdit: () => void;
 }) {
   const [collapse, setCollapse] = useState(true);
   return (
@@ -33,10 +35,7 @@ export default function Card({
           <>
             <Centre>{children}</Centre>
             <Bottom>
-              <Button
-                onClick={() => console.log("toggle edit card")}
-                variant="info"
-              >
+              <Button onClick={toggleEdit} variant="info">
                 <MdEdit /> Edit
               </Button>
               <span>

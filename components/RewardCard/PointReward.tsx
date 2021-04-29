@@ -6,15 +6,23 @@ const PointReward = ({
   rewardInfo,
   point: pt,
   onCheck,
+  toggleEdit,
 }: {
   rewardInfo: RewardProps;
   point: number;
   onCheck: () => void;
+  toggleEdit: () => void;
 }) => {
   const { name, done = [], point } = rewardInfo;
   const disabled = point >= pt;
   return (
-    <Card title={name} done={done} onCheck={onCheck} disabled={disabled}>
+    <Card
+      toggleEdit={toggleEdit}
+      title={name}
+      done={done}
+      onCheck={onCheck}
+      disabled={disabled}
+    >
       Point: {point}
     </Card>
   );

@@ -47,7 +47,6 @@ export const Right = styled.div`
 
 export const Title = styled.div`
   font-weight: bold;
-  margin-bottom: 0.6rem;
   text-transform: uppercase;
   cursor: pointer;
 `;
