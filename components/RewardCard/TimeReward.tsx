@@ -30,6 +30,7 @@ const TimeReward = ({
       onCheck={onCheck}
       disabled={disabled}
       id={rewardInfo.id}
+      description={rewardInfo.description}
     >
       <Time>
         <span>{("0" + hh).slice(-2)}</span>

@@ -22,6 +22,7 @@ const initialState: RewardProps = {
   task: [],
   point: 0,
   done: [],
+  description: "",
 };
 
 const Wrapper = styled.div<{ disabled: boolean }>`
@@ -221,6 +222,10 @@ export default function Rewards() {
             onChangeTime={(ev) => setValue({ ...value, time: ev })}
             task={value.task}
             onChangeTask={(e) => setValue({ ...value, task: e })}
+            description={value.description}
+            onChangeDescription={(e) =>
+              setValue({ ...value, description: e.target.value })
+            }
           />
           <button onClick={createNewReward}>Create Reward</button>
         </>

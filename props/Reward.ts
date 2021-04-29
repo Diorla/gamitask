@@ -38,4 +38,8 @@ export default interface Reward {
    * The list of task that has been done, used in tasked rewards
    */
   checklist?: string[];
+  /**
+   * Add description to reward
+   */
+  description: string;
 }
