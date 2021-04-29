@@ -14,10 +14,10 @@ import Button from "../Button";
 
 const initialState: RewardProps = {
   name: "",
-  time: toMS(1, "second"),
+  time: toMS(0, "second"),
   type: "point",
   task: [],
-  point: 1,
+  point: 0,
   done: [],
 };
 
