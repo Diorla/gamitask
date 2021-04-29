@@ -22,6 +22,7 @@ const initialState: TaskProps = {
   showModal: false,
   modified: Date.now(),
   archive: false,
+  rewards: []
 };
 
 export default initialState;
