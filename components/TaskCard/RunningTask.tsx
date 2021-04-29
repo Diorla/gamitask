@@ -6,6 +6,7 @@ import { useInterval } from "react-use";
 import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
+import truncateText from "../../scripts/truncateText";
 
 const StyledDiv = styled.div`
   background: ${({ theme }) => theme.palette.tertiary.dark};
@@ -21,8 +22,7 @@ const StyledDiv = styled.div`
   z-index: 2;
 `;
 
-const truncateText = (str: string, length: number) =>
-  str.length <= length ? str : str.slice(0, length) + "...";
+
 export default function RunningTask() {
   const [count, setCount] = useState(0);
 

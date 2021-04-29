@@ -1,8 +1,13 @@
+import firebase from "firebase";
 import React, { useState } from "react";
-import { MdCheck, MdDeleteSweep, MdEdit } from "react-icons/md";
+import { MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/userContext";
+import { taskInfo } from "../../props/Reward";
+import batchWrite from "../../scripts/batchWrite";
 import deleteData from "../../scripts/deleteData";
+import removeItemFromArray from "../../scripts/removeItemFromArray";
+import transation from "../../scripts/transation";
 import Modal from "../Modal";
 import { ModalChild } from "../TaskCard/Styled";
 import { Wrapper, Left, Title, Centre, Bottom, Right, Button } from "./Styled";
@@ -15,6 +20,7 @@ export default function Card({
   children,
   toggleEdit,
   id,
+  taskList,
 }: {
   disabled: boolean;
   title: string;
@@ -23,47 +29,93 @@ export default function Card({
   children: React.ReactNode;
   toggleEdit: () => void;
   id?: string;
+  taskList?: taskInfo[];
 }) {
   const [collapse, setCollapse] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { user } = useUser();
   const deleteTask = () => {
-    deleteData("user", `${user.uid}/rewards/${id}`)
-      .then(() => setShowDeleteModal(false))
-      .then(() => toast.warn(title + " deleted"))
-      .catch((err) => toast.error(err.message));
+    if (taskList && taskList.length) {
+      const taskRefList: {
+        taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+        rewardList: any;
+      }[] = [];
+      transation((db, t) => {
+        taskList.forEach(async (element) => {
+          const taskRef = db
+            .collection("user")
+            .doc(`${user.uid}/tasks/${element.value}`);
+          const taskDoc = await t.get(taskRef);
+          const data = taskDoc?.data();
+          const rewardList = data?.rewards || [];
+          taskRefList.push({ taskRef, rewardList });
+        });
+      })
+        .then(() => {
+          batchWrite((db, batch) => {
+            const rewardRef = db
+              .collection("user")
+              .doc(`${user.uid}/rewards/${id}`);
+            batch.delete(rewardRef);
+
+            taskRefList.forEach((element) => {
+              const { taskRef, rewardList } = element;
+              batch.set(
+                taskRef,
+                { rewards: removeItemFromArray(id, rewardList) },
+                { merge: true }
+              );
+            });
+          });
+        })
+        .then(() => setShowDeleteModal(false))
+        .then(() => toast.warn(title + " deleted"))
+        .catch((err) => toast.error(err.message));
+    } else {
+      deleteData("user", `${user.uid}/rewards/${id}`)
+        .then(() => setShowDeleteModal(false))
+        .then(() => toast.warn(title + " deleted"))
+        .catch((err) => toast.error(err.message));
+    }
   };
   return (
-    <Wrapper disabled={disabled}>
-      <Left>
-        <Title onClick={() => setCollapse(!collapse)}>{title}</Title>
-        {collapse ? null : (
-          <>
-            <Centre>{children}</Centre>
-            <Bottom>
-              <Button onClick={toggleEdit} variant="info">
-                <MdEdit /> Edit
-              </Button>
-              <Button onClick={() => setShowDeleteModal(true)} variant="info">
-                <MdDeleteSweep /> Delete
-              </Button>
-              <span>
-                Last done:{" "}
-                {done.length ? new Date(done[-1]).toDateString() : "Never"}
-              </span>
-            </Bottom>
-          </>
+    <>
+      <Wrapper disabled={disabled}>
+        <Left>
+          <Title onClick={() => setCollapse(!collapse)}>{title}</Title>
+          {collapse ? null : (
+            <>
+              <Centre>{children}</Centre>
+              <Bottom>
+                <div>
+                  <Button onClick={toggleEdit} variant="info">
+                    <MdEdit /> Edit
+                  </Button>
+                  <Button
+                    onClick={() => setShowDeleteModal(true)}
+                    variant="error"
+                  >
+                    <MdDelete /> Delete
+                  </Button>
+                </div>
+                <span>
+                  Last done:{" "}
+                  {done.length ? new Date(done[-1]).toDateString() : "Never"}
+                </span>
+              </Bottom>
+            </>
+          )}
+        </Left>
+        {disabled ? (
+          <Right>
+            <MdCheck />
+          </Right>
+        ) : (
+          <Right onClick={onCheck}>
+            <MdCheck />
+          </Right>
         )}
-      </Left>
-      {disabled ? (
-        <Right>
-          <MdCheck />
-        </Right>
-      ) : (
-        <Right onClick={onCheck}>
-          <MdCheck />
-        </Right>
-      )}
+      </Wrapper>
       <Modal
         visible={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
@@ -81,6 +133,6 @@ export default function Card({
           </div>
         </ModalChild>
       </Modal>
-    </Wrapper>
+    </>
   );
 }

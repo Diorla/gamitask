@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
   color: ${({ theme }) => theme.palette.default.text};
   font-size: 10px;
   min-height: 200px;
+  word-break: break-all;
 `;
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
