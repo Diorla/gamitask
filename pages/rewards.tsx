@@ -18,7 +18,7 @@ import RewardCard from "../components/RewardCard";
 const initialState: RewardProps = {
   name: "",
   time: toMS(0, "second"),
-  type: "point",
+  type: "timed",
   task: [],
   point: 0,
   done: [],
@@ -72,26 +72,44 @@ export default function Rewards() {
     if (taskInfo.type === "point") consumePointReward(taskInfo);
   };
   const consumeTimeReward = (taskInfo: RewardProps) => {
-    const { time, name } = taskInfo;
+    const { time, name, done = [], id } = taskInfo;
     const timeToPoints = (time * points_per_hour) / toMS(1, "hour");
-    createData("user", user.uid, {
-      points: points - timeToPoints,
+
+    batchWrite((db, batch) => {
+      const userRef = db.collection("user").doc(user.uid);
+      batch.update(userRef, {
+        points: points - timeToPoints,
+      });
+      const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
+      batch.update(rewardRef, {
+        done: [...done, Date.now()],
+      });
     })
       .then(() => toast.info(`${name} done`))
       .catch((err) => toast.error(err.messsage));
   };
+
   const consumeTaskReward = (taskInfo: RewardProps) => {
-    const { name, id } = taskInfo;
+    const { name, id, done = [] } = taskInfo;
     createData("user", `${user.uid}/rewards/${id}`, {
       checklist: [],
+      done: [...done, Date.now()],
     })
       .then(() => toast.info(`${name} done`))
       .catch((err) => toast.error(err.messsage));
   };
   const consumePointReward = (taskInfo: RewardProps) => {
-    const { name, point } = taskInfo;
-    createData("user", user.uid, {
-      points: points - point,
+    const { name, point, id, done = [] } = taskInfo;
+
+    batchWrite((db, batch) => {
+      const userRef = db.collection("user").doc(user.uid);
+      batch.update(userRef, {
+        points: points - point,
+      });
+      const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
+      batch.update(rewardRef, {
+        done: [...done, Date.now()],
+      });
     })
       .then(() => toast.info(`${name} done`))
       .catch((err) => toast.error(err.messsage));
@@ -208,7 +226,7 @@ export default function Rewards() {
         </>
       )}
 
-      {rewards.map((item, idx) => (
+      {rewards.map((item) => (
         <RewardCard
           point={points}
           perHour={points_per_hour}

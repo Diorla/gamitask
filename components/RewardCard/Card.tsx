@@ -100,7 +100,7 @@ export default function Card({
                 </div>
                 <span>
                   Last done:{" "}
-                  {done.length ? new Date(done[-1]).toDateString() : "Never"}
+                  {done.length ? new Date(done[done.length-1]).toDateString() : "Never"}
                 </span>
               </Bottom>
             </>
