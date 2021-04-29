@@ -28,6 +28,10 @@ import {
   Row,
   Wrapper,
 } from "./Styled";
+import transation from "../../scripts/transation";
+import batchWrite from "../../scripts/batchWrite";
+import firebase from "firebase";
+import uniqueArray from "../../scripts/uniqueArray";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
@@ -45,6 +49,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     labels,
     project,
     archive,
+    rewards,
   } = data;
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -114,9 +119,48 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
 
   const checkDone = () => {
     const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
-    createData("user", `${user.uid}/tasks/${id}`, {
-      done: addRemoveItemFromArray(dateId, done),
-    }).catch((err) => toast.error(err));
+    if (type === "completed") {
+      createData("user", `${user.uid}/tasks/${id}`, {
+        done: addRemoveItemFromArray(dateId, done),
+      }).catch((err) => toast.error(err.message));
+    } else if (rewards && rewards.length) {
+      const rewardRefList: {
+        rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+        checklist: string[];
+      }[] = [];
+      transation((db, t) => {
+        rewards.forEach(async (rewardId) => {
+          const rewardRef = db
+            .collection("user")
+            .doc(`${user.uid}/rewards/${rewardId}`);
+
+          const rewardDoc = await t.get(rewardRef);
+          const data = rewardDoc?.data();
+          const checklist = data?.checklist || [];
+          rewardRefList.push({ rewardRef, checklist });
+        });
+      })
+        .then(() => {
+          batchWrite((db, batch) => {
+            rewardRefList.forEach((item) => {
+              const rewardRef = item.rewardRef;
+              batch.update(rewardRef, {
+                checklist: uniqueArray([...item.checklist, id]),
+              });
+            });
+            db.collection("user")
+              .doc(`${user.uid}/tasks/${id}`)
+              .update({
+                done: addRemoveItemFromArray(dateId, done),
+              });
+          });
+        })
+        .catch((err) => toast.error(err.message));
+    } else {
+      createData("user", `${user.uid}/tasks/${id}`, {
+        done: addRemoveItemFromArray(dateId, done),
+      }).catch((err) => toast.error(err.message));
+    }
   };
 
   const archiveTask = () => {

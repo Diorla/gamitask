@@ -107,11 +107,11 @@ export default function Card({
           )}
         </Left>
         {disabled ? (
-          <Right>
+          <Right className="disabled">
             <MdCheck />
           </Right>
         ) : (
-          <Right onClick={onCheck}>
+          <Right onClick={onCheck} className="enabled">
             <MdCheck />
           </Right>
         )}

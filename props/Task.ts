@@ -85,4 +85,8 @@ export default interface Task {
    * Sort of "deleted" state without actually deleting it, so that user can still have access to the data, with it appearing in their todo list
    */
   archive: boolean;
+  /**
+   * List of rewards, for tasked rewards
+   */
+  rewards: string[];
 }

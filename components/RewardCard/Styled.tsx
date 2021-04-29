@@ -18,6 +18,12 @@ export const Wrapper = styled.div<{ disabled: boolean }>`
   & > div:last-child {
     opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
   }
+  & .disabled {
+    background-color: ${({ theme }) => theme.palette.error.main};
+  }
+  & .enabled {
+    background-color: ${({ theme }) => theme.palette.success.main};
+  }
 `;
 
 export const Time = styled.div`
@@ -36,7 +42,6 @@ export const Left = styled.div`
 `;
 
 export const Right = styled.div`
-  background: ${({ theme }) => theme.palette.tertiary.dark};
   padding: 0 0.4rem;
   display: flex;
   align-items: center;
