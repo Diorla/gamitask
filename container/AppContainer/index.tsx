@@ -25,7 +25,7 @@ export default function AppContainer({
 }) {
   return (
     <Drawer reveal={showDrawer}>
-      <Seperator size={10} />
+      <Seperator size={11} />
       <DrawerItem
         href="/"
         active={activePath === "today"}
