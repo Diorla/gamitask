@@ -79,7 +79,7 @@ export default function Rewards() {
     batchWrite((db, batch) => {
       const userRef = db.collection("user").doc(user.uid);
       batch.update(userRef, {
-        points: points - timeToPoints,
+        points: points - Math.round(timeToPoints),
       });
       const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
       batch.update(rewardRef, {
