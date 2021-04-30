@@ -21,7 +21,7 @@ const initialState: TaskProps = {
   points: {},
   showModal: false,
   modified: Date.now(),
-  archive: false,
+  archive: 0,
   rewards: []
 };
 

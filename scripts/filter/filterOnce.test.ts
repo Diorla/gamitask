@@ -19,7 +19,7 @@ describe("Testing filtering one time event", () => {
     done: [123456789],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000, // Apr 28
   };
 
@@ -37,7 +37,7 @@ describe("Testing filtering one time event", () => {
     done: [getDayBegin(new Date("2021-09-21"))],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000,
   };
 
@@ -54,7 +54,7 @@ describe("Testing filtering one time event", () => {
     done: [],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000,
   };
 
@@ -71,7 +71,7 @@ describe("Testing filtering one time event", () => {
     done: [],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000,
   };
 
@@ -88,7 +88,7 @@ describe("Testing filtering one time event", () => {
     done: [],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000,
   };
 
@@ -105,7 +105,7 @@ describe("Testing filtering one time event", () => {
     done: [123456789],
     project: "",
     countdowns: {},
-    points: {},
+    points: {}, archive: 0, rewards: [],
     modified: 1619614840000,
   };
   test("should return appropriate", () => {

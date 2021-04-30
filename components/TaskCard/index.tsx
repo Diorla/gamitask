@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
@@ -50,10 +50,20 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     project,
     archive,
     rewards,
+    repeat,
   } = data;
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  useEffect(() => {
+    if (type === "archive") {
+      if (!archive)
+        createData("user", `${user.uid}/tasks/${id}`, {
+          archive: Date.now(),
+        }).catch((err) => toast.error(err));
+    }
+  }, []);
 
   const closeTask = () => {
     const {
@@ -164,8 +174,10 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   };
 
   const archiveTask = () => {
+    const isUpdateDone = archive && !repeat;
     createData("user", `${user.uid}/tasks/${id}`, {
-      archive: !archive,
+      archive: archive ? 0 : Date.now(),
+      done: isUpdateDone ? [] : done,
     })
       .then(() => {
         if (archive) toast.info(`${name} is removed from archive`);

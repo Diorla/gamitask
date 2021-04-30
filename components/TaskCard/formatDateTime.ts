@@ -3,6 +3,8 @@ import isToday from "../../scripts/filter/isToday";
 import getTimeMs from "../../scripts/getTimeMs";
 import Task from "../../props/Task";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 
 const daysList = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -61,9 +63,11 @@ export default function formatDateTime(item: Task) {
     repeat,
     time,
     date,
+    archive,
     reminder: { type, days = [], months = [], dateInMonth },
   } = item;
 
+  if (archive) return dayjs(archive).from(new Date());
   const formattedTime = dayjs(new Date(getTimeMs(time))).format("h:mm A");
   if (repeat) {
     if (type === "daily") return `${formattedTime} everyday`;
