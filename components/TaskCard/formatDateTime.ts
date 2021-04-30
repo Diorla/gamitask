@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import isToday from "../../scripts/filter/isToday";
 import getTimeMs from "../../scripts/getTimeMs";
 import Task from "../../props/Task";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+dayjs.extend(localizedFormat);
 
 const daysList = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
