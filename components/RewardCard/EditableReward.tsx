@@ -19,7 +19,7 @@ const initialState: RewardProps = {
   task: [],
   point: 0,
   done: [],
-  description: "",
+  notes: "",
 };
 
 export default function EditableReward({
@@ -272,9 +272,9 @@ export default function EditableReward({
         onChangeTime={(ev) => setValue({ ...value, time: ev })}
         task={value.task}
         onChangeTask={(e) => setValue({ ...value, task: e })}
-        description={value.description}
-        onChangeDescription={(e) =>
-          setValue({ ...value, description: e.target.value })
+        notes={value.notes}
+        onChangeNotes={(e) =>
+          setValue({ ...value, notes: e.target.value })
         }
       />
       <Button onClick={() => updateTask()} variant="info">

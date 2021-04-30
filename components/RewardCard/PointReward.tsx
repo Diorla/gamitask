@@ -23,7 +23,7 @@ const PointReward = ({
       onCheck={onCheck}
       disabled={disabled}
       id={rewardInfo.id}
-      description={rewardInfo.description}
+      notes={rewardInfo.notes}
     >
       Point: {point}
     </Card>

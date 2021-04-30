@@ -39,7 +39,7 @@ export default interface Reward {
    */
   checklist?: string[];
   /**
-   * Add description to reward
+   * Add notes to reward
    */
-  description: string;
+  notes: string;
 }

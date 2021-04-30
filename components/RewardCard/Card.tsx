@@ -10,7 +10,7 @@ import removeItemFromArray from "../../scripts/removeItemFromArray";
 import transation from "../../scripts/transation";
 import Modal from "../Modal";
 import { ModalChild } from "../TaskCard/Styled";
-import { Wrapper, Left, Title, Centre, Bottom, Right, Button, StyledDescription } from "./Styled";
+import { Wrapper, Left, Title, Centre, Bottom, Right, Button, StyledNotes } from "./Styled";
 
 export default function Card({
   disabled,
@@ -21,7 +21,7 @@ export default function Card({
   toggleEdit,
   id,
   taskList,
-  description,
+  notes,
 }: {
   disabled: boolean;
   title: string;
@@ -31,7 +31,7 @@ export default function Card({
   toggleEdit: () => void;
   id?: string;
   taskList?: taskInfo[];
-  description: string;
+  notes: string;
 }) {
   const [collapse, setCollapse] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -107,7 +107,7 @@ export default function Card({
                     : "Never"}
                 </span>
               </Bottom>
-              <StyledDescription>{description}</StyledDescription>
+              <StyledNotes>{notes}</StyledNotes>
             </>
           )}
         </Left>
