@@ -31,19 +31,9 @@ export default function CreateReward({
     <div>
       <Input label="Name" value={name} onChange={onChangeName} />
       <select value={type} onChange={onChangeType}>
-        <option value="point">Point</option>
         <option value="timed">Timed</option>
         <option value="task">Task</option>
       </select>
-      {type === "point" && (
-        <Input
-          label="Point"
-          value={point}
-          onChange={onChangePoint}
-          type="number"
-          min="1"
-        />
-      )}
       {type === "timed" && (
         <TimerSelect onChangeTime={onChangeTime} value={time} />
       )}

@@ -14,10 +14,9 @@ export default interface Reward {
   name: string;
   /**
    * timed: will calculate points based on the length of time, default value
-   * point: will remove point directly from the total points
    * task: requires one or more task to be fulfilled
    */
-  type: "point" | "timed" | "task";
+  type: "timed" | "task";
   /**
    * Refers to the points that needs to be subtracted
    */

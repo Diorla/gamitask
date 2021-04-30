@@ -70,8 +70,8 @@ export default function Rewards() {
   const consumeReward = (taskInfo: RewardProps) => {
     if (taskInfo.type === "timed") consumeTimeReward(taskInfo);
     if (taskInfo.type === "task") consumeTaskReward(taskInfo);
-    if (taskInfo.type === "point") consumePointReward(taskInfo);
   };
+
   const consumeTimeReward = (taskInfo: RewardProps) => {
     const { time, name, done = [], id } = taskInfo;
     const timeToPoints = (time * points_per_hour) / toMS(1, "hour");
@@ -99,22 +99,6 @@ export default function Rewards() {
       .then(() => toast.info(`${name} done`))
       .catch((err) => toast.error(err.messsage));
   };
-  const consumePointReward = (taskInfo: RewardProps) => {
-    const { name, point, id, done = [] } = taskInfo;
-
-    batchWrite((db, batch) => {
-      const userRef = db.collection("user").doc(user.uid);
-      batch.update(userRef, {
-        points: points - point,
-      });
-      const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
-      batch.update(rewardRef, {
-        done: [...done, Date.now()],
-      });
-    })
-      .then(() => toast.info(`${name} done`))
-      .catch((err) => toast.error(err.messsage));
-  };
 
   const createNewReward = () => {
     if (!value.name) {
@@ -129,10 +113,6 @@ export default function Rewards() {
         toast.warn("Please set a time");
         return 0;
       }
-      if (value.type === "point" && value.point === 0) {
-        toast.warn("Please provide points");
-        return 0;
-      }
       createOtherReward();
     }
   };
@@ -143,8 +123,6 @@ export default function Rewards() {
       id,
       ...value,
       task: [],
-      point: value.type === "point" ? value.point : 0,
-      time: value.type === "timed" ? value.time : 0,
     })
       .then(() => {
         setValue(initialState);
@@ -223,9 +201,7 @@ export default function Rewards() {
             task={value.task}
             onChangeTask={(e) => setValue({ ...value, task: e })}
             notes={value.notes}
-            onChangeNotes={(e) =>
-              setValue({ ...value, notes: e.target.value })
-            }
+            onChangeNotes={(e) => setValue({ ...value, notes: e.target.value })}
           />
           <button onClick={createNewReward}>Create Reward</button>
         </>

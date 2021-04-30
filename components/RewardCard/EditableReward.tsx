@@ -15,7 +15,7 @@ import Button from "../Button";
 const initialState: RewardProps = {
   name: "",
   time: toMS(0, "second"),
-  type: "point",
+  type: "timed",
   task: [],
   point: 0,
   done: [],
@@ -40,10 +40,6 @@ export default function EditableReward({
   const updateTask = () => {
     if (!value.name) {
       toast.warn("Please provide a name");
-      return 0;
-    }
-    if (value.type === "point" && value.point < 1) {
-      toast.warn("Please provide points");
       return 0;
     }
     if (value.type === "timed" && value.time < 1) {
@@ -185,8 +181,6 @@ export default function EditableReward({
           batch.update(rewardRef, {
             ...value,
             task: [],
-            point: value.type === "point" ? value.point : 0,
-            time: value.type === "timed" ? value.time : 0,
           });
         });
       })
@@ -200,8 +194,6 @@ export default function EditableReward({
     createData("user", `${user.uid}/rewards/${value.id}`, {
       ...value,
       task: [],
-      point: value.type === "point" ? value.point : 0,
-      time: value.type === "timed" ? value.time : 0,
     })
       .then(() => {
         setValue(initialState);
@@ -273,9 +265,7 @@ export default function EditableReward({
         task={value.task}
         onChangeTask={(e) => setValue({ ...value, task: e })}
         notes={value.notes}
-        onChangeNotes={(e) =>
-          setValue({ ...value, notes: e.target.value })
-        }
+        onChangeNotes={(e) => setValue({ ...value, notes: e.target.value })}
       />
       <Button onClick={() => updateTask()} variant="info">
         <MdSave /> Save
