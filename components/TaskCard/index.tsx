@@ -176,6 +176,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
 
   const isCurrent = type === "today" || type === "overdue";
   const isCompleted = type === "completed";
+  const isArchive = type === "archive";
   return (
     <Wrapper>
       <Modal
@@ -205,7 +206,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
         }}
       >
         <Controls className="exclude">
-          {!archive && <PlayStop running={false} toggleRunning={beginTask} />}
+          {!isArchive && <PlayStop running={false} toggleRunning={beginTask} />}
           {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
           {isCompleted && <Checkbox onChange={checkDone} checked />}
           <div>{name}</div>
