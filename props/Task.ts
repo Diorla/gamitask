@@ -76,7 +76,7 @@ export default interface Task {
    * Similar to countdowns, it keeps record of each points earned using "t" + Date.now() as key while value is the points accrued.
    */
   points: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
-  showModal?: boolean;
+  showModal: boolean;
   /**
    * Indicate created date, and any date that an input is made
    */
@@ -89,4 +89,10 @@ export default interface Task {
    * List of rewards, for tasked rewards
    */
   rewards: string[];
+  /**
+   * Used to indicate last time it was checked as done
+   * the number is from Date.now(), 0 indicates that it was unchecked
+   * This will also simplify some of my filter algorithm
+   */
+  lastCompleted: number | 0;
 }

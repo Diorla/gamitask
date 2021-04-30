@@ -58,16 +58,18 @@ const formatMonths = (weekdays: any[]) => {
   return dayString;
 };
 
-export default function formatDateTime(item: Task) {
+export default function formatDateTime(item: Task, taskType: string) {
   let {
     repeat,
     time,
     date,
     archive,
+    lastCompleted,
     reminder: { type, days = [], months = [], dateInMonth },
   } = item;
 
   if (archive) return dayjs(archive).from(new Date());
+  if (taskType === "completed") return dayjs(lastCompleted).from(new Date());
   const formattedTime = dayjs(new Date(getTimeMs(time))).format("h:mm A");
   if (repeat) {
     if (type === "daily") return `${formattedTime} everyday`;

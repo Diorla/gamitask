@@ -38,7 +38,7 @@ import uniqueArray from "../../scripts/uniqueArray";
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
   const { runningTask, points: pt } = user;
-  const time = formatDateTime(data);
+  const time = formatDateTime(data, type);
   const {
     id,
     name,
@@ -132,6 +132,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     if (type === "completed") {
       createData("user", `${user.uid}/tasks/${id}`, {
         done: addRemoveItemFromArray(dateId, done),
+        lastCompleted: 0,
       }).catch((err) => toast.error(err.message));
     } else if (rewards && rewards.length) {
       const rewardRefList: {
@@ -162,6 +163,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
               .doc(`${user.uid}/tasks/${id}`)
               .update({
                 done: addRemoveItemFromArray(dateId, done),
+                lastCompleted: Date.now(),
               });
           });
         })
@@ -169,6 +171,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     } else {
       createData("user", `${user.uid}/tasks/${id}`, {
         done: addRemoveItemFromArray(dateId, done),
+        lastCompleted: Date.now(),
       }).catch((err) => toast.error(err.message));
     }
   };
