@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Drawer = styled.div<{ reveal: boolean }>`
+const DrawerWrapper = styled.div<{ reveal: boolean }>`
   width: 24rem;
   min-height: calc(100vh - 5rem);
   background-color: ${({ theme }) => theme.palette.default.light};
@@ -24,4 +24,4 @@ const Drawer = styled.div<{ reveal: boolean }>`
     }
   }
 `;
-export default Drawer;
+export default DrawerWrapper;

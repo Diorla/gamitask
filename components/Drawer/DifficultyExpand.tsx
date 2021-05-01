@@ -1,5 +1,5 @@
 import React from "react";
-import Accordion from "./Accordion";
+import ExpandDrawer from "./ExpandDrawer";
 import {
   FcHighPriority,
   FcLowPriority,
@@ -15,5 +15,5 @@ const data = {
 };
 
 export default function DifficultyDropdown({ activePath }: { activePath: string }) {
-  return <Accordion data={data} activePath={activePath} />;
+  return <ExpandDrawer data={data} activePath={activePath} />;
 }

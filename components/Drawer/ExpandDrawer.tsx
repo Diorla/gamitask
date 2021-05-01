@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MdChevronRight, MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
-import Task from "../../props/Task";
 import DrawerItem from "./DrawerItem";
 
 const Styled = styled.div`

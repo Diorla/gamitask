@@ -1,6 +1,6 @@
 import { FaFlag } from "react-icons/fa";
 import styled from "styled-components";
-import Accordion from "./Accordion";
+import ExpandDrawer from "./ExpandDrawer";
 
 const Flag = styled(FaFlag)<{ color: string }>`
   color: ${({ color }) => color};
@@ -25,5 +25,5 @@ export default function DifficultyDropdown({
 }: {
   activePath: string;
 }) {
-  return <Accordion data={data} activePath={activePath} />;
+  return <ExpandDrawer data={data} activePath={activePath} />;
 }
