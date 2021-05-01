@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
 import firebase from "firebase";
 import React, { useState } from "react";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/userContext";
@@ -10,7 +12,17 @@ import removeItemFromArray from "../../scripts/removeItemFromArray";
 import transation from "../../scripts/transation";
 import Modal from "../Modal";
 import { ModalChild } from "../TaskCard/Styled";
-import { Wrapper, Left, Title, Centre, Bottom, Right, Button, StyledNotes } from "./Styled";
+import {
+  Wrapper,
+  Left,
+  Title,
+  Centre,
+  Bottom,
+  Right,
+  Button,
+  StyledNotes,
+} from "./Styled";
+dayjs.extend(relativeTime);
 
 export default function Card({
   disabled,
@@ -103,7 +115,7 @@ export default function Card({
                 <span>
                   Last done:{" "}
                   {done.length
-                    ? new Date(done[done.length - 1]).toDateString()
+                    ? dayjs(done[done.length - 1]).from(new Date())
                     : "Never"}
                 </span>
               </Bottom>
