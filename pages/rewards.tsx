@@ -22,7 +22,7 @@ const initialState: RewardProps = {
   task: [],
   point: 0,
   done: [],
-  notes: "",
+  note: "",
 };
 
 const Wrapper = styled.div<{ disabled: boolean }>`
@@ -200,8 +200,8 @@ export default function Rewards() {
             onChangeTime={(ev) => setValue({ ...value, time: ev })}
             task={value.task}
             onChangeTask={(e) => setValue({ ...value, task: e })}
-            notes={value.notes}
-            onChangeNotes={(e) => setValue({ ...value, notes: e.target.value })}
+            note={value.note}
+            onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
           />
           <button onClick={createNewReward}>Create Reward</button>
         </>

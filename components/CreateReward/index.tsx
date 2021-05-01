@@ -10,22 +10,21 @@ export interface CreateRewardProps extends RewardProps {
   onChangePoint: (e: any) => void;
   onChangeTime: (e: any) => void;
   onChangeTask: (e: any[]) => void;
-  onChangeNotes: (e: any) => void;
+  onChangeNote: (e: any) => void;
 }
 
 export default function CreateReward({
   name,
   type,
-  point,
   time,
   task,
-  notes,
+  note,
   onChangeName,
   onChangeType,
   onChangePoint,
   onChangeTime,
   onChangeTask,
-  onChangeNotes,
+  onChangeNote,
 }: CreateRewardProps) {
   return (
     <div>
@@ -40,7 +39,7 @@ export default function CreateReward({
       {type === "task" && (
         <TaskSelect value={task} onChangeTask={onChangeTask} />
       )}
-      <textarea onChange={onChangeNotes} value={notes} />
+      <textarea onChange={onChangeNote} value={note} />
     </div>
   );
 }

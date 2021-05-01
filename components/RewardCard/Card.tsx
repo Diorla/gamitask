@@ -20,8 +20,8 @@ import {
   Bottom,
   Right,
   Button,
-  StyledNotes,
 } from "./Styled";
+import StyledNote from "../StyledNote";
 dayjs.extend(relativeTime);
 
 export default function Card({
@@ -33,7 +33,7 @@ export default function Card({
   toggleEdit,
   id,
   taskList,
-  notes,
+  note,
 }: {
   disabled: boolean;
   title: string;
@@ -43,7 +43,7 @@ export default function Card({
   toggleEdit: () => void;
   id?: string;
   taskList?: taskInfo[];
-  notes: string;
+  note: string;
 }) {
   const [collapse, setCollapse] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -119,7 +119,7 @@ export default function Card({
                     : "Never"}
                 </span>
               </Bottom>
-              <StyledNotes>{notes}</StyledNotes>
+              <StyledNote>{note}</StyledNote>
             </>
           )}
         </Left>

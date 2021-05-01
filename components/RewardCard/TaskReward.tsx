@@ -23,7 +23,7 @@ const TaskReward = ({
       disabled={disabled}
       id={rewardInfo.id}
       taskList={rewardInfo.task}
-      notes={rewardInfo.notes}
+      note={rewardInfo.note}
     >
       {task.map((item, idx) => (
         <Checked active={Boolean(checklist?.includes(item.value))} key={idx}>

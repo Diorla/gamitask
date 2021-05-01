@@ -107,4 +107,8 @@ export default interface Task {
    * In order to prevent the value ballooning, I will use log to calculate streak
    */
   timed: boolean;
+  /**
+   * This is for description or additional information
+   */
+  note: string;
 }

@@ -32,6 +32,7 @@ import transation from "../../scripts/transation";
 import batchWrite from "../../scripts/batchWrite";
 import firebase from "firebase";
 import uniqueArray from "../../scripts/uniqueArray";
+import StyledNote from "../StyledNote";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
@@ -51,6 +52,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     archive,
     rewards,
     repeat,
+    note,
   } = data;
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -284,6 +286,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
               <Label>{labels}</Label>
             </Row>
           )}
+          <StyledNote>{note}</StyledNote>
           <Row>
             <div>{time}</div>
           </Row>

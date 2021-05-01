@@ -43,7 +43,7 @@ export default function Project() {
     fetchData("user", `${user.uid}`)
       .then((data) => {
         if (data) {
-          const { projects } = data;
+          const { projects = ["Unsorted"] } = data;
           setList(projects);
         }
       })

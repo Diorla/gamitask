@@ -1,7 +1,7 @@
 import { IconBaseProps } from "react-icons";
 import { FaCalendarAlt, FaFlag } from "react-icons/fa";
 import { IoMdArrowDropupCircle } from "react-icons/io";
-import { MdLabel, MdRepeat } from "react-icons/md";
+import { MdLabel, MdNote, MdRepeat } from "react-icons/md";
 import { VscProject } from "react-icons/vsc";
 import styled from "styled-components";
 
@@ -21,3 +21,4 @@ export const PriorityIcon = Icon(FaFlag);
 export const RepeatIcon = Icon(MdRepeat);
 export const DifficultyIcon = Icon(IoMdArrowDropupCircle);
 export const ProjectIcon = Icon(VscProject);
+export const NoteIcon = Icon(MdNote);
