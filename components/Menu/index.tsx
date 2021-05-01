@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import { MenuIcon, AddIcon, PointIcon, NotificationIcon } from "./Icon";
 import Dropdown from "./Dropdown";
 import Link from "next/link";
-import CreateTask from "../../container/CreateTask";
+import CreateTask from "../../components/CreateTask";
 import Modal from "../Modal";
 import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
