@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { MdClose, MdSave } from "react-icons/md";
 import { toast } from "react-toastify";
-import CreateReward from "../../container/CreateReward";
+import CreateReward from "../CreateReward";
 import { useUser } from "../../context/userContext";
 import RewardProps from "../../props/Reward";
 import batchWrite from "../../scripts/batchWrite";

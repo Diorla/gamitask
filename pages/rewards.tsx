@@ -8,7 +8,7 @@ import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
 import watchData from "../scripts/watchData";
 import RewardProps from "../props/Reward";
-import CreateReward from "../container/CreateReward";
+import CreateReward from "../components/CreateReward";
 import toMS from "../scripts/toMS";
 import transation from "../scripts/transation";
 import firebase from "firebase";

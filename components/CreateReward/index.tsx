@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../../components/Form/Input";
+import Input from "../Form/Input";
 import RewardProps from "../../props/Reward";
 import TaskSelect from "./TaskSelect";
 import TimerSelect from "./TimeSelect";
