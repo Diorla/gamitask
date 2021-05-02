@@ -9,6 +9,6 @@ import DateType from "./DateType";
  * @returns boolean
  * @example isTheSameTime(new Date(), new Date(), "year") // true
  */
-export default function isTheSameTime(prev: Date, next: Date, type?: DateType) {
+export default function isTheSameMoment(prev: Date, next: Date, type?: DateType) {
   return dayjs(prev).isSame(dayjs(next), type);
 }

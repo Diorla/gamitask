@@ -24,6 +24,9 @@ const initialState: TaskProps = {
   archive: 0,
   rewards: [],
   lastCompleted: 0,
+  streak: 0,
+  timed: false,
+  note: "",
 };
 
 export default initialState;

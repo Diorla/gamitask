@@ -18,9 +18,9 @@ export default function Home() {
 
   return (
     <Layout activePath="today">
-      <TaskCollection data={completed} title="Completed" type="completed" />
       <TaskCollection data={overdue} title="Overdue" type="overdue" />
       <TaskCollection data={today} title="Today" type="today" />
+      <TaskCollection data={completed} title="Completed" type="completed" />
     </Layout>
   );
 }

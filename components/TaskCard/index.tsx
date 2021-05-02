@@ -33,6 +33,7 @@ import batchWrite from "../../scripts/batchWrite";
 import firebase from "firebase";
 import uniqueArray from "../../scripts/uniqueArray";
 import StyledNote from "../StyledNote";
+import getStreak from "../../scripts/getStreak";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
@@ -53,6 +54,8 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     rewards,
     repeat,
     note,
+    timed,
+    streak,
   } = data;
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -131,16 +134,13 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
 
   const checkDone = () => {
     const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
-    if (type === "completed") {
-      createData("user", `${user.uid}/tasks/${id}`, {
-        done: addRemoveItemFromArray(dateId, done),
-        lastCompleted: 0,
-      }).catch((err) => toast.error(err.message));
-    } else if (rewards && rewards.length) {
+    const currentStreak = getStreak(data);
+    if (rewards && rewards.length) {
       const rewardRefList: {
         rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
         checklist: string[];
       }[] = [];
+
       transation((db, t) => {
         rewards.forEach(async (rewardId) => {
           const rewardRef = db
@@ -161,21 +161,55 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
                 checklist: uniqueArray([...item.checklist, id]),
               });
             });
-            db.collection("user")
-              .doc(`${user.uid}/tasks/${id}`)
-              .update({
-                done: addRemoveItemFromArray(dateId, done),
-                lastCompleted: Date.now(),
-              });
+            const taskRef = db
+              .collection("user")
+              .doc(`${user.uid}/tasks/${id}`);
+            if (!timed) updatePoint(db, batch, currentStreak);
+            batch.update(taskRef, {
+              done: addRemoveItemFromArray(dateId, done),
+              lastCompleted: Date.now(),
+              streak: currentStreak,
+            });
           });
         })
         .catch((err) => toast.error(err.message));
     } else {
-      createData("user", `${user.uid}/tasks/${id}`, {
-        done: addRemoveItemFromArray(dateId, done),
-        lastCompleted: Date.now(),
+      batchWrite((db, batch) => {
+        const taskRef = db.collection("user").doc(`${user.uid}/tasks/${id}`);
+        if (!timed) updatePoint(db, batch, currentStreak);
+        batch.update(taskRef, {
+          done: addRemoveItemFromArray(dateId, done),
+          lastCompleted: Date.now(),
+          streak: currentStreak,
+        });
       }).catch((err) => toast.error(err.message));
     }
+  };
+
+  const updatePoint = (
+    db: firebase.firestore.Firestore,
+    updater: firebase.firestore.WriteBatch,
+    currentStreak: number
+  ) => {
+    let points = currentStreak * priority * difficulty;
+    /**
+     * 60 years = 21915 days
+     * Maximum priority and difficulty = 3 * 5 = 15
+     * Assuming someone does it daily for 60 years
+     * Math.floor(Math.log((21915 * 15)**56) + 1) = Infinity
+     * Math.floor(Math.log((21915 * 15)**55) + 1) = 699
+     * Hence, 71 is the safe number, as far as I'm concerned
+     */
+    points = (Math.log(points ** 50) + 1) * 2;
+    points += pt;
+    points = Math.floor(points);
+    // I don't expect this to happen, but who knows
+    points = points === Infinity ? 1398 + streak : points;
+
+    const taskRef = db.collection("user").doc(user.uid);
+    updater.update(taskRef, {
+      points,
+    });
   };
 
   const archiveTask = () => {
@@ -192,7 +226,6 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   };
 
   const isCurrent = type === "today" || type === "overdue";
-  const isCompleted = type === "completed";
   const isArchive = type === "archive";
   return (
     <Wrapper>
@@ -223,9 +256,10 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
         }}
       >
         <Controls className="exclude">
-          {!isArchive && <PlayStop running={false} toggleRunning={beginTask} />}
+          {!isArchive && timed && isCurrent && (
+            <PlayStop running={false} toggleRunning={beginTask} />
+          )}
           {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
-          {isCompleted && <Checkbox onChange={checkDone} checked />}
           <div>{name}</div>
         </Controls>
         <PriorityDifficulty>
@@ -297,3 +331,4 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
 };
 
 export default TaskCard;
+// (Math.log(i**50) + 1) * 2

@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import Routing from "./Routing";
 import TaskButton from "./TaskButton";
 import TaskName from "./TaskName";
+import Timed from "./Timed";
 
 const Styled = styled.div`
   color: black;
@@ -22,6 +23,7 @@ export default function CreateTask() {
   return (
     <Styled>
       <TaskName />
+      <Timed />
       <Controls>
         <Nav
           currentSection={currentSection}
