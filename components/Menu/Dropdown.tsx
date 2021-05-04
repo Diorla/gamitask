@@ -4,7 +4,6 @@ import logout from "../../scripts/logout";
 import Divider from "../Divider";
 import Avatar from "./Avatar";
 import DropdownItem from "./DropdownItem";
-import { UserIcon } from "./Icon";
 import { useClickAway } from "react-use";
 import Link from "next/link";
 
@@ -21,12 +20,8 @@ const DropdownMenu = styled.div`
 `;
 
 export default function Dropdown({ profileImage }: { profileImage: string }) {
-  const User = ({ onClick }: { onClick: () => void }) =>
-    profileImage ? (
-      <Avatar src={profileImage} onClick={onClick} />
-    ) : (
-      <UserIcon onClick={onClick} />
-    );
+  const imageUrl = profileImage || "./profile.png";
+
   const [showDropDownMenu, setShowDropDownMenu] = useState(false);
   const ref = useRef(null);
   useClickAway(ref, () => {
@@ -35,7 +30,10 @@ export default function Dropdown({ profileImage }: { profileImage: string }) {
 
   return (
     <div ref={ref}>
-      <User onClick={() => setShowDropDownMenu(!showDropDownMenu)} />
+      <Avatar
+        src={imageUrl}
+        onClick={() => setShowDropDownMenu(!showDropDownMenu)}
+      />
       {showDropDownMenu && (
         <DropdownMenu>
           <Link href="/profile">
