@@ -3,14 +3,12 @@ import UserInfo from "../../props/UserInfo";
 const user: UserInfo = {
   uid: "",
   email: "",
-  profile: {
-    last_name: "",
-    first_name: "",
-    DOB: Date.now(),
-    gender: "prefer not to say",
-    last_updated: Date.now(),
-    profileImage: "",
-  },
+  lastName: "",
+  firstName: "",
+  DOB: Date.now(),
+  gender: "Prefer not to say",
+  lastUpdated: Date.now(),
+  profileImage: "",
   theme: {
     primary: "",
     secondary: "",
@@ -19,7 +17,7 @@ const user: UserInfo = {
   points: 0,
   labels: [],
   projects: [],
-  points_per_hour: 500,
+  pointsPerHour: 500,
   runningTask: {
     name: "",
     startTime: 0,
@@ -29,6 +27,7 @@ const user: UserInfo = {
     countdowns: {},
   },
   created: Date.now(),
+  dailyGoal: 5000,
 };
 
 const initialState = {

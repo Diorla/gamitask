@@ -8,6 +8,7 @@ import Timed from "./Timed";
 
 const Styled = styled.div`
   color: black;
+  padding: 0.4rem;
 `;
 
 const Controls = styled.div`

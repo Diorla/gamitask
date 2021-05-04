@@ -59,7 +59,7 @@ export default function Rewards() {
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [value, setValue] = useState<RewardProps>(initialState);
   const { user } = useUser();
-  const { points, points_per_hour } = user;
+  const { points, pointsPerHour } = user;
   useEffect(() => {
     user &&
       watchData(`user/${user.uid}/rewards`, (e) => setRewards(e)).catch((err) =>
@@ -74,7 +74,7 @@ export default function Rewards() {
 
   const consumeTimeReward = (taskInfo: RewardProps) => {
     const { time, name, done = [], id } = taskInfo;
-    const timeToPoints = (time * points_per_hour) / toMS(1, "hour");
+    const timeToPoints = (time * pointsPerHour) / toMS(1, "hour");
 
     batchWrite((db, batch) => {
       const userRef = db.collection("user").doc(user.uid);
@@ -210,7 +210,7 @@ export default function Rewards() {
       {rewards.map((item) => (
         <RewardCard
           point={points}
-          perHour={points_per_hour}
+          perHour={pointsPerHour}
           rewardInfo={item}
           key={item.id}
           onCheck={() => consumeReward(item)}

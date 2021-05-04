@@ -95,7 +95,7 @@ export default function Layout({
           loadingUser={loadingUser}
           activePath={activePath}
           uid={user.uid}
-          profileImage={user.profile.profileImage}
+          profileImage={user.profileImage}
           id={id}
         >
           {children}
