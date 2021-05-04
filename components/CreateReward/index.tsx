@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../../components/Form/Input";
+import Input from "../Form/Input";
 import RewardProps from "../../props/Reward";
 import TaskSelect from "./TaskSelect";
 import TimerSelect from "./TimeSelect";
@@ -10,47 +10,36 @@ export interface CreateRewardProps extends RewardProps {
   onChangePoint: (e: any) => void;
   onChangeTime: (e: any) => void;
   onChangeTask: (e: any[]) => void;
-  onChangeDescription: (e: any) => void;
+  onChangeNote: (e: any) => void;
 }
 
 export default function CreateReward({
   name,
   type,
-  point,
   time,
   task,
-  description,
+  note,
   onChangeName,
   onChangeType,
   onChangePoint,
   onChangeTime,
   onChangeTask,
-  onChangeDescription,
+  onChangeNote,
 }: CreateRewardProps) {
   return (
     <div>
       <Input label="Name" value={name} onChange={onChangeName} />
       <select value={type} onChange={onChangeType}>
-        <option value="point">Point</option>
         <option value="timed">Timed</option>
         <option value="task">Task</option>
       </select>
-      {type === "point" && (
-        <Input
-          label="Point"
-          value={point}
-          onChange={onChangePoint}
-          type="number"
-          min="1"
-        />
-      )}
       {type === "timed" && (
         <TimerSelect onChangeTime={onChangeTime} value={time} />
       )}
       {type === "task" && (
         <TaskSelect value={task} onChangeTask={onChangeTask} />
       )}
-      <textarea onChange={onChangeDescription} value={description} />
+      <textarea onChange={onChangeNote} value={note} />
     </div>
   );
 }

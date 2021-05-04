@@ -25,7 +25,7 @@ const tertiary = {
 
 const white = "#ffffff";
 const black = "#111111";
-const offwhite = "#dddddd";
+const offwhite = "#bbbbbb";
 const gray = "#333333";
 
 const cornflowerblue = "cornflowerblue";

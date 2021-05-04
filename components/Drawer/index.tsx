@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Drawer from "./Drawer";
+import DrawerWrapper from "./DrawerWrapper";
 import DrawerItem from "./DrawerItem";
 import { MdArchive, MdLabel, MdToday } from "react-icons/md";
 import React from "react";
 import { FaCalendarAlt, FaGift } from "react-icons/fa";
 import { VscProject } from "react-icons/vsc";
-import DifficultyDD from "./DifficultyDD";
-import PriorityDD from "./PriorityDD";
+import DifficultyExpand from "./DifficultyExpand";
+import PriorityExpand from "./PriorityExpand";
 
 /**
  * TODO: Usememo
@@ -24,8 +24,8 @@ export default function AppContainer({
   showDrawer: boolean;
 }) {
   return (
-    <Drawer reveal={showDrawer}>
-      <Seperator size={10} />
+    <DrawerWrapper reveal={showDrawer}>
+      <Seperator size={11} />
       <DrawerItem
         href="/"
         active={activePath === "today"}
@@ -75,8 +75,8 @@ export default function AppContainer({
         Archive
       </DrawerItem>
       <Seperator size={2} />
-      <DifficultyDD activePath={activePath} />
-      <PriorityDD activePath={activePath} />
-    </Drawer>
+      <DifficultyExpand activePath={activePath} />
+      <PriorityExpand activePath={activePath} />
+    </DrawerWrapper>
   );
 }

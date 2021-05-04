@@ -7,6 +7,7 @@ import {
   PriorityIcon,
   DifficultyIcon,
   ProjectIcon,
+  NoteIcon,
 } from "./Icon";
 
 const priorityColours = ["#00796b", "#689f38", "#ffeb3b", "#ff9800", "#e83c3d"];
@@ -34,7 +35,7 @@ export default function Nav({
   currentSection: string;
   setCurrentSection: (e: string) => void;
 }) {
-  const { difficulty, labels, priority, project, time } = useTaskState();
+  const { difficulty, labels, priority, project, time, note } = useTaskState();
 
   return (
     <Wrapper>
@@ -84,6 +85,11 @@ export default function Nav({
         <ProjectIcon colour="#7843bc" active={project !== "Unsorted"} />
         {project !== "Unsorted" && project}
       </ProjectWrapper>
+      <NoteIcon colour="black" active={!!note} onClick={() => {
+          currentSection === "Note"
+            ? setCurrentSection("")
+            : setCurrentSection("Note");
+        }}/>
     </Wrapper>
   );
 }

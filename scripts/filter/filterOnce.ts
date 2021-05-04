@@ -12,7 +12,10 @@ export default function filterOnce(task: Task): filterTypes {
   const isBeforeToday = isBefore(new Date(dateTime), new Date(todayBegin));
   const isToday = dayjs(dateTime).isToday();
   if (isBeforeToday) {
-    if (done.length) return "archived";
+    if (done.length) {
+      if (dayjs(done[done.length - 1]).isToday()) return "completed";
+      return "archived";
+    }
     return "overdue";
   } else if (isToday) {
     const taskIsDoneToday = dayjs(new Date(done[done.length - 1])).isToday();

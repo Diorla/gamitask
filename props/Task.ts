@@ -76,7 +76,7 @@ export default interface Task {
    * Similar to countdowns, it keeps record of each points earned using "t" + Date.now() as key while value is the points accrued.
    */
   points: { [key: string]: any }; // keep all records of points earned, added when dropdown is completed or done is updated.
-  showModal?: boolean;
+  showModal: boolean;
   /**
    * Indicate created date, and any date that an input is made
    */
@@ -84,9 +84,31 @@ export default interface Task {
   /**
    * Sort of "deleted" state without actually deleting it, so that user can still have access to the data, with it appearing in their todo list
    */
-  archive: boolean;
+  archive: number;
   /**
    * List of rewards, for tasked rewards
    */
   rewards: string[];
+  /**
+   * Used to indicate last time it was checked as done
+   * the number is from Date.now(), 0 indicates that it was unchecked
+   * This will also simplify some of my filter algorithm
+   */
+  lastCompleted: number | 0;
+  /**
+   * Use to maintain streak. Anytime a new data is checked, it will check
+   * if the lastCompleted is within the due date, e.g. if it's daily, then lastCompleted must
+   * yesterday, if it is weekend(sun and sat) and today is sat, then lastCompleted must be
+   * last Sunday. If it is true, it will increase it, otherwise, it will reset to 1
+   */
+  streak: number;
+  /**
+   * used to determine if it will have a countdown. Calculation of points depends on streak
+   * In order to prevent the value ballooning, I will use log to calculate streak
+   */
+  timed: boolean;
+  /**
+   * This is for description or additional information
+   */
+  note: string;
 }

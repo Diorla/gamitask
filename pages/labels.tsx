@@ -3,7 +3,7 @@ import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
 import Task from "../props/Task";
-import toTitleCase from "../scripts/toTitleCase";
+import formatText from "../scripts/formatText";
 
 // in case someone created "unlabelled" label
 const unlabelled = "egj9b39bn2217352b06a6178c0e95f431f30ej5ra";
@@ -47,7 +47,7 @@ export default function Labels() {
             <TaskCollection
               key={idx}
               data={labelCollection[item]}
-              title={toTitleCase(item)}
+              title={formatText(item, "title")}
               type="upcoming"
             />
           );

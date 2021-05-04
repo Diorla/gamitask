@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
+import formatText from "../../scripts/formatText";
 
 const InputDiv = styled.div`
   width: 100%;
@@ -29,7 +30,10 @@ export default function Name() {
     );
   return (
     <InputDiv>
-      <input value={task.name} onChange={(e) => setName(e.target.value)} />
+      <input
+        value={task.name}
+        onChange={(e) => setName(formatText(e.target.value, "title"))}
+      />
     </InputDiv>
   );
 }

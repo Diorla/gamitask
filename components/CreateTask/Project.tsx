@@ -6,7 +6,7 @@ import fetchData from "../../scripts/fetchData";
 import { toast } from "react-toastify";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import toTitleCase from "../../scripts/toTitleCase";
+import formatText from "../../scripts/formatText";
 
 const Input = styled.input`
   border: 0.1rem solid silver;
@@ -43,7 +43,7 @@ export default function Project() {
     fetchData("user", `${user.uid}`)
       .then((data) => {
         if (data) {
-          const { projects } = data;
+          const { projects = ["Unsorted"] } = data;
           setList(projects);
         }
       })
@@ -81,7 +81,7 @@ export default function Project() {
           value={newProject}
           placeholder="Create new project"
           onChange={(e: { target: { value: string } }) =>
-            setNewProject(toTitleCase(e.target.value))
+            setNewProject(formatText(e.target.value, "title"))
           }
         />{" "}
         {newProject && !list.includes(newProject) && (

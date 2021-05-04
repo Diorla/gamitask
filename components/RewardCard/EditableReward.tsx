@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { MdClose, MdSave } from "react-icons/md";
 import { toast } from "react-toastify";
-import CreateReward from "../../container/CreateReward";
+import CreateReward from "../CreateReward";
 import { useUser } from "../../context/userContext";
 import RewardProps from "../../props/Reward";
 import batchWrite from "../../scripts/batchWrite";
@@ -15,11 +15,11 @@ import Button from "../Button";
 const initialState: RewardProps = {
   name: "",
   time: toMS(0, "second"),
-  type: "point",
+  type: "timed",
   task: [],
   point: 0,
   done: [],
-  description: "",
+  note: "",
 };
 
 export default function EditableReward({
@@ -40,10 +40,6 @@ export default function EditableReward({
   const updateTask = () => {
     if (!value.name) {
       toast.warn("Please provide a name");
-      return 0;
-    }
-    if (value.type === "point" && value.point < 1) {
-      toast.warn("Please provide points");
       return 0;
     }
     if (value.type === "timed" && value.time < 1) {
@@ -185,8 +181,6 @@ export default function EditableReward({
           batch.update(rewardRef, {
             ...value,
             task: [],
-            point: value.type === "point" ? value.point : 0,
-            time: value.type === "timed" ? value.time : 0,
           });
         });
       })
@@ -200,8 +194,6 @@ export default function EditableReward({
     createData("user", `${user.uid}/rewards/${value.id}`, {
       ...value,
       task: [],
-      point: value.type === "point" ? value.point : 0,
-      time: value.type === "timed" ? value.time : 0,
     })
       .then(() => {
         setValue(initialState);
@@ -272,10 +264,8 @@ export default function EditableReward({
         onChangeTime={(ev) => setValue({ ...value, time: ev })}
         task={value.task}
         onChangeTask={(e) => setValue({ ...value, task: e })}
-        description={value.description}
-        onChangeDescription={(e) =>
-          setValue({ ...value, description: e.target.value })
-        }
+        note={value.note}
+        onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
       />
       <Button onClick={() => updateTask()} variant="info">
         <MdSave /> Save

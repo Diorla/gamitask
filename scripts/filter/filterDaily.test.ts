@@ -22,7 +22,7 @@ const completedTask: Task = {
   done: [getDayBegin(new Date("2021-09-21"))],
   project: "",
   countdowns: {},
-  points: {},
+  points: {}, archive: 0, rewards: [],
   modified: 1619614840000,
 };
 
@@ -39,7 +39,7 @@ const overdueTask: Task = {
   done: [],
   project: "",
   countdowns: {},
-  points: {},
+  points: {}, archive: 0, rewards: [],
   modified: 1619614840000,
 };
 
@@ -56,7 +56,7 @@ const todayTask: Task = {
   done: [123456789],
   project: "",
   countdowns: {},
-  points: {},
+  points: {}, archive: 0, rewards: [],
   modified: 1619614840000,
 };
 

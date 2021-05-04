@@ -1,8 +1,6 @@
 import dayjs from "dayjs";
 import Task from "../../props/Task";
-import { getDateFromTime, getPrevDate, isBetween } from "../datetime-utils";
-import getMonthDifference from "../datetime-utils/getMonthDifference";
-import lastDueDayOrMonth from "../datetime-utils/lastDueDayOrMonth";
+import { getDateFromTime, isBetween } from "../datetime-utils";
 import filterTypes from "./filterTypes";
 import isToday from "./isToday";
 
