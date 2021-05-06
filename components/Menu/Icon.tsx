@@ -22,13 +22,11 @@ const MenuIcon = Icon(MdMenu);
 const AddIcon = Icon(MdAdd);
 const PointIcon = Icon(MdTrendingUp);
 const NotificationIcon = Icon(MdNotifications);
-const UserIcon = Icon(MdAccountCircle);
 
 export {
   MenuIcon,
   AddIcon,
   PointIcon,
   NotificationIcon,
-  UserIcon,
   Icon as default,
 };

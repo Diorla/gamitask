@@ -1,15 +1,12 @@
-import Task from "./Task";
 export default interface UserInfo {
   uid: string;
   email: string;
-  profile: {
-    DOB: number;
-    first_name: string;
-    gender: "male" | "female" | "non binary" | "prefer not to say";
-    last_name: string;
-    last_updated: number;
-    profileImage: string;
-  };
+  DOB: number;
+  firstName: string;
+  gender: "Male" | "Female" | "Non binary" | "Prefer not to say";
+  lastName: string;
+  lastUpdated: number;
+  profileImage: string;
   theme: {
     primary: string;
     secondary: string;
@@ -18,7 +15,7 @@ export default interface UserInfo {
   points: number;
   labels: string[];
   projects: string[];
-  points_per_hour: number;
+  pointsPerHour: number;
   runningTask: {
     name: string;
     startTime: number;
@@ -28,4 +25,5 @@ export default interface UserInfo {
     countdowns: { [key: string]: any };
   };
   created: number;
+  dailyGoal: number;
 }

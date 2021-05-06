@@ -7,7 +7,6 @@ const InputDiv = styled.div`
   width: 100%;
   display: flex;
   align-items: stretch;
-  height: 4rem;
   margin-bottom: 0.4rem;
   & > input {
     flex: 1;

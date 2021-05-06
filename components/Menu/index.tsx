@@ -64,7 +64,7 @@ export default function Menu({
           <Dropdown profileImage={profileImage} />
         </Right>
       </Nav>
-      <Modal visible={Boolean(task.showModal)} onClose={closeModal} width={28}>
+      <Modal visible={Boolean(task.showModal)} onClose={closeModal} width={32}>
         <CreateTask />
       </Modal>
     </>

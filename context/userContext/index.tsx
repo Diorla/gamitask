@@ -23,19 +23,13 @@ export default function UserContextComp({
         watchDoc("user", user.uid, (data = {}) => {
           const formattedData = formatData(data);
 
-          const {
-            profile,
-            profile: { profileImage },
-          } = formattedData;
+          const { profileImage } = formattedData;
 
           const userData = {
             ...formattedData,
             uid: user.uid,
             email: user.email,
-            profile: {
-              ...profile,
-              profileImage: profileImage || user.photoURL,
-            },
+            profileImage: profileImage || user.photoURL,
           };
           Promise.resolve(true)
             .then(() => setUser(formatData(userData)))
