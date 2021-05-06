@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
+import CalendarButton from "../../CalendarButton";
 
 const daysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -33,20 +34,6 @@ const monthInYears = [
 ];
 
 const monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-const MonthButton = styled.button<{ active: boolean }>`
-  background-color: ${({ active, theme }) =>
-    active ? theme.palette.secondary.main : "silver"};
-  border: none;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
-  margin: 0.2rem;
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
-  outline: none;
-`;
 
 export default function Yearly() {
   const task = useTaskState();
@@ -108,13 +95,13 @@ export default function Yearly() {
       <Input>
         <div>
           {monthList.map((item, idx) => (
-            <MonthButton
+            <CalendarButton
               key={idx}
               active={months.includes(item)}
               onClick={() => setYear(addRemoveItemFromArray(item, months))}
             >
               {monthInYears[item]}
-            </MonthButton>
+            </CalendarButton>
           ))}
         </div>
       </Input>
