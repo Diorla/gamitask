@@ -26,11 +26,20 @@ const DifficultyIcon = ({
 }: {
   difficulty: number;
   onClick: () => void;
-}) => <span onClick={onClick}>{difficultyColours[difficulty - 1]}</span>;
+}) => (
+  <span onClick={onClick} style={{ cursor: "pointer" }}>
+    {difficultyColours[difficulty - 1]}
+  </span>
+);
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: space-evenly;
+  & > *:hover {
+    opacity: 0.8;
+  }
 `;
 
 export default function Nav({

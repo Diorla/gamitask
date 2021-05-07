@@ -42,7 +42,9 @@ export default function Yearly() {
     reminder: { months = [], dateInMonth = 1 },
   } = task;
   const taskDispatch = useTaskDispatch();
-  const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));
+  const [dateSelector, setDateSelector] = useState(
+    new Array(daysCount[months[0]]).fill("")
+  );
 
   const setYear = (months: number[]) => {
     let maxDate = 29;
@@ -88,7 +90,9 @@ export default function Yearly() {
           id="date"
         >
           {dateSelector.map((_item, idx) => (
-            <option value={idx + 1}>{idx + 1}</option>
+            <option value={idx + 1} key={idx}>
+              {idx + 1}
+            </option>
           ))}
         </select>
       </div>

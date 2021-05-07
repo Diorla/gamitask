@@ -10,6 +10,9 @@ const Select = styled.div`
     border-bottom: 0.1rem solid silver;
     padding: 0.4rem;
   }
+  & > * {
+    margin-top: 0.8rem;
+  }
 `;
 
 export default function Reminder() {

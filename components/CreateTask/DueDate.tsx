@@ -7,15 +7,13 @@ import Reminder from "./Reminder";
 const Row = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 0.8rem;
   & > input {
     border: 0.1rem solid silver;
     margin-right: 0.4rem;
   }
   & > label {
     margin-right: 1.2rem;
-  }
-  & > div {
-    color: ${({ theme }) => theme.palette.error.main};
   }
 `;
 
@@ -68,7 +66,7 @@ export default function DueDate() {
         />{" "}
         <label htmlFor="repeat">Repeat</label>
       </Row>
-      <div>
+      <Row>
         <label htmlFor="time">Time: </label>
         <input
           type="time"
@@ -76,18 +74,20 @@ export default function DueDate() {
           value={time}
           onChange={(e) => setTime(e.target.value)}
         />
-      </div>
-      {!repeat && (
-        <>
-          <label htmlFor="date">Date: </label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </>
-      )}
+      </Row>
+      <Row>
+        {!repeat && (
+          <>
+            <label htmlFor="date">Date: </label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </>
+        )}
+      </Row>
       {repeat && <Reminder />}
     </div>
   );

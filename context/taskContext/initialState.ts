@@ -1,16 +1,17 @@
+import dayjs from "dayjs";
 import TaskProps from "../../props/Task";
 
 const initialState: TaskProps = {
   id: "",
   name: "",
   repeat: false,
-  date: "",
-  time: "",
+  date: dayjs().format("YYYY-MM-DD"),
+  time: dayjs().format("hh:mm"),
   reminder: {
-    dateInMonth: 1,
+    dateInMonth: new Date().getDate(),
     type: "daily",
-    days: [],
-    months: [],
+    days: [new Date().getDay()],
+    months: [new Date().getMonth()],
   },
   labels: "",
   priority: 1,

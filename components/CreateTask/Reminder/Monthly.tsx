@@ -32,7 +32,7 @@ export default function Monthly() {
         id="date"
       >
         {arr.map((_item, idx) => (
-          <option value={idx + 1}>{idx + 1}</option>
+          <option value={idx + 1} key={idx}>{idx + 1}</option>
         ))}
       </select>
     </div>
