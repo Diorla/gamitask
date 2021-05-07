@@ -1,33 +1,38 @@
 import React from "react";
+import {
+  FcLowPriority,
+  FcMediumPriority,
+  FcHighPriority,
+} from "react-icons/fc";
 import styled from "styled-components";
 import { useTaskState } from "../../context/taskContext";
 import {
   ReminderIcon,
   LabelIcon,
   PriorityIcon,
-  DifficultyIcon,
   ProjectIcon,
   NoteIcon,
 } from "./Icon";
-
+const difficultyColours = [
+  <FcLowPriority style={{ fontSize: "2.1rem" }} />,
+  <FcMediumPriority style={{ fontSize: "2.1rem" }} />,
+  <FcHighPriority style={{ fontSize: "2.1rem" }} />,
+];
 const priorityColours = ["#00796b", "#689f38", "#ffeb3b", "#ff9800", "#e83c3d"];
 
-const difficultyColours = ["rgb(76, 175, 80)", "#ffac03", "#e83c3d"];
+const DifficultyIcon = ({
+  difficulty,
+  onClick,
+}: {
+  difficulty: number;
+  onClick: () => void;
+}) => <span onClick={onClick}>{difficultyColours[difficulty - 1]}</span>;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-const ProjectWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 1.6rem;
-`;
 
-// ?TODO: update Reminder.active
-/**
- * Use some validation to see if the reminder is valid
- * And then return boolean
- */
 export default function Nav({
   currentSection,
   setCurrentSection,
@@ -57,6 +62,14 @@ export default function Nav({
             : setCurrentSection("Label");
         }}
       />
+      <DifficultyIcon
+        difficulty={difficulty}
+        onClick={() => {
+          currentSection === "Difficulty"
+            ? setCurrentSection("")
+            : setCurrentSection("Difficulty");
+        }}
+      />
       <PriorityIcon
         colour={priorityColours[priority - 1]}
         active={!!priority}
@@ -66,30 +79,24 @@ export default function Nav({
             : setCurrentSection("Priority");
         }}
       />
-      <DifficultyIcon
-        colour={difficultyColours[difficulty - 1]}
-        active={!!difficulty}
-        onClick={() => {
-          currentSection === "Difficulty"
-            ? setCurrentSection("")
-            : setCurrentSection("Difficulty");
-        }}
-      />
-      <ProjectWrapper
+      <ProjectIcon
+        colour="#7843bc"
+        active={project !== "Unsorted"}
         onClick={() => {
           currentSection === "Project"
             ? setCurrentSection("")
             : setCurrentSection("Project");
         }}
-      >
-        <ProjectIcon colour="#7843bc" active={project !== "Unsorted"} />
-        {project !== "Unsorted" && project}
-      </ProjectWrapper>
-      <NoteIcon colour="black" active={!!note} onClick={() => {
+      />
+      <NoteIcon
+        colour="#7B3F00"
+        active={!!note}
+        onClick={() => {
           currentSection === "Note"
             ? setCurrentSection("")
             : setCurrentSection("Note");
-        }}/>
+        }}
+      />
     </Wrapper>
   );
 }

@@ -63,26 +63,29 @@ export default function Project() {
   return (
     <div>
       <Select>
-        <label htmlFor="project">Select group:</label>
+        <label htmlFor="project">Select project:</label>
         <select
           name="project"
           value={task.project}
           onChange={(e) => setProject(e.target.value)}
         >
-          {list.map((item, idx) => (
+          {[...list, "Unsorted"].map((item, idx) => (
             <option value={item} key={idx}>
               {item}
             </option>
           ))}
         </select>
       </Select>
-      <div>
+      <div style={{ display: "flex" }}>
         <Input
           value={newProject}
           placeholder="Create new project"
           onChange={(e: { target: { value: string } }) =>
             setNewProject(formatText(e.target.value, "title"))
           }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") addNewProject();
+          }}
         />{" "}
         {newProject && !list.includes(newProject) && (
           <button onClick={() => addNewProject()}>create</button>

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import DrawerWrapper from "./DrawerWrapper";
 import DrawerItem from "./DrawerItem";
-import { MdArchive, MdLabel, MdToday } from "react-icons/md";
+import { MdArchive, MdToday } from "react-icons/md";
 import React from "react";
-import { FaCalendarAlt, FaGift } from "react-icons/fa";
+import { FaCalendarAlt, FaGift, FaTag } from "react-icons/fa";
 import { VscProject } from "react-icons/vsc";
 import DifficultyExpand from "./DifficultyExpand";
 import PriorityExpand from "./PriorityExpand";
@@ -44,7 +44,7 @@ export default function AppContainer({
       </DrawerItem>
       <DrawerItem
         href="/labels"
-        icon={<MdLabel />}
+        icon={<FaTag />}
         iconColor="warning"
         active={activePath === "labels"}
       >
