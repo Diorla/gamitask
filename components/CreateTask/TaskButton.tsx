@@ -64,6 +64,7 @@ export default function TaskButton() {
             .filter((item) => item)
             .join(", "),
           modified: Date.now(),
+          created: Date.now(),
           id,
         });
       })

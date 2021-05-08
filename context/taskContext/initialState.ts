@@ -26,8 +26,9 @@ const initialState: TaskProps = {
   rewards: [],
   lastCompleted: 0,
   streak: 0,
-  timed: false,
+  timed: true,
   note: "",
+  created: Date.now(),
 };
 
 export default initialState;
