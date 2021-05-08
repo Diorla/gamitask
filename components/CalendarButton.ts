@@ -18,4 +18,5 @@ export default styled.button<{ active: boolean }>`
   align-items: center;
   outline: none;
   cursor: pointer;
+  transition: 0.3s linear;
 `;
