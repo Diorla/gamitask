@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
@@ -25,7 +26,7 @@ const monthInYears = [
   "Apr",
   "May",
   "Jun",
-  "July",
+  "Jul",
   "Aug",
   "Sep",
   "Oct",
@@ -104,7 +105,10 @@ export default function Yearly() {
               active={months.includes(item)}
               onClick={() => setYear(addRemoveItemFromArray(item, months))}
             >
-              {monthInYears[item]}
+              <FormattedMessage
+                id={monthInYears[item]}
+                defaultMessage={monthInYears[item]}
+              />
             </CalendarButton>
           ))}
         </div>

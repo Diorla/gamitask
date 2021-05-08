@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
@@ -35,7 +36,10 @@ export default function Weekly() {
           active={days.includes(item)}
           onClick={() => setWeek(addRemoveItemFromArray(item, days))}
         >
-          {weekdays[item]}
+          <FormattedMessage
+            id={weekdays[item]}
+            defaultMessage={weekdays[item]}
+          />
         </CalendarButton>
       ))}
     </div>

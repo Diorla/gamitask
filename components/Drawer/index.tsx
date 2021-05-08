@@ -7,6 +7,7 @@ import { FaCalendarAlt, FaGift, FaTag } from "react-icons/fa";
 import { VscProject } from "react-icons/vsc";
 import DifficultyExpand from "./DifficultyExpand";
 import PriorityExpand from "./PriorityExpand";
+import { FormattedMessage } from "react-intl";
 
 /**
  * TODO: Usememo
@@ -32,7 +33,7 @@ export default function AppContainer({
         icon={<MdToday />}
         iconColor="info"
       >
-        Today
+        <FormattedMessage id="Today" defaultMessage="Today" />
       </DrawerItem>
       <DrawerItem
         href="/upcoming"
@@ -40,7 +41,7 @@ export default function AppContainer({
         iconColor="secondary"
         active={activePath === "upcoming"}
       >
-        Upcoming
+        <FormattedMessage id="Upcoming" defaultMessage="Upcoming" />
       </DrawerItem>
       <DrawerItem
         href="/labels"
@@ -48,7 +49,7 @@ export default function AppContainer({
         iconColor="warning"
         active={activePath === "labels"}
       >
-        Labels
+        <FormattedMessage id="Labels" defaultMessage="Labels" />
       </DrawerItem>
       <DrawerItem
         href="/projects"
@@ -56,7 +57,7 @@ export default function AppContainer({
         iconColor="primary"
         active={activePath === "projects"}
       >
-        Projects
+        <FormattedMessage id="Projects" defaultMessage="Projects" />
       </DrawerItem>
       <DrawerItem
         href="/rewards"
@@ -64,7 +65,7 @@ export default function AppContainer({
         iconColor="success"
         active={activePath === "rewards"}
       >
-        Rewards
+        <FormattedMessage id="Rewards" defaultMessage="Rewards" />
       </DrawerItem>
       <DrawerItem
         href="/archive"
@@ -72,7 +73,7 @@ export default function AppContainer({
         iconColor="error"
         active={activePath === "archive"}
       >
-        Archive
+        <FormattedMessage id="Archive" defaultMessage="Archive" />
       </DrawerItem>
       <Seperator size={2} />
       <DifficultyExpand activePath={activePath} />

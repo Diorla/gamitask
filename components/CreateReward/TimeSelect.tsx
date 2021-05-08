@@ -1,3 +1,5 @@
+import React from "react";
+import { FormattedMessage } from "react-intl";
 import formatMsToCountDown from "../../scripts/formatMSToCountDown";
 import toMS from "../../scripts/toMS";
 
@@ -38,7 +40,7 @@ const TimerSelect = ({
           <option value={idx}>{("0" + idx).slice(-2)}</option>
         ))}
       </select>
-      hours{" "}
+      <FormattedMessage id="hours" />{" "}
       <select
         placeholder="mm"
         onChange={(e) => updateTime(Number(e.target.value), "mm")}
@@ -48,7 +50,7 @@ const TimerSelect = ({
           <option value={idx}>{("0" + idx).slice(-2)}</option>
         ))}
       </select>
-      minutes{" "}
+      <FormattedMessage id="minutes" />{" "}
       <select
         placeholder="ss"
         onChange={(e) => updateTime(Number(e.target.value), "ss")}
@@ -58,7 +60,7 @@ const TimerSelect = ({
           <option value={idx}>{("0" + idx).slice(-2)}</option>
         ))}
       </select>
-      seconds{" "}
+      <FormattedMessage id="seconds" />{" "}
     </div>
   );
 };

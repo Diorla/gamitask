@@ -26,7 +26,8 @@ const theme = {
 export default function App({ Component, pageProps }) {
   const [locale, setLocale] = useState("en");
   useEffect(() => {
-    setLocale(navigator.language);
+    const savedLocale = localStorage.getItem("locale");
+    setLocale(savedLocale || navigator.language);
   });
 
   const translation = lang(locale);

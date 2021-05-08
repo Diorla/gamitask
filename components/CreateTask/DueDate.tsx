@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
@@ -57,17 +58,23 @@ export default function DueDate() {
           checked={!repeat}
           onChange={() => setEvent(!repeat)}
         />{" "}
-        <label htmlFor="never">Once</label>
+        <label htmlFor="never">
+          <FormattedMessage id="Once" defaultMessage="Once" />
+        </label>
         <input
           id="repeat"
           type="radio"
           checked={repeat}
           onChange={() => setEvent(!repeat)}
         />{" "}
-        <label htmlFor="repeat">Repeat</label>
+        <label htmlFor="repeat">
+          <FormattedMessage id="Repeat" defaultMessage="Repeat" />
+        </label>
       </Row>
       <Row>
-        <label htmlFor="time">Time: </label>
+        <label htmlFor="time">
+          <FormattedMessage id="Time" defaultMessage="Time" />:{" "}
+        </label>
         <input
           type="time"
           id="time"
@@ -78,7 +85,9 @@ export default function DueDate() {
       <Row>
         {!repeat && (
           <>
-            <label htmlFor="date">Date: </label>
+            <label htmlFor="date">
+              <FormattedMessage id="Date" defaultMessage="Date" />:{" "}
+            </label>
             <input
               type="date"
               id="date"

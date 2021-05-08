@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import formatText from "../../scripts/formatText";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Input = styled.input`
   border: 0.1rem solid silver;
@@ -60,16 +61,33 @@ export default function Project() {
       .then(() => toast.info("Project created"))
       .catch((err) => toast.error(err));
   };
+  const intl = useIntl();
+  const noProject = intl.formatMessage({
+    id: "noProject",
+    defaultMessage: "Miscellaneous",
+  });
+
+  const createProject = intl.formatMessage({
+    id: "createProject",
+    defaultMessage: "Create new project",
+  });
+
   return (
     <div>
       <Select>
-        <label htmlFor="project">Select project:</label>
+        <label htmlFor="project">
+          <FormattedMessage
+            id="selectProject"
+            defaultMessage="Select project"
+          />
+          :
+        </label>
         <select
           name="project"
           value={task.project}
           onChange={(e) => setProject(e.target.value)}
         >
-          {[...list, "Unsorted"].map((item, idx) => (
+          {[...list, noProject].map((item, idx) => (
             <option value={item} key={idx}>
               {item}
             </option>
@@ -79,7 +97,7 @@ export default function Project() {
       <div style={{ display: "flex" }}>
         <Input
           value={newProject}
-          placeholder="Create new project"
+          placeholder={createProject}
           onChange={(e: { target: { value: string } }) =>
             setNewProject(formatText(e.target.value, "title"))
           }
@@ -88,7 +106,9 @@ export default function Project() {
           }}
         />{" "}
         {newProject && !list.includes(newProject) && (
-          <button onClick={() => addNewProject()}>create</button>
+          <button onClick={() => addNewProject()}>
+            <FormattedMessage id="Create" defaultMessage="Create" />
+          </button>
         )}
       </div>
     </div>

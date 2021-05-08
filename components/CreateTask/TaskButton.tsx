@@ -11,6 +11,7 @@ import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
 import ModalButton from "../ModalButton";
+import { FormattedMessage } from "react-intl";
 
 const Wrapper = styled.div`
   text-align: right;
@@ -94,10 +95,10 @@ export default function TaskButton() {
   return (
     <Wrapper>
       <ModalButton onClick={uploadTask} variant="success">
-        Save
+        <FormattedMessage id="Save" defaultMessage="Save" />
       </ModalButton>
       <ModalButton onClick={closeTask} variant="error">
-        Close
+        <FormattedMessage id="Close" defaultMessage="Close" />
       </ModalButton>
     </Wrapper>
   );

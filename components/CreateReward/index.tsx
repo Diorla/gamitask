@@ -7,7 +7,6 @@ import TimerSelect from "./TimeSelect";
 export interface CreateRewardProps extends RewardProps {
   onChangeName: (e: any) => void;
   onChangeType: (e: any) => void;
-  onChangePoint: (e: any) => void;
   onChangeTime: (e: any) => void;
   onChangeTask: (e: any[]) => void;
   onChangeNote: (e: any) => void;
@@ -21,14 +20,13 @@ export default function CreateReward({
   note,
   onChangeName,
   onChangeType,
-  onChangePoint,
   onChangeTime,
   onChangeTask,
   onChangeNote,
 }: CreateRewardProps) {
   return (
     <div>
-      <Input label="Name" value={name} onChange={onChangeName} />
+      <Input label="labelName" value={name} onChange={onChangeName} />
       <select value={type} onChange={onChangeType}>
         <option value="timed">Timed</option>
         <option value="task">Task</option>

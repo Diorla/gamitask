@@ -1,3 +1,4 @@
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
@@ -25,12 +26,16 @@ export default function Note() {
       })
     );
 
+  const intl = useIntl();
   return (
     <InputWrapper>
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="Notes..."
+        placeholder={intl.formatMessage({
+          id: "notesPlaceholder",
+          defaultMessage: "Notes...",
+        })}
       />
     </InputWrapper>
   );

@@ -1,3 +1,5 @@
+import React from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 
 export interface InputProps {
@@ -46,7 +48,11 @@ const Input = ({ label, variant, ...props }: InputProps) => {
   const randomId = "s" + ~~(1000000000 * Math.random());
   return (
     <Wrapper>
-      <StyledLabel htmlFor={randomId}>{label}</StyledLabel>
+      {label && (
+        <StyledLabel htmlFor={randomId}>
+          <FormattedMessage id={label} />
+        </StyledLabel>
+      )}
       <StyledInput variant={variant} id={randomId} {...props} />
     </Wrapper>
   );
