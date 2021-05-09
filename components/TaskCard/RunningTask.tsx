@@ -7,6 +7,7 @@ import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
 import truncateText from "../../scripts/truncateText";
+import { getDayBegin } from "../../scripts/datetime-utils";
 
 const StyledDiv = styled.div`
   background: ${({ theme }) => theme.palette.tertiary.dark};
@@ -21,7 +22,6 @@ const StyledDiv = styled.div`
   top: 0;
   z-index: 2;
 `;
-
 
 export default function RunningTask() {
   const [count, setCount] = useState(0);
@@ -44,10 +44,18 @@ export default function RunningTask() {
       runningTask: {},
     })
       .then(() => {
+        const todayKey = "t" + getDayBegin(new Date());
+        const todayValue = Array.isArray(countdowns[todayKey])
+          ? countdowns[todayKey]
+          : [];
+        todayValue.push({
+          startTime,
+          length: timeDiff,
+        });
         createData("user", `${user.uid}/tasks/${id}`, {
           countdowns: {
             ...countdowns,
-            [now]: timeDiff,
+            [todayKey]: todayValue,
           },
         });
       })

@@ -34,6 +34,8 @@ import firebase from "firebase";
 import uniqueArray from "../../scripts/uniqueArray";
 import StyledNote from "../StyledNote";
 import getStreak from "../../scripts/getStreak";
+import { getDayBegin } from "../../scripts/datetime-utils";
+import formatMSToCountDown from "../../scripts/formatMSToCountDown";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
@@ -61,6 +63,16 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const [showFullDetails, setShowFullDetails] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const todayKey = "t" + getDayBegin(new Date());
+  const todayValue = Array.isArray(countdowns[todayKey])
+    ? countdowns[todayKey]
+    : [];
+  let totalTime = 0;
+  todayValue.forEach((item) => {
+    totalTime += item.length;
+  });
+
+  const { hh, mm, ss } = formatMSToCountDown(totalTime);
   useEffect(() => {
     if (type === "archive") {
       if (!archive)
@@ -323,6 +335,12 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
           <StyledNote>{note}</StyledNote>
           <Row>
             <div>{time}</div>
+            {!isArchive && timed && isCurrent && (
+              <div>
+                {("0" + hh).slice(-2)}:{("0" + mm).slice(-2)}:
+                {("0" + ss).slice(-2)}
+              </div>
+            )}
           </Row>
         </Expanded>
       )}
