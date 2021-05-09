@@ -1,15 +1,19 @@
 import React from "react";
 import Input from "../Form/Input";
-import RewardProps from "../../props/Reward";
 import TaskSelect from "./TaskSelect";
 import TimerSelect from "./TimeSelect";
 
-export interface CreateRewardProps extends RewardProps {
+export interface CreateRewardProps {
   onChangeName: (e: any) => void;
   onChangeType: (e: any) => void;
   onChangeTime: (e: any) => void;
   onChangeTask: (e: any[]) => void;
   onChangeNote: (e: any) => void;
+  name: string;
+  time: number;
+  type: "timed" | "task";
+  task: any[];
+  note: string;
 }
 
 export default function CreateReward({

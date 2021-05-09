@@ -258,8 +258,6 @@ export default function EditableReward({
         onChangeName={(e) => setValue({ ...value, name: e.target.value })}
         type={value.type}
         onChangeType={(e) => setValue({ ...value, type: e.target.value })}
-        point={value.point}
-        onChangePoint={(e) => setValue({ ...value, point: e.target.value })}
         time={value.time}
         onChangeTime={(ev) => setValue({ ...value, time: ev })}
         task={value.task}
