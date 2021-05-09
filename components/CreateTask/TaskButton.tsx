@@ -10,19 +10,8 @@ import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
-
-export const Button = styled.button<{ variant: string }>`
-  font-size: 1.6rem;
-  font-family: monospace;
-  border: none;
-  background: ${({ theme, variant }) => theme.palette[variant].dark};
-  color: white;
-  cursor: pointer;
-  margin: 0.4rem;
-  &:disabled {
-    opacity: 0.6;
-  }
-`;
+import ModalButton from "../ModalButton";
+import { FormattedMessage } from "react-intl";
 
 const Wrapper = styled.div`
   text-align: right;
@@ -76,6 +65,7 @@ export default function TaskButton() {
             .filter((item) => item)
             .join(", "),
           modified: Date.now(),
+          created: Date.now(),
           id,
         });
       })
@@ -104,12 +94,12 @@ export default function TaskButton() {
   if (loadingUser) return null;
   return (
     <Wrapper>
-      <Button onClick={uploadTask} variant="success">
-        Save
-      </Button>
-      <Button onClick={closeTask} variant="error">
-        Close
-      </Button>
+      <ModalButton onClick={uploadTask} variant="success">
+        <FormattedMessage id="Save" defaultMessage="Save" />
+      </ModalButton>
+      <ModalButton onClick={closeTask} variant="error">
+        <FormattedMessage id="Close" defaultMessage="Close" />
+      </ModalButton>
     </Wrapper>
   );
 }

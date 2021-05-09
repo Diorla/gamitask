@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
+import CalendarButton from "../../CalendarButton";
 
 const daysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -24,7 +26,7 @@ const monthInYears = [
   "Apr",
   "May",
   "Jun",
-  "July",
+  "Jul",
   "Aug",
   "Sep",
   "Oct",
@@ -34,20 +36,6 @@ const monthInYears = [
 
 const monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-const MonthButton = styled.button<{ active: boolean }>`
-  background-color: ${({ active, theme }) =>
-    active ? theme.palette.secondary.main : "silver"};
-  border: none;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
-  margin: 0.2rem;
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
-  outline: none;
-`;
-
 export default function Yearly() {
   const task = useTaskState();
   const {
@@ -55,7 +43,9 @@ export default function Yearly() {
     reminder: { months = [], dateInMonth = 1 },
   } = task;
   const taskDispatch = useTaskDispatch();
-  const [dateSelector, setDateSelector] = useState(new Array(29).fill(""));
+  const [dateSelector, setDateSelector] = useState(
+    new Array(daysCount[months[0]]).fill("")
+  );
 
   const setYear = (months: number[]) => {
     let maxDate = 29;
@@ -101,20 +91,25 @@ export default function Yearly() {
           id="date"
         >
           {dateSelector.map((_item, idx) => (
-            <option value={idx + 1}>{idx + 1}</option>
+            <option value={idx + 1} key={idx}>
+              {idx + 1}
+            </option>
           ))}
         </select>
       </div>
       <Input>
         <div>
           {monthList.map((item, idx) => (
-            <MonthButton
+            <CalendarButton
               key={idx}
               active={months.includes(item)}
               onClick={() => setYear(addRemoveItemFromArray(item, months))}
             >
-              {monthInYears[item]}
-            </MonthButton>
+              <FormattedMessage
+                id={monthInYears[item]}
+                defaultMessage={monthInYears[item]}
+              />
+            </CalendarButton>
           ))}
         </div>
       </Input>

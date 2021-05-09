@@ -1,24 +1,12 @@
-import styled from "styled-components";
+import React from "react";
+import { FormattedMessage } from "react-intl";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
+import CalendarButton from "../../CalendarButton";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const listOfDays = [0, 1, 2, 3, 4, 5, 6];
-
-const DayButton = styled.button<{ active: boolean }>`
-  background-color: ${({ active, theme }) =>
-    active ? theme.palette.secondary.main : "silver"};
-  border: none;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
-  margin: 0.2rem;
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
-  outline: none;
-`;
 
 export default function Weekly() {
   const task = useTaskState();
@@ -43,13 +31,16 @@ export default function Weekly() {
   return (
     <div>
       {listOfDays.map((item, idx) => (
-        <DayButton
+        <CalendarButton
           key={idx}
           active={days.includes(item)}
           onClick={() => setWeek(addRemoveItemFromArray(item, days))}
         >
-          {weekdays[item]}
-        </DayButton>
+          <FormattedMessage
+            id={weekdays[item]}
+            defaultMessage={weekdays[item]}
+          />
+        </CalendarButton>
       ))}
     </div>
   );

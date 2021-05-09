@@ -1,3 +1,4 @@
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
@@ -27,9 +28,16 @@ export default function Name() {
         name,
       })
     );
+  const intl = useIntl();
+  const placeholder = intl.formatMessage({
+    id: "labelName",
+    defaultMessage: "Name",
+  });
+  
   return (
     <InputDiv>
       <input
+        placeholder={placeholder}
         value={task.name}
         onChange={(e) => setName(formatText(e.target.value, "title"))}
       />

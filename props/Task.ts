@@ -111,4 +111,8 @@ export default interface Task {
    * This is for description or additional information
    */
   note: string;
+  /**
+   * The date it was created
+   */
+  created: number;
 }

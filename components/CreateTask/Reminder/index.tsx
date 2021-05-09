@@ -1,3 +1,5 @@
+import React from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
@@ -9,6 +11,9 @@ const Select = styled.div`
     border: none;
     border-bottom: 0.1rem solid silver;
     padding: 0.4rem;
+  }
+  & > * {
+    margin-top: 0.8rem;
   }
 `;
 
@@ -26,22 +31,45 @@ export default function Reminder() {
         },
       })
     );
+  const intl = useIntl();
   const { type = "daily" } = reminder;
   return (
     <div>
       <hr />
       <Select>
-        <label htmlFor="period">Select group:</label>
+        <label htmlFor="period">
+          <FormattedMessage id="selectPeriod" />:
+        </label>
         <select
           name="period"
           id="period"
           value={type}
           onChange={(e) => setReminder(e.target.value)}
         >
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
+          <option value="daily">
+            {intl.formatMessage({
+              id: "Daily",
+              defaultMessage: "Daily",
+            })}
+          </option>
+          <option value="weekly">
+            {intl.formatMessage({
+              id: "Weekly",
+              defaultMessage: "Weekly",
+            })}
+          </option>
+          <option value="monthly">
+            {intl.formatMessage({
+              id: "Monthly",
+              defaultMessage: "Monthly",
+            })}
+          </option>
+          <option value="yearly">
+            {intl.formatMessage({
+              id: "Yearly",
+              defaultMessage: "Yearly",
+            })}
+          </option>
         </select>
       </Select>
       <Periods period={type} />
