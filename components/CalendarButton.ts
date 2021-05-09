@@ -10,8 +10,8 @@ export default styled.button<{ active: boolean }>`
       : contrastColor("silver")};
   border: none;
   border-radius: 50%;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 4.8rem;
+  height: 4.8rem;
   margin: 0.2rem;
   display: inline-flex;
   justify-content: space-around;
