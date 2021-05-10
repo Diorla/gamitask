@@ -3,7 +3,6 @@ import {
   MdAdd,
   MdTrendingUp,
   MdNotifications,
-  MdAccountCircle,
   MdMenu,
 } from "react-icons/md";
 import styled from "styled-components";

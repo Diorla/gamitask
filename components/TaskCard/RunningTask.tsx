@@ -8,6 +8,7 @@ import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
 import truncateText from "../../scripts/truncateText";
 import { getDayBegin } from "../../scripts/datetime-utils";
+import fromMS from "../../scripts/fromMS";
 
 const StyledDiv = styled.div`
   background: ${({ theme }) => theme.palette.tertiary.dark};
@@ -28,20 +29,33 @@ export default function RunningTask() {
 
   const { user } = useUser();
   const {
-    points: pt,
+    totalPoints,
+    dailyPoints,
+    lifetimeHours,
+    lifetimePoints,
     runningTask: { name, startTime, priority, difficulty, id, countdowns },
   } = user;
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;
-    let points = timeDiff * priority * difficulty;
-    points /= 18482.52;
-    points += pt;
-    points = Math.floor(points);
-
+    let todayPoints = timeDiff * priority * difficulty;
+    todayPoints /= 18482.52;
+    let cumulativePoints = todayPoints = totalPoints;
+    cumulativePoints = Math.floor(cumulativePoints);
+    todayPoints = Math.floor(todayPoints);
+    const todayKey = "t" + getDayBegin(new Date());
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     createData("user", user.uid, {
-      points,
+      totalPoints: todayPoints,
       runningTask: {},
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, todayPoints],
+      },
+      lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
+      lifetimePoints: lifetimePoints + Math.floor(todayPoints),
     })
       .then(() => {
         const todayKey = "t" + getDayBegin(new Date());

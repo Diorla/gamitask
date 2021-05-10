@@ -14,7 +14,7 @@ const user: UserInfo = {
     secondary: "",
     tertiary: "",
   },
-  points: 0,
+  totalPoints: 0,
   labels: [],
   projects: [],
   pointsPerHour: 500,
@@ -28,6 +28,9 @@ const user: UserInfo = {
   },
   created: Date.now(),
   dailyGoal: 5000,
+  dailyPoints: {},
+  lifetimeHours: 0,
+  lifetimePoints: 0,
 };
 
 const initialState = {

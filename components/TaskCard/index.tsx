@@ -36,12 +36,19 @@ import StyledNote from "../StyledNote";
 import getStreak from "../../scripts/getStreak";
 import { getDayBegin } from "../../scripts/datetime-utils";
 import formatMSToCountDown from "../../scripts/formatMSToCountDown";
+import fromMS from "../../scripts/fromMS";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
-  const { runningTask, points: pt } = user;
+  const {
+    runningTask,
+    totalPoints,
+    dailyPoints,
+    lifetimeHours,
+    lifetimePoints,
+  } = user;
   const time = formatDateTime(data, type);
   const {
     id,
@@ -64,11 +71,11 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const todayKey = "t" + getDayBegin(new Date());
-  const todayValue = Array.isArray(countdowns[todayKey])
+  const todayCountdown = Array.isArray(countdowns[todayKey])
     ? countdowns[todayKey]
     : [];
   let totalTime = 0;
-  todayValue.forEach((item) => {
+  todayCountdown.forEach((item) => {
     totalTime += item.length;
   });
 
@@ -92,14 +99,23 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       countdowns,
     } = runningTask;
     const timeDiff = Date.now() - startTime;
-    let points = timeDiff * priority * difficulty;
-    points /= 18482.52;
-    points += pt;
-    points = Math.floor(points);
-
+    let todayPoints = timeDiff * priority * difficulty;
+    todayPoints /= 18482.52;
+    let cumulativePoints = todayPoints + totalPoints;
+    cumulativePoints = Math.floor(cumulativePoints);
+    todayPoints = Math.floor(todayPoints);
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     createData("user", user.uid, {
-      points,
+      totalPoints: cumulativePoints,
       runningTask: {},
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, todayPoints],
+      },
+      lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
+      lifetimePoints: lifetimePoints + todayPoints,
     })
       .then(() => {
         const todayKey = "t" + getDayBegin(new Date());
@@ -220,14 +236,22 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
      * Hence, 71 is the safe number, as far as I'm concerned
      */
     points = (Math.log(points ** 50) + 1) * 2;
-    points += pt;
+    points += totalPoints;
     points = Math.floor(points);
     // I don't expect this to happen, but who knows
     points = points === Infinity ? 1398 + streak : points;
 
+    const todayKey = "t" + getDayBegin(new Date());
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     const taskRef = db.collection("user").doc(user.uid);
     updater.update(taskRef, {
-      points,
+      totalPoints: points,
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, points],
+      },
     });
   };
 

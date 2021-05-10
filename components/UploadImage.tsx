@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useUser } from "../context/userContext";
 import firebase from "../firebase/clientApp";
@@ -44,14 +45,13 @@ export default function UploadImage({
       .put(e.target.files[0])
       .then((snapshot) => {
         snapshot.ref.getDownloadURL().then(function (downloadURL) {
-          console.log("File available at", downloadURL);
           setImage(downloadURL);
           setLoading(false);
         });
       })
 
       .catch((fbError) => {
-        console.log({ fbError });
+        toast.error(fbError.message);
       });
   };
 
