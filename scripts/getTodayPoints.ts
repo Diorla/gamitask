@@ -5,5 +5,5 @@ export default function getTodayPoints(dailyPoints: {
 }) {
   const todayKey = "t" + getDayBegin(new Date());
   const points = dailyPoints[todayKey] || [];
-  return points.reduce((prev, next) => prev + next);
+  return points.reduce((prev, next) => prev + next, 0);
 }
