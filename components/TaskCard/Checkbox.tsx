@@ -3,18 +3,18 @@ import styled from "styled-components";
 const Styled = styled.div`
   width: 2rem;
   position: relative;
-  margin-right: 0.4rem;
+  margin-right: 0.8rem;
   & label {
-    width: 2rem;
-    height: 2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     cursor: pointer;
     position: absolute;
-    top: 0;
+    top: -0.4rem;
     left: 0;
-    background: #fcfff4;
+    background: #fcfcfc;
     background: linear-gradient(
       to bottom,
-      #fcfff4 0%,
+      #fcfcfc 0%,
       #dfe5d7 40%,
       #b3bead 100%
     );
@@ -22,8 +22,8 @@ const Styled = styled.div`
   }
   & label:after {
     content: "";
-    width: 0.9rem;
-    height: 0.5rem;
+    width: 1.2rem;
+    height: 0.8rem;
     position: absolute;
     top: 0.4rem;
     left: 0.4rem;
