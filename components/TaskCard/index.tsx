@@ -99,11 +99,11 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       countdowns,
     } = runningTask;
     const timeDiff = Date.now() - startTime;
-    let todayPoints = timeDiff * priority * difficulty;
-    todayPoints /= 18482.52;
-    let cumulativePoints = todayPoints + totalPoints;
+    let currentPoints = timeDiff * priority * difficulty;
+    currentPoints /= 18482.52;
+    let cumulativePoints = currentPoints + totalPoints;
     cumulativePoints = Math.floor(cumulativePoints);
-    todayPoints = Math.floor(todayPoints);
+    currentPoints = Math.floor(currentPoints);
     const todayValue = Array.isArray(dailyPoints[todayKey])
       ? dailyPoints[todayKey]
       : [];
@@ -112,10 +112,10 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       runningTask: {},
       dailyPoints: {
         ...dailyPoints,
-        [todayKey]: [...todayValue, todayPoints],
+        [todayKey]: [...todayValue, currentPoints],
       },
       lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
-      lifetimePoints: lifetimePoints + todayPoints,
+      lifetimePoints: lifetimePoints + currentPoints,
     })
       .then(() => {
         const todayKey = "t" + getDayBegin(new Date());

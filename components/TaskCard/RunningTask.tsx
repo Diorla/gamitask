@@ -38,24 +38,24 @@ export default function RunningTask() {
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;
-    let todayPoints = timeDiff * priority * difficulty;
-    todayPoints /= 18482.52;
-    let cumulativePoints = todayPoints = totalPoints;
+    let currentPoints = timeDiff * priority * difficulty;
+    currentPoints /= 18482.52;
+    let cumulativePoints = (currentPoints + totalPoints);
     cumulativePoints = Math.floor(cumulativePoints);
-    todayPoints = Math.floor(todayPoints);
+    currentPoints = Math.floor(currentPoints);
     const todayKey = "t" + getDayBegin(new Date());
     const todayValue = Array.isArray(dailyPoints[todayKey])
       ? dailyPoints[todayKey]
       : [];
     createData("user", user.uid, {
-      totalPoints: todayPoints,
+      totalPoints: cumulativePoints,
       runningTask: {},
       dailyPoints: {
         ...dailyPoints,
-        [todayKey]: [...todayValue, todayPoints],
+        [todayKey]: [...todayValue, currentPoints],
       },
       lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
-      lifetimePoints: lifetimePoints + Math.floor(todayPoints),
+      lifetimePoints: lifetimePoints + Math.floor(currentPoints),
     })
       .then(() => {
         const todayKey = "t" + getDayBegin(new Date());
