@@ -54,7 +54,7 @@ export default interface Task {
    */
   priority: number;
   /**
-   * Ranges from 1(low) to 3(difficult), indicate how hard it is going to be
+   * Ranges from 1(easy) to 3(difficult), indicate how hard it is going to be
    */
   difficulty: number;
   /**

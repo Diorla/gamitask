@@ -40,7 +40,7 @@ export default interface UserInfo {
   lifetimePoints: number;
   /**
    * This is a way of keeping records of how long user actually spent
-   * doing these things. This is because a user can simply set high
+   * doing these things. This is because a user can simply set difficult
    * difficulty and priority to all their task and gain a lots of point.
    */
   lifetimeHours: number;
