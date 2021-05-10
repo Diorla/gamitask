@@ -5,16 +5,13 @@ import {
   FcHighPriority,
 } from "react-icons/fc";
 import styled, { keyframes } from "styled-components";
-import palette from "../../theme/palette";
 
 const fadeIn = keyframes`
   0% {
     opacity: 0;
-    background-color: ${palette.tertiary.main};
   }
   100% {
     opacity: 1;
-    background-color: white;
   }
 `;
 
