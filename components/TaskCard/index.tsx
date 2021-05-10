@@ -96,17 +96,24 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     points /= 18482.52;
     points += pt;
     points = Math.floor(points);
-    const now = "t" + Date.now();
 
     createData("user", user.uid, {
       points,
       runningTask: {},
     })
       .then(() => {
+        const todayKey = "t" + getDayBegin(new Date());
+        const todayValue = Array.isArray(countdowns[todayKey])
+          ? countdowns[todayKey]
+          : [];
+        todayValue.push({
+          startTime,
+          length: timeDiff,
+        });
         createData("user", `${user.uid}/tasks/${id}`, {
           countdowns: {
             ...countdowns,
-            [now]: timeDiff,
+            [todayKey]: todayValue,
           },
         });
       })

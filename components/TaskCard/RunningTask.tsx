@@ -38,7 +38,7 @@ export default function RunningTask() {
     points /= 18482.52;
     points += pt;
     points = Math.floor(points);
-    const now = "t" + Date.now();
+
     createData("user", user.uid, {
       points,
       runningTask: {},
