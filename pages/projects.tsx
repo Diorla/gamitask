@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
@@ -24,6 +25,11 @@ export default function Projects() {
     taskList.filter((item) => !item.archive)
   );
 
+  const intl = useIntl();
+  const noProject = intl.formatMessage({
+    id: "noProject",
+    defaultMessage: "Miscellaneous",
+  });
   return (
     <Layout activePath="projects">
       {Object.keys(projectCollection)
@@ -41,7 +47,7 @@ export default function Projects() {
         })}
       <TaskCollection
         data={projectCollection["Unsorted"]}
-        title="Unsorted"
+        title={noProject}
         type="upcoming"
       />
     </Layout>

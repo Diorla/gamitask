@@ -4,11 +4,21 @@ import {
   FcMediumPriority,
   FcHighPriority,
 } from "react-icons/fc";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const Wrapper = styled.div`
   margin-bottom: 1.2rem;
   border-bottom: 0.1rem solid silver;
+  animation: 1s ${fadeIn} ease-out;
 `;
 
 export const Row = styled.div`

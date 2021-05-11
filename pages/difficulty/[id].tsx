@@ -11,14 +11,21 @@ export default function Difficulty() {
   const { id } = router.query;
   let filteredList: Task[] = [];
   const path = Array.isArray(id) ? id[0] : id;
-  if (path === "low")
-    filteredList = taskList.filter((item) => item.difficulty === 1);
+  if (path === "easy")
+    filteredList = taskList
+      .filter((item) => item.difficulty === 1 && !item.archive)
+      .sort((prev, next) => (prev.name > next.name ? 1 : -1));
   if (path === "medium")
-    filteredList = taskList.filter((item) => item.difficulty === 2);
-  if (path === "high")
-    filteredList = taskList.filter((item) => item.difficulty === 3);
+    filteredList = taskList
+      .filter((item) => item.difficulty === 2 && !item.archive)
+      .sort((prev, next) => (prev.name > next.name ? 1 : -1));
+  if (path === "difficult")
+    filteredList = taskList
+      .filter((item) => item.difficulty === 3 && !item.archive)
+      .sort((prev, next) => (prev.name > next.name ? 1 : -1));
   return (
     <Layout activePath={path || ""}>
+      <h3 style={{ textTransform: "capitalize" }}>{path}</h3>
       {filteredList.map((item, idx) => (
         <TaskCard data={item} key={idx} type="upcoming" />
       ))}

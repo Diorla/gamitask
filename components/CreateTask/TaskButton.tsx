@@ -12,6 +12,7 @@ import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
 import ModalButton from "../ModalButton";
 import { FormattedMessage } from "react-intl";
+import Task from "../../props/Task";
 
 const Wrapper = styled.div`
   text-align: right;
@@ -57,7 +58,7 @@ export default function TaskButton() {
     })
       .then(() => {
         const id = data.id || v4();
-        createData("user", `${user.uid}/tasks/${id}`, {
+        const updateData = {
           ...data,
           labels: data.labels
             .split(",")
@@ -67,6 +68,23 @@ export default function TaskButton() {
           modified: Date.now(),
           created: Date.now(),
           id,
+        };
+        // if it's weekly, and all the days are selected
+        // then it should turn into daily
+        if (updateData.reminder.type === "weekly") {
+          if (updateData.reminder.days?.length === 7) {
+            updateData.reminder.type = "daily";
+          }
+        }
+        // if it's yearly, and all the months are selected
+        // then it should turn into monthly
+        else if (updateData.reminder.type === "yearly") {
+          if (updateData.reminder.months?.length === 12) {
+            updateData.reminder.type = "monthly";
+          }
+        }
+        createData("user", `${user.uid}/tasks/${id}`, {
+          ...updateData,
         });
       })
       .then(() => {

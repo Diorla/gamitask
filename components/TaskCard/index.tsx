@@ -34,12 +34,21 @@ import firebase from "firebase";
 import uniqueArray from "../../scripts/uniqueArray";
 import StyledNote from "../StyledNote";
 import getStreak from "../../scripts/getStreak";
+import { getDayBegin } from "../../scripts/datetime-utils";
+import formatMSToCountDown from "../../scripts/formatMSToCountDown";
+import fromMS from "../../scripts/fromMS";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
-  const { runningTask, points: pt } = user;
+  const {
+    runningTask,
+    totalPoints,
+    dailyPoints,
+    lifetimeHours,
+    lifetimePoints,
+  } = user;
   const time = formatDateTime(data, type);
   const {
     id,
@@ -61,6 +70,16 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const [showFullDetails, setShowFullDetails] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const todayKey = "t" + getDayBegin(new Date());
+  const todayCountdown = Array.isArray(countdowns[todayKey])
+    ? countdowns[todayKey]
+    : [];
+  let totalTime = 0;
+  todayCountdown.forEach((item) => {
+    totalTime += item.length;
+  });
+
+  const { hh, mm, ss } = formatMSToCountDown(totalTime);
   useEffect(() => {
     if (type === "archive") {
       if (!archive)
@@ -80,21 +99,37 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       countdowns,
     } = runningTask;
     const timeDiff = Date.now() - startTime;
-    let points = timeDiff * priority * difficulty;
-    points /= 18482.52;
-    points += pt;
-    points = Math.floor(points);
-    const now = "t" + Date.now();
-
+    let currentPoints = timeDiff * priority * difficulty;
+    currentPoints /= 18482.52;
+    let cumulativePoints = currentPoints + totalPoints;
+    cumulativePoints = Math.floor(cumulativePoints);
+    currentPoints = Math.floor(currentPoints);
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     createData("user", user.uid, {
-      points,
+      totalPoints: cumulativePoints,
       runningTask: {},
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, currentPoints],
+      },
+      lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
+      lifetimePoints: lifetimePoints + currentPoints,
     })
       .then(() => {
+        const todayKey = "t" + getDayBegin(new Date());
+        const todayValue = Array.isArray(countdowns[todayKey])
+          ? countdowns[todayKey]
+          : [];
+        todayValue.push({
+          startTime,
+          length: timeDiff,
+        });
         createData("user", `${user.uid}/tasks/${id}`, {
           countdowns: {
             ...countdowns,
-            [now]: timeDiff,
+            [todayKey]: todayValue,
           },
         });
       })
@@ -201,14 +236,22 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
      * Hence, 71 is the safe number, as far as I'm concerned
      */
     points = (Math.log(points ** 50) + 1) * 2;
-    points += pt;
+    points += totalPoints;
     points = Math.floor(points);
     // I don't expect this to happen, but who knows
     points = points === Infinity ? 1398 + streak : points;
 
+    const todayKey = "t" + getDayBegin(new Date());
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     const taskRef = db.collection("user").doc(user.uid);
     updater.update(taskRef, {
-      points,
+      totalPoints: points,
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, points],
+      },
     });
   };
 
@@ -323,6 +366,12 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
           <StyledNote>{note}</StyledNote>
           <Row>
             <div>{time}</div>
+            {!isArchive && timed && isCurrent && (
+              <div>
+                {("0" + hh).slice(-2)}:{("0" + mm).slice(-2)}:
+                {("0" + ss).slice(-2)}
+              </div>
+            )}
           </Row>
         </Expanded>
       )}

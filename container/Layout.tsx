@@ -55,10 +55,7 @@ const Control = ({
   if (uid)
     return (
       <div style={{ fontSize: "1.6rem" }}>
-        <Menu
-          profileImage={profileImage}
-          onClick={() => setShowDrawer(!showDrawer)}
-        />
+        <Menu onClick={() => setShowDrawer(!showDrawer)} />
         <Drawer showDrawer={showDrawer} activePath={activePath} />
         <Content showDrawer={showDrawer} onClick={() => setShowDrawer(false)}>
           {id && <RunningTask />}

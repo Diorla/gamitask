@@ -59,7 +59,7 @@ export default function Rewards() {
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [value, setValue] = useState<RewardProps>(initialState);
   const { user } = useUser();
-  const { points, pointsPerHour } = user;
+  const { totalPoints, pointsPerHour } = user;
   useEffect(() => {
     user &&
       watchData(`user/${user.uid}/rewards`, (e) => setRewards(e)).catch((err) =>
@@ -79,7 +79,7 @@ export default function Rewards() {
     batchWrite((db, batch) => {
       const userRef = db.collection("user").doc(user.uid);
       batch.update(userRef, {
-        points: points - Math.round(timeToPoints),
+        totalPoints: totalPoints - Math.round(timeToPoints),
       });
       const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
       batch.update(rewardRef, {
@@ -183,7 +183,7 @@ export default function Rewards() {
 
   return (
     <Layout activePath="rewards">
-      <h2>Points: {points}</h2>
+      <h2>Points: {totalPoints}</h2>
       <Add onClick={() => setIsAddVisible(!isAddVisible)}>
         <MdAddBox /> Add
       </Add>
@@ -207,7 +207,7 @@ export default function Rewards() {
 
       {rewards.map((item) => (
         <RewardCard
-          point={points}
+          point={totalPoints}
           perHour={pointsPerHour}
           rewardInfo={item}
           key={item.id}

@@ -13,7 +13,7 @@ export default function DifficultyDropdown({
   activePath: string;
 }) {
   const intl = useIntl();
-  const low = intl.formatMessage({
+  const easy = intl.formatMessage({
     id: "Easy",
     defaultMessage: "Easy",
   });
@@ -21,7 +21,7 @@ export default function DifficultyDropdown({
     id: "Medium",
     defaultMessage: "Medium",
   });
-  const high = intl.formatMessage({
+  const difficult = intl.formatMessage({
     id: "Difficult",
     defaultMessage: "Difficult",
   });
@@ -32,8 +32,8 @@ export default function DifficultyDropdown({
   const data = {
     header: difficulty,
     base: "/difficulty",
-    path: ["low", "medium", "high"],
-    title: [low, medium, high],
+    path: ["easy", "medium", "difficult"],
+    title: [easy, medium, difficult],
     icons: [<FcLowPriority />, <FcMediumPriority />, <FcHighPriority />],
   };
   return <ExpandDrawer data={data} activePath={activePath} />;

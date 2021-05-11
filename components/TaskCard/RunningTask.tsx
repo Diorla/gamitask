@@ -7,6 +7,8 @@ import createData from "../../scripts/createData";
 import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
 import truncateText from "../../scripts/truncateText";
+import { getDayBegin } from "../../scripts/datetime-utils";
+import fromMS from "../../scripts/fromMS";
 
 const StyledDiv = styled.div`
   background: ${({ theme }) => theme.palette.tertiary.dark};
@@ -22,32 +24,52 @@ const StyledDiv = styled.div`
   z-index: 2;
 `;
 
-
 export default function RunningTask() {
   const [count, setCount] = useState(0);
 
   const { user } = useUser();
   const {
-    points: pt,
+    totalPoints,
+    dailyPoints,
+    lifetimeHours,
+    lifetimePoints,
     runningTask: { name, startTime, priority, difficulty, id, countdowns },
   } = user;
 
   const closeTask = () => {
     const timeDiff = Date.now() - startTime;
-    let points = timeDiff * priority * difficulty;
-    points /= 18482.52;
-    points += pt;
-    points = Math.floor(points);
-    const now = "t" + Date.now();
+    let currentPoints = timeDiff * priority * difficulty;
+    currentPoints /= 18482.52;
+    let cumulativePoints = (currentPoints + totalPoints);
+    cumulativePoints = Math.floor(cumulativePoints);
+    currentPoints = Math.floor(currentPoints);
+    const todayKey = "t" + getDayBegin(new Date());
+    const todayValue = Array.isArray(dailyPoints[todayKey])
+      ? dailyPoints[todayKey]
+      : [];
     createData("user", user.uid, {
-      points,
+      totalPoints: cumulativePoints,
       runningTask: {},
+      dailyPoints: {
+        ...dailyPoints,
+        [todayKey]: [...todayValue, currentPoints],
+      },
+      lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
+      lifetimePoints: lifetimePoints + Math.floor(currentPoints),
     })
       .then(() => {
+        const todayKey = "t" + getDayBegin(new Date());
+        const todayValue = Array.isArray(countdowns[todayKey])
+          ? countdowns[todayKey]
+          : [];
+        todayValue.push({
+          startTime,
+          length: timeDiff,
+        });
         createData("user", `${user.uid}/tasks/${id}`, {
           countdowns: {
             ...countdowns,
-            [now]: timeDiff,
+            [todayKey]: todayValue,
           },
         });
       })

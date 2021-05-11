@@ -54,7 +54,7 @@ export default interface Task {
    */
   priority: number;
   /**
-   * Ranges from 1(low) to 3(difficult), indicate how hard it is going to be
+   * Ranges from 1(easy) to 3(difficult), indicate how hard it is going to be
    */
   difficulty: number;
   /**
@@ -68,10 +68,19 @@ export default interface Task {
    */
   done: number[];
   /**
-   * Keeps a record of all the time an even ran, ie. any time a countdown is completed
-   * It saves using "t" + Date.now() as the key to indicate the time the task finished running and the value is how long the task ran. This may be used for some statistics
+   * The key indicates the date, it will be created using t+dayBegin.valueOf()
+   * So, I will get something like t120894244654
+   * The array will contain items, indicating startTime, using Date.now() and the
+   * "length" in milliseconds. When countdown is started, it will be 0.
    */
-  countdowns: { [key: string]: any };
+  countdowns: {
+    [key: string]: [
+      {
+        startTime: number;
+        length: number;
+      }
+    ];
+  };
   /**
    * Similar to countdowns, it keeps record of each points earned using "t" + Date.now() as key while value is the points accrued.
    */
@@ -91,8 +100,8 @@ export default interface Task {
   rewards: string[];
   /**
    * Used to indicate last time it was checked as done
-   * the number is from Date.now(), 0 indicates that it was unchecked
-   * This will also simplify some of my filter algorithm
+   * the number is from Date.now(), 0 indicates that it was never done
+   * It will be used to for filter algorithm as well
    */
   lastCompleted: number | 0;
   /**
