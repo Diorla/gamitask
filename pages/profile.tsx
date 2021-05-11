@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import EditProfile from "../container/EditProfile";
+import Layout from "../container/Layout";
 import ReadProfile from "../container/ReadProfile";
 
 export default function Profile() {
   const [edit, setEdit] = useState(false);
   return (
-    <div>
+    <Layout activePath="profile" hideMenu>
       <Link href="/">
         <a>Home</a>
       </Link>
@@ -15,6 +16,6 @@ export default function Profile() {
       ) : (
         <ReadProfile openEdit={() => setEdit(true)} />
       )}
-    </div>
+    </Layout>
   );
 }

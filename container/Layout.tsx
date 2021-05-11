@@ -35,24 +35,21 @@ const Content = styled.div<{ showDrawer: boolean }>`
 `;
 
 const Control = ({
-  loadingUser,
   uid,
   children,
-  profileImage,
   activePath,
   id,
+  hideMenu,
 }: {
-  loadingUser: boolean;
   uid: string;
   children: React.ReactNode;
-  profileImage: string;
   activePath: string;
   id: string;
+  hideMenu: boolean;
 }) => {
   const [showDrawer, setShowDrawer] = useState(false);
-
-  if (loadingUser) return <LayoutLoader />;
-  if (uid)
+  if (uid) {
+    if (hideMenu) return <div style={{ fontSize: "1.6rem" }}>{children}</div>;
     return (
       <div style={{ fontSize: "1.6rem" }}>
         <Menu onClick={() => setShowDrawer(!showDrawer)} />
@@ -63,15 +60,18 @@ const Control = ({
         </Content>
       </div>
     );
+  }
   return <Welcome />;
 };
 
 export default function Layout({
   children,
   activePath,
+  hideMenu = false,
 }: {
   children: React.ReactNode;
   activePath: string;
+  hideMenu?: boolean;
 }) {
   const { loadingUser, user } = useUser();
   const { runningTask } = user;
@@ -88,15 +88,18 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper>
-        <Control
-          loadingUser={loadingUser}
-          activePath={activePath}
-          uid={user.uid}
-          profileImage={user.profileImage}
-          id={id}
-        >
-          {children}
-        </Control>
+        {loadingUser ? (
+          <LayoutLoader />
+        ) : (
+          <Control
+            activePath={activePath}
+            uid={user.uid}
+            id={id}
+            hideMenu={hideMenu}
+          >
+            {children}
+          </Control>
+        )}
       </Wrapper>
     </div>
   );
