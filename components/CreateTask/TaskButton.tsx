@@ -13,6 +13,7 @@ import getValidState from "../../scripts/getValidState";
 import ModalButton from "../ModalButton";
 import { FormattedMessage } from "react-intl";
 import Task from "../../props/Task";
+import transation from "../../scripts/transation";
 
 const Wrapper = styled.div`
   text-align: right;
@@ -53,40 +54,42 @@ export default function TaskButton() {
       .filter(removeEmpty)
       .map((item: any) => item);
 
-    createData("user", user.uid, {
-      labels: uniqueArray([...labels, ...labelList]),
+    transation((db, t) => {
+      const id = data.id || v4();
+      const userRef = db.collection("user").doc(user.uid);
+      const taskRef = db.doc(`user/${user.uid}/tasks/${id}`);
+      t.update(userRef, {
+        labels: uniqueArray([...labels, ...labelList]),
+      });
+      const updateData = {
+        ...data,
+        labels: data.labels
+          .split(",")
+          .map((item) => item.trim())
+          .filter((item) => item)
+          .join(", "),
+        modified: Date.now(),
+        created: Date.now(),
+        id,
+      };
+      // if it's weekly, and all the days are selected
+      // then it should turn into daily
+      if (updateData.reminder.type === "weekly") {
+        if (updateData.reminder.days?.length === 7) {
+          updateData.reminder.type = "daily";
+        }
+      }
+      // if it's yearly, and all the months are selected
+      // then it should turn into monthly
+      else if (updateData.reminder.type === "yearly") {
+        if (updateData.reminder.months?.length === 12) {
+          updateData.reminder.type = "monthly";
+        }
+      }
+      t.set(taskRef, {
+        ...updateData,
+      });
     })
-      .then(() => {
-        const id = data.id || v4();
-        const updateData = {
-          ...data,
-          labels: data.labels
-            .split(",")
-            .map((item) => item.trim())
-            .filter((item) => item)
-            .join(", "),
-          modified: Date.now(),
-          created: Date.now(),
-          id,
-        };
-        // if it's weekly, and all the days are selected
-        // then it should turn into daily
-        if (updateData.reminder.type === "weekly") {
-          if (updateData.reminder.days?.length === 7) {
-            updateData.reminder.type = "daily";
-          }
-        }
-        // if it's yearly, and all the months are selected
-        // then it should turn into monthly
-        else if (updateData.reminder.type === "yearly") {
-          if (updateData.reminder.months?.length === 12) {
-            updateData.reminder.type = "monthly";
-          }
-        }
-        createData("user", `${user.uid}/tasks/${id}`, {
-          ...updateData,
-        });
-      })
       .then(() => {
         taskDispatch(
           addTask({

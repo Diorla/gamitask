@@ -12,10 +12,12 @@ export default function TaskSelect({
   onChangeTask: (args: any[]) => void;
 }) {
   const task = useTaskList();
-  const options = task.map((item) => {
-    const { name, id } = item;
-    return { label: name, value: id };
-  });
+  const options = task
+    .filter((item) => !item.archive)
+    .map((item) => {
+      const { name, id } = item;
+      return { label: name, value: id };
+    });
   return (
     <div>
       <Select

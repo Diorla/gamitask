@@ -3,7 +3,6 @@ import { MdPlayArrow, MdStop } from "react-icons/md";
 import styled from "styled-components";
 
 const Play = styled(MdPlayArrow)`
-  margin-top: 0.2rem;
   margin-right: 1rem;
   border: 0.1rem solid black;
   border-radius: 50%;

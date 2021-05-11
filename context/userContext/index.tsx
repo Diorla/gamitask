@@ -2,8 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import firebase from "../../firebase/clientApp";
 import UserInfo from "../../props/UserInfo";
-import { watchDoc } from "../../scripts/watchData";
-import formatData from "./formatData";
+import getUserInfo from "../../services/getUserInfo";
 import initialState from "./initialState";
 
 export const UserContext = createContext(initialState);
@@ -20,20 +19,15 @@ export default function UserContextComp({
   useEffect(() => {
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        watchDoc("user", user.uid, (data = {}) => {
-          const formattedData = formatData(data);
-
-          const { profileImage } = formattedData;
-
+        getUserInfo(user.uid, (data) => {
           const userData = {
-            ...formattedData,
+            ...data,
             uid: user.uid,
-            email: user.email,
-            profileImage: profileImage || user.photoURL,
+            email: data.email || user.email || "",
+            profileImage: data.profileImage || user.photoURL || "",
           };
-          Promise.resolve(true)
-            .then(() => setUser(formatData(userData)))
-            .then(() => setLoadingUser(false));
+          setUser(userData);
+          setLoadingUser(false);
         }).catch((err) => toast.error(err));
       } else {
         setUser(userInfo);

@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { MdAddBox } from "react-icons/md";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { v4 } from "uuid";
 import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
-import watchData from "../scripts/watchData";
 import RewardProps from "../props/Reward";
 import CreateReward from "../components/CreateReward";
 import toMS from "../scripts/toMS";
-import transation from "../scripts/transation";
-import firebase from "firebase";
 import batchWrite from "../scripts/batchWrite";
 import RewardCard from "../components/RewardCard";
+import getRewards from "../services/getRewards";
+import createReward from "../services/createReward";
 
 const initialState: RewardProps = {
   name: "",
@@ -60,10 +58,11 @@ export default function Rewards() {
   const [value, setValue] = useState<RewardProps>(initialState);
   const { user } = useUser();
   const { totalPoints, pointsPerHour } = user;
+
   useEffect(() => {
     user &&
-      watchData(`user/${user.uid}/rewards`, (e) => setRewards(e)).catch((err) =>
-        toast.error(err)
+      getRewards(user.uid, (rewards) => setRewards(rewards)).catch((err) =>
+        toast.error(err.message)
       );
   }, [user]);
 
@@ -101,84 +100,10 @@ export default function Rewards() {
   };
 
   const createNewReward = () => {
-    if (!value.name) {
-      toast.warn("Please provide a name");
-      return 0;
-    }
-    if (value.type === "task") {
-      if (value.task.length) createTaskReward();
-      else toast.warn("Please add task to the list");
-    } else {
-      if (value.type === "timed" && value.time === 0) {
-        toast.warn("Please set a time");
-        return 0;
-      }
-      createOtherReward();
-    }
-  };
-
-  const createOtherReward = () => {
-    const id = v4();
-    createData("user", `${user.uid}/rewards/${id}`, {
-      id,
-      ...value,
-      task: [],
-    })
-      .then(() => {
-        setValue(initialState);
-        setIsAddVisible(false);
-        toast.success("New reward created");
-      })
-      .catch((err) => toast.error(err.message));
-  };
-
-  const createTaskReward = () => {
-    const id = v4();
-    const taskRefList: {
-      taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-      rewardList: any[];
-    }[] = [];
-
-    // get all the task
-    transation((db, t) => {
-      value.task.forEach(async (taskItem) => {
-        const taskRef = db
-          .collection("user")
-          .doc(`${user.uid}/tasks/${taskItem.value}`);
-        const taskDoc = await t.get(taskRef);
-        const data = taskDoc?.data();
-        const rewardList = data?.rewards || [];
-        taskRefList.push({ taskRef, rewardList });
-      });
-    })
-      .then(() => {
-        batchWrite((db, batch) => {
-          const rewardRef = db
-            .collection("user")
-            .doc(`${user.uid}/rewards/${id}`);
-          // add reward to tasks
-          taskRefList.forEach((element) => {
-            const { taskRef, rewardList } = element;
-            batch.set(
-              taskRef,
-              { rewards: [...rewardList, id] },
-              { merge: true }
-            );
-          });
-          // create new reward
-          batch.set(
-            rewardRef,
-            { ...value, id, time: 0, point: 0 },
-            { merge: true }
-          );
-        });
-      })
-      .then(() => {
-        setValue(initialState);
-        setIsAddVisible(false);
-        toast.success("New reward created");
-      })
-      .catch((err) => toast.error(err.message));
+    createReward(value, user.uid, () => {
+      setValue(initialState);
+      setIsAddVisible(false);
+    });
   };
 
   return (

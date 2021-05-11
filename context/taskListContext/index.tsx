@@ -1,8 +1,8 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
-import watchData from "../../scripts/watchData";
 import TaskProps from "../../props/Task";
 import { useUser } from "../userContext";
+import getTaskList from "../../services/getTaskList";
 
 export const TaskListContext = createContext<TaskProps[]>([]);
 
@@ -16,9 +16,7 @@ export default function TaskListContextWrapper({
 
   useEffect(() => {
     if (user && user.uid)
-      watchData(`user/${user.uid}/tasks`, setTaskList).catch((err) =>
-        toast.error(err)
-      );
+      getTaskList(user.uid, setTaskList).catch((err) => toast.error(err));
   }, [user]);
 
   return (
