@@ -36,19 +36,17 @@ import StyledNote from "../StyledNote";
 import getStreak from "../../scripts/getStreak";
 import { getDayBegin } from "../../scripts/datetime-utils";
 import formatMSToCountDown from "../../scripts/formatMSToCountDown";
-import fromMS from "../../scripts/fromMS";
+import closeTask from "../../services/closeTask";
+import createTask from "../../services/createTask";
+import ToastControl from "../ToastControl";
+import markAsDone from "../../services/markAsDone";
+import undoCheck from "../../services/markAsDone/undoCheck";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
 const TaskCard = ({ data, type }: { data: Task; type: string }) => {
   const { user } = useUser();
-  const {
-    runningTask,
-    totalPoints,
-    dailyPoints,
-    lifetimeHours,
-    lifetimePoints,
-  } = user;
+  const { runningTask } = user;
   const time = formatDateTime(data, type);
   const {
     id,
@@ -60,11 +58,9 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     labels,
     project,
     archive,
-    rewards,
     repeat,
     note,
     timed,
-    streak,
   } = data;
   const taskDispatch = useTaskDispatch();
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -89,54 +85,6 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     }
   }, []);
 
-  const closeTask = () => {
-    const {
-      name,
-      id,
-      startTime,
-      priority,
-      difficulty,
-      countdowns,
-    } = runningTask;
-    const timeDiff = Date.now() - startTime;
-    let currentPoints = timeDiff * priority * difficulty;
-    currentPoints /= 18482.52;
-    let cumulativePoints = currentPoints + totalPoints;
-    cumulativePoints = Math.floor(cumulativePoints);
-    currentPoints = Math.floor(currentPoints);
-    const todayValue = Array.isArray(dailyPoints[todayKey])
-      ? dailyPoints[todayKey]
-      : [];
-    createData("user", user.uid, {
-      totalPoints: cumulativePoints,
-      runningTask: {},
-      dailyPoints: {
-        ...dailyPoints,
-        [todayKey]: [...todayValue, currentPoints],
-      },
-      lifetimeHours: lifetimeHours + fromMS(timeDiff, "hour"),
-      lifetimePoints: lifetimePoints + currentPoints,
-    })
-      .then(() => {
-        const todayKey = "t" + getDayBegin(new Date());
-        const todayValue = Array.isArray(countdowns[todayKey])
-          ? countdowns[todayKey]
-          : [];
-        todayValue.push({
-          startTime,
-          length: timeDiff,
-        });
-        createData("user", `${user.uid}/tasks/${id}`, {
-          countdowns: {
-            ...countdowns,
-            [todayKey]: todayValue,
-          },
-        });
-      })
-      .then(() => toast.info(`${name} ended`))
-      .catch((err) => toast.error(err));
-  };
-
   const editTask = () => {
     taskDispatch(
       addTask({
@@ -148,12 +96,23 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
 
   const deleteTask = () => {
     deleteData("user", `${user.uid}/tasks/${id}`)
-      .then(() => toast.warn(`${name} deleted`))
+      .then(() =>
+        toast.error(
+          <ToastControl
+            message={`${name} deleted`}
+            undo={() => createTask(user.uid, id, data)}
+          />
+        )
+      )
       .catch((err) => toast.error(err.message));
   };
 
   const beginTask = () => {
-    if (runningTask.id) closeTask();
+    if (runningTask.id) closeTask(user, startRunningTask);
+    else startRunningTask();
+  };
+
+  const startRunningTask = () => {
     const startTime = Date.now();
     createData("user", user.uid, {
       runningTask: {
@@ -167,94 +126,6 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
     }).catch((err) => toast.error(err));
   };
 
-  const checkDone = () => {
-    const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
-    const currentStreak = getStreak(data);
-    if (rewards && rewards.length) {
-      const rewardRefList: {
-        rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-        checklist: string[];
-      }[] = [];
-
-      transation((db, t) => {
-        rewards.forEach(async (rewardId) => {
-          const rewardRef = db
-            .collection("user")
-            .doc(`${user.uid}/rewards/${rewardId}`);
-
-          const rewardDoc = await t.get(rewardRef);
-          const data = rewardDoc?.data();
-          const checklist = data?.checklist || [];
-          rewardRefList.push({ rewardRef, checklist });
-        });
-      })
-        .then(() => {
-          batchWrite((db, batch) => {
-            rewardRefList.forEach((item) => {
-              const rewardRef = item.rewardRef;
-              batch.update(rewardRef, {
-                checklist: uniqueArray([...item.checklist, id]),
-              });
-            });
-            const taskRef = db
-              .collection("user")
-              .doc(`${user.uid}/tasks/${id}`);
-            if (!timed) updatePoint(db, batch, currentStreak);
-            batch.update(taskRef, {
-              done: addRemoveItemFromArray(dateId, done),
-              lastCompleted: Date.now(),
-              streak: currentStreak,
-            });
-          });
-        })
-        .catch((err) => toast.error(err.message));
-    } else {
-      batchWrite((db, batch) => {
-        const taskRef = db.collection("user").doc(`${user.uid}/tasks/${id}`);
-        if (!timed) updatePoint(db, batch, currentStreak);
-        batch.update(taskRef, {
-          done: addRemoveItemFromArray(dateId, done),
-          lastCompleted: Date.now(),
-          streak: currentStreak,
-        });
-      }).catch((err) => toast.error(err.message));
-    }
-  };
-
-  const updatePoint = (
-    db: firebase.firestore.Firestore,
-    updater: firebase.firestore.WriteBatch,
-    currentStreak: number
-  ) => {
-    let points = currentStreak * priority * difficulty;
-    /**
-     * 60 years = 21915 days
-     * Maximum priority and difficulty = 3 * 5 = 15
-     * Assuming someone does it daily for 60 years
-     * Math.floor(Math.log((21915 * 15)**56) + 1) = Infinity
-     * Math.floor(Math.log((21915 * 15)**55) + 1) = 699
-     * Hence, 71 is the safe number, as far as I'm concerned
-     */
-    points = (Math.log(points ** 50) + 1) * 2;
-    points += totalPoints;
-    points = Math.floor(points);
-    // I don't expect this to happen, but who knows
-    points = points === Infinity ? 1398 + streak : points;
-
-    const todayKey = "t" + getDayBegin(new Date());
-    const todayValue = Array.isArray(dailyPoints[todayKey])
-      ? dailyPoints[todayKey]
-      : [];
-    const taskRef = db.collection("user").doc(user.uid);
-    updater.update(taskRef, {
-      totalPoints: points,
-      dailyPoints: {
-        ...dailyPoints,
-        [todayKey]: [...todayValue, points],
-      },
-    });
-  };
-
   const archiveTask = () => {
     const isUpdateDone = archive && !repeat;
     createData("user", `${user.uid}/tasks/${id}`, {
@@ -266,6 +137,21 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
         else toast.warn(`${name} is archived`);
       })
       .catch((err) => toast.error(err));
+  };
+
+  const checkDone = () => {
+    markAsDone(data, user).then((e) => {
+      const { rewardRefList, task, user } = e;
+      toast.info(
+        <ToastControl
+          message={`${name} deleted`}
+          undo={() => undoCheck(rewardRefList, user, task)}
+        />,
+        {
+          autoClose: false,
+        }
+      );
+    });
   };
 
   const isCurrent = type === "today" || type === "overdue";

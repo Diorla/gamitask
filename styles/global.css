@@ -347,3 +347,7 @@ template {
 [hidden] {
   display: none;
 }
+
+.Toastify__toast-body {
+  width: 100%;
+}
