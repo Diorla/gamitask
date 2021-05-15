@@ -13,7 +13,7 @@ export const Row = styled.div`
 
 export const Wrapper = styled.div<{ disabled: boolean }>`
   box-shadow: 0 0 0.2rem silver;
-  margin: 0.6rem 0.2rem;
+  margin: 1.2rem 0.2rem;
   display: flex;
   & > div:last-child {
     opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
@@ -38,7 +38,7 @@ export const Left = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 0.4rem;
+  padding: 0.8rem;
 `;
 
 export const Right = styled.div`
