@@ -32,7 +32,7 @@ export default interface Reward {
   /**
    * list of when the rewards were activated
    */
-  done?: number[];
+  done: number[];
   /**
    * The list of task that has been done, used in tasked rewards
    */

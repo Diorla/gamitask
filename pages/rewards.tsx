@@ -205,15 +205,21 @@ export default function Rewards() {
         </>
       )}
 
-      {rewards.map((item) => (
-        <RewardCard
-          point={totalPoints}
-          perHour={pointsPerHour}
-          rewardInfo={item}
-          key={item.id}
-          onCheck={() => consumeReward(item)}
-        />
-      ))}
+      {rewards
+        .sort(function (prev, next) {
+          const prevTime = prev.done[prev.done.length - 1] || 0;
+          const nextTime = next.done[next.done.length - 1] || 0;
+          return prevTime > nextTime ? 1 : -1;
+        })
+        .map((item) => (
+          <RewardCard
+            point={totalPoints}
+            perHour={pointsPerHour}
+            rewardInfo={item}
+            key={item.id}
+            onCheck={() => consumeReward(item)}
+          />
+        ))}
     </Layout>
   );
 }
