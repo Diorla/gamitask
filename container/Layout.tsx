@@ -8,6 +8,7 @@ import Drawer from "../components/Drawer";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";
+import { ToastContainer } from "react-toastify";
 
 const Content = styled.div<{ showDrawer: boolean }>`
   flex: 1;
@@ -72,7 +73,7 @@ export default function Layout({
   children: React.ReactNode;
   activePath: string;
   hideMenu?: boolean;
-}) {
+}): JSX.Element {
   const { loadingUser, user } = useUser();
   const { runningTask } = user;
   const { id } = runningTask || {};
@@ -88,6 +89,11 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper>
+        <ToastContainer
+          position="bottom-center"
+          style={{ fontSize: "1.6rem" }}
+          autoClose={3000}
+        />
         {loadingUser ? (
           <LayoutLoader />
         ) : (

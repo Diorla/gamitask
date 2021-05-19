@@ -1,4 +1,3 @@
-//@ts-check
 import { ThemeProvider } from "styled-components";
 import { IntlProvider } from "react-intl";
 import { useEffect, useState } from "react";
@@ -13,7 +12,8 @@ import priority from "../theme/priority";
 import lang from "../lang";
 import "react-toastify/dist/ReactToastify.css";
 import { TaskProvider } from "../context/taskContext";
-import { ToastContainer } from "react-toastify";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import { AppProps } from "next/app";
 
 const theme = {
   breakpoints,
@@ -23,7 +23,7 @@ const theme = {
   transform,
 };
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const [locale, setLocale] = useState("en");
   useEffect(() => {
     const savedLocale = localStorage.getItem("locale");
@@ -38,11 +38,6 @@ export default function App({ Component, pageProps }) {
           <TaskListProvider>
             <TaskProvider>
               <Component {...pageProps} />
-              <ToastContainer
-                position="bottom-center"
-                style={{ fontSize: "1.6rem" }}
-                autoClose={3000}
-              />
             </TaskProvider>
           </TaskListProvider>
         </ThemeProvider>

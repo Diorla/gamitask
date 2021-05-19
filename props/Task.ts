@@ -99,7 +99,7 @@ export default interface Task {
    */
   rewards: string[];
   /**
-   * Used to indicate last time it was checked as done
+   * Used to indicate exact time it was checked as done
    * the number is from Date.now(), 0 indicates that it was never done
    * It will be used to for filter algorithm as well
    */

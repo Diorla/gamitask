@@ -1,7 +1,5 @@
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
-import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import createData from "../../scripts/createData";
 // import notifyUser from "../../scripts/notifyUser";
 import PlayStop from "./PlayStop";
@@ -28,12 +26,7 @@ import {
   Row,
   Wrapper,
 } from "./Styled";
-import transation from "../../scripts/transation";
-import batchWrite from "../../scripts/batchWrite";
-import firebase from "firebase";
-import uniqueArray from "../../scripts/uniqueArray";
 import StyledNote from "../StyledNote";
-import getStreak from "../../scripts/getStreak";
 import { getDayBegin } from "../../scripts/datetime-utils";
 import formatMSToCountDown from "../../scripts/formatMSToCountDown";
 import closeTask from "../../services/closeTask";
@@ -44,7 +37,13 @@ import undoCheck from "../../services/markAsDone/undoCheck";
 // import { IoMdStats } from "react-icons/io";
 // import Link from "next/link";
 
-const TaskCard = ({ data, type }: { data: Task; type: string }) => {
+const TaskCard = ({
+  data,
+  type,
+}: {
+  data: Task;
+  type: string;
+}): JSX.Element => {
   const { user } = useUser();
   const { runningTask } = user;
   const time = formatDateTime(data, type);
@@ -144,7 +143,7 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
       const { rewardRefList, task, user } = e;
       toast.info(
         <ToastControl
-          message={`${name} deleted`}
+          message={`${name} completed`}
           undo={() => undoCheck(rewardRefList, user, task)}
         />,
         {
@@ -181,7 +180,9 @@ const TaskCard = ({ data, type }: { data: Task; type: string }) => {
           try {
             if (!className.includes("exclude"))
               setShowFullDetails(!showFullDetails);
-          } catch (error) {}
+          } catch (error) {
+            toast.error(error.message);
+          }
         }}
       >
         <Controls className="exclude">
