@@ -12,7 +12,7 @@ dayjs.extend(isToday);
 const sortSoonToLater = (prev: Task, next: Task) =>
   getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
-export default function Home() {
+export default function Archive(): JSX.Element {
   const taskList = useTaskList();
   const { archived } = filter(taskList.sort(sortSoonToLater));
 

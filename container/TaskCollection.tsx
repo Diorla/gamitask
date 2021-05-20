@@ -18,7 +18,7 @@ export default function TaskCollection({
   data: Task[];
   type: string;
   title: string;
-}): React.ReactNode {
+}): JSX.Element | null {
   const {
     user: { runningTask },
   } = useUser();
