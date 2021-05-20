@@ -4,7 +4,7 @@ import TaskCard from "../components/TaskCard";
 import { useUser } from "../context/userContext";
 import Task from "../props/Task";
 
-const Title = styled.h3`
+const Title = styled.h2`
   display: flex;
   align-items: center;
   margin-left: 0.2rem;
@@ -18,7 +18,7 @@ export default function TaskCollection({
   data: Task[];
   type: string;
   title: string;
-}) {
+}): React.ReactNode {
   const {
     user: { runningTask },
   } = useUser();

@@ -31,7 +31,7 @@ export default function PlayPause({
 }: {
   running: boolean;
   toggleRunning: () => void;
-}) {
+}): JSX.Element {
   return running ? (
     <Stop onClick={toggleRunning} className="exclude" />
   ) : (

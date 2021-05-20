@@ -12,12 +12,12 @@ const DrawerWrapper = styled.div<{ reveal: boolean }>`
   top: 0;
   transition: ${({ theme }) => theme.transform.duration.short} linear;
   &::-webkit-scrollbar {
-    width: 0.2rem;
+    width: 0.4rem;
     background-color: #f5f5f5;
   }
   &::-webkit-scrollbar-thumb {
     background-color: silver;
-    border: 0.2rem solid silver;
+    border: 0.4rem solid silver;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm + "px"}) {
     width: ${({ reveal }) => (reveal ? "24rem" : 0)};

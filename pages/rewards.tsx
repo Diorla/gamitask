@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { MdAddBox } from "react-icons/md";
 import { toast } from "react-toastify";
-import styled from "styled-components";
+import { Button, Card } from "react-bootstrap";
 import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
@@ -23,36 +22,7 @@ const initialState: RewardProps = {
   note: "",
 };
 
-const Wrapper = styled.div<{ disabled: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.4rem;
-  align-items: center;
-  box-shadow: 0 0 0.2rem silver;
-  margin: 0.4rem;
-  background: ${({ disabled }) => (disabled ? "silver" : "white")};
-  & > div {
-    display: flex;
-    align-items: center;
-  }
-  & svg {
-    margin-left: 2rem;
-    color: beige;
-    background: ${({ theme }) => theme.palette.primary.dark};
-    border-radius: 50%;
-    cursor: pointer;
-  }
-`;
-
-const Add = styled.div`
-  display: flex;
-  align-items: center;
-  & svg {
-    margin-right: 0.4rem;
-    font-size: 3.2rem;
-  }
-`;
-export default function Rewards() {
+export default function Rewards(): JSX.Element {
   const [rewards, setRewards] = useState<RewardProps[]>([]);
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [value, setValue] = useState<RewardProps>(initialState);
@@ -106,14 +76,19 @@ export default function Rewards() {
     });
   };
 
+  const content = isAddVisible ? "Close" : "Add";
+
   return (
     <Layout activePath="rewards">
       <h2>Points: {totalPoints}</h2>
-      <Add onClick={() => setIsAddVisible(!isAddVisible)}>
-        <MdAddBox /> Add
-      </Add>
+      <Button
+        onClick={() => setIsAddVisible(!isAddVisible)}
+        style={{ fontSize: "1.4rem" }}
+      >
+        {content}
+      </Button>
       {isAddVisible && (
-        <>
+        <Card className="p-2 mt-2">
           <CreateReward
             name={value.name}
             onChangeName={(e) => setValue({ ...value, name: e.target.value })}
@@ -126,8 +101,12 @@ export default function Rewards() {
             note={value.note}
             onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
           />
-          <button onClick={createNewReward}>Create Reward</button>
-        </>
+          <div style={{ textAlign: "center" }}>
+            <Button onClick={createNewReward} style={{ fontSize: "1.4rem" }}>
+              Create Reward
+            </Button>
+          </div>
+        </Card>
       )}
 
       {rewards

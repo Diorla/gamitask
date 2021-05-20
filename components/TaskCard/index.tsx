@@ -181,7 +181,7 @@ const TaskCard = ({
             if (!className.includes("exclude"))
               setShowFullDetails(!showFullDetails);
           } catch (error) {
-            toast.error(error.message);
+            return error;
           }
         }}
       >
@@ -190,7 +190,7 @@ const TaskCard = ({
             <PlayStop running={false} toggleRunning={beginTask} />
           )}
           {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
-          <div>{name}</div>
+          <h4>{name}</h4>
         </Controls>
         <PriorityDifficulty>
           {difficulty && <Difficulty index={difficulty} />}

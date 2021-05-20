@@ -19,8 +19,11 @@ const Styled = styled.a<DrawerItemProps>`
   cursor: pointer;
   transition: ${({ theme }) => theme.transform.duration.standard} linear;
   align-items: center;
+  color: initial;
+  text-decoration: none;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
+    color: initial;
   }
   & > svg {
     color: ${({ iconColor, theme }) =>
@@ -36,7 +39,7 @@ export default function DrawerItem({
   active,
   href,
   onClick,
-}: DrawerItemProps) {
+}: DrawerItemProps): JSX.Element {
   return href ? (
     <Link href={href}>
       <Styled iconColor={iconColor} active={active}>

@@ -21,13 +21,21 @@ const StyledLink = styled.a<{ variant?: string }>`
   background-color: ${({ theme, variant }) =>
     variant ? theme.palette[variant].main : "transparent"};
   margin-right: 0.4rem;
-  padding: 0.4rem;
+  padding: 0.2rem;
   border-radius: 0.2rem;
   cursor: pointer;
   box-shadow: 0 0 0.2rem white;
+  text-decoration: none;
+  &:hover {
+    color: ${({ theme }) => theme.palette.default.main};
+  }
 `;
 
-export default function Menu({ onClick }: { onClick: () => void }) {
+export default function Menu({
+  onClick,
+}: {
+  onClick: () => void;
+}): JSX.Element {
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
   const {

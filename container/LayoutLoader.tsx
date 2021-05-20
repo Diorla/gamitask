@@ -1,7 +1,5 @@
 import React from "react";
-import ContentLoader, { List } from "react-content-loader";
 import styled from "styled-components";
-import Divider from "../components/Divider";
 import palette from "../theme/palette";
 
 const Wrapper = styled.div`
@@ -9,38 +7,21 @@ const Wrapper = styled.div`
   position: absolute;
   height: 100vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
-const { primary } = palette;
-export default function LayoutLoader() {
+
+export default function LayoutLoader(): JSX.Element {
   return (
     <Wrapper>
-      <ContentLoader
-        viewBox="0 0 380 20"
-        backgroundColor={primary.dark}
-        foregroundColor={primary.light}
-        height="5rem"
+      <div
+        className="spinner-border"
+        style={{ width: "8rem", height: "8rem", color: palette.primary.main }}
+        role="status"
       >
-        <rect x="0" y="0" width="1000" height="70" />
-      </ContentLoader>
-      <List />
-      <Divider />
-      <br />
-      <List />
-      <Divider />
-      <br />
-      <List />
-      <Divider />
-      <br />
-      <List />
-      <Divider />
-      <br />
-      <List />
-      <Divider />
-      <br />
-      <List />
-      <Divider />
-      <br />
-      <List />
+        <span className="visually-hidden">Loading...</span>
+      </div>
     </Wrapper>
   );
 }
