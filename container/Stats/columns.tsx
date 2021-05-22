@@ -1,11 +1,5 @@
-import {
-  formatCountdown,
-  formatDone,
-  formatPoints,
-  formatReminder,
-  formatStreak,
-} from "./formatter";
-import { sortCountdowns, sortReminder, sortStreak } from "./sortFunc";
+import { formatCountdown, formatReminder } from "./formatter";
+import { sortCountdowns, sortReminder } from "./sortFunc";
 
 export default [
   {
@@ -13,52 +7,34 @@ export default [
     text: "Name",
     sort: true,
   },
-  // {
-  //   dataField: "created",
-  //   text: "Created",
-  //   formatter: (row: number): JSX.Element | string => formatDate(row),
-  //   sort: true,
-  // },
-  // {
-  //   dataField: "timed",
-  //   text: "Timed",
-  //   formatter: (row: boolean): JSX.Element | string => formatBoolean(row),
-  //   sort: true,
-  // },
-  // {
-  //   dataField: "archive",
-  //   text: "Archived",
-  //   formatter: (row: boolean): JSX.Element | string => formatBoolean(row),
-  //   sort: true,
-  // },
   {
     dataField: "time",
     text: "Time",
     sort: true,
   },
-  {
-    dataField: "streak",
-    text: "Streak",
-    formatter: (row: number, col: { timed: number }): JSX.Element | string =>
-      formatStreak(row, col.timed),
-    sort: true,
-    sortFunc: (
-      prev: number,
-      next: number,
-      order: string,
-      rowA: { timed: boolean },
-      rowB: { timed: boolean }
-    ): number => sortStreak(prev, next, order, rowA.timed, rowB.timed),
-  },
-  {
-    dataField: "dailyPoints",
-    text: "Points",
-    formatter: (
-      row: { [x: string]: number[] },
-      col: { timed: number }
-    ): JSX.Element | string => formatPoints(row, col.timed),
-    sort: true,
-  },
+  // {
+  //   dataField: "streak",
+  //   text: "Streak",
+  //   formatter: (row: number, col: { timed: number }): JSX.Element | string =>
+  //     formatStreak(row, col.timed),
+  //   sort: true,
+  //   sortFunc: (
+  //     prev: number,
+  //     next: number,
+  //     order: string,
+  //     rowA: { timed: boolean },
+  //     rowB: { timed: boolean }
+  //   ): number => sortStreak(prev, next, order, rowA.timed, rowB.timed),
+  // },
+  // {
+  //   dataField: "dailyPoints",
+  //   text: "Points",
+  //   formatter: (
+  //     row: { [x: string]: number[] },
+  //     col: { timed: number }
+  //   ): JSX.Element | string => formatPoints(row, col.timed),
+  //   sort: true,
+  // },
   {
     dataField: "countdowns",
     text: "Time spent",
@@ -78,7 +54,7 @@ export default [
   },
   {
     dataField: "reminder",
-    text: "Reminder",
+    text: "Type",
     formatter: (
       row: { type: string },
       col: { repeat: boolean }
@@ -96,15 +72,12 @@ export default [
   },
   {
     dataField: "done",
-    text: "Frequency",
-    formatter: (
-      row: number[],
-      col: {
-        countdowns: Record<string, unknown>;
-        reminder: { type: "daily" | "weekly" | "monthly" | "yearly" };
-        created: number;
-      }
-    ): JSX.Element | string =>
-      formatDone(row, col.countdowns, col.created, col.reminder.type),
+    text: "Done",
+    formatter: (done: number[]): number => done.length,
+    sort: true,
+    sortFunc: (prev: number[], next: number[], order: string): number => {
+      if (order === "asc") return prev.length - next.length;
+      return next.length - prev.length;
+    },
   },
 ];

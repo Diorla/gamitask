@@ -15,6 +15,11 @@ import styled from "styled-components";
 //   display: inline-block;
 // }
 // react-bootstrap-table-sort-order
-const StatsWrapper = styled.div``;
+const StatsWrapper = styled.div`
+  overflow-y: scroll;
+  & table {
+    min-width: 400px;
+  }
+`;
 
 export default StatsWrapper;

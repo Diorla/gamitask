@@ -41,12 +41,10 @@ export const formatCountdown = (
   keys.forEach((i) => {
     row[i].forEach((j: { length: number }) => (tots += j.length || 0));
   });
-  const { hh, mm, ss } = formatMsToCountDown(tots, true);
-  return (
-    <span>
-      {hh}:{mm}:{ss}
-    </span>
-  );
+  const { hh, mm, ss } = formatMsToCountDown(tots);
+  if (hh) return `${hh}h ${mm}m`;
+  else if (mm) return `${mm}m ${ss}s`;
+  return `${ss}s`;
 };
 
 export const formatReminder = (

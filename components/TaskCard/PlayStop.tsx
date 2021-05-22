@@ -8,6 +8,7 @@ const Play = styled(MdPlayArrow)`
   border-radius: 50%;
   cursor: pointer;
   font-size: 2.1rem;
+  margin-top: -0.6rem;
   transition: ${({ theme }) => theme.transform.duration.short} linear;
   &:hover {
     background: #dcdcdc;
