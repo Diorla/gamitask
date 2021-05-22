@@ -28,12 +28,13 @@ export default function Rewards(): JSX.Element {
   const [value, setValue] = useState<RewardProps>(initialState);
   const { user } = useUser();
   const { totalPoints, pointsPerHour } = user;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    user &&
-      getRewards(user.uid, (rewards) => setRewards(rewards)).catch((err) =>
-        toast.error(err.message)
-      );
+    user.uid &&
+      getRewards(user.uid, (rewards) => setRewards(rewards))
+        .then(() => setLoading(false))
+        .catch((err) => toast.error(err.message));
   }, [user]);
 
   const consumeReward = (taskInfo: RewardProps) => {
@@ -109,21 +110,25 @@ export default function Rewards(): JSX.Element {
         </Card>
       )}
 
-      {rewards
-        .sort(function (prev, next) {
-          const prevTime = prev.done[prev.done.length - 1] || 0;
-          const nextTime = next.done[next.done.length - 1] || 0;
-          return prevTime > nextTime ? 1 : -1;
-        })
-        .map((item) => (
-          <RewardCard
-            point={totalPoints}
-            perHour={pointsPerHour}
-            rewardInfo={item}
-            key={item.id}
-            onCheck={() => consumeReward(item)}
-          />
-        ))}
+      {loading ? (
+        <div>Reward is loading</div>
+      ) : (
+        rewards
+          .sort(function (prev, next) {
+            const prevTime = prev.done[prev.done.length - 1] || 0;
+            const nextTime = next.done[next.done.length - 1] || 0;
+            return prevTime > nextTime ? 1 : -1;
+          })
+          .map((item) => (
+            <RewardCard
+              point={totalPoints}
+              perHour={pointsPerHour}
+              rewardInfo={item}
+              key={item.id}
+              onCheck={() => consumeReward(item)}
+            />
+          ))
+      )}
     </Layout>
   );
 }

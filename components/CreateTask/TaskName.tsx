@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import formatText from "../../scripts/formatText";
 
 const InputDiv = styled.div`
   width: 100%;
@@ -17,7 +16,7 @@ const InputDiv = styled.div`
   }
 `;
 
-export default function Name() {
+export default function Name(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
 
@@ -33,13 +32,13 @@ export default function Name() {
     id: "labelName",
     defaultMessage: "Name",
   });
-  
+
   return (
     <InputDiv>
       <input
         placeholder={placeholder}
         value={task.name}
-        onChange={(e) => setName(formatText(e.target.value, "title"))}
+        onChange={(e) => setName(e.target.value)}
       />
     </InputDiv>
   );
