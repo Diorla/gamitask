@@ -10,6 +10,8 @@ import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import { useUser } from "../../context/userContext";
 import getTodayPoints from "../../scripts/getTodayPoints";
+import createData from "../../scripts/createData";
+import { toast } from "react-toastify";
 
 const Right = styled.div`
   display: flex;
@@ -39,7 +41,14 @@ export default function Menu({
   const task = useTaskState();
   const taskDispatch = useTaskDispatch();
   const {
-    user: { dailyPoints, dailyGoal, profileImage, lifetimeHours },
+    user: {
+      uid,
+      dailyPoints,
+      dailyGoal,
+      profileImage,
+      lifetimeHours,
+      previousLevel,
+    },
   } = useUser();
   const openModal = () =>
     taskDispatch(
@@ -54,6 +63,19 @@ export default function Menu({
   // log2 of 0 -Infinity, while log2 of 1 is 0;
   // 1 is the minimum level
   const level = Math.floor(Math.log2(lifetimeHours + 1)) + 1;
+  const previousLevelValue = previousLevel.value;
+
+  // Inform user when they reach new level
+  if (previousLevelValue < level) {
+    createData("user", `${uid}`, {
+      previousLevel: {
+        value: level,
+        date: Date.now(),
+      },
+    })
+      .then(() => toast.success(`Congratulations! You reached level ${level}`))
+      .catch((err) => toast.error(err.message));
+  }
   return (
     <>
       <Nav>
@@ -66,11 +88,6 @@ export default function Menu({
             </StyledLink>
           </Link>
           <AddIcon onClick={openModal} />
-          {/* <Link href="/notifications">
-            <StyledLink>
-              <NotificationIcon />
-            </StyledLink>
-          </Link> */}
           <Dropdown profileImage={profileImage} />
         </Right>
       </Nav>

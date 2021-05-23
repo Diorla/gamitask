@@ -31,6 +31,10 @@ const user: UserInfo = {
   dailyPoints: {},
   lifetimeHours: 0,
   lifetimePoints: 0,
+  previousLevel: {
+    date: Date.now(),
+    value: 0,
+  },
 };
 
 const initialState = {

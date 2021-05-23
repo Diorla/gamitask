@@ -7,18 +7,23 @@ import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import getTimeMs from "../scripts/getTimeMs";
 import Task from "../props/Task";
+import PageLoader from "../components/PageLoader";
 dayjs.extend(isToday);
 
 const sortSoonToLater = (prev: Task, next: Task) =>
   getTimeMs(prev.time) > getTimeMs(next.time) ? 1 : -1;
 
 export default function Archive(): JSX.Element {
-  const taskList = useTaskList();
+  const { taskList, loadingTask } = useTaskList();
   const { archived } = filter(taskList.sort(sortSoonToLater));
 
   return (
     <Layout activePath="archive">
-      <TaskCollection data={archived} title="Archive" type="archive" />
+      {loadingTask ? (
+        <PageLoader />
+      ) : (
+        <TaskCollection data={archived} title="Archive" type="archive" />
+      )}
     </Layout>
   );
 }

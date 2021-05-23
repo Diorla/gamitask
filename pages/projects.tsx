@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PageLoader from "../components/PageLoader";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
@@ -19,8 +20,8 @@ const getLabelCollection = (taskList: any[]) => {
   return tempCollection;
 };
 
-export default function Projects() {
-  const taskList = useTaskList();
+export default function Projects(): JSX.Element {
+  const { taskList, loadingTask } = useTaskList();
   const projectCollection = getLabelCollection(
     taskList.filter((item) => !item.archive)
   );
@@ -30,26 +31,34 @@ export default function Projects() {
     id: "noProject",
     defaultMessage: "Miscellaneous",
   });
+
+  if (loadingTask) return <div>Loading tasks</div>;
   return (
     <Layout activePath="projects">
-      {Object.keys(projectCollection)
-        .sort((prev, next) => (prev > next ? 1 : -1))
-        .map((item, idx) => {
-          if (item !== "Unsorted")
-            return (
-              <TaskCollection
-                key={idx}
-                data={projectCollection[item]}
-                title={item}
-                type="upcoming"
-              />
-            );
-        })}
-      <TaskCollection
-        data={projectCollection["Unsorted"]}
-        title={noProject}
-        type="upcoming"
-      />
+      {loadingTask ? (
+        <PageLoader />
+      ) : (
+        <>
+          {Object.keys(projectCollection)
+            .sort((prev, next) => (prev > next ? 1 : -1))
+            .map((item, idx) => {
+              if (item !== "Unsorted")
+                return (
+                  <TaskCollection
+                    key={idx}
+                    data={projectCollection[item]}
+                    title={item}
+                    type="upcoming"
+                  />
+                );
+            })}
+          <TaskCollection
+            data={projectCollection["Unsorted"]}
+            title={noProject}
+            type="upcoming"
+          />
+        </>
+      )}
     </Layout>
   );
 }

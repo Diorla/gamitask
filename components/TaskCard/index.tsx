@@ -145,10 +145,7 @@ const TaskCard = ({
         <ToastControl
           message={`${name} completed`}
           undo={() => undoCheck(rewardRefList, user, task)}
-        />,
-        {
-          autoClose: false,
-        }
+        />
       );
     });
   };

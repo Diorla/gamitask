@@ -1,4 +1,5 @@
 import React from "react";
+import PageLoader from "../components/PageLoader";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";
@@ -21,7 +22,10 @@ const getLabelCollection = (taskList: any[]) => {
   };
   taskList.map((item) => {
     if (item.labels) {
-      for (let label of item.labels.split(",").map(trim).filter(removeEmpty)) {
+      for (const label of item.labels
+        .split(",")
+        .map(trim)
+        .filter(removeEmpty)) {
         const key = label.trim();
         if (tempCollection[key]) tempCollection[key].push(item);
         else tempCollection[key] = [item];
@@ -33,30 +37,36 @@ const getLabelCollection = (taskList: any[]) => {
   return tempCollection;
 };
 
-export default function Labels() {
-  const taskList = useTaskList();
+export default function Labels(): JSX.Element {
+  const { taskList, loadingTask } = useTaskList();
   const labelCollection = getLabelCollection(
     taskList.filter((item) => !item.archive)
   );
 
   return (
     <Layout activePath="labels">
-      {Object.keys(labelCollection).map((item, idx) => {
-        if (item !== unlabelled)
-          return (
-            <TaskCollection
-              key={idx}
-              data={labelCollection[item]}
-              title={formatText(item, "title")}
-              type="upcoming"
-            />
-          );
-      })}
-      <TaskCollection
-        data={labelCollection[unlabelled]}
-        title="Unlabelled"
-        type="upcoming"
-      />
+      {loadingTask ? (
+        <PageLoader />
+      ) : (
+        <>
+          {Object.keys(labelCollection).map((item, idx) => {
+            if (item !== unlabelled)
+              return (
+                <TaskCollection
+                  key={idx}
+                  data={labelCollection[item]}
+                  title={formatText(item, "title")}
+                  type="upcoming"
+                />
+              );
+          })}
+          <TaskCollection
+            data={labelCollection[unlabelled]}
+            title="Unlabelled"
+            type="upcoming"
+          />
+        </>
+      )}
     </Layout>
   );
 }

@@ -44,4 +44,12 @@ export default interface UserInfo {
    * difficulty and priority to all their task and gain a lots of point.
    */
   lifetimeHours: number;
+  /**
+   * This is updated whenever a user reaches a new record. It will be used to
+   * keep record and inform user if they've reached a new level
+   */
+  previousLevel: {
+    date: number;
+    value: number;
+  };
 }

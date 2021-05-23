@@ -5,9 +5,8 @@ import { useUser } from "../context/userContext";
 import Task from "../props/Task";
 
 const Title = styled.h2`
-  display: flex;
-  align-items: center;
   margin-left: 0.2rem;
+  text-align: center;
 `;
 
 export default function TaskCollection({

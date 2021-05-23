@@ -1,21 +1,15 @@
-import Link from "next/link";
 import React, { useState } from "react";
-import EditProfile from "../container/EditProfile";
 import Layout from "../container/Layout";
-import ReadProfile from "../container/ReadProfile";
+import ProfileContainer from "../container/Profile";
 
-export default function Profile() {
+export default function Profile(): JSX.Element {
   const [edit, setEdit] = useState(false);
   return (
     <Layout activePath="profile" hideMenu>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-      {edit ? (
-        <EditProfile closeEdit={() => setEdit(false)} />
-      ) : (
-        <ReadProfile openEdit={() => setEdit(true)} />
-      )}
+      <ProfileContainer
+        edit={edit}
+        toggleEdit={(val: boolean) => setEdit(val)}
+      />
     </Layout>
   );
 }

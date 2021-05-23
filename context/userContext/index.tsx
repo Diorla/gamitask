@@ -11,7 +11,7 @@ export default function UserContextComp({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   const { user: userInfo } = initialState;
   const [user, setUser] = useState(userInfo);
   const [loadingUser, setLoadingUser] = useState(true);
@@ -45,7 +45,10 @@ export default function UserContextComp({
   );
 }
 
-export const useUser = () =>
+export const useUser = (): {
+  user: UserInfo;
+  loadingUser: boolean;
+} =>
   useContext<{
     user: UserInfo;
     loadingUser: boolean;

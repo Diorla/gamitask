@@ -28,6 +28,10 @@ export default function formatData(
     dailyPoints = {},
     lifetimeHours = 0,
     lifetimePoints = 0,
+    previousLevel = {
+      date: Date.now(),
+      value: 0,
+    },
   } = data;
   return {
     uid,
@@ -49,5 +53,6 @@ export default function formatData(
     dailyPoints,
     lifetimeHours,
     lifetimePoints,
+    previousLevel,
   };
 }
