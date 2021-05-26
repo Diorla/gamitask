@@ -42,7 +42,7 @@ export default function CreateReward({
   onChangeNote,
 }: CreateRewardProps): JSX.Element {
   return (
-    <Stack>
+    <Stack style={{ marginTop: "0.4rem" }}>
       <FormInput
         label="name"
         onChange={onChangeName}

@@ -1,10 +1,8 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import Line from "../../atoms/Line";
+import NumberSelect from "../../molecules/NumberSelect";
 import formatMsToCountDown from "../../scripts/formatMSToCountDown";
 import toMS from "../../scripts/toMS";
-
-const sixty = new Array(60);
-sixty.fill(1);
 
 const TimerSelect = ({
   onChangeTime,
@@ -29,39 +27,28 @@ const TimerSelect = ({
         toMS(hh, "hour") + toMS(mm, "minute") + toMS(value, "second");
     onChangeTime(totalValue);
   };
+
   return (
-    <div>
-      <select
-        placeholder="hh"
+    <Line style={{ alignItems: "center" }}>
+      <NumberSelect
+        label="hours"
         onChange={(e) => updateTime(Number(e.target.value), "hh")}
         value={time.hh}
-      >
-        {sixty.map((_item, idx) => (
-          <option value={idx}>{("0" + idx).slice(-2)}</option>
-        ))}
-      </select>
-      <FormattedMessage id="hours" />{" "}
-      <select
-        placeholder="mm"
+        range={[0, 59]}
+      />
+      <NumberSelect
+        label="minutes"
         onChange={(e) => updateTime(Number(e.target.value), "mm")}
         value={time.mm}
-      >
-        {sixty.map((_item, idx) => (
-          <option value={idx}>{("0" + idx).slice(-2)}</option>
-        ))}
-      </select>
-      <FormattedMessage id="minutes" />{" "}
-      <select
-        placeholder="ss"
+        range={[0, 59]}
+      />
+      <NumberSelect
+        label="seconds"
         onChange={(e) => updateTime(Number(e.target.value), "ss")}
         value={time.ss}
-      >
-        {sixty.map((_item, idx) => (
-          <option value={idx}>{("0" + idx).slice(-2)}</option>
-        ))}
-      </select>
-      <FormattedMessage id="seconds" />{" "}
-    </div>
+        range={[0, 59]}
+      />
+    </Line>
   );
 };
 

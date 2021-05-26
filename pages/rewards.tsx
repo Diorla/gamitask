@@ -11,6 +11,7 @@ import RewardCard from "../compounds/RewardCard";
 import getRewards from "../services/getRewards";
 import createReward from "../services/createReward";
 import Button from "../atoms/Button";
+import Card from "../molecules/Card";
 
 const initialState: RewardProps = {
   name: "",
@@ -77,31 +78,36 @@ export default function Rewards(): JSX.Element {
     });
   };
 
-  const content = isAddVisible ? "close" : "add";
+  const content = isAddVisible ? "collapse" : "expand";
 
   return (
     <Layout activePath="rewards">
       <h2>Points: {totalPoints}</h2>
-      <Button onClick={() => setIsAddVisible(!isAddVisible)}>{content}</Button>
-      {isAddVisible && (
-        <div>
-          <CreateReward
-            name={value.name}
-            onChangeName={(e) => setValue({ ...value, name: e.target.value })}
-            type={value.type}
-            onChangeType={(e) => setValue({ ...value, type: e.target.value })}
-            time={value.time}
-            onChangeTime={(ev) => setValue({ ...value, time: ev })}
-            task={value.task}
-            onChangeTask={(e) => setValue({ ...value, task: e })}
-            note={value.note}
-            onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
-          />
-          <div style={{ textAlign: "center" }}>
-            <Button onClick={createNewReward}>createReward</Button>
+
+      <Card elevation={1} style={{ padding: "0.4rem" }}>
+        <Button onClick={() => setIsAddVisible(!isAddVisible)}>
+          {content}
+        </Button>
+        {isAddVisible && (
+          <div>
+            <CreateReward
+              name={value.name}
+              onChangeName={(e) => setValue({ ...value, name: e.target.value })}
+              type={value.type}
+              onChangeType={(e) => setValue({ ...value, type: e.target.value })}
+              time={value.time}
+              onChangeTime={(ev) => setValue({ ...value, time: ev })}
+              task={value.task}
+              onChangeTask={(e) => setValue({ ...value, task: e })}
+              note={value.note}
+              onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
+            />
+            <div style={{ textAlign: "center" }}>
+              <Button onClick={createNewReward}>createReward</Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </Card>
 
       {loading ? (
         <div>Reward is loading</div>

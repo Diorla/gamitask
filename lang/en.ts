@@ -80,4 +80,6 @@ export default {
   nonBinary: "Non binary",
   tasked: "Based on completed task",
   timed: "Based on point",
+  expand: "Expand",
+  collapse: "Collapse",
 };
