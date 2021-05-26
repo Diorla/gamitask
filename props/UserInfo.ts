@@ -2,9 +2,8 @@ export default interface UserInfo {
   uid: string;
   email: string;
   DOB: number;
-  firstName: string;
+  name: string;
   gender: "Male" | "Female" | "Non binary" | "Prefer not to say";
-  lastName: string;
   lastUpdated: number;
   profileImage: string;
   theme: {

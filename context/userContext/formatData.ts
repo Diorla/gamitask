@@ -7,8 +7,7 @@ export default function formatData(
   const {
     uid = "",
     email = "",
-    lastName = "",
-    firstName = "",
+    name = "",
     DOB = Date.now(),
     gender = "prefer not to say",
     lastUpdated = Date.now(),
@@ -36,8 +35,7 @@ export default function formatData(
   return {
     uid,
     email,
-    lastName,
-    firstName,
+    name,
     DOB,
     gender,
     lastUpdated,

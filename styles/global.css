@@ -353,3 +353,7 @@ template {
 .Toastify__toast-body {
   width: 100%;
 }
+
+div {
+  box-sizing: border-box;
+}

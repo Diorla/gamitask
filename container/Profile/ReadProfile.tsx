@@ -2,7 +2,10 @@ import Container from "./Container";
 import ProfileImage from "./ProfileImage";
 import { useUser } from "../../context/userContext";
 import React from "react";
-import { Form } from "react-bootstrap";
+import FormInput from "../../molecules/FormInput";
+import Form from "../../atoms/Form";
+import Line from "../../atoms/Line";
+import Button from "../../atoms/Button";
 
 export default function ReadProfile({
   openEdit,
@@ -13,9 +16,8 @@ export default function ReadProfile({
     user: {
       email,
       DOB,
-      firstName,
+      name,
       gender,
-      lastName,
       profileImage,
       pointsPerHour,
       created,
@@ -27,78 +29,57 @@ export default function ReadProfile({
     <Container>
       <ProfileImage src={imageUrl} alt="User profile" />
       <Form>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>First name:</Form.Label>
-          <Form.Control
-            value={firstName}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Last name:</Form.Label>
-          <Form.Control
-            value={lastName}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Email:</Form.Label>
-          <Form.Control value={email} disabled style={{ fontSize: "1.6rem" }} />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Date of birth:</Form.Label>
-          <Form.Control
-            value={DOB && new Date(DOB).toDateString()}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Joined:</Form.Label>
-          <Form.Control
-            value={new Date(created).toDateString()}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Gender:</Form.Label>
-          <Form.Control
-            value={gender}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Points per hour:</Form.Label>
-          <Form.Control
-            value={pointsPerHour}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
+        <FormInput
+          label="personName"
+          placeholder="personNameExample"
+          value={name}
+          disabled
+        />
+        <FormInput
+          label="email"
+          placeholder="emailExample"
+          type="email"
+          value={email}
+          disabled
+        />
+        <FormInput
+          label="DOB"
+          placeholder="dateExample"
+          value={DOB && new Date(DOB).toDateString()}
+          disabled
+        />
+        <FormInput
+          label="created"
+          placeholder="dateExample"
+          value={new Date(created).toDateString()}
+          disabled
+        />
+        <FormInput
+          label="gender"
+          placeholder="genderExample"
+          value={gender}
+          disabled
+        />
+        <FormInput
+          label="pointsPerHour"
+          placeholder="numberExample"
+          type="number"
+          value={pointsPerHour}
+          disabled
+        />
+        <FormInput
+          label="dailyGoal"
+          placeholder="numberExample"
+          type="number"
+          value={dailyGoal}
+          disabled
+        />
+        <Line style={{ justifyContent: "flex-end" }}>
+          <Button onClick={openEdit} variant="primary">
+            edit
+          </Button>
+        </Line>
       </Form>
-      <Form>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Daily goal:</Form.Label>
-          <Form.Control
-            value={dailyGoal}
-            disabled
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-      </Form>
-      <div style={{ marginTop: 2, textAlign: "left" }}>
-        <button
-          onClick={openEdit}
-          className="btn btn-primary"
-          style={{ fontSize: "1.6rem" }}
-        >
-          Edit
-        </button>
-      </div>
     </Container>
   );
 }

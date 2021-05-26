@@ -5,10 +5,14 @@ import { toast } from "react-toastify";
 import Container from "./Container";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
-import { Form } from "react-bootstrap";
 import UploadImage from "../../components/UploadImage";
-// import ProfileImage from "./ProfileImage";
+import FormInput from "../../molecules/FormInput";
+import FormSelect from "../../molecules/FormSelect";
+import Form from "../../atoms/Form";
+import Line from "../../atoms/Line";
+import Button from "../../atoms/Button";
 
+const genderList = ["Prefer not to say", "Male", "Female", "Non binary"];
 export default function EditProfile({
   closeEdit,
 }: {
@@ -19,8 +23,7 @@ export default function EditProfile({
   const [value, setValue] = useState(user);
   const {
     DOB,
-    firstName,
-    lastName,
+    name,
     gender = "Prefer not to say",
     profileImage = "./profile.png",
     pointsPerHour = 500,
@@ -47,100 +50,62 @@ export default function EditProfile({
 
   return (
     <Container>
-      <div>Click image to change profile</div>
-      {/* <ProfileImage src={profileImage} alt="User profile" /> */}
       <UploadImage
         imageUrl={profileImage}
         setImage={(val) => updateValue({ profileImage: val })}
       />
       <Form>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>First name:</Form.Label>
-          <Form.Control
-            value={firstName}
-            onChange={(e: any) => updateValue({ firstName: e.target.value })}
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Last name:</Form.Label>
-          <Form.Control
-            value={lastName}
-            onChange={(e: any) => updateValue({ lastName: e.target.value })}
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Date of birth:</Form.Label>
-          <Form.Control
-            type="date"
-            value={dayjs(DOB).format("YYYY-MM-DD")}
-            onChange={(e: any) =>
-              updateValue({ DOB: new Date(e.target.value).valueOf() })
-            }
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Gender:</Form.Label>
-          <Form.Control
-            as="select"
-            placeholder="Select your gender"
-            value={gender}
-            onChange={(e: any) => updateValue({ gender: e.target.value })}
-            style={{ fontSize: "1.6rem" }}
+        <FormInput
+          label="personName"
+          placeholder="personNameExample"
+          value={name}
+          onChange={(e: any) => updateValue({ name: e.target.value })}
+        />
+        <FormInput
+          label="DOB"
+          placeholder="dateExample"
+          type="date"
+          value={dayjs(DOB).format("YYYY-MM-DD")}
+          onChange={(e: any) =>
+            updateValue({ DOB: new Date(e.target.value).valueOf() })
+          }
+        />
+        <FormSelect
+          label="gender"
+          value={gender}
+          onChange={(e: any) => updateValue({ gender: e.target.value })}
+          list={genderList}
+        />
+
+        <FormInput
+          label="pointsPerHour"
+          placeholder="numberExample"
+          type="number"
+          value={pointsPerHour}
+          onChange={(e: any) =>
+            updateValue({ pointsPerHour: Number(e.target.value) })
+          }
+        />
+        <FormInput
+          label="dailyGoal"
+          placeholder="numberExample"
+          type="number"
+          value={dailyGoal}
+          onChange={(e: any) => updateValue({ dailyGoal: e.target.value })}
+        />
+        <Line style={{ justifyContent: "flex-end" }}>
+          <Button
+            onClick={closeEdit}
+            variant="error"
+            style={{ marginRight: "0.4rem" }}
           >
-            <option value="Prefer not to say" label="Prefer not to say" />
-            <option value="Non binary" label="Non binary" />
-            <option value="Female" label="Female" />
-            <option value="Male" label="Male" />
-          </Form.Control>
-        </Form.Group>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Points per hour:</Form.Label>
-          <Form.Control
-            type="number"
-            value={pointsPerHour}
-            onChange={(e: any) =>
-              updateValue({ pointsPerHour: Number(e.target.value) })
-            }
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
+            cancel
+          </Button>
+          <Button onClick={saveUser} variant="success">
+            save
+          </Button>
+        </Line>
       </Form>
-      <Form>
-        <Form.Group style={{ minWidth: "32rem", marginBottom: "0.2rem" }}>
-          <Form.Label>Daily goal:</Form.Label>
-          <Form.Control
-            type="number"
-            value={dailyGoal}
-            onChange={(e: any) => updateValue({ dailyGoal: e.target.value })}
-            style={{ fontSize: "1.6rem" }}
-          />
-        </Form.Group>
-      </Form>
-      <div
-        style={{
-          display: "flex",
-          width: "32rem",
-          justifyContent: "flex-end",
-        }}
-      >
-        <button
-          onClick={closeEdit}
-          className="btn btn-default"
-          style={{ fontSize: "1.6rem" }}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={saveUser}
-          className="btn btn-primary"
-          style={{ fontSize: "1.6rem" }}
-        >
-          Save
-        </button>
-      </div>
     </Container>
   );
 }

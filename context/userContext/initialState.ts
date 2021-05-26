@@ -3,8 +3,7 @@ import UserInfo from "../../props/UserInfo";
 const user: UserInfo = {
   uid: "",
   email: "",
-  lastName: "",
-  firstName: "",
+  name: "",
   DOB: Date.now(),
   gender: "Prefer not to say",
   lastUpdated: Date.now(),

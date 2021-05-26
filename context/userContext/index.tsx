@@ -23,6 +23,7 @@ export default function UserContextComp({
           const userData = {
             ...data,
             uid: user.uid,
+            name: data.name || user.displayName || "",
             email: data.email || user.email || "",
             profileImage: data.profileImage || user.photoURL || "",
           };

@@ -20,10 +20,9 @@ const Styled = styled.a<DrawerItemProps>`
   transition: ${({ theme }) => theme.transform.duration.standard} linear;
   align-items: center;
   color: initial;
-  text-decoration: none;
+  align-items: center;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
-    color: initial;
   }
   & > svg {
     color: ${({ iconColor, theme }) =>
