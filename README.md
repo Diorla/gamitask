@@ -2,8 +2,7 @@
 
 ## Atoms
 
-This contains basic elements like "input" and "div". This is where intl.format
-will be implemented, to ensure translation is everywhere.
+This contains basic elements like "input" and "div". This is where intl.format will be implemented, to ensure translation is everywhere.
 
 ## Molecules
 
@@ -11,18 +10,15 @@ This contains one or more elements working as a functional unit e.g. label + inp
 
 ## Compounds
 
-This is also functional unit consisting of multiple atoms or molecules to serve
-a particular purpose e.g. the header, sidebar, layout etc.
+This is also functional unit consisting of multiple atoms or molecules to serve a particular purpose e.g. the header, sidebar, layout etc. Unlike molecules, it doesn't have to contain related elements
 
 ## Containers
 
-This is basically everything in a page. It will be named after the page. It ideally
-be stateless, just accepting props.
+This is basically everything in a page. It will be named after the page. It ideally be stateless, just accepting props.
 
 ## Pages
 
-Based on next.js. It represents different pages. It is where all the functions and
-states will be placed. It will also supply necessary props to the containers.
+Based on next.js. It represents different pages. It is where all the functions and states will be placed. It will also supply necessary props to the containers.
 
 ## Services
 
@@ -38,8 +34,7 @@ Well, context wrapper is created
 
 # Internalisation
 
-Always use camelCase for id to promote consistency, and the word that will be returned
-will be in titleCase
+Always use camelCase for id to promote consistency, and the word that will be returned will be in titleCase
 
 e.g. id="myFirstName" while the value returned will be "Adeola", myColor=Red
 

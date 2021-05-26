@@ -12,7 +12,13 @@ import Form from "../../atoms/Form";
 import Line from "../../atoms/Line";
 import Button from "../../atoms/Button";
 
-const genderList = ["Prefer not to say", "Male", "Female", "Non binary"];
+// const genderList = ["Prefer not to say", "Male", "Female", "Non binary"];
+const genderList = [
+  { label: "preferNotToSay", value: "Prefer not to say" },
+  { label: "male", value: "Male" },
+  { label: "female", value: "Female" },
+  { label: "nonBinary", value: "Non binary" },
+];
 export default function EditProfile({
   closeEdit,
 }: {

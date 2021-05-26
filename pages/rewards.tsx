@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Card } from "react-bootstrap";
 import Layout from "../container/Layout";
 import { useUser } from "../context/userContext";
 import createData from "../scripts/createData";
 import RewardProps from "../props/Reward";
-import CreateReward from "../components/CreateReward";
+import CreateReward from "../compounds/CreateReward";
 import toMS from "../scripts/toMS";
 import batchWrite from "../scripts/batchWrite";
 import RewardCard from "../components/RewardCard";
 import getRewards from "../services/getRewards";
 import createReward from "../services/createReward";
+import Button from "../atoms/Button";
+import Card from "../components/RewardCard/Card";
 
 const initialState: RewardProps = {
   name: "",
@@ -77,19 +78,14 @@ export default function Rewards(): JSX.Element {
     });
   };
 
-  const content = isAddVisible ? "Close" : "Add";
+  const content = isAddVisible ? "close" : "add";
 
   return (
     <Layout activePath="rewards">
       <h2>Points: {totalPoints}</h2>
-      <Button
-        onClick={() => setIsAddVisible(!isAddVisible)}
-        style={{ fontSize: "1.4rem" }}
-      >
-        {content}
-      </Button>
+      <Button onClick={() => setIsAddVisible(!isAddVisible)}>{content}</Button>
       {isAddVisible && (
-        <Card className="p-2 mt-2">
+        <div>
           <CreateReward
             name={value.name}
             onChangeName={(e) => setValue({ ...value, name: e.target.value })}
@@ -103,11 +99,9 @@ export default function Rewards(): JSX.Element {
             onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
           />
           <div style={{ textAlign: "center" }}>
-            <Button onClick={createNewReward} style={{ fontSize: "1.4rem" }}>
-              Create Reward
-            </Button>
+            <Button onClick={createNewReward}>createReward</Button>
           </div>
-        </Card>
+        </div>
       )}
 
       {loading ? (

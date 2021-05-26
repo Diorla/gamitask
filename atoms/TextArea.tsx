@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import styled from "styled-components";
 
-const Wrapper = styled.input`
+const Wrapper = styled.textarea`
   outline: none;
   border: 0.1rem solid silver;
   padding: 0.4rem;
@@ -12,11 +12,11 @@ const Wrapper = styled.input`
   }
 `;
 
-export default function Input({
+export default function TextArea({
   placeholder,
   id,
   ...props
-}: React.InputHTMLAttributes<HTMLInputElement>) {
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   const intl = useIntl();
   return (
     <Wrapper

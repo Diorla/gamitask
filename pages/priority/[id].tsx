@@ -6,7 +6,7 @@ import { useTaskList } from "../../context/taskListContext";
 
 export default function Priority() {
   const router = useRouter();
-  const taskList = useTaskList();
+  const { taskList } = useTaskList();
   const { id } = router.query;
   const path = Array.isArray(id) ? id[0] : id;
   let filteredList = taskList

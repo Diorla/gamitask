@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { MdClose, MdSave } from "react-icons/md";
 import { toast } from "react-toastify";
-import CreateReward from "../CreateReward";
+import CreateReward from "../../compounds/CreateReward";
 import { useUser } from "../../context/userContext";
 import RewardProps from "../../props/Reward";
 import batchWrite from "../../scripts/batchWrite";
@@ -10,7 +10,7 @@ import createData from "../../scripts/createData";
 import removeItemFromArray from "../../scripts/removeItemFromArray";
 import toMS from "../../scripts/toMS";
 import transation from "../../scripts/transation";
-import Button from "../Button";
+import Button from "../../atoms/Button";
 
 const initialState: RewardProps = {
   name: "",
@@ -265,11 +265,15 @@ export default function EditableReward({
         note={value.note}
         onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
       />
-      <Button onClick={() => updateTask()} variant="info">
-        <MdSave /> Save
+      <Button onClick={() => updateTask()} variant="info" iconLeft={<MdSave />}>
+        save
       </Button>
-      <Button onClick={() => toggleEdit()} variant="info">
-        <MdClose /> Close
+      <Button
+        onClick={() => toggleEdit()}
+        variant="info"
+        iconLeft={<MdClose />}
+      >
+        Close
       </Button>
     </div>
   );

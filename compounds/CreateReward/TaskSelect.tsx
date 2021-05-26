@@ -11,8 +11,8 @@ export default function TaskSelect({
   value: any[];
   onChangeTask: (args: any[]) => void;
 }) {
-  const task = useTaskList();
-  const options = task
+  const { taskList } = useTaskList();
+  const options = taskList
     .filter((item) => !item.archive)
     .map((item) => {
       const { name, id } = item;

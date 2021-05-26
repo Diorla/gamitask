@@ -7,7 +7,7 @@ import Task from "../../props/Task";
 
 export default function Difficulty() {
   const router = useRouter();
-  const taskList = useTaskList();
+  const { taskList } = useTaskList();
   const { id } = router.query;
   let filteredList: Task[] = [];
   const path = Array.isArray(id) ? id[0] : id;

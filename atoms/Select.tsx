@@ -10,7 +10,7 @@ const Wrapper = styled.select`
   }
 `;
 
-export default function Option({
+export default function Select({
   value,
   id,
   onChange,

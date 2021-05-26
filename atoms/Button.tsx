@@ -31,7 +31,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconRight?: React.ReactChild;
   variant?: variant;
 }
-export default function H1({
+export default function Button({
   children,
   iconLeft,
   iconRight,
