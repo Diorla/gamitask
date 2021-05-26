@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
-import Input from "../../components/Form/Input";
+import FormInput from "../../molecules/FormInput";
 import { loginWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
 
@@ -19,7 +19,8 @@ const Login = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <Column>
-      <Input
+      <FormInput
+        label="email"
         placeholder="Email"
         onChange={(e: any) =>
           setCredentials({
@@ -27,8 +28,10 @@ const Login = ({ onClose }: { onClose: () => void }) => {
             email: e.target.value,
           })
         }
+        value={email}
       />
-      <Input
+      <FormInput
+        label="password"
         placeholder="password"
         type="password"
         onChange={(e: any) =>
@@ -37,6 +40,7 @@ const Login = ({ onClose }: { onClose: () => void }) => {
             password: e.target.value,
           })
         }
+        value="password"
       />
       <Action>
         <Button variant="primary" disabled={!active} onClick={login}>

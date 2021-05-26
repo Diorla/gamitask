@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import getTimeMs from "../scripts/getTimeMs";
 import Task from "../props/Task";
-import PageLoader from "../components/PageLoader";
+import PageLoader from "../compounds/PageLoader";
 dayjs.extend(isToday);
 
 const sortSoonToLater = (prev: Task, next: Task) =>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
-import Input from "../../components/Form/Input";
+import FormInput from "../../molecules/FormInput";
 import { signUpWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
 
@@ -19,8 +19,10 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
   const active = email !== "" && password !== "" && password === repassword;
   return (
     <Column>
-      <Input
-        placeholder="Email"
+      <FormInput
+        label="email"
+        value={email}
+        placeholder="email"
         onChange={(e: { target: { value: any } }) =>
           setCredentials({
             ...credentials,
@@ -28,8 +30,10 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
           })
         }
       />
-      <Input
-        placeholder="Password"
+      <FormInput
+        label="password"
+        value={password}
+        placeholder="password"
         type="password"
         onChange={(e: { target: { value: any } }) =>
           setCredentials({
@@ -38,8 +42,10 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
           })
         }
       />
-      <Input
-        placeholder="Repeat password"
+      <FormInput
+        label="repassword"
+        value={repassword}
+        placeholder="repassword"
         type="password"
         onChange={(e: { target: { value: any } }) =>
           setCredentials({

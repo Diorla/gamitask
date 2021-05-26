@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import TaskCard from "../../components/TaskCard";
+import TaskCard from "../../compounds/TaskCard";
 import Layout from "../../container/Layout";
 import { useTaskList } from "../../context/taskListContext";
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
-import { MenuIcon } from "../../components/Menu/Icon";
-import Modal from "../../components/Modal";
+import { MenuIcon } from "../../compounds/Menu/Icon";
+import Modal from "../../compounds/Modal";
 import SignInForm from "./SignInForm";
 // import { loginWithGoogle } from "../scripts/login";
 

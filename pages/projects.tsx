@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import PageLoader from "../components/PageLoader";
+import PageLoader from "../compounds/PageLoader";
 import Layout from "../container/Layout";
 import TaskCollection from "../container/TaskCollection";
 import { useTaskList } from "../context/taskListContext";

@@ -5,14 +5,13 @@ import { toast } from "react-toastify";
 import Container from "./Container";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
-import UploadImage from "../../components/UploadImage";
+import UploadImage from "../../compounds/UploadImage";
 import FormInput from "../../molecules/FormInput";
 import FormSelect from "../../molecules/FormSelect";
 import Form from "../../atoms/Form";
 import Line from "../../atoms/Line";
 import Button from "../../atoms/Button";
 
-// const genderList = ["Prefer not to say", "Male", "Female", "Non binary"];
 const genderList = [
   { label: "preferNotToSay", value: "Prefer not to say" },
   { label: "male", value: "Male" },

@@ -7,11 +7,10 @@ import RewardProps from "../props/Reward";
 import CreateReward from "../compounds/CreateReward";
 import toMS from "../scripts/toMS";
 import batchWrite from "../scripts/batchWrite";
-import RewardCard from "../components/RewardCard";
+import RewardCard from "../compounds/RewardCard";
 import getRewards from "../services/getRewards";
 import createReward from "../services/createReward";
 import Button from "../atoms/Button";
-import Card from "../components/RewardCard/Card";
 
 const initialState: RewardProps = {
   name: "",

@@ -12,15 +12,7 @@ import removeItemFromArray from "../../scripts/removeItemFromArray";
 import transation from "../../scripts/transation";
 import Modal from "../Modal";
 import { ModalChild } from "../TaskCard/Styled";
-import {
-  Wrapper,
-  Left,
-  Title,
-  Centre,
-  Bottom,
-  Right,
-  Button,
-} from "./Styled";
+import { Wrapper, Left, Title, Centre, Bottom, Right, Button } from "./Styled";
 import StyledNote from "../StyledNote";
 dayjs.extend(relativeTime);
 

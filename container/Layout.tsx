@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React, { useState } from "react";
 import styled from "styled-components";
-import Menu from "../components/Menu";
-import RunningTask from "../components/TaskCard/RunningTask";
+import Menu from "../compounds/Menu";
+import RunningTask from "../compounds/TaskCard/RunningTask";
 import { useUser } from "../context/userContext";
-import Drawer from "../components/Drawer";
+import Drawer from "../compounds/Drawer";
 import LayoutLoader from "./LayoutLoader";
 import Welcome from "./Welcome";
 import Wrapper from "./Wrapper";

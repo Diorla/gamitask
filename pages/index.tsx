@@ -6,7 +6,7 @@ import isToday from "dayjs/plugin/isToday";
 import dayjs from "dayjs";
 import filter from "../scripts/filter";
 import Task from "../props/Task";
-import PageLoader from "../components/PageLoader";
+import PageLoader from "../compounds/PageLoader";
 dayjs.extend(isToday);
 
 const sortAlphabetically = (prev: Task, next: Task) =>

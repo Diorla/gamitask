@@ -1,8 +1,9 @@
+import React from "react";
 import styled from "styled-components";
-import Input from "../../components/Form/Input";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import { useUser } from "../../context/userContext";
+import FormInput from "../../molecules/FormInput";
 import { contrastColor } from "../../scripts/color-functions";
 
 const trim = (str: string) => str.trim();
@@ -64,12 +65,13 @@ export default function Label() {
               </ExtBadge>
             ))}
       </div>
-      <Input
+      <FormInput
+        label="label"
         value={task.labels}
         onChange={(e: { target: { value: any } }) =>
           setLabel(e.target.value.toLowerCase())
         }
-        placeholder="abc, def, ghi"
+        placeholder="labels"
       />
       <div>
         {task.labels &&

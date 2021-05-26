@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
-import AuthButton from "../../components/AuthButton";
+import AuthButton from "../../compounds/AuthButton";
 import { loginWithGoogle } from "../../scripts/login";
 import { Header } from "./Column";
 import Login from "./Login";

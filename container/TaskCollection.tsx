@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import TaskCard from "../components/TaskCard";
+import TaskCard from "../compounds/TaskCard";
 import { useUser } from "../context/userContext";
 import Task from "../props/Task";
 
