@@ -1,3 +1,41 @@
+# File structure
+
+## Atoms
+
+This contains basic elements like "input" and "div". This is where intl.format
+will be implemented, to ensure translation is everywhere.
+
+## Molecules
+
+This contains one or more elements working as a functional unit e.g. label + input
+
+## Compounds
+
+This is also functional unit consisting of multiple atoms or molecules to serve
+a particular purpose e.g. the header, sidebar, layout etc.
+
+## Containers
+
+This is basically everything in a page. It will be named after the page. It ideally
+be stateless, just accepting props.
+
+## Pages
+
+Based on next.js. It represents different pages. It is where all the functions and
+states will be placed. It will also supply necessary props to the containers.
+
+## Services
+
+These are functions that are used by particular a particular page.
+
+## Utils
+
+These are functions that are used across multiple pages or in other places.
+
+## Context
+
+Well, context wrapper is created
+
 # Firebase Example
 
 This is a simple set up for Firebase for client side applications.
