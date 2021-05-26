@@ -17,7 +17,7 @@ const Content = styled.div<{ showDrawer: boolean }>`
   height: calc(100vh - 7rem);
   top: 5rem;
   overflow-y: scroll;
-  width: calc(100% - 24rem);
+  width: calc(100% - 26rem);
   padding: 1rem;
   &::-webkit-scrollbar {
     width: 0.4rem;
