@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "../../components/Button";
+import Button from "../../atoms/Button";
 import { MenuIcon } from "../../components/Menu/Icon";
 import Modal from "../../components/Modal";
 import SignInForm from "./SignInForm";
@@ -60,11 +60,11 @@ export default function SignIn() {
         <Top>
           <MenuIcon />
           <div>
-            <Button onClick={openOldUser} variant="link">
-              Login
+            <Button onClick={openOldUser} variant="secondary">
+              login
             </Button>
             <Button onClick={openNewUser} variant="primary">
-              Join now
+              join
             </Button>
           </div>
         </Top>

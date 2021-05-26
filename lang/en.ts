@@ -65,4 +65,6 @@ export default {
   cancel: "Cancel",
   edit: "Edit",
   save: "Save",
+  login: "Login",
+  join: "Join",
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
+import Button from "../../atoms/Button";
 import Input from "../../components/Form/Input";
 import { loginWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
@@ -39,11 +39,11 @@ const Login = ({ onClose }: { onClose: () => void }) => {
         }
       />
       <Action>
-        <Button variant="primary" fluid disabled={!active} onClick={login}>
-          Submit
+        <Button variant="primary" disabled={!active} onClick={login}>
+          submit
         </Button>
-        <Button onClick={onClose} color="red">
-          Close
+        <Button onClick={onClose} variant="error">
+          close
         </Button>
       </Action>
     </Column>

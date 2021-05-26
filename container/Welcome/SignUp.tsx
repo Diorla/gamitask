@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
+import Button from "../../atoms/Button";
 import Input from "../../components/Form/Input";
 import { signUpWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
@@ -21,7 +21,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
     <Column>
       <Input
         placeholder="Email"
-        onChange={(e: { target: { value: any; }; }) =>
+        onChange={(e: { target: { value: any } }) =>
           setCredentials({
             ...credentials,
             email: e.target.value,
@@ -31,7 +31,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
       <Input
         placeholder="Password"
         type="password"
-        onChange={(e: { target: { value: any; }; }) =>
+        onChange={(e: { target: { value: any } }) =>
           setCredentials({
             ...credentials,
             password: e.target.value,
@@ -41,7 +41,7 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
       <Input
         placeholder="Repeat password"
         type="password"
-        onChange={(e: { target: { value: any; }; }) =>
+        onChange={(e: { target: { value: any } }) =>
           setCredentials({
             ...credentials,
             repassword: e.target.value,
@@ -49,11 +49,11 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
         }
       />
       <Action>
-        <Button variant="primary" fluid disabled={!active} onClick={signUp}>
-          Submit
+        <Button variant="primary" disabled={!active} onClick={signUp}>
+          submit
         </Button>
-        <Button onClick={onClose} color="red">
-          Close
+        <Button onClick={onClose} variant="error">
+          close
         </Button>
       </Action>
     </Column>

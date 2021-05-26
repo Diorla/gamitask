@@ -36,6 +36,13 @@ These are functions that are used across multiple pages or in other places.
 
 Well, context wrapper is created
 
+# Internalisation
+
+Always use camelCase for id to promote consistency, and the word that will be returned
+will be in titleCase
+
+e.g. id="myFirstName" while the value returned will be "Adeola", myColor=Red
+
 # Firebase Example
 
 This is a simple set up for Firebase for client side applications.

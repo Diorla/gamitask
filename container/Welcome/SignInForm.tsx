@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import Button from "../../atoms/Button";
 import AuthButton from "../../components/AuthButton";
-import Button from "../../components/Button";
 import { loginWithGoogle } from "../../scripts/login";
 import { Header } from "./Column";
 import Login from "./Login";
@@ -28,7 +28,10 @@ const SignInForm = ({ onClose, isNew, setIsNew }: SignInFormProps) => {
       <Header>{title}</Header>
       <div>
         <AuthButton onClick={login} />
-        <Button variant="link" href="#" onClick={setIsNew}>
+        <Button
+          // variant="link" href="#"
+          onClick={setIsNew}
+        >
           {isNew ? "Already a user?" : "New user?"}
         </Button>
         {isNew ? <SignUp onClose={onClose} /> : <Login onClose={onClose} />}
