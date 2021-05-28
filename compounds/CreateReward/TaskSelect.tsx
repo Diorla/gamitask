@@ -10,7 +10,7 @@ export default function TaskSelect({
 }: {
   value: any[];
   onChangeTask: (args: any[]) => void;
-}) {
+}): JSX.Element {
   const { taskList } = useTaskList();
   const options = taskList
     .filter((item) => !item.archive)
@@ -19,15 +19,13 @@ export default function TaskSelect({
       return { label: name, value: id };
     });
   return (
-    <div>
-      <Select
-        components={animatedComponents}
-        closeMenuOnSelect={false}
-        value={value}
-        onChange={(list) => onChangeTask(list)}
-        isMulti
-        options={options}
-      />
-    </div>
+    <Select
+      components={animatedComponents}
+      closeMenuOnSelect={false}
+      value={value}
+      onChange={(list) => onChangeTask(list)}
+      isMulti
+      options={options}
+    />
   );
 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useUser } from "../../context/userContext";
-import createData from "../../scripts/createData";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import fetchData from "../../scripts/fetchData";
@@ -10,19 +8,15 @@ import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
-import ModalButton from "../ModalButton";
-import { FormattedMessage } from "react-intl";
-import Task from "../../props/Task";
 import transation from "../../scripts/transation";
+import Line from "../../atoms/Line";
+import Button from "../../atoms/Button";
 
-const Wrapper = styled.div`
-  text-align: right;
-`;
 const trim = (str: string) => str.trim();
 
 const removeEmpty = (str: string) => !!str;
 
-export default function TaskButton() {
+export default function TaskButton(): JSX.Element | null {
   const data = useTaskState();
   const { loadingUser, user } = useUser();
   const [labels, setLabels] = useState([]);
@@ -114,13 +108,17 @@ export default function TaskButton() {
     );
   if (loadingUser) return null;
   return (
-    <Wrapper>
-      <ModalButton onClick={uploadTask} variant="success">
-        <FormattedMessage id="Save" defaultMessage="Save" />
-      </ModalButton>
-      <ModalButton onClick={closeTask} variant="error">
-        <FormattedMessage id="Close" defaultMessage="Close" />
-      </ModalButton>
-    </Wrapper>
+    <Line style={{ justifyContent: "flex-end" }}>
+      <Button
+        onClick={uploadTask}
+        variant="success"
+        style={{ marginRight: "0.4rem" }}
+      >
+        save
+      </Button>
+      <Button onClick={closeTask} variant="error">
+        close
+      </Button>
+    </Line>
   );
 }

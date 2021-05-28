@@ -1,62 +1,57 @@
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
-import styled from "styled-components";
 import { useTaskState, useTaskDispatch } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
-import CalendarButton from "../../CalendarButton";
+import CalendarButton from "../../../molecules/CalendarButton";
+import Stack from "../../../atoms/Stack";
+import NumberSelect from "../../../molecules/NumberSelect";
 
 const daysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const Input = styled.div`
-  margin-bottom: 0.4rem;
-  display: flex;
-  align-items: center;
-  & > input {
-    border: none;
-    border-bottom: 0.1rem solid silver;
-    padding: 0.4rem;
-  }
-`;
-
 const monthInYears = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
 ];
 
-const monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-export default function Yearly() {
+/**
+ * This will set the month and date e.g. Feb 28th
+ */
+export default function Yearly(): JSX.Element {
   const task = useTaskState();
   const {
     reminder,
     reminder: { months = [], dateInMonth = 1 },
   } = task;
   const taskDispatch = useTaskDispatch();
-  const [dateSelector, setDateSelector] = useState(
-    new Array(daysCount[months[0]]).fill("")
-  );
+  const [dateSelector, setDateSelector] = useState(daysCount[months[0]]);
 
+  /**
+   * Used to add or remove a month
+   * @param months list of months selected
+   */
   const setYear = (months: number[]) => {
     let maxDate = 29;
     let currentDate = dateInMonth;
+
+    // Max date is based on the months, e.g. 31st of Feb shouldn't exist
     months.forEach((item: number) => {
       if (daysCount[item] > maxDate) maxDate = daysCount[item];
     });
     if (maxDate < currentDate) {
       currentDate = maxDate;
     }
-    setDateSelector(new Array(maxDate).fill(""));
+    setDateSelector(maxDate);
+
     taskDispatch(
       addTask({
         ...task,
@@ -82,37 +77,21 @@ export default function Yearly() {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="date">Date: </label>
-        <select
-          onChange={(e) => setMonth(Number(e.target.value))}
-          value={dateInMonth}
-          id="date"
-        >
-          {dateSelector.map((_item, idx) => (
-            <option value={idx + 1} key={idx}>
-              {idx + 1}
-            </option>
-          ))}
-        </select>
-      </div>
-      <Input>
-        <div>
-          {monthList.map((item, idx) => (
-            <CalendarButton
-              key={idx}
-              active={months.includes(item)}
-              onClick={() => setYear(addRemoveItemFromArray(item, months))}
-            >
-              <FormattedMessage
-                id={monthInYears[item]}
-                defaultMessage={monthInYears[item]}
-              />
-            </CalendarButton>
-          ))}
-        </div>
-      </Input>
-    </div>
+    <Stack>
+      <NumberSelect
+        range={[1, dateSelector]}
+        onChange={(e) => setMonth(Number(e.target.value))}
+        value={dateInMonth}
+        label="date"
+        isLeft
+      />
+      <CalendarButton
+        list={monthInYears}
+        activeList={months}
+        toggleDate={({ index }) =>
+          setYear(addRemoveItemFromArray(index, months))
+        }
+      />
+    </Stack>
   );
 }

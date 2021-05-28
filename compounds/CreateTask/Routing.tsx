@@ -6,7 +6,11 @@ import Note from "./Note";
 import Priority from "./Priority";
 import Project from "./Project";
 
-export default function Routing({ route }: { route: string }) {
+export default function Routing({
+  route,
+}: {
+  route: string;
+}): JSX.Element | null {
   if (route === "DueDate") return <DueDate />;
   if (route === "Label") return <Label />;
   if (route === "Priority") return <Priority />;

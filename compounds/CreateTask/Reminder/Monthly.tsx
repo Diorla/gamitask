@@ -1,14 +1,13 @@
-import { FormattedMessage } from "react-intl";
+import React from "react";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
+import NumberSelect from "../../../molecules/NumberSelect";
 
-const arr = new Array(31);
-arr.fill("");
-export default function Monthly() {
+export default function Monthly(): JSX.Element {
   const task = useTaskState();
   const {
     reminder,
-    reminder: { dateInMonth },
+    reminder: { dateInMonth = 1 },
   } = task;
   const taskDispatch = useTaskDispatch();
 
@@ -25,21 +24,12 @@ export default function Monthly() {
   };
 
   return (
-    <div>
-      <label htmlFor="date">
-        <FormattedMessage id="Date" defaultMessage="Date" />:
-      </label>
-      <select
-        onChange={(e) => setMonth(Number(e.target.value))}
-        value={dateInMonth}
-        id="date"
-      >
-        {arr.map((_item, idx) => (
-          <option value={idx + 1} key={idx}>
-            {idx + 1}
-          </option>
-        ))}
-      </select>
-    </div>
+    <NumberSelect
+      label="date"
+      isLeft
+      range={[1, 31]}
+      onChange={(e) => setMonth(Number(e.target.value))}
+      value={dateInMonth}
+    />
   );
 }

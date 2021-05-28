@@ -1,41 +1,27 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import Line from "../../atoms/Line";
+import Stack from "../../atoms/Stack";
 import Nav from "./Nav";
 import Routing from "./Routing";
 import TaskButton from "./TaskButton";
 import TaskName from "./TaskName";
 import Timed from "./Timed";
 
-const Styled = styled.div`
-  color: black;
-  padding: 0.4rem;
-  > div {
-    margin-top: 0.8rem;
-  }
-`;
-
-const Controls = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.4rem;
-  align-items: center;
-`;
-
-export default function CreateTask() {
+export default function CreateTask(): JSX.Element {
   const [currentSection, setCurrentSection] = useState("");
 
   return (
-    <Styled>
+    <Stack>
       <TaskName />
       <Timed />
-      <Controls>
-        <Nav
-          currentSection={currentSection}
-          setCurrentSection={setCurrentSection}
-        />
-      </Controls>
-      <div>{currentSection && <Routing route={currentSection} />}</div>
+      <Nav
+        currentSection={currentSection}
+        setCurrentSection={setCurrentSection}
+      />
+      <Line style={{ marginBottom: "0.4rem", marginTop: "0.4rem" }}>
+        {currentSection && <Routing route={currentSection} />}
+      </Line>
       <TaskButton />
-    </Styled>
+    </Stack>
   );
 }

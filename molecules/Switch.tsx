@@ -1,9 +1,7 @@
 import styled from "styled-components";
+import Line from "../atoms/Line";
+import Text from "../atoms/Text";
 
-const StyledWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
 export const StyledInput = styled.input`
   height: 0;
   width: 0;
@@ -44,12 +42,6 @@ const StyledLabel = styled.label<{ isChecked: boolean }>`
   }
 `;
 
-const Text = styled.span<{ active: boolean }>`
-  color: ${({ active, theme }) =>
-    active ? theme.palette.primary.main : theme.palette.default.light};
-  transition: 0.2s linear;
-`;
-
 export default function Switch({
   positive,
   negative,
@@ -60,13 +52,17 @@ export default function Switch({
   negative: string;
   isChecked: boolean;
   onChange: (e: any) => void;
-}) {
+}): JSX.Element {
   return (
-    <StyledWrapper>
-      <Text active={!isChecked}>{negative}</Text>
+    <Line>
+      {negative && (
+        <Text variant={isChecked ? undefined : "primary"}>{negative}</Text>
+      )}
       <StyledInput type="checkbox" />
       <StyledLabel isChecked={isChecked} onClick={onChange} />
-      <Text active={isChecked}>{positive}</Text>
-    </StyledWrapper>
+      {positive && (
+        <Text variant={isChecked ? "primary" : undefined}>{positive}</Text>
+      )}
+    </Line>
   );
 }

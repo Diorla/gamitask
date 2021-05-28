@@ -1,46 +1,16 @@
 import React from "react";
-import {
-  FcLowPriority,
-  FcMediumPriority,
-  FcHighPriority,
-} from "react-icons/fc";
-import styled from "styled-components";
-import { useTaskState } from "../../context/taskContext";
+import Line from "../../../atoms/Line";
+import { useTaskState } from "../../../context/taskContext";
+import { DifficultyIcon } from "./DifficultyIcon";
 import {
   ReminderIcon,
   LabelIcon,
   PriorityIcon,
   ProjectIcon,
   NoteIcon,
-} from "./Icon";
-const difficultyColours = [
-  <FcLowPriority style={{ fontSize: "2.1rem" }} />,
-  <FcMediumPriority style={{ fontSize: "2.1rem" }} />,
-  <FcHighPriority style={{ fontSize: "2.1rem" }} />,
-];
-const priorityColours = ["#00796b", "#689f38", "#ffeb3b", "#ff9800", "#e83c3d"];
+} from "./NavIcons";
 
-const DifficultyIcon = ({
-  difficulty,
-  onClick,
-}: {
-  difficulty: number;
-  onClick: () => void;
-}) => (
-  <span onClick={onClick} style={{ cursor: "pointer" }}>
-    {difficultyColours[difficulty - 1]}
-  </span>
-);
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex: 1;
-  justify-content: space-evenly;
-  & > *:hover {
-    opacity: 0.8;
-  }
-`;
+const prioritycolors = ["#00796b", "#689f38", "#ffeb3b", "#ff9800", "#e83c3d"];
 
 export default function Nav({
   currentSection,
@@ -48,14 +18,13 @@ export default function Nav({
 }: {
   currentSection: string;
   setCurrentSection: (e: string) => void;
-}) {
+}): JSX.Element {
   const { difficulty, labels, priority, project, time, note } = useTaskState();
 
   return (
-    <Wrapper>
+    <Line style={{ alignItems: "center", justifyContent: "space-evenly" }}>
       <ReminderIcon
-        colour="#87bc43"
-        active={!!time}
+        color={time ? "#87bc43" : undefined}
         onClick={() => {
           currentSection === "DueDate"
             ? setCurrentSection("")
@@ -63,8 +32,7 @@ export default function Nav({
         }}
       />
       <LabelIcon
-        colour="#ffac03"
-        active={!!labels}
+        color={labels ? "#ffac03" : undefined}
         onClick={() => {
           currentSection === "Label"
             ? setCurrentSection("")
@@ -80,8 +48,7 @@ export default function Nav({
         }}
       />
       <PriorityIcon
-        colour={priorityColours[priority - 1]}
-        active={!!priority}
+        color={prioritycolors[priority - 1]}
         onClick={() => {
           currentSection === "Priority"
             ? setCurrentSection("")
@@ -89,8 +56,7 @@ export default function Nav({
         }}
       />
       <ProjectIcon
-        colour="#7843bc"
-        active={project !== "Unsorted"}
+        color={project !== "Unsorted" ? "#7843bc" : undefined}
         onClick={() => {
           currentSection === "Project"
             ? setCurrentSection("")
@@ -98,14 +64,13 @@ export default function Nav({
         }}
       />
       <NoteIcon
-        colour="#7B3F00"
-        active={!!note}
+        color={note ? "#7B3F00" : undefined}
         onClick={() => {
           currentSection === "Note"
             ? setCurrentSection("")
             : setCurrentSection("Note");
         }}
       />
-    </Wrapper>
+    </Line>
   );
 }

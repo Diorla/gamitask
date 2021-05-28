@@ -7,7 +7,6 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "airbnb",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     // Uncomment the following lines to enable eslint-config-prettier
@@ -46,7 +45,15 @@
         "allow": ["warn", "error"]
       }
     ],
-    "eslint complexity": ["error", 4],
-    "max-lines": ["error", 150]
+    "max-lines": ["error", 150],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    "react/jsx-props-no-spreading": [
+      0,
+      {
+        "html": "ignore",
+        "custom": "enforce",
+        "explicitSpread": "enforce"
+      }
+    ]
   }
 }

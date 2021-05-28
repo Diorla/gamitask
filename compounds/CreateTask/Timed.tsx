@@ -1,8 +1,8 @@
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import Switch from "../Switch";
+import Switch from "../../molecules/Switch";
 
-export default function Timed() {
+export default function Timed(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
   const { timed } = task;
@@ -16,7 +16,7 @@ export default function Timed() {
     );
   return (
     <Switch
-      positive="Timed"
+      positive="timed"
       negative=""
       isChecked={timed}
       onChange={() => toggleTimed()}

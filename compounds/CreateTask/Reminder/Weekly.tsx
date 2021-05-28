@@ -1,14 +1,12 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { useTaskDispatch, useTaskState } from "../../../context/taskContext";
 import { addTask } from "../../../context/taskContext/actions";
 import addRemoveItemFromArray from "../../../scripts/addRemoveItemFromArray";
-import CalendarButton from "../../CalendarButton";
+import CalendarButton from "../../../molecules/CalendarButton";
 
-const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const listOfDays = [0, 1, 2, 3, 4, 5, 6];
+const weekdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
-export default function Weekly() {
+export default function Weekly(): JSX.Element {
   const task = useTaskState();
   const {
     reminder,
@@ -29,19 +27,10 @@ export default function Weekly() {
   };
 
   return (
-    <div>
-      {listOfDays.map((item, idx) => (
-        <CalendarButton
-          key={idx}
-          active={days.includes(item)}
-          onClick={() => setWeek(addRemoveItemFromArray(item, days))}
-        >
-          <FormattedMessage
-            id={weekdays[item]}
-            defaultMessage={weekdays[item]}
-          />
-        </CalendarButton>
-      ))}
-    </div>
+    <CalendarButton
+      list={weekdays}
+      activeList={days}
+      toggleDate={({ index }) => setWeek(addRemoveItemFromArray(index, days))}
+    />
   );
 }

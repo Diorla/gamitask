@@ -1,4 +1,3 @@
-import { useIntl } from "react-intl";
 import styled from "styled-components";
 
 const Wrapper = styled.input`
@@ -16,19 +15,8 @@ const Wrapper = styled.input`
 `;
 
 export default function Input({
-  placeholder,
   id,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement>): JSX.Element {
-  const intl = useIntl();
-  return (
-    <Wrapper
-      id={id}
-      placeholder={intl.formatMessage({
-        id: placeholder,
-        defaultMessage: placeholder,
-      })}
-      {...props}
-    />
-  );
+  return <Wrapper id={id} type="radio" {...props} />;
 }

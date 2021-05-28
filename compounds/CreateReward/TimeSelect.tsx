@@ -10,7 +10,7 @@ const TimerSelect = ({
 }: {
   onChangeTime: (e: number) => void;
   value: number;
-}) => {
+}): JSX.Element => {
   const time = formatMsToCountDown(value);
 
   const updateTime = (value: number, type: string) => {

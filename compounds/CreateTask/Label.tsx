@@ -4,7 +4,9 @@ import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import { useUser } from "../../context/userContext";
 import FormInput from "../../molecules/FormInput";
+import Line from "../../atoms/Line";
 import { contrastColor } from "../../scripts/color-functions";
+import Stack from "../../atoms/Stack";
 
 const trim = (str: string) => str.trim();
 
@@ -28,7 +30,7 @@ const ExtBadge = styled(Badge)`
     color: ${({ theme }) => contrastColor(theme.palette.secondary.light)};
   }
 `;
-export default function Label() {
+export default function Label(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
   const {
@@ -49,8 +51,8 @@ export default function Label() {
     setLabel(full);
   };
   return (
-    <div>
-      <div>
+    <Stack>
+      <Line>
         {labels &&
           labels
             .map(trim)
@@ -64,7 +66,7 @@ export default function Label() {
                 {item}
               </ExtBadge>
             ))}
-      </div>
+      </Line>
       <FormInput
         label="label"
         value={task.labels}
@@ -73,14 +75,14 @@ export default function Label() {
         }
         placeholder="labels"
       />
-      <div>
+      <Line>
         {task.labels &&
           task.labels
             .split(",")
             .map(trim)
             .filter(removeEmpty)
             .map((item: any, idx: any) => <Badge key={idx}>{item}</Badge>)}
-      </div>
-    </div>
+      </Line>
+    </Stack>
   );
 }

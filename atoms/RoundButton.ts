@@ -1,4 +1,4 @@
-import { contrastColor } from "./../scripts/color-functions";
+import { contrastColor } from "../scripts/color-functions";
 import styled from "styled-components";
 
 export default styled.button<{ active: boolean }>`

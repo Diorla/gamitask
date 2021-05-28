@@ -4,13 +4,12 @@ import {
   FcMediumPriority,
   FcHighPriority,
 } from "react-icons/fc";
-import { FormattedMessage } from "react-intl";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import Row from "./Row";
-import Select from "./Select";
+import Line from "../../atoms/Line";
+import Button from "../../atoms/Button";
 
-export default function Difficulty() {
+export default function Difficulty(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
   const { difficulty } = task;
@@ -23,19 +22,28 @@ export default function Difficulty() {
     );
 
   return (
-    <Row>
-      <Select active={difficulty === 1} onClick={() => setDifficulty(1)}>
-        <FcLowPriority />
-        <FormattedMessage id="Easy" defaultMessage="Easy" />
-      </Select>
-      <Select active={difficulty === 2} onClick={() => setDifficulty(2)}>
-        <FcMediumPriority />
-        <FormattedMessage id="Medium" defaultMessage="Medium" />
-      </Select>
-      <Select active={difficulty === 3} onClick={() => setDifficulty(3)}>
-        <FcHighPriority />
-        <FormattedMessage id="Difficult" defaultMessage="Difficult" />
-      </Select>
-    </Row>
+    <Line style={{ justifyContent: "space-evenly" }}>
+      <Button
+        onClick={() => setDifficulty(1)}
+        variant={difficulty === 1 ? "secondary" : undefined}
+        iconLeft={<FcLowPriority />}
+      >
+        easy
+      </Button>
+      <Button
+        onClick={() => setDifficulty(2)}
+        variant={difficulty === 2 ? "secondary" : undefined}
+        iconLeft={<FcMediumPriority />}
+      >
+        medium
+      </Button>
+      <Button
+        onClick={() => setDifficulty(3)}
+        variant={difficulty === 3 ? "secondary" : undefined}
+        iconLeft={<FcHighPriority />}
+      >
+        difficult
+      </Button>
+    </Line>
   );
 }

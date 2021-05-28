@@ -1,20 +1,15 @@
 import React from "react";
-import { FaFlag } from "react-icons/fa";
-import { FormattedMessage } from "react-intl";
-import styled from "styled-components";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import Row from "./Row";
-import Select from "./Select";
+import Line from "../../atoms/Line";
+import Button from "../../atoms/Button";
+import Flag from "../../atoms/Flag";
 
-const Flag = styled(FaFlag)<{ color: string }>`
-  color: ${({ color }) => color};
-`;
-
-export default function Priority() {
+export default function Priority(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
 
+  const { priority } = task;
   const setPriority = (n: 1 | 2 | 3 | 4 | 5) =>
     taskDispatch(
       addTask({
@@ -24,27 +19,47 @@ export default function Priority() {
     );
 
   return (
-    <Row>
-      <Select active={task.priority === 1} onClick={() => setPriority(1)}>
-        <Flag color="#00796b" />
-        <FormattedMessage id="Priority" defaultMessage="Priority" /> 1
-      </Select>
-      <Select active={task.priority === 2} onClick={() => setPriority(2)}>
-        <Flag color="#689f38" />
-        <FormattedMessage id="Priority" defaultMessage="Priority" /> 2
-      </Select>
-      <Select active={task.priority === 3} onClick={() => setPriority(3)}>
-        <Flag color="#ffeb3b" />
-        <FormattedMessage id="Priority" defaultMessage="Priority" /> 3
-      </Select>
-      <Select active={task.priority === 4} onClick={() => setPriority(4)}>
-        <Flag color="#ff9800" />
-        <FormattedMessage id="Priority" defaultMessage="Priority" /> 4
-      </Select>
-      <Select active={task.priority === 5} onClick={() => setPriority(5)}>
-        <Flag color="#e83c3d" />
-        <FormattedMessage id="Priority" defaultMessage="Priority" /> 5
-      </Select>
-    </Row>
+    <Line style={{ flexWrap: "wrap" }}>
+      <Button
+        onClick={() => setPriority(1)}
+        variant={priority === 1 ? "info" : undefined}
+        iconLeft={<Flag color="#00796b" />}
+        extra=" 1"
+      >
+        priority
+      </Button>
+      <Button
+        onClick={() => setPriority(2)}
+        variant={priority === 2 ? "info" : undefined}
+        iconLeft={<Flag color="#689f38" />}
+        extra=" 2"
+      >
+        priority
+      </Button>
+      <Button
+        onClick={() => setPriority(3)}
+        variant={priority === 3 ? "info" : undefined}
+        iconLeft={<Flag color="#ffeb3b" />}
+        extra=" 3"
+      >
+        priority
+      </Button>
+      <Button
+        onClick={() => setPriority(4)}
+        variant={priority === 4 ? "info" : undefined}
+        iconLeft={<Flag color="#ff9800" />}
+        extra=" 4"
+      >
+        priority
+      </Button>
+      <Button
+        onClick={() => setPriority(5)}
+        variant={priority === 5 ? "info" : undefined}
+        iconLeft={<Flag color="#e83c3d" />}
+        extra=" 5"
+      >
+        priority
+      </Button>
+    </Line>
   );
 }
