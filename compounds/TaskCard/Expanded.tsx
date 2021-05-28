@@ -41,7 +41,13 @@ export default function Expanded({
 }): JSX.Element {
   return (
     <Stack>
-      <Line style={{ alignItems: "center", justifyContent: "space-between" }}>
+      <Line
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+          margin: "0.2rem",
+        }}
+      >
         <Line>
           {archive ? (
             <Button
@@ -68,6 +74,7 @@ export default function Expanded({
               variant="error"
               className="exclude"
               iconLeft={<MdDelete />}
+              style={{ marginLeft: "0.4rem" }}
             >
               delete
             </Button>
@@ -77,6 +84,7 @@ export default function Expanded({
               variant="warning"
               className="exclude"
               iconLeft={<MdArchive />}
+              style={{ marginLeft: "0.4rem" }}
             >
               archive
             </Button>
@@ -86,12 +94,12 @@ export default function Expanded({
       </Line>
       {labels && <Label>{labels}</Label>}
       <StyledNote>{note}</StyledNote>
-      <Line>
-        <div>{time}</div>
+      <Line style={{ justifyContent: "space-between" }}>
+        <span>{time}</span>
         {!isArchive && timed && isCurrent && (
-          <div>
+          <span>
             {("0" + hh).slice(-2)}:{("0" + mm).slice(-2)}:{("0" + ss).slice(-2)}
-          </div>
+          </span>
         )}
       </Line>
     </Stack>

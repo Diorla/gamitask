@@ -153,7 +153,7 @@ const TaskCard = ({
           {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
           <h4 style={{ margin: 0, padding: 0 }}>{name}</h4>
         </Line>
-        <Line style={{ justifyContent: "flex-end" }}>
+        <Line style={{ justifyContent: "flex-end", flexGrow: 0 }}>
           <Difficulty index={difficulty} />
           <Flag index={priority} />
         </Line>
