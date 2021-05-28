@@ -8,12 +8,12 @@ import TimerSelect from "./TimeSelect";
 
 const rewardTypeList = [
   {
-    label: "timed",
+    label: "pointBased",
     value: "timed",
   },
   {
-    label: "tasked",
-    value: "tasked",
+    label: "taskBased",
+    value: "task",
   },
 ];
 export interface CreateRewardProps {

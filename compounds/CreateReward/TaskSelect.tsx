@@ -1,3 +1,4 @@
+import { useIntl } from "react-intl";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useTaskList } from "../../context/taskListContext";
@@ -18,6 +19,7 @@ export default function TaskSelect({
       const { name, id } = item;
       return { label: name, value: id };
     });
+  const intl = useIntl();
   return (
     <Select
       components={animatedComponents}
@@ -26,6 +28,10 @@ export default function TaskSelect({
       onChange={(list) => onChangeTask(list)}
       isMulti
       options={options}
+      placeholder={intl.formatMessage({
+        id: "selectTask",
+        defaultMessage: "Select one or more tasks",
+      })}
     />
   );
 }

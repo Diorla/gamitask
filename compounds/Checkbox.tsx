@@ -25,8 +25,8 @@ const Styled = styled.div`
     width: 1.2rem;
     height: 0.8rem;
     position: absolute;
-    top: 0.6rem;
-    left: 0.6rem;
+    top: 0.4rem;
+    left: 0.4rem;
     border: 0.3rem solid #333;
     border-top: none;
     border-right: none;

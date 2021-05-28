@@ -11,7 +11,9 @@ import RewardCard from "../compounds/RewardCard";
 import getRewards from "../services/getRewards";
 import createReward from "../services/createReward";
 import Button from "../atoms/Button";
-import Card from "../molecules/Card";
+import Card from "../atoms/Card";
+import Line from "../atoms/Line";
+import Text from "../atoms/Text";
 
 const initialState: RewardProps = {
   name: "",
@@ -84,10 +86,13 @@ export default function Rewards(): JSX.Element {
     <Layout activePath="rewards">
       <h2>Points: {totalPoints}</h2>
 
-      <Card elevation={1} style={{ padding: "0.4rem" }}>
-        <Button onClick={() => setIsAddVisible(!isAddVisible)}>
-          {content}
-        </Button>
+      <Card elevation={1} style={{ padding: "0.4rem", alignItems: "center" }}>
+        <Line style={{ justifyContent: "space-between" }}>
+          <Button onClick={() => setIsAddVisible(!isAddVisible)}>
+            {content}
+          </Button>
+          <Text>addReward</Text>
+        </Line>
         {isAddVisible && (
           <div>
             <CreateReward
@@ -102,9 +107,11 @@ export default function Rewards(): JSX.Element {
               note={value.note}
               onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
             />
-            <div style={{ textAlign: "center" }}>
-              <Button onClick={createNewReward}>createReward</Button>
-            </div>
+            <Line style={{ justifyContent: "space-around" }}>
+              <Button onClick={createNewReward} variant="primary">
+                createReward
+              </Button>
+            </Line>
           </div>
         )}
       </Card>
