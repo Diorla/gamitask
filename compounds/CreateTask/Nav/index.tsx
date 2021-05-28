@@ -1,6 +1,7 @@
 import React from "react";
 import Line from "../../../atoms/Line";
 import { useTaskState } from "../../../context/taskContext";
+import elevation from "../../../theme/elevation";
 import { DifficultyIcon } from "./DifficultyIcon";
 import {
   ReminderIcon,
@@ -21,6 +22,7 @@ export default function Nav({
 }): JSX.Element {
   const { difficulty, labels, priority, project, time, note } = useTaskState();
 
+  const focus = (isBold: boolean) => (isBold ? elevation[1] : elevation[0]);
   return (
     <Line style={{ alignItems: "center", justifyContent: "space-evenly" }}>
       <ReminderIcon
@@ -30,6 +32,7 @@ export default function Nav({
             ? setCurrentSection("")
             : setCurrentSection("DueDate");
         }}
+        style={{ boxShadow: focus(currentSection === "DueDate") }}
       />
       <LabelIcon
         color={labels ? "#ffac03" : undefined}
@@ -38,6 +41,7 @@ export default function Nav({
             ? setCurrentSection("")
             : setCurrentSection("Label");
         }}
+        style={{ boxShadow: focus(currentSection === "Label") }}
       />
       <DifficultyIcon
         difficulty={difficulty}
@@ -46,6 +50,7 @@ export default function Nav({
             ? setCurrentSection("")
             : setCurrentSection("Difficulty");
         }}
+        style={{ boxShadow: focus(currentSection === "Difficulty") }}
       />
       <PriorityIcon
         color={prioritycolors[priority - 1]}
@@ -54,14 +59,16 @@ export default function Nav({
             ? setCurrentSection("")
             : setCurrentSection("Priority");
         }}
+        style={{ boxShadow: focus(currentSection === "Priority") }}
       />
       <ProjectIcon
-        color={project !== "Unsorted" ? "#7843bc" : undefined}
+        color={project !== "noProject" ? "#7843bc" : undefined}
         onClick={() => {
           currentSection === "Project"
             ? setCurrentSection("")
             : setCurrentSection("Project");
         }}
+        style={{ boxShadow: focus(currentSection === "Project") }}
       />
       <NoteIcon
         color={note ? "#7B3F00" : undefined}
@@ -70,6 +77,7 @@ export default function Nav({
             ? setCurrentSection("")
             : setCurrentSection("Note");
         }}
+        style={{ boxShadow: focus(currentSection === "Note") }}
       />
     </Line>
   );

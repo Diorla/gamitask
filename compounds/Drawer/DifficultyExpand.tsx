@@ -11,22 +11,22 @@ export default function DifficultyDropdown({
   activePath,
 }: {
   activePath: string;
-}) {
+}): JSX.Element {
   const intl = useIntl();
   const easy = intl.formatMessage({
-    id: "Easy",
+    id: "easy",
     defaultMessage: "Easy",
   });
   const medium = intl.formatMessage({
-    id: "Medium",
+    id: "medium",
     defaultMessage: "Medium",
   });
   const difficult = intl.formatMessage({
-    id: "Difficult",
+    id: "difficult",
     defaultMessage: "Difficult",
   });
   const difficulty = intl.formatMessage({
-    id: "Difficulty",
+    id: "difficulty",
     defaultMessage: "Difficulty",
   });
   const data = {
@@ -34,7 +34,11 @@ export default function DifficultyDropdown({
     base: "/difficulty",
     path: ["easy", "medium", "difficult"],
     title: [easy, medium, difficult],
-    icons: [<FcLowPriority />, <FcMediumPriority />, <FcHighPriority />],
+    icons: [
+      <FcLowPriority key={0} />,
+      <FcMediumPriority key={1} />,
+      <FcHighPriority key={2} />,
+    ],
   };
   return <ExpandDrawer data={data} activePath={activePath} />;
 }

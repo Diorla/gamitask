@@ -25,6 +25,7 @@ export default function Priority(): JSX.Element {
         variant={priority === 1 ? "info" : undefined}
         iconLeft={<Flag color="#00796b" />}
         extra=" 1"
+        style={{ margin: "0.1rem" }}
       >
         priority
       </Button>
@@ -33,6 +34,7 @@ export default function Priority(): JSX.Element {
         variant={priority === 2 ? "info" : undefined}
         iconLeft={<Flag color="#689f38" />}
         extra=" 2"
+        style={{ margin: "0.1rem" }}
       >
         priority
       </Button>
@@ -41,6 +43,7 @@ export default function Priority(): JSX.Element {
         variant={priority === 3 ? "info" : undefined}
         iconLeft={<Flag color="#ffeb3b" />}
         extra=" 3"
+        style={{ margin: "0.1rem" }}
       >
         priority
       </Button>
@@ -49,6 +52,7 @@ export default function Priority(): JSX.Element {
         variant={priority === 4 ? "info" : undefined}
         iconLeft={<Flag color="#ff9800" />}
         extra=" 4"
+        style={{ margin: "0.1rem" }}
       >
         priority
       </Button>
@@ -57,6 +61,7 @@ export default function Priority(): JSX.Element {
         variant={priority === 5 ? "info" : undefined}
         iconLeft={<Flag color="#e83c3d" />}
         extra=" 5"
+        style={{ margin: "0.1rem" }}
       >
         priority
       </Button>

@@ -1,20 +1,8 @@
-import { useIntl } from "react-intl";
-import styled from "styled-components";
+import TextArea from "../../atoms/TextArea";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 
-const InputWrapper = styled.div`
-  display: flex;
-  & > textarea {
-    resize: vertical;
-    border: 1px solid silver;
-    min-height: 5rem;
-    margin: auto;
-    flex: 1;
-  }
-`;
-
-export default function Note() {
+export default function Note(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
   const { note } = task;
@@ -26,17 +14,11 @@ export default function Note() {
       })
     );
 
-  const intl = useIntl();
   return (
-    <InputWrapper>
-      <textarea
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        placeholder={intl.formatMessage({
-          id: "notesPlaceholder",
-          defaultMessage: "Notes...",
-        })}
-      />
-    </InputWrapper>
+    <TextArea
+      value={note}
+      onChange={(e) => setNote(e.target.value)}
+      placeholder="notes"
+    />
   );
 }

@@ -7,6 +7,7 @@ const Wrapper = styled.textarea`
   padding: 0.4rem;
   border-radius: 0.4rem;
   font-size: 1.6rem;
+  width: 100%;
   &:hover {
     border-color: ${({ theme }) => theme.palette.default.dark};
   }
@@ -16,7 +17,7 @@ export default function TextArea({
   placeholder,
   id,
   ...props
-}: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement>): JSX.Element {
   const intl = useIntl();
   return (
     <Wrapper

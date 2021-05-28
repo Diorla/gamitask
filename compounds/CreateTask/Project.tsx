@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
 import fetchData from "../../scripts/fetchData";
 import { toast } from "react-toastify";
 import { useTaskDispatch, useTaskState } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
-import formatText from "../../scripts/formatText";
-import { FormattedMessage, useIntl } from "react-intl";
+import Button from "../../atoms/Button";
+import Input from "../../atoms/Input";
+import Stack from "../../atoms/Stack";
+import Line from "../../atoms/Line";
+import Select from "../../atoms/Select";
+import Option from "../../atoms/Option";
+import Label from "../../atoms/Label";
 
-const Input = styled.input`
-  border: 0.1rem solid silver;
-  padding: 0.4rem;
-  width: 24rem;
-`;
-
-const Select = styled.div`
-  margin-bottom: 0.4rem;
-  & > select {
-    border: none;
-    border-bottom: 0.1rem solid silver;
-    padding: 0.4rem;
-  }
-`;
-
-export default function Project() {
+export default function Project(): JSX.Element {
   const [list, setList] = useState([] as string[]);
   const { user } = useUser();
   const [newProject, setNewProject] = useState("");
@@ -61,56 +50,40 @@ export default function Project() {
       .then(() => toast.info("Project created"))
       .catch((err) => toast.error(err));
   };
-  const intl = useIntl();
-  const noProject = intl.formatMessage({
-    id: "noProject",
-    defaultMessage: "Miscellaneous",
-  });
 
-  const createProject = intl.formatMessage({
-    id: "createProject",
-    defaultMessage: "Create new project",
-  });
-
+  const opacity = newProject && !list.includes(newProject) ? 1 : 0;
   return (
-    <div>
-      <Select>
-        <label htmlFor="project">
-          <FormattedMessage
-            id="selectProject"
-            defaultMessage="Select project"
-          />
-          :
-        </label>
-        <select
-          name="project"
+    <Stack>
+      <Stack style={{ marginBottom: "0.4rem" }}>
+        <Label htmlFor="selectProject">selectProject</Label>
+        <Select
+          id="selectProject"
           value={task.project}
-          onChange={(e) => setProject(e.target.value)}
+          onChange={(e) => {
+            setProject(e.target.value);
+          }}
         >
-          {[...list, noProject].map((item, idx) => (
-            <option value={item} key={idx}>
-              {item}
-            </option>
+          {[...list].map((item) => (
+            <Option key={item} value={item} label={item} />
           ))}
-        </select>
-      </Select>
-      <div style={{ display: "flex" }}>
+          <Option value="noProject" label="No project" />
+        </Select>
+      </Stack>
+      <Line style={{ alignItems: "center" }}>
         <Input
           value={newProject}
-          placeholder={createProject}
+          placeholder="createProject"
           onChange={(e: { target: { value: string } }) =>
-            setNewProject(formatText(e.target.value, "title"))
+            setNewProject(e.target.value)
           }
           onKeyDown={(e) => {
             if (e.key === "Enter") addNewProject();
           }}
         />{" "}
-        {newProject && !list.includes(newProject) && (
-          <button onClick={() => addNewProject()}>
-            <FormattedMessage id="Create" defaultMessage="Create" />
-          </button>
-        )}
-      </div>
-    </div>
+        <Button onClick={() => addNewProject()} style={{ opacity }}>
+          create
+        </Button>
+      </Line>
+    </Stack>
   );
 }

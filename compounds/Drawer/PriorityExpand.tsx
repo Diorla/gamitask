@@ -11,10 +11,10 @@ export default function DifficultyDropdown({
   activePath,
 }: {
   activePath: string;
-}) {
+}): JSX.Element {
   const intl = useIntl();
   const priority = intl.formatMessage({
-    id: "Priority",
+    id: "priority",
     defaultMessage: "Priority",
   });
   const data = {
@@ -29,11 +29,11 @@ export default function DifficultyDropdown({
       `${priority} 5`,
     ],
     icons: [
-      <Flag color="#00796b" />,
-      <Flag color="#689f38" />,
-      <Flag color="#ffeb3b" />,
-      <Flag color="#ff9800" />,
-      <Flag color="#e83c3d" />,
+      <Flag color="#00796b" key={0} />,
+      <Flag color="#689f38" key={1} />,
+      <Flag color="#ffeb3b" key={2} />,
+      <Flag color="#ff9800" key={3} />,
+      <Flag color="#e83c3d" key={4} />,
     ],
   };
   return <ExpandDrawer data={data} activePath={activePath} />;
