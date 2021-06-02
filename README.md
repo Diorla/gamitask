@@ -2,7 +2,16 @@
 
 ## Atoms
 
-This contains basic elements like "input" and "div". This is where intl.format will be implemented, to ensure translation is everywhere.
+This contains basic elements like "input" and "div". This is where intl.format will be implemented, to ensure translation is everywhere.I will use content for translation while children will be used for more complex content that won't be parsed by translation. 
+```ts
+<Button content="clickMe"/>
+<Button>Click me</Button>
+```
+
+So, if there's content, no children, something like this.
+```ts
+return <button>{content||children}<button/>
+```
 
 ## Molecules
 
