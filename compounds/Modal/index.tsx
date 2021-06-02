@@ -1,6 +1,6 @@
 import React from "react";
+import Card from "../../atoms/Card";
 import Backdrop from "./Backdrop";
-import Box from "./Box";
 
 export default function Modal({
   visible,
@@ -12,7 +12,7 @@ export default function Modal({
   children: React.ReactNode;
   width?: number;
   onClose: () => void;
-}) {
+}): JSX.Element | null {
   if (visible)
     return (
       <Backdrop
@@ -20,7 +20,15 @@ export default function Modal({
           if (e.currentTarget === e.target) onClose();
         }}
       >
-        <Box width={width}>{children}</Box>
+        <Card
+          style={{
+            width: width ? width + "rem" : "80%",
+            backgroundColor: "white",
+            padding: "0.2rem",
+          }}
+        >
+          {children}
+        </Card>
       </Backdrop>
     );
   return null;

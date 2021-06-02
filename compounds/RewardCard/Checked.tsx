@@ -8,7 +8,7 @@ const Checked = ({
 }: {
   active: boolean;
   children: React.ReactNode;
-}) =>
+}): JSX.Element =>
   active ? (
     <StrikeThrough>
       <MdCheckBox />

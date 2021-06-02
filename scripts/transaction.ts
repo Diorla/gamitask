@@ -14,7 +14,7 @@ export default async function transation(
     arg0: firebase.firestore.Firestore,
     arg1: firebase.firestore.Transaction
   ) => void
-) {
+): Promise<void> {
   const db = firebase.firestore();
   return await db.runTransaction(async (t) => {
     callback(db, t);

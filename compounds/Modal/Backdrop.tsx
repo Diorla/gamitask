@@ -18,6 +18,6 @@ export default function Backdrop({
 }: {
   children: React.ReactNode;
   onClick: (e: React.SyntheticEvent) => void;
-}) {
+}): JSX.Element {
   return <StyledBackdrop onClick={onClick}>{children}</StyledBackdrop>;
 }

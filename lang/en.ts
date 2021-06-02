@@ -86,4 +86,13 @@ export default {
   delete: "Delete",
   addReward: "Add reward",
   selectTask: "Select one or more tasks",
+  profile: "Profile",
+  settings: "Settings",
+  help: "Help",
+  stats: "Stats",
+  logOut: "Log out",
+  thisActionCannotBeUndone: "This action cannot be undone",
+  yes: "Yes",
+  no: "No",
+  areYouSure: "Are you sure",
 };

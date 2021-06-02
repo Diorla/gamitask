@@ -21,13 +21,16 @@ export default function TaskCollection({
   const {
     user: { runningTask },
   } = useUser();
+
+  const isCurrent = type === "today" || type === "overdue";
   if (data && data.length)
     return (
       <div>
         <Title>{title}</Title>
         <div>
           {data.map((item: any) => {
-            if (runningTask.id && runningTask.id === item.id) return null;
+            if (isCurrent && runningTask.id && runningTask.id === item.id)
+              return null;
             return <TaskCard data={item} key={item.id} type={type} />;
           })}
         </div>

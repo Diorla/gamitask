@@ -2,14 +2,14 @@ import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import Reward from "../../props/Reward";
 import batchWrite from "../../scripts/batchWrite";
-import transation from "../../scripts/transation";
+import transaction from "../../scripts/transaction";
 import firebase from "../../firebase/clientApp";
 
 const createTaskReward = (
   reward: Reward,
   userId: string,
   callback: () => void
-) => {
+): void => {
   const id = v4();
   const taskRefList: {
     taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
@@ -17,7 +17,7 @@ const createTaskReward = (
   }[] = [];
 
   // get all the task
-  transation((db, t) => {
+  transaction((db, t) => {
     reward.task.forEach(async (taskItem) => {
       const taskRef = db
         .collection("user")

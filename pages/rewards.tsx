@@ -13,7 +13,6 @@ import createReward from "../services/createReward";
 import Button from "../atoms/Button";
 import Card from "../atoms/Card";
 import Line from "../atoms/Line";
-import Text from "../atoms/Text";
 
 const initialState: RewardProps = {
   name: "",
@@ -80,18 +79,27 @@ export default function Rewards(): JSX.Element {
     });
   };
 
-  const content = isAddVisible ? "collapse" : "expand";
+  const content = isAddVisible ? "collapse" : "addReward";
 
   return (
     <Layout activePath="rewards">
       <h2>Points: {totalPoints}</h2>
 
-      <Card elevation={1} style={{ padding: "0.4rem", alignItems: "center" }}>
+      <Card
+        elevation={1}
+        style={{
+          padding: "0.4rem",
+          alignItems: "center",
+          marginBottom: "1.2rem",
+        }}
+      >
         <Line style={{ justifyContent: "space-between" }}>
-          <Button onClick={() => setIsAddVisible(!isAddVisible)}>
+          <Button
+            onClick={() => setIsAddVisible(!isAddVisible)}
+            variant="primary"
+          >
             {content}
           </Button>
-          <Text>addReward</Text>
         </Line>
         {isAddVisible && (
           <div>
@@ -108,7 +116,7 @@ export default function Rewards(): JSX.Element {
               onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
             />
             <Line style={{ justifyContent: "space-around" }}>
-              <Button onClick={createNewReward} variant="primary">
+              <Button onClick={createNewReward} variant="secondary">
                 createReward
               </Button>
             </Line>

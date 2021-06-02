@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
-import { MenuIcon } from "../../compounds/Menu/Icon";
+import { MenuIcon } from "../../atoms/MenuIcon";
 import Modal from "../../compounds/Modal";
 import SignInForm from "./SignInForm";
-// import { loginWithGoogle } from "../scripts/login";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -41,7 +40,7 @@ const CTA = styled.div`
   }
 `;
 
-export default function SignIn() {
+export default function SignIn(): JSX.Element {
   const [visible, setVisible] = useState(false);
   const [isNew, setIsNew] = useState(true);
 

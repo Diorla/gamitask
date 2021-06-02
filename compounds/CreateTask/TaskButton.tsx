@@ -8,7 +8,7 @@ import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import getValidState from "../../scripts/getValidState";
-import transation from "../../scripts/transation";
+import transaction from "../../scripts/transaction";
 import Line from "../../atoms/Line";
 import Button from "../../atoms/Button";
 
@@ -48,7 +48,7 @@ export default function TaskButton(): JSX.Element | null {
       .filter(removeEmpty)
       .map((item: any) => item);
 
-    transation((db, t) => {
+    transaction((db, t) => {
       const id = data.id || v4();
       const userRef = db.collection("user").doc(user.uid);
       const taskRef = db.doc(`user/${user.uid}/tasks/${id}`);

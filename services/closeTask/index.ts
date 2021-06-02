@@ -2,12 +2,12 @@ import { toast } from "react-toastify";
 import UserInfo from "../../props/UserInfo";
 import { getDayBegin } from "../../scripts/datetime-utils";
 import fromMS from "../../scripts/fromMS";
-import transation from "../../scripts/transation";
+import transaction from "../../scripts/transaction";
 
 /**
  * This is used to stop a task from running
  */
-const closeTask = (user: UserInfo, callback?: () => void) => {
+const closeTask = (user: UserInfo, callback?: () => void): void => {
   const {
     runningTask: { startTime, priority, difficulty, countdowns, id, name },
     totalPoints,
@@ -32,7 +32,7 @@ const closeTask = (user: UserInfo, callback?: () => void) => {
     : [];
 
   // insert into db
-  transation((db, t) => {
+  transaction((db, t) => {
     const userRef = db.doc(`user/${user.uid}`);
     const taskRef = db.doc(`user/${user.uid}/tasks/${id}`);
     t.update(userRef, {

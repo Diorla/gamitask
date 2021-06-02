@@ -1,9 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 
 export interface DrawerItemProps {
-  children: React.ReactNode;
+  title?: string;
   onClick?: () => void;
   href?: string;
   icon?: React.ReactNode;
@@ -32,7 +33,7 @@ const Styled = styled.a<DrawerItemProps>`
 `;
 
 export default function DrawerItem({
-  children,
+  title,
   icon,
   iconColor,
   active,
@@ -42,12 +43,14 @@ export default function DrawerItem({
   return href ? (
     <Link href={href}>
       <Styled iconColor={iconColor} active={active}>
-        {icon} {children}
+        {icon}
+        <FormattedMessage id={title} defaultMessage={title} />
       </Styled>
     </Link>
   ) : (
     <Styled iconColor={iconColor} active={active} onClick={onClick}>
-      {icon} {children}
+      {icon}
+      <FormattedMessage id={title} defaultMessage={title} />
     </Styled>
   );
 }

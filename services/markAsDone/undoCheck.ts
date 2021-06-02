@@ -1,6 +1,6 @@
 import Task from "../../props/Task";
 import UserInfo from "../../props/UserInfo";
-import transation from "../../scripts/transation";
+import transation from "../../scripts/transaction";
 import firebase from "../../firebase/clientApp";
 
 type rewardRefs = {
@@ -12,7 +12,7 @@ export default function undoCheck(
   rewardRefList: rewardRefs[],
   user: UserInfo,
   task: Task
-) {
+): void {
   const { uid } = user;
   const { id } = task;
   transation((db, t) => {

@@ -11,7 +11,7 @@ const TaskReward = ({
   rewardInfo: RewardProps;
   onCheck: () => void;
   toggleEdit: () => void;
-}) => {
+}): JSX.Element => {
   const { name, task, checklist = [], done = [] } = rewardInfo;
   const disabled = checklist?.length < task.length;
   return (
@@ -26,7 +26,7 @@ const TaskReward = ({
       note={rewardInfo.note}
     >
       {task.map((item, idx) => (
-        <Checked active={Boolean(checklist?.includes(item.value))} key={idx}>
+        <Checked active={checklist?.includes(item.value)} key={idx}>
           {item.label}
         </Checked>
       ))}

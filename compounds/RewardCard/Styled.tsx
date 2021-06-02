@@ -12,8 +12,6 @@ export const Row = styled.div`
 `;
 
 export const Wrapper = styled.div<{ disabled: boolean }>`
-  box-shadow: 0 0 0.2rem silver;
-  margin: 1.2rem 0.2rem;
   display: flex;
   & > div:last-child {
     opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
@@ -69,26 +67,4 @@ export const Bottom = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem;
-`;
-
-/**
- * TODO: Merge this button with Taskcard button
- * So I will move it to components
- * And if possible/better, will create EditButton, DeleteButton and ArchiveButton
- */
-export const Button = styled.button<{ variant: string }>`
-  border: 0.1rem solid silver;
-  cursor: pointer;
-  margin: 0.2rem;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem;
-  & > svg {
-    color: ${({ theme, variant }) => theme.palette[variant].dark};
-    margin-right: 0.4rem;
-  }
-  &:hover {
-    border: 0.1rem solid #949090;
-    background: silver;
-  }
 `;

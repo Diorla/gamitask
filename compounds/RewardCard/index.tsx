@@ -14,7 +14,7 @@ export default function RewardCard({
   point: number;
   perHour: number;
   onCheck: () => void;
-}) {
+}): JSX.Element {
   const [editable, setEditable] = useState(false);
   if (editable)
     return (

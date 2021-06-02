@@ -15,7 +15,7 @@ const StyledWrapper = styled.div`
   min-height: 200px;
 `;
 
-const Wrapper = ({ children }: { children: React.ReactNode }) => (
+const Wrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
   <StyledWrapper>
     <GlobalStyle />
     {children}

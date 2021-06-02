@@ -4,7 +4,7 @@ import FormInput from "../../molecules/FormInput";
 import { loginWithEmail } from "../../scripts/login";
 import Column, { Action } from "./Column";
 
-const Login = ({ onClose }: { onClose: () => void }) => {
+const Login = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",

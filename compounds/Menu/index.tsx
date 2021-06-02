@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Nav from "./Nav";
-import { MenuIcon, AddIcon } from "./Icon";
-import Dropdown from "./Dropdown";
+import Nav from "../../atoms/Nav";
+import { MenuIcon, AddIcon } from "../../atoms/MenuIcon";
+import Dropdown from "../Dropdown";
 import Link from "next/link";
 import CreateTask from "../CreateTask";
 import Modal from "../Modal";
@@ -77,23 +77,19 @@ export default function Menu({
       .catch((err) => toast.error(err.message));
   }
   return (
-    <>
-      <Nav>
-        <MenuIcon onClick={onClick} />
-        <Right>
-          <StyledLink>Lv-{level}</StyledLink>
-          <Link href="/stats">
-            <StyledLink variant={colourCode}>
-              {Math.abs(remainPoints)}
-            </StyledLink>
-          </Link>
-          <AddIcon onClick={openModal} />
-          <Dropdown profileImage={profileImage} />
-        </Right>
-      </Nav>
+    <Nav>
+      <MenuIcon onClick={onClick} />
       <Modal visible={Boolean(task.showModal)} onClose={() => ""} width={32}>
         <CreateTask />
       </Modal>
-    </>
+      <Right>
+        <StyledLink>Lv-{level}</StyledLink>
+        <Link href="/stats">
+          <StyledLink variant={colourCode}>{Math.abs(remainPoints)}</StyledLink>
+        </Link>
+        <AddIcon onClick={openModal} />
+        <Dropdown profileImage={profileImage} />
+      </Right>
+    </Nav>
   );
 }

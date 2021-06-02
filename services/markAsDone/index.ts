@@ -6,11 +6,23 @@ import UserInfo from "../../props/UserInfo";
 import addRemoveItemFromArray from "../../scripts/addRemoveItemFromArray";
 import batchWrite from "../../scripts/batchWrite";
 import getStreak from "../../scripts/getStreak";
-import transation from "../../scripts/transation";
+import transaction from "../../scripts/transaction";
 import uniqueArray from "../../scripts/uniqueArray";
 import updateTimedTask from "./updateTimedTask";
 
-export default async function markAsDone(task: Task, user: UserInfo) {
+export interface markAsDoneProps {
+  rewardRefList: {
+    rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+    checklist: string[];
+  }[];
+  user: UserInfo;
+  task: Task;
+}
+
+export default async function markAsDone(
+  task: Task,
+  user: UserInfo
+): Promise<markAsDoneProps> {
   const dateId = dayjs().hour(0).minute(0).second(0).millisecond(0).valueOf();
   const currentStreak = getStreak(task);
   const { rewards, id, timed, done } = task;
@@ -20,7 +32,7 @@ export default async function markAsDone(task: Task, user: UserInfo) {
   }[] = [];
 
   if (rewards && rewards.length) {
-    transation((db, t) => {
+    transaction((db, t) => {
       rewards.forEach(async (rewardId) => {
         const rewardRef = db
           .collection("user")

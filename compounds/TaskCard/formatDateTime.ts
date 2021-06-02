@@ -58,8 +58,8 @@ const formatMonths = (weekdays: any[]) => {
   return dayString;
 };
 
-export default function formatDateTime(item: Task, taskType: string) {
-  let {
+export default function formatDateTime(item: Task, taskType: string): string {
+  const {
     repeat,
     time,
     date,

@@ -9,7 +9,7 @@ import batchWrite from "../../scripts/batchWrite";
 import createData from "../../scripts/createData";
 import removeItemFromArray from "../../scripts/removeItemFromArray";
 import toMS from "../../scripts/toMS";
-import transation from "../../scripts/transation";
+import transaction from "../../scripts/transaction";
 import Button from "../../atoms/Button";
 
 const initialState: RewardProps = {
@@ -28,7 +28,7 @@ export default function EditableReward({
 }: {
   init: RewardProps;
   toggleEdit: () => void;
-}) {
+}): JSX.Element {
   const [value, setValue] = useState(initialState);
   const [initialValues, setInitialValues] = useState(initialState);
   const { user } = useUser();
@@ -93,7 +93,7 @@ export default function EditableReward({
       taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       taskList: any;
     }[] = [];
-    transation((db, t) => {
+    transaction((db, t) => {
       // all initial tasks
       initialValues.task.forEach(async (task) => {
         // task is not in the current reward
@@ -155,7 +155,7 @@ export default function EditableReward({
     }[] = [];
 
     // get list of tasks
-    transation((db, t) => {
+    transaction((db, t) => {
       initialValues.task.forEach(async (task) => {
         const taskRef = db
           .collection("user")
@@ -210,7 +210,7 @@ export default function EditableReward({
     }[] = [];
 
     // get list of task to update
-    transation((db, t) => {
+    transaction((db, t) => {
       value.task.forEach(async (element) => {
         const taskRef = db
           .collection("user")
