@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
+import Line from "../../atoms/Line";
+import Spinner from "../../atoms/Spinner";
+import Stack from "../../atoms/Stack";
 import FormInput from "../../molecules/FormInput";
 import { signUpWithEmail } from "../../scripts/login";
-import Column, { Action } from "./Column";
 
-const SignUp = ({ onClose }: { onClose: () => void }) => {
+const SignUp = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
     repassword: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const signUp = () => {
-    signUpWithEmail(credentials, onClose);
+    signUpWithEmail(credentials, () => {
+      setLoading(true);
+    });
   };
 
   const { email, password, repassword } = credentials;
   const active = email !== "" && password !== "" && password === repassword;
   return (
-    <Column>
+    <Stack>
       <FormInput
         label="email"
         value={email}
@@ -54,15 +59,27 @@ const SignUp = ({ onClose }: { onClose: () => void }) => {
           })
         }
       />
-      <Action>
-        <Button variant="primary" disabled={!active} onClick={signUp}>
+      <Line style={{ justifyContent: "flex-end" }}>
+        <Button
+          variant="primary"
+          disabled={!active}
+          onClick={signUp}
+          style={{
+            marginRight: "0.4rem",
+          }}
+          iconLeft={loading && <Spinner size="2rem" />}
+        >
           submit
         </Button>
-        <Button onClick={onClose} variant="error">
+        <Button
+          onClick={onClose}
+          variant="error"
+          iconLeft={loading && <Spinner size="2rem" />}
+        >
           close
         </Button>
-      </Action>
-    </Column>
+      </Line>
+    </Stack>
   );
 };
 

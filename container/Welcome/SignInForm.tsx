@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { FaGoogle } from "react-icons/fa";
 import Button from "../../atoms/Button";
-import AuthButton from "../../compounds/AuthButton";
+import H2 from "../../atoms/H2";
+import Line from "../../atoms/Line";
+import Link from "../../atoms/Link";
+import Stack from "../../atoms/Stack";
 import { loginWithGoogle } from "../../scripts/login";
-import { Header } from "./Column";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -18,25 +21,37 @@ export interface SignInProps {
   repassword?: string;
 }
 
-const SignInForm = ({ onClose, isNew, setIsNew }: SignInFormProps) => {
-  const title = isNew ? "Sign Up" : "Sign In";
+const SignInForm = ({
+  onClose,
+  isNew,
+  setIsNew,
+}: SignInFormProps): JSX.Element => {
+  const title = isNew ? "signUp" : "signIn";
   const login = () => {
     loginWithGoogle(onClose);
   };
+
   return (
-    <div>
-      <Header>{title}</Header>
-      <div>
-        <AuthButton onClick={login} />
-        <Button
-          // variant="link" href="#"
-          onClick={setIsNew}
-        >
-          {isNew ? "Already a user?" : "New user?"}
-        </Button>
+    <Stack>
+      <H2>{title}</H2>
+      <Stack>
+        <Line style={{ justifyContent: "space-around" }}>
+          <Button
+            onClick={login}
+            iconLeft={<FaGoogle style={{ marginRight: "0.2rem" }} />}
+            style={{
+              backgroundColor: "#dc4e41",
+              color: "white",
+              padding: "0.8rem",
+            }}
+          >
+            loginWithGoogle
+          </Button>
+        </Line>
+        <Link onClick={setIsNew}>{isNew ? "alreadyAUser?" : "newUser?"}</Link>
         {isNew ? <SignUp onClose={onClose} /> : <Login onClose={onClose} />}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 };
 

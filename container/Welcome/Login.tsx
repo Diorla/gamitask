@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
+import Line from "../../atoms/Line";
+import Spinner from "../../atoms/Spinner";
+import Stack from "../../atoms/Stack";
 import FormInput from "../../molecules/FormInput";
 import { loginWithEmail } from "../../scripts/login";
-import Column, { Action } from "./Column";
 
 const Login = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const login = () => {
-    loginWithEmail(credentials, onClose);
+    loginWithEmail(credentials, () => {
+      setLoading(true);
+    });
   };
 
   const { email, password } = credentials;
   const active = email !== "" && password !== "";
 
   return (
-    <Column>
+    <Stack>
       <FormInput
         label="email"
-        placeholder="Email"
+        placeholder="email"
         onChange={(e: any) =>
           setCredentials({
             ...credentials,
@@ -42,15 +47,28 @@ const Login = ({ onClose }: { onClose: () => void }): JSX.Element => {
         }
         value="password"
       />
-      <Action>
-        <Button variant="primary" disabled={!active} onClick={login}>
+      <Line style={{ justifyContent: "flex-end" }}>
+        <Button
+          variant="primary"
+          disabled={loading || !active}
+          onClick={login}
+          style={{
+            marginRight: "0.4rem",
+          }}
+          iconLeft={loading && <Spinner size="2rem" />}
+        >
           submit
         </Button>
-        <Button onClick={onClose} variant="error">
+        <Button
+          onClick={onClose}
+          variant="error"
+          disabled={loading}
+          iconLeft={loading && <Spinner size="2rem" />}
+        >
           close
         </Button>
-      </Action>
-    </Column>
+      </Line>
+    </Stack>
   );
 };
 
