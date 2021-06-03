@@ -24,6 +24,9 @@ const Wrapper = styled.button<{ variant?: variant }>`
   &:hover {
     box-shadow: ${({ theme }) => theme.elevation[1]};
   }
+  &:disabled {
+    opacity: 0.6;
+  }
 `;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

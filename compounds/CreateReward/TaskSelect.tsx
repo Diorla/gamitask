@@ -30,7 +30,7 @@ export default function TaskSelect({
       options={options}
       placeholder={intl.formatMessage({
         id: "selectTask",
-        defaultMessage: "Select one or more tasks",
+        defaultMessage: "selectTask",
       })}
     />
   );
