@@ -3,6 +3,10 @@ import { toast } from "react-toastify";
 import TaskProps from "../../props/Task";
 import { useUser } from "../userContext";
 import getTaskList from "../../services/getTaskList";
+import Task from "../../props/Task";
+
+const sortAlphabetically = (prev: Task, next: Task) =>
+  prev.name.toLowerCase() > next.name.toLowerCase() ? 1 : -1;
 
 export const TaskListContext = createContext<{
   taskList: TaskProps[];
@@ -25,8 +29,9 @@ export default function TaskListContextWrapper({
         .catch((err) => toast.error(err));
   }, [user]);
 
+  const sortedTask = taskList.sort(sortAlphabetically);
   return (
-    <TaskListContext.Provider value={{ taskList, loadingTask }}>
+    <TaskListContext.Provider value={{ taskList: sortedTask, loadingTask }}>
       {children}
     </TaskListContext.Provider>
   );

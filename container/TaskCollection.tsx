@@ -15,14 +15,14 @@ export default function TaskCollection({
   title,
 }: {
   data: Task[];
-  type: string;
+  type: "today" | "others";
   title: string;
 }): JSX.Element | null {
   const {
     user: { runningTask },
   } = useUser();
 
-  const isCurrent = type === "today" || type === "overdue";
+  const isCurrent = type === "today";
   if (data && data.length)
     return (
       <div>

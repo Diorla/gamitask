@@ -32,7 +32,7 @@ const Circle = styled.circle<{ color?: string }>`
   stroke-dasharray: 187;
   stroke-dashoffset: 0;
   transform-origin: center;
-  stroke: ${({ color = "white" }) => color};
+  stroke: ${({ color, theme }) => color || theme.palette.primary.main};
   animation: ${dash} 1.4s ease-in-out infinite;
 `;
 

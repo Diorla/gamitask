@@ -4,6 +4,7 @@ import RunningTask from "../../compounds/TaskCard/RunningTask";
 import Drawer from "../../compounds/Drawer";
 import Welcome from "../Welcome";
 import { Content } from "./Content";
+import NonTaskContainer from "./NonTaskContainer";
 
 export default function Control({
   uid,
@@ -20,7 +21,8 @@ export default function Control({
 }): JSX.Element {
   const [showDrawer, setShowDrawer] = useState(false);
   if (uid) {
-    if (hideMenu) return <div style={{ fontSize: "1.6rem" }}>{children}</div>;
+    if (hideMenu)
+      return <NonTaskContainer title={activePath}>{children}</NonTaskContainer>;
     return (
       <div style={{ fontSize: "1.6rem" }}>
         <Menu onClick={() => setShowDrawer(!showDrawer)} />

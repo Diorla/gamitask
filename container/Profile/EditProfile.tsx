@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import React from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Container from "./Container";
 import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
 import UploadImage from "../../compounds/UploadImage";
@@ -54,7 +53,7 @@ export default function EditProfile({
   };
 
   return (
-    <Container>
+    <>
       <UploadImage
         imageUrl={profileImage}
         setImage={(val) => updateValue({ profileImage: val })}
@@ -100,17 +99,17 @@ export default function EditProfile({
         />
         <Line style={{ justifyContent: "flex-end" }}>
           <Button
-            onClick={closeEdit}
-            variant="error"
+            onClick={saveUser}
+            variant="success"
             style={{ marginRight: "0.4rem" }}
           >
-            cancel
-          </Button>
-          <Button onClick={saveUser} variant="success">
             save
+          </Button>
+          <Button onClick={closeEdit} variant="error">
+            cancel
           </Button>
         </Line>
       </Form>
-    </Container>
+    </>
   );
 }

@@ -48,14 +48,14 @@ export default function Projects(): JSX.Element {
                     key={idx}
                     data={projectCollection[item]}
                     title={item}
-                    type="upcoming"
+                    type="others"
                   />
                 );
             })}
           <TaskCollection
             data={projectCollection["Unsorted"]}
             title={noProject}
-            type="upcoming"
+            type="others"
           />
         </>
       )}

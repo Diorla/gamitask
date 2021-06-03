@@ -1,11 +1,10 @@
-import Container from "./Container";
-import ProfileImage from "./ProfileImage";
 import { useUser } from "../../context/userContext";
 import React from "react";
 import FormInput from "../../molecules/FormInput";
 import Form from "../../atoms/Form";
 import Line from "../../atoms/Line";
 import Button from "../../atoms/Button";
+import Avatar from "../../atoms/Avatar";
 
 export default function ReadProfile({
   openEdit,
@@ -26,8 +25,8 @@ export default function ReadProfile({
   } = useUser();
   const imageUrl = profileImage || "./profile.png";
   return (
-    <Container>
-      <ProfileImage src={imageUrl} alt="User profile" />
+    <>
+      <Avatar size="10rem" src={imageUrl} alt="User profile" />
       <Form>
         <FormInput
           label="personName"
@@ -80,6 +79,6 @@ export default function ReadProfile({
           </Button>
         </Line>
       </Form>
-    </Container>
+    </>
   );
 }
