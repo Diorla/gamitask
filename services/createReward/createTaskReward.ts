@@ -10,7 +10,7 @@ const createTaskReward = (
   userId: string,
   callback: () => void
 ): void => {
-  const id = v4();
+  const id = reward.id || v4();
   const taskRefList: {
     taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
     rewardList: any[];

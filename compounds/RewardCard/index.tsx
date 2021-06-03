@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RewardProps from "../../props/Reward";
-import EditableReward from "./EditableReward";
+import EditReward from "./EditReward";
 import TaskReward from "./TaskReward";
 import TimeReward from "./TimeReward";
 
@@ -18,7 +18,10 @@ export default function RewardCard({
   const [editable, setEditable] = useState(false);
   if (editable)
     return (
-      <EditableReward init={rewardInfo} toggleEdit={() => setEditable(false)} />
+      <EditReward
+        initValue={rewardInfo}
+        toggleEdit={() => setEditable(false)}
+      />
     );
 
   if (rewardInfo.type === "task")

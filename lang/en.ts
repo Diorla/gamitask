@@ -112,4 +112,5 @@ export default {
   remove: "Remove",
   lastDone: "Last done",
   points: "Points",
+  updateReward: "Update Reward",
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import { StrikeThrough, Row } from "./Styled";
+import Line from "../../atoms/Line";
+import { StrikeThrough } from "./Styled";
 
 const Checked = ({
   active,
@@ -15,10 +16,10 @@ const Checked = ({
       <span>{children}</span>
     </StrikeThrough>
   ) : (
-    <Row>
+    <Line>
       <MdCheckBoxOutlineBlank />
       <span>{children}</span>
-    </Row>
+    </Line>
   );
 
 export default Checked;

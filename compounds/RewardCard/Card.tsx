@@ -11,13 +11,14 @@ import deleteData from "../../scripts/deleteData";
 import removeItemFromArray from "../../scripts/removeItemFromArray";
 import transaction from "../../scripts/transaction";
 import Modal from "../Modal";
-import { Wrapper, Left, Title, Centre, Right } from "./Styled";
+import { Left, Title, Centre } from "./Styled";
 import StyledNote from "../StyledNote";
 import Card from "../../atoms/Card";
 import Line from "../../atoms/Line";
 import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
 import Stack from "../../atoms/Stack";
+import MarkAsDone from "./MarkAsDone";
 dayjs.extend(relativeTime);
 
 export default function RewardCard({
@@ -90,7 +91,7 @@ export default function RewardCard({
   };
   return (
     <Card style={{ marginBottom: "1.2rem" }}>
-      <Wrapper disabled={disabled}>
+      <Line>
         <Left>
           <Title onClick={() => setCollapse(!collapse)}>{title}</Title>
           {collapse ? null : (
@@ -125,16 +126,10 @@ export default function RewardCard({
             </>
           )}
         </Left>
-        {disabled ? (
-          <Right className="disabled">
-            <MdCheck />
-          </Right>
-        ) : (
-          <Right onClick={onCheck} className="enabled">
-            <MdCheck />
-          </Right>
-        )}
-      </Wrapper>
+        <MarkAsDone disabled={disabled} onClick={onCheck}>
+          <MdCheck />
+        </MarkAsDone>
+      </Line>
       <Modal
         visible={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}

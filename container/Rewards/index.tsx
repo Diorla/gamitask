@@ -9,7 +9,7 @@ import Line from "../../atoms/Line";
 import initialState from "./initialState";
 import fetchRewards from "./fetchRewards";
 import consumeReward from "./consumeReward";
-import { createNewReward } from "./createNewReward";
+import { createReward } from "../../services/createReward";
 import Stack from "../../atoms/Stack";
 import Text from "../../atoms/Text";
 import Spinner from "../../atoms/Spinner";
@@ -66,7 +66,7 @@ export default function Rewards(): JSX.Element {
             <Line style={{ justifyContent: "space-around" }}>
               <Button
                 onClick={() =>
-                  createNewReward(value, user, setValue, setIsAddVisible)
+                  createReward(value, user, setValue, setIsAddVisible)
                 }
                 variant="secondary"
               >

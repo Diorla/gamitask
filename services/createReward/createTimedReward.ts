@@ -7,8 +7,8 @@ const createTimedReward = (
   reward: Reward,
   userId: string,
   callback: () => void
-) => {
-  const id = v4();
+): void => {
+  const id = reward.id || v4();
   createData("user", `${userId}/rewards/${id}`, {
     id,
     ...reward,
