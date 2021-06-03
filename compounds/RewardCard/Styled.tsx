@@ -21,21 +21,6 @@ export const Left = styled.div`
   padding: 0.8rem;
 `;
 
-export const Right = styled.div`
-  padding: 0 0.4rem;
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-`;
-
-export const Title = styled.div`
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-`;
-
 export const Centre = styled.div`
   padding-left: 0.4rem;
   color: ${({ theme }) => theme.palette.secondary.main};

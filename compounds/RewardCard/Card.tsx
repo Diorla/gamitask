@@ -11,7 +11,7 @@ import deleteData from "../../scripts/deleteData";
 import removeItemFromArray from "../../scripts/removeItemFromArray";
 import transaction from "../../scripts/transaction";
 import Modal from "../Modal";
-import { Left, Title, Centre } from "./Styled";
+import { Left, Centre } from "./Styled";
 import StyledNote from "../StyledNote";
 import Card from "../../atoms/Card";
 import Line from "../../atoms/Line";
@@ -93,7 +93,12 @@ export default function RewardCard({
     <Card style={{ marginBottom: "1.2rem" }}>
       <Line>
         <Left>
-          <Title onClick={() => setCollapse(!collapse)}>{title}</Title>
+          <h4
+            style={{ margin: 0, cursor: "pointer" }}
+            onClick={() => setCollapse(!collapse)}
+          >
+            {title}
+          </h4>
           {collapse ? null : (
             <>
               <Centre>{children}</Centre>
