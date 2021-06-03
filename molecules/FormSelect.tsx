@@ -17,7 +17,7 @@ export default function FormSelect({
   onChange?: (e: any) => void;
   disabled?: boolean;
   list: { label: string; value: string }[];
-}) {
+}): JSX.Element {
   const id = "id" + Math.floor(Math.random() * 1000000);
   const intl = useIntl();
   return (

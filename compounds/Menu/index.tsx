@@ -4,7 +4,7 @@ import Nav from "../../atoms/Nav";
 import { MenuIcon, AddIcon } from "../../atoms/MenuIcon";
 import Dropdown from "../Dropdown";
 import Link from "next/link";
-import CreateTask from "../CreateTask";
+import CreateTask from "../../container/CreateTask";
 import Modal from "../Modal";
 import { useTaskState, useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";

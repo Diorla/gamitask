@@ -7,29 +7,23 @@ import FormInput from "../../molecules/FormInput";
 import Line from "../../atoms/Line";
 import { contrastColor } from "../../scripts/color-functions";
 import Stack from "../../atoms/Stack";
+import variantProps from "../../props/variantProps";
 
 const trim = (str: string) => str.trim();
 
 const removeEmpty = (str: string) => !!str;
-const Badge = styled.span`
+const Badge = styled.span<{ variant?: variantProps }>`
   display: inline-block;
   margin: 0.2rem;
-  background: ${({ theme }) => theme.palette.primary.main};
-  color: ${({ theme }) => contrastColor(theme.palette.primary.main)};
-  padding: 0.2rem;
+  background: ${({ theme, variant = "primary" }) =>
+    theme.palette[variant].main};
+  color: ${({ theme, variant = "primary" }) =>
+    contrastColor(theme.palette[variant].main)};
+  padding: 0.2rem 0.4rem;
   font-size: 1.4rem;
   border-radius: 0.4rem;
 `;
 
-const ExtBadge = styled(Badge)`
-  background: ${({ theme }) => theme.palette.secondary.main};
-  color: ${({ theme }) => contrastColor(theme.palette.secondary.main)};
-  cursor: pointer;
-  &:hover {
-    background: ${({ theme }) => theme.palette.secondary.light};
-    color: ${({ theme }) => contrastColor(theme.palette.secondary.light)};
-  }
-`;
 export default function Label(): JSX.Element {
   const taskDispatch = useTaskDispatch();
   const task = useTaskState();
@@ -45,26 +39,27 @@ export default function Label(): JSX.Element {
       })
     );
 
-  const addTolabel = (label: string) => {
+  const addToLabel = (label: string) => {
     if (task.labels.includes(label)) return 0;
     const full = `${label}, ${task.labels}`;
     setLabel(full);
   };
   return (
     <Stack>
-      <Line>
+      <Line style={{ flexWrap: "wrap" }}>
         {labels &&
           labels
             .map(trim)
             .filter(removeEmpty)
             .map((item: any, idx: any) => (
-              <ExtBadge
+              <Badge
+                variant="secondary"
                 key={idx}
-                onClick={() => addTolabel(item)}
+                onClick={() => addToLabel(item)}
                 style={{ cursor: "pointer" }}
               >
                 {item}
-              </ExtBadge>
+              </Badge>
             ))}
       </Line>
       <FormInput
@@ -75,7 +70,7 @@ export default function Label(): JSX.Element {
         }
         placeholder="labels"
       />
-      <Line>
+      <Line style={{ flexWrap: "wrap" }}>
         {task.labels &&
           task.labels
             .split(",")
