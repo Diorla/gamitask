@@ -110,4 +110,6 @@ export default {
   noLabel: "No label",
   selectImage: "Select Image",
   remove: "Remove",
+  lastDone: "Last done",
+  points: "Points",
 };
