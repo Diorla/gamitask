@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
   z-index: 2;
 `;
 
-export default function RunningTask() {
+export default function RunningTask(): JSX.Element {
   const [count, setCount] = useState(0);
 
   const { user } = useUser();

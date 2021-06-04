@@ -1,10 +1,10 @@
 import React from "react";
 import { toast } from "react-toastify";
+import Stack from "../atoms/Stack";
 import Task from "../props/Task";
 import deleteData from "../scripts/deleteData";
 import createTask from "../services/createTask";
 import Modal from "./Modal";
-import { ModalChild } from "./TaskCard/Styled";
 import ToastControl from "./ToastControl";
 
 export default function EditCard({
@@ -40,7 +40,7 @@ export default function EditCard({
       onClose={() => setShowDeleteModal(false)}
       width={32}
     >
-      <ModalChild>
+      <Stack>
         <h2 style={{ textAlign: "center" }}>
           Delete <span>{name}</span>
         </h2>
@@ -50,7 +50,7 @@ export default function EditCard({
           <button onClick={deleteTask}>Yes</button>
           <button onClick={() => setShowDeleteModal(false)}>No</button>
         </div>
-      </ModalChild>
+      </Stack>
     </Modal>
   );
 }

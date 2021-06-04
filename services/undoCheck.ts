@@ -1,7 +1,7 @@
-import Task from "../../props/Task";
-import UserInfo from "../../props/UserInfo";
-import transation from "../../scripts/transaction";
-import firebase from "../../firebase/clientApp";
+import Task from "../props/Task";
+import UserInfo from "../props/UserInfo";
+import transaction from "../scripts/transaction";
+import firebase from "../firebase/clientApp";
 
 type rewardRefs = {
   rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
@@ -15,7 +15,7 @@ export default function undoCheck(
 ): void {
   const { uid } = user;
   const { id } = task;
-  transation((db, t) => {
+  transaction((db, t) => {
     const taskRef = db.collection("user").doc(`${uid}/tasks/${id}`);
     const userRef = db.collection("user").doc(`${uid}`);
     rewardRefList.map((item) => {

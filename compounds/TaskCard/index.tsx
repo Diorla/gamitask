@@ -3,22 +3,22 @@ import { useUser } from "../../context/userContext";
 import createData from "../../scripts/createData";
 import PlayStop from "./PlayStop";
 import { toast } from "react-toastify";
-import formatDateTime from "./formatDateTime";
+import formatDateTime from "../../services/formatDateTime";
 import Checkbox from "../Checkbox";
 import { useTaskDispatch } from "../../context/taskContext";
 import { addTask } from "../../context/taskContext/actions";
 import Task from "../../props/Task";
-import { Difficulty, Flag } from "./Styled";
+import { Difficulty, Flag } from "./PriorityDifficultyIcon";
 import { getDayBegin } from "../../scripts/datetime-utils";
 import formatMSToCountDown from "../../scripts/formatMSToCountDown";
 import closeTask from "../../services/closeTask";
-import ToastControl from "../ToastControl";
-import markAsDone from "../../services/markAsDone";
-import undoCheck from "../../services/markAsDone/undoCheck";
 import EditCard from "../EditCard";
 import Line from "../../atoms/Line";
 import Card from "../../atoms/Card";
 import Expanded from "./Expanded";
+import startRunningTask from "../../services/startRunningTask";
+import archiveTask from "../../services/archiveTask";
+import checkDone from "../../services/checkDone";
 
 const TaskCard = ({
   data,
@@ -36,11 +36,9 @@ const TaskCard = ({
     priority,
     difficulty,
     countdowns,
-    done,
     labels,
     project,
     archive,
-    repeat,
     note,
     timed,
   } = data;
@@ -77,47 +75,8 @@ const TaskCard = ({
   };
 
   const beginTask = () => {
-    if (runningTask.id) closeTask(user, startRunningTask);
-    else startRunningTask();
-  };
-
-  const startRunningTask = () => {
-    const startTime = Date.now();
-    createData("user", user.uid, {
-      runningTask: {
-        id,
-        name,
-        priority,
-        difficulty,
-        startTime,
-        countdowns,
-      },
-    }).catch((err) => toast.error(err));
-  };
-
-  const archiveTask = () => {
-    const isUpdateDone = archive && !repeat;
-    createData("user", `${user.uid}/tasks/${id}`, {
-      archive: archive ? 0 : Date.now(),
-      done: isUpdateDone ? [] : done,
-    })
-      .then(() => {
-        if (archive) toast.info(`${name} is removed from archive`);
-        else toast.warn(`${name} is archived`);
-      })
-      .catch((err) => toast.error(err));
-  };
-
-  const checkDone = () => {
-    markAsDone(data, user).then((e) => {
-      const { rewardRefList, task, user } = e;
-      toast.info(
-        <ToastControl
-          message={`${name} completed`}
-          undo={() => undoCheck(rewardRefList, user, task)}
-        />
-      );
-    });
+    if (runningTask.id) closeTask(user, () => startRunningTask(data, user));
+    else startRunningTask(data, user);
   };
 
   const isCurrent = type === "today" || type === "overdue";
@@ -150,7 +109,9 @@ const TaskCard = ({
           {!isArchive && timed && isCurrent && (
             <PlayStop running={false} toggleRunning={beginTask} />
           )}
-          {isCurrent && <Checkbox onChange={checkDone} checked={false} />}
+          {isCurrent && (
+            <Checkbox onChange={() => checkDone(data, user)} checked={false} />
+          )}
           <h4 style={{ margin: 0, padding: 0 }}>{name}</h4>
         </Line>
         <Line style={{ justifyContent: "flex-end", flexGrow: 0 }}>
@@ -161,7 +122,7 @@ const TaskCard = ({
       {showFullDetails && (
         <Expanded
           archive={archive}
-          archiveTask={archiveTask}
+          archiveTask={() => archiveTask(data, user)}
           editTask={editTask}
           setShowDeleteModal={setShowDeleteModal}
           showDeleteModal={showDeleteModal}
