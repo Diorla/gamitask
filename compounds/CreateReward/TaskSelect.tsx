@@ -1,9 +1,7 @@
 import { useIntl } from "react-intl";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import { useTaskList } from "../../context/taskListContext";
-
-const animatedComponents = makeAnimated();
+import animatedComponents from "./animatedComponents";
 
 export default function TaskSelect({
   value,

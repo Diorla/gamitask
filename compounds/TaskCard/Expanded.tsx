@@ -3,7 +3,7 @@ import { MdArchive, MdEdit, MdDelete } from "react-icons/md";
 import Button from "../../atoms/Button";
 import Line from "../../atoms/Line";
 import Stack from "../../atoms/Stack";
-import StyledNote from "../StyledNote";
+import StyledNote from "../../atoms/StyledNote";
 import { ProjectName, Label } from "./Styled";
 
 export default function Expanded({

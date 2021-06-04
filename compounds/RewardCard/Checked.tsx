@@ -1,7 +1,7 @@
 import React from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import Line from "../../atoms/Line";
-import { StrikeThrough } from "./Styled";
+import StrikeThrough from "./StrikeThrough";
 
 const Checked = ({
   active,
@@ -16,7 +16,7 @@ const Checked = ({
       <span>{children}</span>
     </StrikeThrough>
   ) : (
-    <Line>
+    <Line style={{ alignItems: "center" }}>
       <MdCheckBoxOutlineBlank />
       <span>{children}</span>
     </Line>

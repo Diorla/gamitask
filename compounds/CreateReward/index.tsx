@@ -3,31 +3,10 @@ import Stack from "../../atoms/Stack";
 import FormInput from "../../molecules/FormInput";
 import FormSelect from "../../molecules/FormSelect";
 import FormTextArea from "../../molecules/FormTextArea";
+import CreateRewardProps from "./CreateRewardProps";
+import rewardTypeList from "./rewardTypeList";
 import TaskSelect from "./TaskSelect";
 import TimerSelect from "./TimeSelect";
-
-const rewardTypeList = [
-  {
-    label: "pointBased",
-    value: "timed",
-  },
-  {
-    label: "taskBased",
-    value: "task",
-  },
-];
-export interface CreateRewardProps {
-  onChangeName: (e: any) => void;
-  onChangeType: (e: any) => void;
-  onChangeTime: (e: any) => void;
-  onChangeTask: (e: any[]) => void;
-  onChangeNote: (e: any) => void;
-  name: string;
-  time: number;
-  type: "timed" | "task";
-  task: any[];
-  note: string;
-}
 
 export default function CreateReward({
   name,

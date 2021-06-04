@@ -123,7 +123,7 @@ const TaskCard = ({
   const isCurrent = type === "today" || type === "overdue";
   const isArchive = type === "archive";
   return (
-    <Card style={{ marginBottom: "0.4rem", padding: "0.4rem" }}>
+    <Card style={{ marginBottom: "1.6rem", padding: "0.4rem" }}>
       <EditCard
         name={name}
         setShowDeleteModal={setShowDeleteModal}

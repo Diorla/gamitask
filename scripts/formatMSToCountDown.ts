@@ -1,9 +1,10 @@
-type numberType = {
+export type numberType = {
   hh: number;
   mm: number;
   ss: number;
 };
-type stringType = {
+
+export type stringType = {
   hh: string;
   mm: string;
   ss: string;

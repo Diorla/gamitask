@@ -12,11 +12,7 @@ import { useUser } from "../../context/userContext";
 import getTodayPoints from "../../scripts/getTodayPoints";
 import createData from "../../scripts/createData";
 import { toast } from "react-toastify";
-
-const Right = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import Line from "../../atoms/Line";
 
 const StyledLink = styled.a<{ variant?: string }>`
   color: ${({ theme }) => theme.palette.default.main};
@@ -50,6 +46,11 @@ export default function Menu({
       previousLevel,
     },
   } = useUser();
+
+  /**
+   * For opening "Create Task"
+   * @returns void
+   */
   const openModal = () =>
     taskDispatch(
       addTask({
@@ -60,12 +61,19 @@ export default function Menu({
   const todayPoints = getTodayPoints(dailyPoints);
   const remainPoints = todayPoints - dailyGoal;
   const colourCode = remainPoints > 0 ? "success" : "error";
+
   // log2 of 0 -Infinity, while log2 of 1 is 0;
   // 1 is the minimum level
   const level = Math.floor(Math.log2(lifetimeHours + 1)) + 1;
   const previousLevelValue = previousLevel.value;
 
-  // Inform user when they reach new level
+  /**
+   * Inform user when they reach new level
+   * And it will also update backend data
+   * First test if current level is greater than registered level
+   * Note, even though initialState is 0, it won't affect it because
+   * without uid (and real level loaded), menu will never be registered
+   */
   if (previousLevelValue < level) {
     createData("user", `${uid}`, {
       previousLevel: {
@@ -82,14 +90,14 @@ export default function Menu({
       <Modal visible={Boolean(task.showModal)} onClose={() => ""} width={32}>
         <CreateTask />
       </Modal>
-      <Right>
+      <Line style={{ alignItems: "center", justifyContent: "flex-end" }}>
         <StyledLink>Lv-{level}</StyledLink>
         <Link href="/stats">
           <StyledLink variant={colourCode}>{Math.abs(remainPoints)}</StyledLink>
         </Link>
         <AddIcon onClick={openModal} />
         <Dropdown profileImage={profileImage} />
-      </Right>
+      </Line>
     </Nav>
   );
 }

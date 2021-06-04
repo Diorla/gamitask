@@ -22,7 +22,7 @@ export default function Dropdown({
   });
 
   return (
-    <Stack ref={ref}>
+    <Stack ref={ref} style={{ flex: 0 }}>
       <Avatar
         src={imageUrl}
         onClick={() => setShowDropDownMenu(!showDropDownMenu)}

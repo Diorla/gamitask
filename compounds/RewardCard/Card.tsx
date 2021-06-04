@@ -1,107 +1,52 @@
 import dayjs from "dayjs";
-import firebase from "firebase";
 import React, { useState } from "react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { MdCheck, MdDelete, MdEdit } from "react-icons/md";
-import { toast } from "react-toastify";
 import { useUser } from "../../context/userContext";
-import { taskInfo } from "../../props/Reward";
-import batchWrite from "../../scripts/batchWrite";
-import deleteData from "../../scripts/deleteData";
-import removeItemFromArray from "../../scripts/removeItemFromArray";
-import transaction from "../../scripts/transaction";
+import Reward from "../../props/Reward";
 import Modal from "../Modal";
-import { Left, Centre } from "./Styled";
-import StyledNote from "../StyledNote";
+import StyledNote from "../../atoms/StyledNote";
 import Card from "../../atoms/Card";
 import Line from "../../atoms/Line";
 import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
 import Stack from "../../atoms/Stack";
 import MarkAsDone from "./MarkAsDone";
+import confirmDeleteReward from "./confirmDeleteReward";
 dayjs.extend(relativeTime);
 
 export default function RewardCard({
   disabled,
-  title,
-  done,
   onCheck,
-  children,
   toggleEdit,
-  id,
-  taskList,
-  note,
+  reward,
+  children,
 }: {
   disabled: boolean;
-  title: string;
-  done: number[];
   onCheck: () => void;
   children: React.ReactNode;
   toggleEdit: () => void;
-  id?: string;
-  taskList?: taskInfo[];
-  note: string;
+  reward: Reward;
 }): JSX.Element {
   const [collapse, setCollapse] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { user } = useUser();
-  const deleteTask = () => {
-    if (taskList && taskList.length) {
-      const taskRefList: {
-        taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-        rewardList: any;
-      }[] = [];
-      transaction((db, t) => {
-        taskList.forEach(async (element) => {
-          const taskRef = db
-            .collection("user")
-            .doc(`${user.uid}/tasks/${element.value}`);
-          const taskDoc = await t.get(taskRef);
-          const data = taskDoc?.data();
-          const rewardList = data?.rewards || [];
-          taskRefList.push({ taskRef, rewardList });
-        });
-      })
-        .then(() => {
-          batchWrite((db, batch) => {
-            const rewardRef = db
-              .collection("user")
-              .doc(`${user.uid}/rewards/${id}`);
-            batch.delete(rewardRef);
+  const { name, done, note } = reward;
 
-            taskRefList.forEach((element) => {
-              const { taskRef, rewardList } = element;
-              batch.set(
-                taskRef,
-                { rewards: removeItemFromArray(id, rewardList) },
-                { merge: true }
-              );
-            });
-          });
-        })
-        .then(() => setShowDeleteModal(false))
-        .then(() => toast.warn(title + " deleted"))
-        .catch((err) => toast.error(err.message));
-    } else {
-      deleteData("user", `${user.uid}/rewards/${id}`)
-        .then(() => setShowDeleteModal(false))
-        .then(() => toast.warn(title + " deleted"))
-        .catch((err) => toast.error(err.message));
-    }
-  };
   return (
     <Card style={{ marginBottom: "1.2rem" }}>
       <Line>
-        <Left>
+        <Stack style={{ padding: "0.8rem" }}>
           <h4
             style={{ margin: 0, cursor: "pointer" }}
             onClick={() => setCollapse(!collapse)}
           >
-            {title}
+            {name}
           </h4>
           {collapse ? null : (
             <>
-              <Centre>{children}</Centre>
+              {children}
+              <StyledNote>{note}</StyledNote>
               <Line style={{ justifyContent: "space-between" }}>
                 <Line>
                   <Button
@@ -127,10 +72,9 @@ export default function RewardCard({
                     : "Never"}
                 </span>
               </Line>
-              <StyledNote>{note}</StyledNote>
             </>
           )}
-        </Left>
+        </Stack>
         <MarkAsDone disabled={disabled} onClick={onCheck}>
           <MdCheck />
         </MarkAsDone>
@@ -142,7 +86,7 @@ export default function RewardCard({
       >
         <Stack style={{ padding: "0.4rem" }}>
           <h2 style={{ textAlign: "center" }}>
-            <Text>delete</Text> <span>{title}</span>
+            <Text>delete</Text> <span>{name}</span>
           </h2>
           <Line>
             <Text>areYouSure</Text>?
@@ -152,7 +96,9 @@ export default function RewardCard({
           </Line>
           <Line style={{ justifyContent: "flex-end" }}>
             <Button
-              onClick={deleteTask}
+              onClick={() =>
+                confirmDeleteReward(reward, user, setShowDeleteModal)
+              }
               style={{ marginRight: "0.4rem" }}
               variant="error"
             >

@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
-import Checked from "./Checked";
 import RewardProps from "../../props/Reward";
+import Status from "./Status";
 
 const TaskReward = ({
   rewardInfo,
@@ -12,24 +12,16 @@ const TaskReward = ({
   onCheck: () => void;
   toggleEdit: () => void;
 }): JSX.Element => {
-  const { name, task, checklist = [], done = [] } = rewardInfo;
+  const { task, checklist = [] } = rewardInfo;
   const disabled = checklist?.length < task.length;
   return (
     <Card
       toggleEdit={toggleEdit}
-      title={name}
-      done={done}
       onCheck={onCheck}
       disabled={disabled}
-      id={rewardInfo.id}
-      taskList={rewardInfo.task}
-      note={rewardInfo.note}
+      reward={rewardInfo}
     >
-      {task.map((item, idx) => (
-        <Checked active={checklist?.includes(item.value)} key={idx}>
-          {item.label}
-        </Checked>
-      ))}
+      <Status data={task} checklist={checklist} />
     </Card>
   );
 };
