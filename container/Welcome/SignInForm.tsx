@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Button from "../../atoms/Button";
 import H2 from "../../atoms/H2";
 import Line from "../../atoms/Line";
 import Link from "../../atoms/Link";
+import Spinner from "../../atoms/Spinner";
 import Stack from "../../atoms/Stack";
 import { loginWithGoogle } from "../../scripts/login";
 import Login from "./Login";
@@ -26,9 +27,12 @@ const SignInForm = ({
   isNew,
   setIsNew,
 }: SignInFormProps): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const title = isNew ? "signUp" : "signIn";
   const login = () => {
-    loginWithGoogle(onClose);
+    loginWithGoogle(() => {
+      setLoading(true);
+    });
   };
 
   return (
@@ -38,12 +42,19 @@ const SignInForm = ({
         <Line style={{ justifyContent: "space-around" }}>
           <Button
             onClick={login}
-            iconLeft={<FaGoogle style={{ marginRight: "0.2rem" }} />}
+            iconLeft={
+              loading ? (
+                <Spinner size="2rem" />
+              ) : (
+                <FaGoogle style={{ marginRight: "0.2rem" }} />
+              )
+            }
             style={{
               backgroundColor: "#dc4e41",
               color: "white",
               padding: "0.8rem",
             }}
+            disabled={loading}
           >
             loginWithGoogle
           </Button>

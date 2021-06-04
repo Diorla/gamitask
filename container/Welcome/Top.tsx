@@ -23,11 +23,11 @@ export default function Top({
         <Link
           variant="primary"
           style={{ marginRight: "0.8rem", fontWeight: "bolder" }}
-          onClick={openNewUser}
+          onClick={openOldUser}
         >
           login
         </Link>
-        <Button variant="primary" onClick={openOldUser}>
+        <Button variant="primary" onClick={openNewUser}>
           join
         </Button>
       </Line>

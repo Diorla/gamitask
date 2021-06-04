@@ -28,7 +28,6 @@ const black = "#111111";
 const offwhite = "#dddddd";
 const gray = "#333333";
 
-const cornflowerblue = "cornflowerblue";
 const blue = "cornflowerblue";
 const purple = "#673ab7";
 
@@ -67,7 +66,7 @@ const palette: Palette = {
     text: black,
   },
   link: {
-    color: cornflowerblue,
+    main: blue,
     visited: purple,
     hover: blue,
     focus: blue,

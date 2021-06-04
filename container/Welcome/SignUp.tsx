@@ -23,7 +23,7 @@ const SignUp = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const { email, password, repassword } = credentials;
   const active = email !== "" && password !== "" && password === repassword;
   return (
-    <Stack>
+    <Stack style={{ padding: "0.8rem" }}>
       <FormInput
         label="email"
         value={email}

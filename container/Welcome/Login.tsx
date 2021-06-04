@@ -23,7 +23,7 @@ const Login = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const active = email !== "" && password !== "";
 
   return (
-    <Stack>
+    <Stack style={{ padding: "0.8rem" }}>
       <FormInput
         label="email"
         placeholder="email"
@@ -45,7 +45,7 @@ const Login = ({ onClose }: { onClose: () => void }): JSX.Element => {
             password: e.target.value,
           })
         }
-        value="password"
+        value={password}
       />
       <Line style={{ justifyContent: "flex-end" }}>
         <Button

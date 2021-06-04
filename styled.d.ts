@@ -58,7 +58,7 @@ declare module "styled-components" {
       text: string;
     };
     link: {
-      color: string;
+      main: string;
       visited?: string;
       hover?: string;
       focus?: string;

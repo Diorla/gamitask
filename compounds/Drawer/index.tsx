@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import DrawerWrapper from "./DrawerWrapper";
 import { MdArchive, MdToday } from "react-icons/md";
 import React from "react";
@@ -6,10 +5,7 @@ import { FaCalendarAlt, FaFlag, FaGift, FaTag } from "react-icons/fa";
 import { VscProject } from "react-icons/vsc";
 import { FcLowPriority } from "react-icons/fc";
 import DrawerItem from "../../molecules/DrawerItem";
-
-const Separator = styled.div<{ size?: number }>`
-  margin-top: ${({ size = 7 }) => size}rem;
-`;
+import Separator from "./Separator";
 
 export default function AppContainer({
   activePath,
