@@ -5,7 +5,7 @@ import firebase from "../firebase/clientApp";
 
 type rewardRefs = {
   rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-  checklist: string[];
+  checkedTaskIdList: string[];
 };
 
 export default function undoCheck(
@@ -20,7 +20,7 @@ export default function undoCheck(
     const userRef = db.collection("user").doc(`${uid}`);
     rewardRefList.map((item) => {
       t.update(item.rewardRef, {
-        checklist: item.checklist,
+        checkedTaskIdList: item.checkedTaskIdList,
       });
     });
     t.update(userRef, user);

@@ -39,7 +39,7 @@ export default function TaskButton(): JSX.Element | null {
 
     if (!isValid) {
       toast.error(message);
-      return 0;
+      return;
     }
 
     const labelList = dataLabels
@@ -52,9 +52,14 @@ export default function TaskButton(): JSX.Element | null {
       const id = data.id || v4();
       const userRef = db.collection("user").doc(user.uid);
       const taskRef = db.doc(`user/${user.uid}/tasks/${id}`);
-      t.update(userRef, {
-        labels: uniqueArray([...labels, ...labelList]),
-      });
+      t.set(
+        userRef,
+        {
+          labels: uniqueArray([...labels, ...labelList]),
+        },
+        { merge: true }
+      );
+
       const updateData = {
         ...data,
         labels: data.labels

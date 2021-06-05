@@ -9,7 +9,7 @@ export default function consumeTimeReward(
   user: UserInfo
 ): void {
   const { pointsPerHour, totalPoints } = user;
-  const { time, name, done = [], id } = taskInfo;
+  const { time, name, doneList = [], id } = taskInfo;
   const timeToPoints = (time * pointsPerHour) / toMS(1, "hour");
 
   batchWrite((db, batch) => {
@@ -19,7 +19,7 @@ export default function consumeTimeReward(
     });
     const rewardRef = db.collection("user").doc(`${user.uid}/rewards/${id}`);
     batch.update(rewardRef, {
-      done: [...done, Date.now()],
+      doneList: [...doneList, Date.now()],
     });
   })
     .then(() => toast.info(`${name} done`))

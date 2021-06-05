@@ -63,8 +63,7 @@ export default function Menu({
   const colourCode = remainPoints > 0 ? "success" : "error";
 
   // log2 of 0 -Infinity, while log2 of 1 is 0;
-  // 1 is the minimum level
-  const level = Math.floor(Math.log2(lifetimeHours + 1)) + 1;
+  const level = Math.floor(Math.log2(lifetimeHours + 1));
   const previousLevelValue = previousLevel.value;
 
   /**
@@ -91,7 +90,8 @@ export default function Menu({
         <CreateTask />
       </Modal>
       <Line style={{ alignItems: "center", justifyContent: "flex-end" }}>
-        <StyledLink>Lv-{level}</StyledLink>
+        {/* Minimum level is 0 */}
+        <StyledLink>Lv-{level + 1}</StyledLink>
         <Link href="/stats">
           <StyledLink variant={colourCode}>{Math.abs(remainPoints)}</StyledLink>
         </Link>

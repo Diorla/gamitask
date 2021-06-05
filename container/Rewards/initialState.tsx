@@ -5,9 +5,9 @@ const initialState: RewardProps = {
   name: "",
   time: toMS(0, "second"),
   type: "timed",
-  task: [],
+  taskList: [],
   point: 0,
-  done: [],
+  doneList: [],
   note: "",
 };
 export default initialState;

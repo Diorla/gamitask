@@ -7,6 +7,7 @@ import { createReward } from "../../services/createReward";
 import { useUser } from "../../context/userContext";
 import Reward from "../../props/Reward";
 import CreateReward from "../CreateReward";
+import { useTaskList } from "../../context/taskListContext";
 
 export default function EditReward({
   initValue,
@@ -17,6 +18,7 @@ export default function EditReward({
 }): JSX.Element {
   const [value, setValue] = useState(initValue);
   const { user } = useUser();
+  const { taskList } = useTaskList();
   return (
     <Card
       elevation={1}
@@ -34,14 +36,16 @@ export default function EditReward({
           onChangeType={(e) => setValue({ ...value, type: e.target.value })}
           time={value.time}
           onChangeTime={(ev) => setValue({ ...value, time: ev })}
-          task={value.task}
-          onChangeTask={(e) => setValue({ ...value, task: e })}
+          task={value.taskList}
+          onChangeTask={(e) => setValue({ ...value, taskList: e })}
           note={value.note}
           onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
         />
         <Line style={{ justifyContent: "flex-end" }}>
           <Button
-            onClick={() => createReward(value, user, setValue, toggleEdit)}
+            onClick={() =>
+              createReward(value, user, taskList, setValue, toggleEdit)
+            }
             variant="info"
             style={{ marginRight: "0.4rem" }}
           >

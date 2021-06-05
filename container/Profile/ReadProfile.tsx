@@ -23,7 +23,7 @@ export default function ReadProfile({
       dailyGoal,
     },
   } = useUser();
-  const imageUrl = profileImage || "./profile.png";
+  const imageUrl = profileImage || "../profile.png";
   return (
     <>
       <Avatar size="10rem" src={imageUrl} alt="User profile" />

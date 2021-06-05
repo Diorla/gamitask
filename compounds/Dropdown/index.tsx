@@ -13,7 +13,7 @@ export default function Dropdown({
 }: {
   profileImage: string;
 }): JSX.Element {
-  const imageUrl = profileImage || "./profile.png";
+  const imageUrl = profileImage || "../profile.png";
 
   const [showDropDownMenu, setShowDropDownMenu] = useState(false);
   const ref = useRef(null);

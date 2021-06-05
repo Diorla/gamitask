@@ -16,9 +16,9 @@ export default function confirmDeleteReward(
     (arg0: boolean): any;
   }
 ): void {
-  const { task, id, name } = reward;
+  const { taskList, id, name } = reward;
   // Task based reward
-  if (task && task.length) {
+  if (taskList && taskList.length) {
     const taskRefList: {
       taskRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
       rewardList: any;
@@ -32,10 +32,10 @@ export default function confirmDeleteReward(
      */
     // fetch the ref of all the tasks attached
     transaction((db, t) => {
-      task.forEach(async (element) => {
+      taskList.forEach(async (element) => {
         const taskRef = db
           .collection("user")
-          .doc(`${user.uid}/tasks/${element.value}`);
+          .doc(`${user.uid}/tasks/${element.taskId}`);
         const taskDoc = await t.get(taskRef);
         const data = taskDoc?.data();
         const rewardList = data?.rewards || [];

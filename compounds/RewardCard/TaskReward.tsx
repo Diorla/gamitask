@@ -12,8 +12,8 @@ const TaskReward = ({
   onCheck: () => void;
   toggleEdit: () => void;
 }): JSX.Element => {
-  const { task, checklist = [] } = rewardInfo;
-  const disabled = checklist?.length < task.length;
+  const { taskList = [], checkedTaskIdList = [] } = rewardInfo;
+  const disabled = checkedTaskIdList?.length < taskList.length;
   return (
     <Card
       toggleEdit={toggleEdit}
@@ -21,7 +21,7 @@ const TaskReward = ({
       disabled={disabled}
       reward={rewardInfo}
     >
-      <Status data={task} checklist={checklist} />
+      <Status data={taskList} checklist={checkedTaskIdList} />
     </Card>
   );
 };
