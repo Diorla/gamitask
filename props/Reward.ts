@@ -1,8 +1,3 @@
-export type taskInfo = {
-  label: string;
-  value: string;
-};
-
 export default interface Reward {
   /**
    * Unique id
@@ -28,17 +23,23 @@ export default interface Reward {
   /**
    * Keeps record of the task id and name, for task based rewards.
    */
-  task: taskInfo[];
+  taskList: TaskListProps[];
   /**
    * list of when the rewards were activated
    */
-  done: number[];
+  doneList: number[];
   /**
-   * The list of task that has been done, used in tasked rewards
+   * The list of task that has been done, used in tasked rewards.
+   * It should contain unique values
    */
-  checklist?: string[];
+  checkedTaskIdList?: string[];
   /**
    * Add note to reward
    */
   note: string;
+}
+
+export interface TaskListProps {
+  taskId: string;
+  taskName: string;
 }

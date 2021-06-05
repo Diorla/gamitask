@@ -13,7 +13,7 @@ import updateTimedTask from "./updateTimedTask";
 export interface markAsDoneProps {
   rewardRefList: {
     rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-    checklist: string[];
+    checkedTaskIdList: string[];
   }[];
   user: UserInfo;
   task: Task;
@@ -28,10 +28,12 @@ export default async function markAsDone(
   const { rewards, id, timed, done } = task;
   const rewardRefList: {
     rewardRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-    checklist: string[];
+    checkedTaskIdList: string[];
   }[] = [];
 
+  // See if the task has any rewards attached
   if (rewards && rewards.length) {
+    // Generate list of refs to rewards and checkedTaskIdList
     transaction((db, t) => {
       rewards.forEach(async (rewardId) => {
         const rewardRef = db
@@ -40,22 +42,26 @@ export default async function markAsDone(
 
         const rewardDoc = await t.get(rewardRef);
         const data = rewardDoc?.data();
-        const checklist = data?.checklist || [];
-        rewardRefList.push({ rewardRef, checklist });
+        const checkedTaskIdList = data?.checkedTaskIdList || [];
+        rewardRefList.push({ rewardRef, checkedTaskIdList });
       });
     })
       .then(() => {
         batchWrite((db, batch) => {
+          // update the rewards' checkedTaskIdList
           rewardRefList.forEach((item) => {
             const rewardRef = item.rewardRef;
             batch.update(rewardRef, {
-              checklist: uniqueArray([...item.checklist, id]),
+              checkedTaskIdList: uniqueArray([...item.checkedTaskIdList, id]),
             });
           });
           const taskRef = db.collection("user").doc(`${user.uid}/tasks/${id}`);
-          // if (!timed) updateTimedTask(db, batch, currentStreak);
+
+          // Update points for user based on streak if task is un-timed
           if (!timed)
             updateTimedTask(taskRef, batch, user, task, currentStreak);
+
+          // Update task
           batch.update(taskRef, {
             done: addRemoveItemFromArray(dateId, done),
             lastCompleted: Date.now(),
@@ -67,7 +73,10 @@ export default async function markAsDone(
   } else {
     batchWrite((db, batch) => {
       const taskRef = db.collection("user").doc(`${user.uid}/tasks/${id}`);
+      // Update points for user based on streak if task is un-timed
       if (!timed) updateTimedTask(taskRef, batch, user, task, currentStreak);
+
+      // Update task
       batch.update(taskRef, {
         done: addRemoveItemFromArray(dateId, done),
         lastCompleted: Date.now(),

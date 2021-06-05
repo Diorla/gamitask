@@ -44,7 +44,6 @@ export default function Expanded({
         style={{
           alignItems: "center",
           justifyContent: "space-between",
-          margin: "0.2rem",
         }}
       >
         <Line>
@@ -89,7 +88,7 @@ export default function Expanded({
             </Button>
           )}
         </Line>
-        <h4>{project}</h4>
+        <strong>{project}</strong>
       </Line>
       {labels && <Line style={{ fontStyle: "italic" }}>{labels}</Line>}
       <StyledNote>{note}</StyledNote>

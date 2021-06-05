@@ -7,10 +7,10 @@ export default function consumeTaskReward(
   taskInfo: RewardProps,
   user: UserInfo
 ): void {
-  const { name, id, done = [] } = taskInfo;
+  const { name, id, doneList = [] } = taskInfo;
   createData("user", `${user.uid}/rewards/${id}`, {
-    checklist: [],
-    done: [...done, Date.now()],
+    checkedTaskIdList: [],
+    doneList: [...doneList, Date.now()],
   })
     .then(() => toast.info(`${name} done`))
     .catch((err) => toast.error(err.message));

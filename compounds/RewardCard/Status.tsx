@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Line from "../../atoms/Line";
 import Stack from "../../atoms/Stack";
-import { taskInfo } from "../../props/Reward";
+import { TaskListProps } from "../../props/Reward";
 import { numberType } from "../../scripts/formatMSToCountDown";
 import Checked from "./Checked";
 import Time from "./TimeWrapper";
@@ -33,7 +33,7 @@ export default function Status({
   data,
   checklist,
 }: {
-  data: taskInfo[];
+  data: TaskListProps[];
   checklist: string[];
 }): JSX.Element;
 
@@ -47,11 +47,13 @@ export default function Status({
   if (checklist)
     return (
       <TaskWrapper>
-        {data.map((item: { value: string; label: string }, idx: React.Key) => (
-          <Checked active={checklist.includes(item.value)} key={idx}>
-            {item.label}
-          </Checked>
-        ))}
+        {data.map(
+          (item: { taskId: string; taskName: string }, idx: React.Key) => (
+            <Checked active={checklist.includes(item.taskId)} key={idx}>
+              {item.taskName}
+            </Checked>
+          )
+        )}
       </TaskWrapper>
     );
   return (

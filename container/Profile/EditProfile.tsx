@@ -55,7 +55,7 @@ export default function EditProfile({
   return (
     <>
       <UploadImage
-        imageUrl={profileImage}
+        imageUrl={profileImage || "./profile.png"}
         setImage={(val) => updateValue({ profileImage: val })}
       />
       <Form>

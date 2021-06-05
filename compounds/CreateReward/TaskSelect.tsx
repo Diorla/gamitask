@@ -14,16 +14,21 @@ export default function TaskSelect({
   const options = taskList
     .filter((item) => !item.archive)
     .map((item) => {
-      const { name, id } = item;
-      return { label: name, value: id };
+      const { name: label, id: value } = item;
+      return { label, value };
     });
   const intl = useIntl();
   return (
     <Select
       components={animatedComponents}
       closeMenuOnSelect={false}
-      value={value}
-      onChange={(list) => onChangeTask(list)}
+      value={value.map((item) => {
+        const { taskId: value, taskName: label } = item;
+        return { value, label };
+      })}
+      onChange={(list) => {
+        Array.isArray(list) && onChangeTask(list);
+      }}
       isMulti
       options={options}
       placeholder={intl.formatMessage({

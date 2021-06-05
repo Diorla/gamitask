@@ -31,7 +31,7 @@ export default function RewardCard({
   const [collapse, setCollapse] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { user } = useUser();
-  const { name, done, note } = reward;
+  const { name, doneList = [], note } = reward;
 
   return (
     <Card style={{ marginBottom: "1.2rem" }}>
@@ -67,8 +67,8 @@ export default function RewardCard({
                 </Line>
                 <span>
                   <Text>lastDone</Text>:{" "}
-                  {done.length
-                    ? dayjs(done[done.length - 1]).from(new Date())
+                  {doneList.length
+                    ? dayjs(doneList[doneList.length - 1]).from(new Date())
                     : "Never"}
                 </span>
               </Line>

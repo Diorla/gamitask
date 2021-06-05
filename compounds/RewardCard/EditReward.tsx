@@ -34,8 +34,8 @@ export default function EditReward({
           onChangeType={(e) => setValue({ ...value, type: e.target.value })}
           time={value.time}
           onChangeTime={(ev) => setValue({ ...value, time: ev })}
-          task={value.task}
-          onChangeTask={(e) => setValue({ ...value, task: e })}
+          task={value.taskList}
+          onChangeTask={(e) => setValue({ ...value, taskList: e })}
           note={value.note}
           onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
         />

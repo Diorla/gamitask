@@ -13,6 +13,7 @@ import { createReward } from "../../services/createReward";
 import Stack from "../../atoms/Stack";
 import Text from "../../atoms/Text";
 import Spinner from "../../atoms/Spinner";
+import { useTaskList } from "../../context/taskListContext";
 
 export default function Rewards(): JSX.Element {
   const [rewards, setRewards] = useState<RewardProps[]>([]);
@@ -21,6 +22,7 @@ export default function Rewards(): JSX.Element {
   const { user } = useUser();
   const { totalPoints, pointsPerHour } = user;
   const [loading, setLoading] = useState(true);
+  const { taskList, loadingTask } = useTaskList();
 
   useEffect(() => {
     fetchRewards(user, setRewards, setLoading);
@@ -58,15 +60,22 @@ export default function Rewards(): JSX.Element {
               onChangeType={(e) => setValue({ ...value, type: e.target.value })}
               time={value.time}
               onChangeTime={(ev) => setValue({ ...value, time: ev })}
-              task={value.task}
-              onChangeTask={(e) => setValue({ ...value, task: e })}
+              task={value.taskList}
+              onChangeTask={(optionList) => {
+                const taskList = optionList.map((item) => {
+                  const { label: taskName, value: taskId } = item;
+                  return { taskName, taskId };
+                });
+                setValue({ ...value, taskList });
+              }}
               note={value.note}
               onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
             />
             <Line style={{ justifyContent: "space-around" }}>
               <Button
                 onClick={() =>
-                  createReward(value, user, setValue, setIsAddVisible)
+                  !loadingTask &&
+                  createReward(value, user, taskList, setValue, setIsAddVisible)
                 }
                 variant="secondary"
               >
@@ -82,8 +91,10 @@ export default function Rewards(): JSX.Element {
       ) : (
         rewards
           .sort(function (prev, next) {
-            const prevTime = prev.done[prev.done.length - 1] || 0;
-            const nextTime = next.done[next.done.length - 1] || 0;
+            const { doneList: prevDone = [] } = prev;
+            const prevTime = prevDone[prevDone.length - 1] || 0;
+            const { doneList: nextDone = [] } = next;
+            const nextTime = nextDone[nextDone.length - 1] || 0;
             return prevTime > nextTime ? 1 : -1;
           })
           .map((item) => (
