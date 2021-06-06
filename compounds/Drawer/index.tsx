@@ -10,12 +10,14 @@ import Separator from "./Separator";
 export default function AppContainer({
   activePath,
   showDrawer,
+  isMobile,
 }: {
   activePath: string;
   showDrawer: boolean;
+  isMobile: boolean;
 }): JSX.Element {
   return (
-    <DrawerWrapper reveal={showDrawer}>
+    <DrawerWrapper reveal={showDrawer} isMobile={isMobile}>
       <Separator size={11} />
       <DrawerItem
         href="/"

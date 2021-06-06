@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DrawerWrapper = styled.div<{ reveal: boolean }>`
+const DrawerWrapper = styled.div<{ reveal: boolean; isMobile?: boolean }>`
   width: 24rem;
   min-height: calc(100vh - 5rem);
   background-color: ${({ theme }) => theme.palette.default.light};
@@ -10,7 +10,8 @@ const DrawerWrapper = styled.div<{ reveal: boolean }>`
   height: 100vh;
   overflow-y: scroll;
   top: 0;
-  transition: ${({ theme }) => theme.transform.duration.short} linear;
+  transition: ${({ theme, isMobile }) =>
+    isMobile && theme.transform.duration.short} linear;
   &::-webkit-scrollbar {
     width: 0.4rem;
     background-color: #f5f5f5;

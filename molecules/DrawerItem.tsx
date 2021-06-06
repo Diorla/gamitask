@@ -18,7 +18,6 @@ const Styled = styled.a<DrawerItemProps>`
   display: flex;
   padding: 0.8rem;
   cursor: pointer;
-  transition: ${({ theme }) => theme.transform.duration.standard} linear;
   align-items: center;
   color: initial;
   align-items: center;
