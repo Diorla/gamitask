@@ -2,13 +2,15 @@
 
 ## Atoms
 
-This contains basic elements like "input" and "div". This is where intl.format will be implemented, to ensure translation is everywhere.I will use content for translation while children will be used for more complex content that won't be parsed by translation. 
+This contains basic elements like "input" and "div". This is where intl.format will be implemented, to ensure translation is everywhere.I will use content for translation while children will be used for more complex content that won't be parsed by translation.
+
 ```ts
 <Button content="clickMe"/>
 <Button>Click me</Button>
 ```
 
 So, if there's content, no children, something like this.
+
 ```ts
 return <button>{content||children}<button/>
 ```
@@ -24,14 +26,11 @@ This is also functional unit consisting of multiple atoms or molecules to serve 
 ## Containers
 
 This is basically everything in a page. It will be named after the page. It ideally be stateless, just accepting props.
+It may also contain `script` folder for every javascript function that only runs in that container
 
 ## Pages
 
 Based on next.js. It represents different pages. It is where all the functions and states will be placed. It will also supply necessary props to the containers.
-
-## Services
-
-These are functions that are used by particular a particular page.
 
 ## Utils
 
