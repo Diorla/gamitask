@@ -37,7 +37,13 @@ export default function EditReward({
           time={value.time}
           onChangeTime={(ev) => setValue({ ...value, time: ev })}
           task={value.taskList}
-          onChangeTask={(e) => setValue({ ...value, taskList: e })}
+          onChangeTask={(optionList) => {
+            const taskList = optionList.map((item) => {
+              const { label: taskName, value: taskId } = item;
+              return { taskName, taskId };
+            });
+            setValue({ ...value, taskList });
+          }}
           note={value.note}
           onChangeNote={(e) => setValue({ ...value, note: e.target.value })}
         />
