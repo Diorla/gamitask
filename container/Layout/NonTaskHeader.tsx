@@ -1,7 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { useIntl } from "react-intl";
 import styled from "styled-components";
+import H4 from "../../atoms/H4";
+import Text from "../../atoms/Text";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -23,18 +24,14 @@ export default function NonTaskHeader({
 }: {
   title: string;
 }): JSX.Element {
-  const intl = useIntl();
   return (
     <Wrapper>
       <Link href="/">
-        <a>&larr; Back</a>
+        <a>
+          &larr; <Text>back</Text>
+        </a>
       </Link>
-      <h4>
-        {intl.formatMessage({
-          id: title,
-          defaultMessage: title,
-        })}
-      </h4>
+      <H4>{title}</H4>
     </Wrapper>
   );
 }

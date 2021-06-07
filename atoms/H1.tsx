@@ -6,19 +6,17 @@ const Wrapper = styled.h1`
   text-align: center;
 `;
 
-export default function H1({
-  children,
-  ...props
-}: {
+interface HeaderProps extends React.HtmlHTMLAttributes<HTMLHeadingElement> {
   children: string;
-  props?: React.HtmlHTMLAttributes<any>;
-}): JSX.Element {
+}
+
+export default function H1({ children, ...props }: HeaderProps): JSX.Element {
   const intl = useIntl();
   return (
     <Wrapper {...props}>
       {intl.formatMessage({
         id: children,
-        defaultMessage: "header 1",
+        defaultMessage: children,
       })}
     </Wrapper>
   );

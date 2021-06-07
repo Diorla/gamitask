@@ -3,10 +3,10 @@ export type caseType = "title" | "upper" | "lower" | "inverted";
 /**
  * new text format
  * @param str text to be formatted
- * @param strCase Title, UPPER, lower, iNVERTED
- * @returns string
+ * @param strCase "title" | "upper" | "lower" | "inverted"
+ * @returns string => Title, UPPER, lower, iNVERTED
  */
-const formatText = (str: string, strCase?: caseType) => {
+const formatText = (str: string, strCase?: caseType): string => {
   if (strCase === "title")
     return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleLowerCase();
   if (strCase === "lower") str.toLocaleLowerCase();

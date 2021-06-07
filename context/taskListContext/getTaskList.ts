@@ -1,4 +1,4 @@
-import firebase from "../firebase/clientApp";
+import firebase from "../../firebase/clientApp";
 
 /**
  * Used to fetch and monitor if there are any changes
@@ -8,7 +8,7 @@ import firebase from "../firebase/clientApp";
 export default async function getTaskList(
   userId: string,
   callback: (e: any[]) => void
-) {
+): Promise<void> {
   const db = firebase.firestore();
 
   const collectionRef = db.collection(`user/${userId}/tasks`);

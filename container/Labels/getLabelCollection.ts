@@ -1,6 +1,6 @@
 import CollectionProps from "../../props/CollectionProps";
-import removeEmpty from "./removeEmpty";
-import trim from "./trim";
+import removeEmptyStringFromArr from "../../utils/removeEmptyStringFromArr";
+import trimSpace from "../../utils/trimSpace";
 import { unlabelled } from "./index";
 
 /**
@@ -16,8 +16,8 @@ export default function getLabelCollection(taskList: any[]): CollectionProps {
     if (item.labels) {
       for (const label of item.labels
         .split(",")
-        .map(trim)
-        .filter(removeEmpty)) {
+        .map(trimSpace)
+        .filter(removeEmptyStringFromArr)) {
         const key = label.trim();
         if (tempCollection[key]) tempCollection[key].push(item);
         else tempCollection[key] = [item];

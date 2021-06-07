@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import firebase from "../../firebase/clientApp";
 import UserInfo from "../../props/UserInfo";
-import getUserInfo from "../../services/getUserInfo";
+import getUserInfo from "./getUserInfo";
 import initialState from "./initialState";
 
 export const UserContext = createContext(initialState);

@@ -15,9 +15,9 @@ export default function Home(): JSX.Element {
         <PageLoader />
       ) : (
         <>
-          <TaskCollection data={overdue} title="Overdue" type="today" />
-          <TaskCollection data={today} title="Today" type="today" />
-          <TaskCollection data={completed} title="Completed" type="others" />
+          <TaskCollection data={overdue} title="overdue" type="today" />
+          <TaskCollection data={today} title="today" type="today" />
+          <TaskCollection data={completed} title="completed" type="others" />
         </>
       )}
     </Layout>

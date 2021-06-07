@@ -1,14 +1,14 @@
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
-import uniqueArray from "../../../scripts/uniqueArray";
-import { addTask, TaskAction } from "../../../context/taskContext/actions";
-import initialState from "../../../context/taskContext/initialState";
-import getValidState from "../../../scripts/getValidState";
-import transaction from "../../../scripts/transaction";
-import Task from "../../../props/Task";
-import UserInfo from "../../../props/UserInfo";
-import removeEmptyStringFromArr from "../../../utils/removeEmptyStringFromArr";
-import trimSpace from "../../../utils/trimSpace";
+import uniqueArray from "../../scripts/uniqueArray";
+import { addTask, TaskAction } from "../../context/taskContext/actions";
+import initialState from "../../context/taskContext/initialState";
+import getValidState from "../../scripts/getValidState";
+import transaction from "../../scripts/transaction";
+import Task from "../../props/Task";
+import UserInfo from "../../props/UserInfo";
+import removeEmptyStringFromArr from "../../utils/removeEmptyStringFromArr";
+import trimSpace from "../../utils/trimSpace";
 
 const uploadTask = (
   data: Task,

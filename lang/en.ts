@@ -113,4 +113,7 @@ export default {
   lastDone: "Last done",
   points: "Points",
   updateReward: "Update Reward",
+  back: "Back",
+  completed: "Completed",
+  overdue: "Overdue",
 };

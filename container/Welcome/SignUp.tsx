@@ -4,7 +4,7 @@ import Line from "../../atoms/Line";
 import Spinner from "../../atoms/Spinner";
 import Stack from "../../atoms/Stack";
 import FormInput from "../../molecules/FormInput";
-import { signUpWithEmail } from "../../scripts/login";
+import signUpWithEmail from "./signUpWithEmail";
 
 const SignUp = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [credentials, setCredentials] = useState({

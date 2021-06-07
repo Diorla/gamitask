@@ -23,9 +23,9 @@ export default function Difficulty(): JSX.Element {
 
   return (
     <Layout activePath="difficulty">
-      <TaskCollection data={easyList} title="Easy" type="others" />
-      <TaskCollection data={mediumList} title="Medium" type="others" />
-      <TaskCollection data={difficultList} title="Difficult" type="others" />
+      <TaskCollection data={easyList} title="easy" type="others" />
+      <TaskCollection data={mediumList} title="medium" type="others" />
+      <TaskCollection data={difficultList} title="difficult" type="others" />
     </Layout>
   );
 }

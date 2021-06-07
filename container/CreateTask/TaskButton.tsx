@@ -5,7 +5,7 @@ import { addTask } from "../../context/taskContext/actions";
 import initialState from "../../context/taskContext/initialState";
 import Line from "../../atoms/Line";
 import Button from "../../atoms/Button";
-import uploadTask from "./scripts/uploadTask";
+import uploadTask from "./uploadTask";
 
 export default function TaskButton(): JSX.Element | null {
   const data = useTaskState();

@@ -11,7 +11,7 @@ import elevation from "../theme/elevation";
 import priority from "../theme/priority";
 import lang from "../lang";
 import "react-toastify/dist/ReactToastify.css";
-import { TaskProvider } from "../context/taskContext";
+import TaskProvider from "../context/taskContext";
 import { AppProps } from "next/app";
 
 const theme = {

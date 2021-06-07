@@ -29,14 +29,14 @@ export default function Projects(): JSX.Element {
                 key={idx}
                 data={projectCollection[item]}
                 title={item}
-                type="others"
+                type="collection"
               />
             );
         })}
       <TaskCollection
         data={projectCollection["Unsorted"]}
         title={noProject}
-        type="others"
+        type="collection"
       />
     </>
   );

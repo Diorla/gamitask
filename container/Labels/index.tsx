@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import PageLoader from "../../compounds/PageLoader";
 import TaskCollection from "../../container/TaskCollection";
 import { useTaskList } from "../../context/taskListContext";
-import formatText from "../../scripts/formatText";
+import formatText from "../../utils/formatText";
 import getLabelCollection from "./getLabelCollection";
 
 // in case someone created "unlabelled" label
@@ -31,14 +31,14 @@ export default function Labels(): JSX.Element {
               key={idx}
               data={labelCollection[item]}
               title={formatText(item, "title")}
-              type="others"
+              type="collection"
             />
           );
       })}
       <TaskCollection
         data={labelCollection[unlabelled]}
         title={noLabel}
-        type="others"
+        type="collection"
       />
     </>
   );

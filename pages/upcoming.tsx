@@ -40,7 +40,7 @@ export default function Upcoming(): JSX.Element {
       {loadingTask ? (
         <PageLoader />
       ) : (
-        <TaskCollection data={upcoming} title="Upcoming" type="others" />
+        <TaskCollection data={upcoming} title="upcoming" type="others" />
       )}
     </Layout>
   );

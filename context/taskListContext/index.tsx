@@ -2,7 +2,7 @@ import { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import TaskProps from "../../props/Task";
 import { useUser } from "../userContext";
-import getTaskList from "../../services/getTaskList";
+import getTaskList from "./getTaskList";
 import Task from "../../props/Task";
 
 const sortAlphabetically = (prev: Task, next: Task) =>

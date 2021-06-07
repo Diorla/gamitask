@@ -10,14 +10,18 @@ export const TaskDispatch = React.createContext<
   React.Dispatch<TaskAction> | undefined
 >(undefined);
 
-export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
+export default function TaskProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   return (
     <TaskState.Provider value={state}>
       <TaskDispatch.Provider value={dispatch}>{children}</TaskDispatch.Provider>
     </TaskState.Provider>
   );
-};
+}
 
 export const useTaskState = (): TaskProps => {
   const context = React.useContext(TaskState);

@@ -10,15 +10,17 @@ export type TaskAction = {
   payload?: TaskProps;
 };
 
-export const addTask = (task: TaskProps) => {
+export function addTask(
+  task: TaskProps
+): { type: TaskActionTypes; payload: TaskProps } {
   return {
     type: TaskActionTypes.CREATE_TASK,
     payload: task,
   };
-};
+}
 
-export const removeTask = (task: TaskProps) => {
+export function removeTask(): { type: TaskActionTypes } {
   return {
     type: TaskActionTypes.REMOVE_TASK,
   };
-};
+}

@@ -14,7 +14,7 @@ export default function Archive(): JSX.Element {
       {loadingTask ? (
         <PageLoader />
       ) : (
-        <TaskCollection data={archived} title="Archive" type="others" />
+        <TaskCollection data={archived} title="archive" type="others" />
       )}
     </Layout>
   );

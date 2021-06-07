@@ -1,13 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+import H2 from "../atoms/H2";
+// import styled from "styled-components";
 import TaskCard from "../compounds/TaskCard";
 import { useUser } from "../context/userContext";
 import Task from "../props/Task";
 
-const Title = styled.h2`
-  margin-left: 0.2rem;
-  text-align: center;
-`;
+// const Title = styled.h2`
+//   margin-left: 0.2rem;
+//   text-align: center;
+// `;
 
 export default function TaskCollection({
   data,
@@ -15,7 +16,7 @@ export default function TaskCollection({
   title,
 }: {
   data: Task[];
-  type: "today" | "others";
+  type: "today" | "others" | "collection";
   title: string;
 }): JSX.Element | null {
   const {
@@ -23,15 +24,26 @@ export default function TaskCollection({
   } = useUser();
 
   const isCurrent = type === "today";
+  /**
+   * I only need the "type === collection" to determine whether the title should be
+   * translated.
+   * For tasks, I only need today(today, completed or overdue) and others (not today)
+   */
+  const TaskType = isCurrent ? "today" : "others";
   if (data && data.length)
     return (
       <div>
-        <Title>{title}</Title>
+        {type !== "collection" && (
+          <H2 style={{ textAlign: "center" }}>{title}</H2>
+        )}
+        {type === "collection" && (
+          <h2 style={{ textAlign: "center" }}>{title}</h2>
+        )}
         <div>
           {data.map((item: any) => {
             if (isCurrent && runningTask.id && runningTask.id === item.id)
               return null;
-            return <TaskCard data={item} key={item.id} type={type} />;
+            return <TaskCard data={item} key={item.id} type={TaskType} />;
           })}
         </div>
       </div>

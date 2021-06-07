@@ -6,7 +6,7 @@ import Line from "../../atoms/Line";
 import Link from "../../atoms/Link";
 import Spinner from "../../atoms/Spinner";
 import Stack from "../../atoms/Stack";
-import { loginWithGoogle } from "../../scripts/login";
+import loginWithGoogle from "./loginWithGoogle";
 import Login from "./Login";
 import SignUp from "./SignUp";
 

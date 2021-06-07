@@ -26,7 +26,8 @@ This is also functional unit consisting of multiple atoms or molecules to serve 
 ## Containers
 
 This is basically everything in a page. It will be named after the page. It ideally be stateless, just accepting props.
-It may also contain `script` folder for every javascript function that only runs in that container
+It may also contain `script` folder for every javascript function that only runs in that container. This folder should only be created when there are more than one script file.
+It should be noted that script files ends with ".ts", and starts with lower case while components starts with upper case and usually ends with .tsx except styled-components (.ts or .tsx is acceptable)
 
 ## Pages
 
